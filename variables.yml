@@ -1,0 +1,364 @@
+repositories:
+ - repo: ppa:ansible/ansible
+   filename: ansible
+ - repo: ppa:noobslab/themes
+   filename: noobslab-themes
+ - repo: ppa:noobslab/icons
+   filename: noobslab-icons
+ - repo: ppa:synapse-core/testing
+   filename: synapse-core
+ - repo: ppa:nilarimogard/webupd8
+   filename: webupdt
+ - repo: ppa:ubuntu-mozilla-security/ppa
+   filename: ubuntu-mozilla-security
+ - repo: ppa:remmina-ppa-team/remmina-next
+   filename: remmina-next
+ - repo: ppa:webupd8team/y-ppa-manager
+   filename: y-ppa-manager
+ - repo: ppa:alexx2000/doublecmd
+   filename: alexx2000-doublecmd
+ - repo: ppa:gezakovacs/ppa
+   filename: gezakovacs
+ - repo: deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ bionic main
+   filename: azure-cli
+ - repo: deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main
+   filename: vscode
+ - repo: deb [arch=amd64] https://packages.microsoft.com/ubuntu/18.04/prod bionic main
+   filename: microsoft-prod-deb
+ - repo: deb http://download.opensuse.org/repositories/home:/stevenpusser/xUbuntu_18.04 /
+   filename: palemoon
+ - repo: deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
+   filename: google-chrome
+ - repo: deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian bionic contrib
+   filename: virtualbox
+ - repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
+   filename: docker-stable
+ - repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
+   filename: kubernetes-stable
+# - repo: deb https://packagecloud.io/asbru-cm/asbru-cm/linuxmint/ tara main
+#   filename: asbru-cm
+repositories_optional:
+ - repo: ppa:danielrichter2007/grub-customizer
+   codename: xenial
+   filename: grub-customizer
+ - repo: ppa:dawidd0811/neofetch
+   codename: bionic
+   filename: neofetch
+ - repo: ppa:ubuntuhandbook1/shutter
+   codename: bionic
+   filename: shutter
+ - repo: ppa:ehoover/compholio
+   codename: xenial
+   filename: compholio
+ - repo: deb https://download.sublimetext.com/ apt/stable/
+   codename: stable
+   filename: sublime-text
+ - repo: deb http://repo.sinew.in/ stable main
+   codename: stable
+   filename: enpass
+ - repo: deb http://repository.spotify.com stable non-free
+   codename: stable
+   filename: spotify
+ - repo: deb [arch=amd64] https://repo.skype.com/deb stable main
+   codename: stable
+   filename: skype-stable
+ - repo: deb [arch=amd64] http://repository.veeam.com/backup/linux/agent/dpkg/debian/public stable veeam
+   codename: stable
+   filename: veeam-agent
+keys:
+ - https://download.opensuse.org/repositories/home:stevenpusser/xUbuntu_16.04/Release.key
+ - https://packages.microsoft.com/keys/microsoft.asc
+ - https://dl-ssl.google.com/linux/linux_signing_key.pub
+ - https://dl.sinew.in/keys/enpass-linux.key
+ - https://www.virtualbox.org/download/oracle_vbox_2016.asc
+ - https://download.sublimetext.com/sublimehq-pub.gpg
+ - https://download.docker.com/linux/ubuntu/gpg
+ - https://packages.cloud.google.com/apt/doc/apt-key.gpg
+ - http://repository.veeam.com/keys/veeam.gpg
+ - https://repo.skype.com/data/SKYPE-GPG-KEY
+# - https://packagecloud.io/asbru-cm/asbru-cm/gpgkey
+keys_pgp:
+ - server: keyserver.ubuntu.com
+   key: 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
+ - server: keyserver.ubuntu.com
+   key: ACCAF35C
+ - server: packages.microsoft.com
+   key: EB3E94ADBE1229CF
+ - server: packages.microsoft.com
+   key: 52E16F86FEE04B979B07E28DB02C46DF417A0893
+packages_essential:
+- apt-transport-https
+- mc
+- dkms
+- gcc
+- dotnet-runtime-2.1
+- build-essential
+- mint-meta-codecs
+packages:
+- synaptic
+- ansible
+- azure-cli
+- palemoon
+- code
+- powershell
+- google-chrome-stable
+- virtualbox-5.2
+- dropbox
+- python-dev
+- krb5-config
+- krb5-locales
+- krb5-user
+- krb5-multidev
+- libkrb5-dev
+- python-pip
+- python-all-dev
+- python-wheel
+- dotnet-sdk-2.1
+- diodon
+- doublecmd-gtk
+- htop
+- itop
+- atop
+- iftop
+- nmap
+- remmina
+- remmina-plugin-rdp
+- remmina-plugin-vnc
+- remmina-plugin-secret
+- mpv
+- rabbitvcs-core
+- liblinear-tools
+- liblinear-dev
+- p7zip-rar
+- hwinfo
+- ndiff
+- extlinux
+- syslinux
+- unetbootin-translations
+- va-driver-all
+- p7zip-rar
+- nemo-dropbox
+- chromium-codecs-ffmpeg-extra
+- wireshark
+- xca
+- viewnior
+- tlp
+- ncurses-term
+- ssh-import-id
+- screen
+- tmux
+- arj
+- terminator
+- ncdu
+- keepass2
+- smartmontools
+- libqt5multimedia5-plugins
+- openjdk-8-jre
+- gsmartcontrol
+- nmon
+- sysstat
+- stress
+- npm
+- unzip
+- docker-ce
+- kubeadm
+- kubectl
+- shutter
+- synapse
+- git
+- gparted
+- kazam
+- filezilla
+packages_optional:
+- enpass
+- pdk
+- puppet-agent
+- kodi
+- cairo-dock
+- grub-customizer
+- unetbootin
+- adobe-flashplugin
+- adobe-flash-properties-gtk
+- gimp
+- vlc
+- sublime-text
+- javascript-common
+- geoip-database-extra
+- thunderbird
+- neofetch
+- skypeforlinux
+- veeam
+- veeamsnap
+- pinta
+deb:
+- https://apt.puppetlabs.com/pool/bionic/puppet5/p/puppet5-release/puppet5-release_5.0.0-3bionic_all.deb
+- https://github.com/angryip/ipscan/releases/download/3.5.3/ipscan_3.5.3_amd64.deb
+- https://release.axocdn.com/linux/gitkraken-amd64.deb
+- https://releases.hashicorp.com/vagrant/2.2.0/vagrant_2.2.0_x86_64.deb
+- https://launchpad.net/ubuntu/+archive/primary/+files/libgoo-canvas-perl_0.06-2ubuntu3_amd64.deb
+pip:
+- pip
+- s-tui
+- pywinrm[kerberos]
+- pywinrm[credssp]
+down:
+- urls: https://releases.hashicorp.com/packer/1.3.2/packer_1.3.2_linux_amd64.zip
+  destination: packer
+  skip_tree: false
+- urls: https://storage.googleapis.com/kubernetes-helm/helm-v2.11.0-linux-amd64.tar.gz
+  destination: helm
+  skip_tree: true
+- urls: https://releases.hashicorp.com/terraform/0.11.10/terraform_0.11.10_linux_amd64.zip
+  destination: terraform
+  skip_tree: false
+- urls: https://releases.hashicorp.com/vault/0.11.4/vault_0.11.4_linux_amd64.zip
+  destination: vault
+  skip_tree: false
+files:
+- urls: https://github.com/docker/compose/releases/download/1.23.1/docker-compose-Linux-x86_64
+  destination: docker-compose
+- urls: https://github.com/kubernetes/minikube/releases/download/v0.30.0/minikube-linux-amd64
+  destination: minikube
+startup:
+- filename: redshift-gtk.desktop
+  content: |
+    [Desktop Entry]
+    Version=1.0
+    Name=Redshift
+    Name[de]=Redshift
+    Name[es]=Redshift
+    Name[fr]=Redshift
+    Name[hu]=Redshift
+    Name[it]=Redshift
+    Name[lt]=Redshift
+    Name[pl]=Redshift
+    Name[pt_BR]=Redshift
+    Name[ru]=Redshift
+    Name[tr]=Redshift
+    Name[zh_CN]=红移
+    GenericName=Color temperature adjustment
+    GenericName[cs]=Přizpůsobení barevné teploty
+    GenericName[da]=Justering af farvetemperatur
+    GenericName[de]=Farbtemperatur Anpassung
+    GenericName[es]=Ajuste de la temperatura de color
+    GenericName[fr]=Réglage de la température de couleur
+    GenericName[hu]=Szín hőmérséklet beállítás
+    GenericName[it]=Regolazione della temperatura del colore
+    GenericName[lt]=Spalvos temperatūros reguliavimas
+    GenericName[nl]=Kleurtemperatuur aanpassing
+    GenericName[pl]=Dostosowanie temperatury barwowej
+    GenericName[ru]=Настройка цветовой температуры
+    GenericName[tr]=Renk sıcaklığı ayarı
+    GenericName[zh_CN]=色温调节
+    Comment=Color temperature adjustment tool
+    Comment[cs]=Nástroj pro přizpůsobení barevné teploty
+    Comment[da]=Justeringsværktøj for farvetemperatur
+    Comment[de]=Farbtemperatur Anpassungswerkzeug
+    Comment[es]=Herramienta para el ajuste de la temperatura de color
+    Comment[fr]=Outil de réglage de la température de couleur
+    Comment[hu]=Színhőmérséklet beállító eszköz
+    Comment[it]=Strumento per la regolazione della temperatura del colore
+    Comment[lt]=Spalvos temperatūros reguliavimo įrankis
+    Comment[nl]=Kleurtemperatuur aanpassingsprogramma
+    Comment[pl]=Narzędzie do dostosowywania temperatury barwowej
+    Comment[ru]=Инструмент регулирования цветовой температуры
+    Comment[tr]=Renk sıcaklığı ayarlama aracı
+    Comment[zh_CN]=色温调节工具
+    Exec=redshift-gtk
+    Icon=redshift
+    Terminal=false
+    Type=Application
+    Categories=Utility;
+    StartupNotify=true
+    Hidden=false
+    X-GNOME-Autostart-enabled=true
+- filename: shutter.desktop
+  content: |
+    [Desktop Entry]
+    Version=1.0
+    Name=Shutter
+    Name[de_DE]=Shutter
+    Name[pt_BR]=Shutter
+    GenericName=Screenshot Tool
+    GenericName[de_DE]=Anwendung für Bildschirmfotos
+    GenericName[pt_BR]=Captura de tela
+    Comment=Capture, edit and share screenshots
+    Comment[de_DE]=Bildschirmfotos aufnehmen, bearbeiten und mit Anderen teilen
+    Comment[pt_BR]=Aplicativo avançado para capturar imagens da tela
+    Exec=shutter --min_at_startup
+    Icon=shutter
+    Terminal=false
+    Type=Application
+    Categories=Utility;Application;
+    X-GNOME-Autostart-enabled=true
+    Hidden=false
+- filename: dropbox.desktop
+  content: |
+    [Desktop Entry]
+    Name=Dropbox
+    GenericName=File Synchronizer
+    Comment=Sync your files across computers and to the web
+    Exec=dropbox start -i
+    Terminal=false
+    Type=Application
+    Icon=dropbox
+    Categories=Network;FileTransfer;
+    StartupNotify=false
+- filename: synapse.desktop
+  content: |
+    [Desktop Entry]
+    Type=Application
+    Exec=synapse &
+    Hidden=false
+    NoDisplay=false
+    X-GNOME-Autostart-enabled=true
+    Name[en_US]=synapse
+    Name=synapse
+    Comment[en_US]=
+    Comment=
+    X-GNOME-Autostart-Delay=10
+- filename: cairo-dock.desktop
+  content: |
+    [Desktop Entry]
+    Type=Application
+    Exec=cairo-dock -o
+    Hidden=false
+    NoDisplay=false
+    X-GNOME-Autostart-enabled=false
+    Name[en_US]=Cairo-Dock
+    Name=Cairo-Dock
+    Comment[en_US]=
+    Comment=
+    X-GNOME-Autostart-Delay=0
+- filename: remmina-applet.desktop
+  content: |
+    [Desktop Entry]
+    Version=1.0
+    Name=Remmina Applet
+    Comment=Connect to remote desktops through the applet menu
+    Icon=remmina
+    Exec=remmina -i
+    Terminal=false
+    Type=Application
+    Hidden=false
+    X-GNOME-Autostart-enabled=true
+- filename: diodon.desktop
+  content: |
+    [Desktop Entry]
+    Type=Application
+    Version=1.0
+    Name=Diodon
+    GenericName=Clipboard Manager
+    Comment=GTK+ Clipboard Manager
+    Icon=diodon
+    NotShowIn=KDE
+    Exec=diodon %u
+    Terminal=false
+    Categories=GTK;GNOME;Application;Utility;
+    StartupNotify=false
+    MimeType=x-scheme-handler/clipboard;
+    X-GNOME-Autostart-enabled=false
+services:
+- ssh
+- docker
+timezone: Europe/Warsaw

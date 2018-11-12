@@ -1,0 +1,265 @@
+# Prepares LinuxMint19 desktop.
+# start from preparing ssh:
+# sudo apt install openssh-server;systemctl enable ssh && systemctl start ssh
+#
+- name: prepare mint desktop
+  hosts: all
+  vars:
+    install_optional: true                    # should optional packages be installed?
+    active_user: "{{ ansible_ssh_user }}"     # user for which you're setting folders. By default taken from group_vars
+    codename: bionic                          # codename of version you're setting PPAs for
+    retries_count: 3                          # how many retries
+    delay_time: 10                            # delay time in seconds between retries
+    bin_path: /usr/local/bin                  # Where to put all downloades execs.
+    reboot_required: false                    # force reboot even if apt upgrade won't changed anything
+  vars_files:
+    - variables.yml
+  become: true
+  gather_facts: no
+  pre_tasks:
+    - name: Verify Ansible meets  version requirements.
+      assert:
+        that: "ansible_version.full is version_compare('2.7', '>=')"
+        msg: >
+          "You must update Ansible to at least 2.7 to use this version of playbook"
+    - name: run initial setup instead of gather facts
+      setup:
+        gather_timeout: 25
+      retries: "{{ retries_count }}"
+      delay: "{{ delay_time }}"
+      register: setup_status
+      until: setup_status is success
+    - name: Assert root partition is 5 GB free
+      assert: { that: item.mount != '/' or item.size_available > 5368709120 } # 5 GB free
+      loop: '{{ ansible_mounts }}'
+      ignore_errors: yes
+      register: freespace
+  tasks:
+# Install apt pgp keys (files)
+  - name: Apt Keys
+    apt_key:
+      url: "{{ item }}"
+      state: present
+    loop: "{{ keys }}"
+    register: keys
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
+    until: keys is success
+    any_errors_fatal: true
+# Install apt gpg keys (ID)
+  - name: Apt Keys - specific keys by ID
+    apt_key:
+      keyserver: "{{ item.server}}"
+      state: present
+      id: "{{ item.key }}"
+    loop: "{{ keys_pgp }}"
+    register: keys_pgp
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
+    until: keys_pgp is success
+    any_errors_fatal: true
+# Add basic repositories
+  - name: add repositories from variables.yml
+    apt_repository:
+      repo: "{{ item.repo }}"
+      state: present
+      codename: "{{ codename }}"
+      filename: "{{ item.filename }}"
+    loop: "{{ repositories }}"
+    retries: 1
+    delay: 3
+    register: repositories
+    until: repositories  is success
+    any_errors_fatal: false
+# Add optional repositories
+  - name: add optional repositories from variables.yml
+    apt_repository:
+      repo: "{{ item.repo }}"
+      state: present
+      codename: "{{ item.codename }}"
+      filename: "{{ item.filename }}"
+    loop: "{{ repositories_optional }}"
+    retries: 1
+    delay: 3
+    register: repositories
+    until: repositories  is success
+    any_errors_fatal: false
+# Install essentials - packages needed for repos or other packages. Mostly OS-related
+  - name: install essential packages
+    apt:
+      name: "{{ item }}"
+      state: latest
+      update_cache: yes
+    loop: "{{ packages_essential }}"
+    retries: 1
+    delay: 3
+    register: packages_essential
+    until: packages_essential is success
+    any_errors_fatal: false
+# Install 3-rd party software no available in repos
+  - name: install extra deb packages/repositories
+    apt:
+      deb: "{{ item }}"
+      state: present
+      update_cache: yes
+      only_upgrade: yes
+    loop: "{{ deb }}"
+    retries: 1
+    delay: 3
+    register: apt_deb
+    until: apt_deb is success
+    any_errors_fatal: true
+# Install basic packages
+  - name: install packages
+    apt:
+      name: "{{ item }}"
+      state: latest
+      update_cache: yes
+    loop: "{{ packages }}"
+    retries: 1
+    delay: 3
+    register: packages
+    until: packages is success
+    any_errors_fatal: false
+# Install optional packages - i variable `install_optional` is set to true
+  - name: install optional packages
+    apt:
+      name: "{{ item }}"
+      state: latest
+      update_cache: yes
+    loop: "{{ packages_optional }}"
+    retries: 1
+    delay: 3
+    register: packages_optional
+    until: packages_optional is success
+    when: install_optional == true
+    any_errors_fatal: false
+# Install Python's pip packages
+  - name: install pip packages
+    pip:
+      name: "{{ item }}"
+      extra_args: --upgrade
+    loop: "{{ pip }}"
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
+    register: pip
+    until: pip is success
+    any_errors_fatal: true
+# Download 3-rd party software and unarchive it to `bin_path` setting +x
+  - name: unarchieve
+    unarchive:
+      src: "{{ item.urls }}"
+      dest: "{{ bin_path }}"
+      keep_newer: true
+      mode: +x
+      remote_src: yes
+      extra_opts: [-j]
+    when: item.skip_tree == false
+    loop: "{{ down }}"
+# Download 3-rd party software and unarchive  it (flatten archive folder tree) to `bin_path` setting +x
+  - name: unarchieve and flatten
+    unarchive:
+      src: "{{ item.urls }}"
+      dest: "{{ bin_path }}"
+      keep_newer: true
+      mode: +x
+      remote_src: yes
+      extra_opts: [--strip-components=1]
+      exclude:
+       - LICENSE
+       - README.md
+    when: item.skip_tree == true
+    loop: "{{ down }}"
+# Download 3-rd party software to `bin_path` setting +x
+  - name: download files
+    get_url:
+      url: "{{ item.urls }}"
+      dest: "{{ bin_path }}/{{ item.destination }}"
+      mode: 0755
+      force: yes
+    loop: "{{ files }}"
+# Start user-related modification block
+  - block:
+    - name: create or check user
+      user:
+        name: "{{ active_user }}"
+        groups:
+          - root
+          - vboxusers
+          - docker
+          - adm
+          - sudo
+          - video
+        state: present
+        append: true
+      any_errors_fatal: false
+      register: active_user_account
+    - name: set fact user home dir
+      set_fact:
+        "active_user_homedir": "{{ active_user_account.home }}"
+    - name: make sure 'autostart' exists
+      file:
+        path: "{{ active_user_homedir }}/.config/autostart"
+        state: directory
+        owner: "{{ active_user }}"
+        group: "{{ active_user }}"
+        mode: 0755
+      register: create_autostart
+      retries: "{{ retries_count }}"
+      delay: "{{delay_time}}"
+      until: create_autostart is success
+      any_errors_fatal: true
+    - name: create startup applications
+      copy:
+        dest: "{{ active_user_homedir }}/.config/autostart/{{ item.filename }}"
+        content: "{{ item.content }}"
+        owner: "{{ active_user }}"
+        group: "{{ active_user }}"
+      loop: "{{ startup }}"
+      any_errors_fatal: false
+# Start OS related block
+  - block:
+    # OS related tweaks and finetuning
+    - name: set timezone
+      timezone:
+        name: "{{ timezone }}"
+      any_errors_fatal: false
+    - name: add neofetch to bashrc globals
+      lineinfile:
+        path: /etc/bash.bashrc
+        line: neofetch
+      any_errors_fatal: false
+    - name: enable timeshift in rsync mode
+      shell: timeshift --rsync --yes
+      any_errors_fatal: false
+  # Update and reboot
+    - name: update and reboot
+      apt:
+        upgrade: yes
+        update_cache: yes
+        autoclean: yes
+      register: apt_upgrade
+      retries: "{{ retries_count }}"
+      delay: "{{delay_time}}"
+      until: apt_upgrade is success
+  # Reboot
+    - name: reboot after changes
+      reboot:
+        pre_reboot_delay: 60
+      when: (reboot_required is defined and reboot_required == true) or (apt_upgrade.changed)
+      register: reboot_after_upgrade
+      any_errors_fatal: false
+    - name: Wait for the server to finish rebooting (SSH)
+      wait_for:
+        host: '{{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}'
+        state: started
+        delay: 60
+        port: 22
+        timeout: 600
+      connection: local
+      register: r_wait_for_ssh
+      retries: 2
+      delay: 15
+      ignore_errors: true
+      until: r_wait_for_ssh is success
+      when: (reboot_after_upgrade is defined and reboot_after_upgrade.changed) or (reboot_required == true)
