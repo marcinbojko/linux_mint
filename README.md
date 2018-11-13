@@ -80,26 +80,29 @@ For these in playbook:
 ### Packages: Essential
 
 ### Packages: Basic (not complete list)
-
-* AngryIP Scanner - [https://angryip.org/](https://angryip.org/)
-* GitKraken
-* Remmina
-* Helm
-* Hashicorp Packer
-* Hashicorp Vault
-* Hashicorp Vagrant
-* Docker/Docker Compose
-* Google Kubectl/Kubeadm
-* Synapse
-* XCA
-* htop/atop/nmon/stress
-* Shutter
-* Palemoon
-* Google Chrome
-* Keepass
-* Dropbox/Nemo Integration
-* Veeam Agent for Linux
-* Redshift
+|Software|Type|Link|
+|------------------|--------|---------------------|
+| AngryIP Scanner |Network Scanner |[https://angryip.org/](https://angryip.org/)|
+| GitKraken | Git Client |[https://www.gitkraken.com/](https://www.gitkraken.com/) |
+| Remmina | Remote Connection Manager |[https://remmina.org/](https://remmina.org/)
+| Helm | Package manager for Kubernetes |[https://helm.sh/](https://helm.sh/)|
+| Hashicorp Packer | Image creator |[https://www.packer.io/](https://www.packer.io/)|
+| Hashicorp Vault | Secrets Manager |[https://www.vaultproject.io/](https://www.vaultproject.io/)
+| Hashicorp Vagrant | Unified Workflow|[https://www.vagrantup.com/](https://www.vagrantup.com/)
+| Docker/Docker Compose |
+| Google Kubectl/Kubeadm |
+| Synapse | Symantic Launcher||
+| XCA | Certificate Manager||
+| htop/atop/nmon/stress |
+| Shutter |
+| Palemoon |
+| Google Chrome |
+| Keepass |
+| Dropbox/Nemo Integration |
+| Veeam Agent for Linux | Backup tool| [https://www.veeam.com](https://www.veeam.com)
+| Redshift |
+| Boostnote | Notes for developers |[https://boostnote.io](https://boostnote.io)
+| Franz | Multi IM |[https://meetfranz.com/](https://meetfranz.com/)
 
 ### Packages: Optional (not complete list)
 
@@ -127,6 +130,13 @@ Some applications are copied to `autostart` folder
 * Synapse
 * Redshift
 * Shutter
+
+### OS Tweaks
+
+* handle *.local domain with avahi
+* handle mDNS with .local domains
+* change IO Scheduler for SSD Drives
+* initial `Timeshift` launch
 
 ## Q&A
 

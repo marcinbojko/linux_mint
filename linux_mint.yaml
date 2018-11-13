@@ -10,8 +10,8 @@
     codename: bionic                          # codename of version you're setting PPAs for
     retries_count: 3                          # how many retries
     delay_time: 10                            # delay time in seconds between retries
-    bin_path: /usr/local/bin                  # Where to put all downloades execs.
-    reboot_required: false                    # force reboot even if apt upgrade won't changed anything
+    bin_path: /usr/local/bin                  # Where to put all downloaded execs.
+    reboot_required: false                    # force reboot even if apt upgrade won't change anything
   vars_files:
     - variables.yml
   become: true
@@ -84,37 +84,28 @@
     register: repositories
     until: repositories  is success
     any_errors_fatal: false
-# Install essentials - packages needed for repos or other packages. Mostly OS-related
+  - name: apt refresh
+    apt:
+      update_cache: yes
+    # Install essentials - packages needed for repos or other packages. Mostly OS-related
   - name: install essential packages
     apt:
       name: "{{ item }}"
       state: latest
-      update_cache: yes
+      update_cache: no
     loop: "{{ packages_essential }}"
     retries: 1
     delay: 3
     register: packages_essential
     until: packages_essential is success
     any_errors_fatal: false
-# Install 3-rd party software no available in repos
-  - name: install extra deb packages/repositories
-    apt:
-      deb: "{{ item }}"
-      state: present
-      update_cache: yes
-      only_upgrade: yes
-    loop: "{{ deb }}"
-    retries: 1
-    delay: 3
-    register: apt_deb
-    until: apt_deb is success
-    any_errors_fatal: true
+    tags: packages
 # Install basic packages
   - name: install packages
     apt:
       name: "{{ item }}"
       state: latest
-      update_cache: yes
+      update_cache: no
     loop: "{{ packages }}"
     retries: 1
     delay: 3
@@ -126,7 +117,7 @@
     apt:
       name: "{{ item }}"
       state: latest
-      update_cache: yes
+      update_cache: no
     loop: "{{ packages_optional }}"
     retries: 1
     delay: 3
@@ -145,8 +136,22 @@
     register: pip
     until: pip is success
     any_errors_fatal: true
-# Download 3-rd party software and unarchive it to `bin_path` setting +x
-  - name: unarchieve
+# Install 3-rd party software not available in repos
+  - name: install extra deb packages/repositories
+    apt:
+      deb: "{{ item }}"
+      state: present
+      update_cache: no
+      only_upgrade: yes
+    loop: "{{ deb }}"
+    retries: 1
+    delay: 3
+    register: apt_deb
+    until: apt_deb is success
+    any_errors_fatal: true
+    tags: packages
+    # Download 3-rd party software and unarchive it to `bin_path` setting +x
+  - name: unarchive
     unarchive:
       src: "{{ item.urls }}"
       dest: "{{ bin_path }}"
@@ -157,7 +162,7 @@
     when: item.skip_tree == false
     loop: "{{ down }}"
 # Download 3-rd party software and unarchive  it (flatten archive folder tree) to `bin_path` setting +x
-  - name: unarchieve and flatten
+  - name: unarchive and flatten
     unarchive:
       src: "{{ item.urls }}"
       dest: "{{ bin_path }}"
@@ -229,8 +234,35 @@
         path: /etc/bash.bashrc
         line: neofetch
       any_errors_fatal: false
+    - name: avahi config
+      lineinfile:
+        dest: /etc/avahi/avahi-daemon.conf
+        regexp: 'domain-name=local'
+        line: 'domain-name=alocal'
+        backrefs: yes
+      any_errors_fatal: false
+    - name: nsswitch config
+      lineinfile:
+        dest: /etc/nsswitch.conf
+        regexp: '^hosts:'
+        line: 'hosts:          files dns'
+        backrefs: yes
+      any_errors_fatal: false
+    - name: grub defaults for SSD
+      lineinfile:
+        dest: /etc/default/grub
+        regexp: '^GRUB_CMDLINE_LINUX_DEFAULT='
+        line: 'GRUB_CMDLINE_LINUX_DEFAULT="quiet splash elevator=deadline"'
+        backrefs: true
+      any_errors_fatal: false
+      register: grub_default
+    - name: grub update
+      shell: update-grub2
+      when: grub_default.changed
     - name: enable timeshift in rsync mode
       shell: timeshift --rsync --yes
+      args:
+        creates: /etc/timeshift.json
       any_errors_fatal: false
   # Update and reboot
     - name: update and reboot
