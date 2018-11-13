@@ -1,5 +1,9 @@
 # Changelog "linux_mint"
 
+## Version 0.8.2 - 2018-11-13
+
+* adding `active_user` to visudo
+
 ## Version 0.8.1 - 2018-11-13
 
 * [APPLICATION] added Boostnote
