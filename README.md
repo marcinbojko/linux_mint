@@ -89,30 +89,33 @@ For these in playbook:
 | Hashicorp Packer | Image creator |[https://www.packer.io/](https://www.packer.io/)|
 | Hashicorp Vault | Secrets Manager |[https://www.vaultproject.io/](https://www.vaultproject.io/)
 | Hashicorp Vagrant | Unified Workflow|[https://www.vagrantup.com/](https://www.vagrantup.com/)
-| Docker/Docker Compose |
-| Google Kubectl/Kubeadm |
-| Synapse | Symantic Launcher||
-| XCA | Certificate Manager||
-| htop/atop/nmon/stress |
-| Shutter |
-| Palemoon |
-| Google Chrome |
-| Keepass |
-| Dropbox/Nemo Integration |
-| Veeam Agent for Linux | Backup tool| [https://www.veeam.com](https://www.veeam.com)
-| Redshift |
-| Boostnote | Notes for developers |[https://boostnote.io](https://boostnote.io)
-| Franz | Multi IM |[https://meetfranz.com/](https://meetfranz.com/)
-
+| Docker/Docker Compose |Docker manager | [https://docs.docker.com/compose/](https://docs.docker.com/compose/)
+| Google Kubectl/Kubeadm | Kubernetes Manager| [https://kubernetes.io/docs/reference/kubectl/overview/](https://kubernetes.io/docs/reference/kubectl/overview/)|
+| Synapse | Symantic Launcher|[https://launchpad.net/synapse-project](https://launchpad.net/synapse-project)|
+| XCA | Certificate Manager|[https://hohnstaedt.de/xca/](https://hohnstaedt.de/xca/)|
+| Shutter | Screenshot Manipulation| [http://shutter-project.org/](http://shutter-project.org/)|
+| Palemoon | Browser alternative (Java_+Flash)| [https://www.palemoon.org/](https://www.palemoon.org/)
+| Google Chrome |Browser | [https://www.google.com/intl/pl_ALL/chrome/](https://www.google.com/intl/pl_ALL/chrome/)|
+| Keepass | Password Manager| [https://keepass.info/](https://keepass.info/)|
+| Redshift | Monitor temperature changer| [http://jonls.dk/redshift/](http://jonls.dk/redshift/)|
+| Boostnote | Notes for developers |[https://boostnote.io](https://boostnote.io)|
+| Franz | Multi IM |[https://meetfranz.com/](https://meetfranz.com/)|
+| Diodon | Clipboard Manager | [https://launchpad.net/diodon](https://launchpad.net/diodon)|
+| Dropbox/Nemo Integration | Tool | [https://github.com/linuxmint/nemo-extensions/tree/master/nemo-dropbox](https://github.com/linuxmint/nemo-extensions/tree/master/nemo-dropbox)|
+| htop/atop/nmon/stress |Tools|
 ### Packages: Optional (not complete list)
-
-* Spotify
-* Kodi
-* Cairo-Dock
-* PDK/Puppet Agent
-* Thunderbird
-* Pinta
-* Skype for Linux
+|Software|Type|Link|
+|------------------|--------|---------------------|
+| Spotify | Music Player| [https://www.spotify.com/pl/download/linux/](https://www.spotify.com/pl/download/linux/)|
+| Enpass | Password manager | [https://www.enpass.io/](https://www.enpass.io/)|
+| Kodi | Open Source Home Theater| [https://kodi.tv/](https://kodi.tv/)|
+| Cairo-Dock | Desktop interface | [http://glx-dock.org/](http://glx-dock.org/)|
+| PDK/Puppet Agent | Puppet Development Kit | [https://puppet.com/docs/pdk/1.x/pdk.html](https://puppet.com/docs/pdk/1.x/pdk.html)|
+| Thunderbird | Email client | [https://www.thunderbird.net](https://www.thunderbird.net)|
+| Pinta | Drawing/Image Editing| [https://pinta-project.com/pintaproject/pinta/](https://pinta-project.com/pintaproject/pinta/)|
+| Skype for Linux | Communicator | [https://www.skype.com](https://www.skype.com)|
+| WoeUSB | USB Image writer | [https://github.com/slacka/WoeUSB](https://github.com/slacka/WoeUSB)|
+| Veeam Agent for Linux | Backup tool| [https://www.veeam.com](https://www.veeam.com)|
 
 ## 3-rd party apps
 

@@ -1,6 +1,6 @@
 # Prepares LinuxMint19 desktop.
 # start from preparing ssh:
-# sudo apt install openssh-server;systemctl enable ssh && systemctl start ssh
+# sudo apt install openssh-server ntp;systemctl enable ssh && systemctl start ssh
 #
 - name: prepare mint desktop
   hosts: all
@@ -24,7 +24,7 @@
           "You must update Ansible to at least 2.7 to use this version of playbook"
     - name: run initial setup instead of gather facts
       setup:
-        gather_timeout: 25
+        gather_timeout: 30
       retries: "{{ retries_count }}"
       delay: "{{ delay_time }}"
       register: setup_status
@@ -35,6 +35,17 @@
       ignore_errors: yes
       register: freespace
   tasks:
+# start ntp
+  - name: install ntp
+    apt:
+      name: ntp
+      state: latest
+    any_errors_fatal: true
+  - name: start ntp
+    systemd:
+      name: ntp
+      state: started
+      enabled: true
 # Install apt pgp keys (files)
   - name: Apt Keys
     apt_key:
@@ -84,6 +95,20 @@
     register: repositories
     until: repositories  is success
     any_errors_fatal: false
+  # Install 3-rd party software not available in repos
+  - name: install extra deb packages/repositories
+    apt:
+      deb: "{{ item }}"
+      state: present
+      update_cache: no
+      only_upgrade: yes
+    loop: "{{ deb }}"
+    retries: "{{ retries_count }}"
+    delay: "{{delay_time}}"
+    register: apt_deb
+    until: apt_deb is success
+    any_errors_fatal: true
+    tags: packages
   - name: apt refresh
     apt:
       update_cache: yes
@@ -112,7 +137,7 @@
     register: packages
     until: packages is success
     any_errors_fatal: false
-# Install optional packages - i variable `install_optional` is set to true
+# Install optional packages - if variable `install_optional` is set to true
   - name: install optional packages
     apt:
       name: "{{ item }}"
@@ -120,7 +145,7 @@
       update_cache: no
     loop: "{{ packages_optional }}"
     retries: "{{ retries_count }}"
-    delay: 3
+    delay: "{{delay_time}}"
     register: packages_optional
     until: packages_optional is success
     when: install_optional == true
@@ -136,20 +161,7 @@
     register: pip
     until: pip is success
     any_errors_fatal: true
-# Install 3-rd party software not available in repos
-  - name: install extra deb packages/repositories
-    apt:
-      deb: "{{ item }}"
-      state: present
-      update_cache: no
-      only_upgrade: yes
-    loop: "{{ deb }}"
-    retries: "{{ retries_count }}"
-    delay: "{{delay_time}}"
-    register: apt_deb
-    until: apt_deb is success
-    any_errors_fatal: true
-    tags: packages
+
     # Download 3-rd party software and unarchive it to `bin_path` setting +x
   - name: unarchive
     unarchive:
