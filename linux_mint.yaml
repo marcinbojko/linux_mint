@@ -286,6 +286,17 @@
           {{ active_user }} ALL=(ALL) NOPASSWD: ALL
       any_errors_fatal: false
       retries: "{{ retries_count }}"
+    - name: change fstrim to run daily
+      lineinfile:
+        dest: /lib/systemd/system/fstrim.timer
+        regexp: '^OnCalendar='
+        line: 'OnCalendar=daily'
+        backrefs: yes
+    - name: start fstrim.timer
+      systemd:
+        name: fstrim.timer
+        state: started
+        enabled: true
   # Update and reboot
     - name: update and reboot
       apt:

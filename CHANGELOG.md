@@ -1,6 +1,13 @@
 # Changelog "linux_mint"
 
-## Version 0.8.3
+## Version 0.8.4 - 2018-11-21
+
+* [APPLICATION] added `Veracrypt` repository and package (optional)
+* [APPLICATION] added `git-lfs` repository and package
+* [APPLICATION] upgraded `Terminus Alpha` to `1.0.0-alpha-63`
+* changed `fstrim.timer` to run daily instead of weekly
+
+## Version 0.8.3 - 2018-11-18
 
 * [PACKAGES] added `ntp` as first step to make sure time and date are set properly
 * [APPLICATION] upgraded `Vagrant` to 2.2.1

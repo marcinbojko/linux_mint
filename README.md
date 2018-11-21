@@ -116,7 +116,7 @@ For these in playbook:
 | Skype for Linux | Communicator | [https://www.skype.com](https://www.skype.com)|
 | WoeUSB | USB Image writer | [https://github.com/slacka/WoeUSB](https://github.com/slacka/WoeUSB)|
 | Veeam Agent for Linux | Backup tool| [https://www.veeam.com](https://www.veeam.com)|
-
+| Veracrypt | Source disk encryption | [https://www.veracrypt.fr/en/Home.html](https://www.veracrypt.fr/en/Home.html)|
 ## 3-rd party apps
 
 ### Archives
