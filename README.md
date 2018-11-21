@@ -102,6 +102,9 @@ For these in playbook:
 | Franz | Multi IM |[https://meetfranz.com/](https://meetfranz.com/)|
 | Diodon | Clipboard Manager | [https://launchpad.net/diodon](https://launchpad.net/diodon)|
 | Dropbox/Nemo Integration | Tool | [https://github.com/linuxmint/nemo-extensions/tree/master/nemo-dropbox](https://github.com/linuxmint/nemo-extensions/tree/master/nemo-dropbox)|
+| Team Viewer | Remote desktop | [https://www.teamviewer.com](https://www.teamviewer.com) |
+| WPS Office for Linux | Productivity Tools | [https://www.wps.com/wps-office-for-linux/](https://www.wps.com/wps-office-for-linux/)
+
 | htop/atop/nmon/stress |Tools|
 ### Packages: Optional (not complete list)
 |Software|Type|Link|
@@ -140,6 +143,7 @@ Some applications are copied to `autostart` folder
 * handle mDNS with .local domains
 * change IO Scheduler for SSD Drives
 * initial `Timeshift` launch
+* change fstrim schedule to `daily`
 
 ## Q&A
 
@@ -158,6 +162,8 @@ Some applications are copied to `autostart` folder
 * Q: I don't know how to do the above
 * A: Then don't do it ;)
 
+* Q: Why there is so many Ubuntu:Bionic/Xenial, not so many LinuxMint:Tara repositories?
+* A: Tara is built over Bionic packages, so rarely it requires to have specific repo.
 ## To Do
 
 * create a separate repo, make it public after some tests

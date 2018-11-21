@@ -328,3 +328,6 @@
       ignore_errors: true
       until: r_wait_for_ssh is success
       when: (reboot_after_upgrade is defined and reboot_after_upgrade.changed) or (reboot_required == true)
+    - name: clean apt cache
+      shell: apt clean all -y
+      any_errors_fatal: false

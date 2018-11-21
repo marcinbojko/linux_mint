@@ -1,5 +1,16 @@
 # Changelog "linux_mint"
 
+
+## Version 0.8.5 - 2018-11-22
+
+* [APPLICATION] added `Team Viewer` to external applications
+* [APPLICATION] added `WPS Office` to external applications
+* added packages:
+  * network-manager-fortisslvpn
+  * openfortivpn
+  * network-manager-vpnc
+  * network-manager-openconnect
+
 ## Version 0.8.4 - 2018-11-21
 
 * [APPLICATION] added `Veracrypt` repository and package (optional)
