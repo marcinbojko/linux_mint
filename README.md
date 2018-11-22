@@ -1,4 +1,4 @@
-# Ansible playbook for your super-admin/devops Linux Mint based workstation
+# Ansible playbook for your super-admin/devops Linux Mint 19 based workstation
 
 ## Prerequisites
 
@@ -80,6 +80,7 @@ For these in playbook:
 ### Packages: Essential
 
 ### Packages: Basic (not complete list)
+
 |Software|Type|Link|
 |------------------|--------|---------------------|
 | AngryIP Scanner |Network Scanner |[https://angryip.org/](https://angryip.org/)|
@@ -106,7 +107,9 @@ For these in playbook:
 | WPS Office for Linux | Productivity Tools | [https://www.wps.com/wps-office-for-linux/](https://www.wps.com/wps-office-for-linux/)
 
 | htop/atop/nmon/stress |Tools|
+
 ### Packages: Optional (not complete list)
+
 |Software|Type|Link|
 |------------------|--------|---------------------|
 | Spotify | Music Player| [https://www.spotify.com/pl/download/linux/](https://www.spotify.com/pl/download/linux/)|
@@ -119,7 +122,9 @@ For these in playbook:
 | Skype for Linux | Communicator | [https://www.skype.com](https://www.skype.com)|
 | WoeUSB | USB Image writer | [https://github.com/slacka/WoeUSB](https://github.com/slacka/WoeUSB)|
 | Veeam Agent for Linux | Backup tool| [https://www.veeam.com](https://www.veeam.com)|
+| Sublime Text 3 | Text Editor | [https://www.sublimetext.com/3](https://www.sublimetext.com/3)
 | Veracrypt | Source disk encryption | [https://www.veracrypt.fr/en/Home.html](https://www.veracrypt.fr/en/Home.html)|
+
 ## 3-rd party apps
 
 ### Archives
@@ -164,6 +169,7 @@ Some applications are copied to `autostart` folder
 
 * Q: Why there is so many Ubuntu:Bionic/Xenial, not so many LinuxMint:Tara repositories?
 * A: Tara is built over Bionic packages, so rarely it requires to have specific repo.
+
 ## To Do
 
 * create a separate repo, make it public after some tests

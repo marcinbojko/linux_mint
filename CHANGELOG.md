@@ -1,7 +1,13 @@
 # Changelog "linux_mint"
 
+## Version 1.0.0 - 2018-11-22
 
-## Version 0.8.5 - 2018-11-22
+* First public appearance
+* [REPOSITORY] added `Google Cloud SDK` repository
+* [APPLICATION] added `google-cloud-sdk`
+* [APPLICATION] added `awscli`
+
+## Version 0.8.5 - 2018-11-21
 
 * [APPLICATION] added `Team Viewer` to external applications
 * [APPLICATION] added `WPS Office` to external applications
