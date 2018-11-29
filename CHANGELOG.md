@@ -1,5 +1,18 @@
 # Changelog "linux_mint"
 
+## Version 1.0.1 - 2018-11-29
+
+* [PACKAGES] added `zenmap`
+* [PACKAGES] addedd missing `redshift-gtk`
+* [APPLICATION] upgraded `Vagrant` to 2.2.2
+* [APPLICATION] upgraded `Terminus Alpha` to version 1.0.1
+* [APPLICATION] experimental support for minikube's deb package instead of file
+* [REPOSITORY] add `puppet5` repository manually instead of package
+* [KEYS] removed redundand key for packages.microsoft.com
+* added more memberships in groups
+* switch to copy desktop files instead of presenting content in `variables.yml`
+* Fixes in README.md
+
 ## Version 1.0.0 - 2018-11-22
 
 * First public appearance

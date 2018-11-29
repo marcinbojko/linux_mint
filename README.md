@@ -16,7 +16,7 @@ sudo apt install openssh-server;systemctl enable ssh && systemctl start ssh
 * 5GB free space on OS drive
 * ssh private key or password method
 * user specified in `group_vars` or passed in variable `active_user` will have applications added to `Startup Applications`
-* by default extra binaries (outside packages) will be installed in `/usr/local/bin`. If you prefer to keep them in cloud (syn between computers) down belowe I'll atach how to replace binaries with proper symlinks
+* by default extra binaries (outside packages) will be installed in `/usr/local/bin`. If you prefer to keep them in cloud (syn between computers), down below I'll attach info how to replace binaries with proper symlinks
 * Adds repositories with codename and filename
 * adds missing pgp keys for repositories
 * install essential packages
@@ -105,8 +105,7 @@ For these in playbook:
 | Dropbox/Nemo Integration | Tool | [https://github.com/linuxmint/nemo-extensions/tree/master/nemo-dropbox](https://github.com/linuxmint/nemo-extensions/tree/master/nemo-dropbox)|
 | Team Viewer | Remote desktop | [https://www.teamviewer.com](https://www.teamviewer.com) |
 | WPS Office for Linux | Productivity Tools | [https://www.wps.com/wps-office-for-linux/](https://www.wps.com/wps-office-for-linux/)
-
-| htop/atop/nmon/stress |Tools|
+| htop/atop/nmon/stress |Tools| |
 
 ### Packages: Optional (not complete list)
 
@@ -172,14 +171,15 @@ Some applications are copied to `autostart` folder
 
 ## To Do
 
-* create a separate repo, make it public after some tests
-* better download file versioning (switch to latest where possible, separate version from URL)
+* better download file versioning (switch to latest where possible, separate version from URL, use separate folder for downloads)
 * more idempotency
 * better docs
 * services handling part (by default in Ubuntu/Debian, installed service is set to `enabled/started`)
-* fix Bionic's broken apps like Asbru-CM
-* more OS tweaks (scheduler, )
-* Add AWS/GCE repositories for their tools.
+* ~~fix Bionic's broken apps like Asbru-CM~~
+* ~~more OS tweaks (scheduler)~~
+* ~~Add AWS/GCE repositories for their tools.~~
+* Add Vagrant plugins
+* Add Visual Studio Code extra extensions
 
 ## Known issues
 

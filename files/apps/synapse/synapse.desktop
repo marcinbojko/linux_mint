@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Exec=synapse &
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=synapse
+Name=synapse
+Comment[en_US]=
+Comment=
+X-GNOME-Autostart-Delay=10

@@ -6,6 +6,7 @@
   hosts: all
   vars:
     install_optional: true                    # should optional packages be installed?
+    install_deb: true                         # should extra deb packages should be installed
     active_user: "{{ ansible_ssh_user }}"     # user for which you're setting folders. By default taken from group_vars
     codename: bionic                          # codename of version you're setting PPAs for
     retries_count: 3                          # how many retries
@@ -105,10 +106,11 @@
     loop: "{{ deb }}"
     retries: "{{ retries_count }}"
     delay: "{{delay_time}}"
-    register: apt_deb
-    until: apt_deb is success
+    register: r_apt_deb
+    until: r_apt_deb is success
     any_errors_fatal: true
     tags: packages
+    when: install_deb == true
   - name: apt refresh
     apt:
       update_cache: yes
@@ -207,6 +209,9 @@
           - adm
           - sudo
           - video
+          - cdrom
+          - plugdev
+          - dialout
         state: present
         append: true
       any_errors_fatal: false
@@ -229,11 +234,16 @@
     - name: create startup applications
       copy:
         dest: "{{ active_user_homedir }}/.config/autostart/{{ item.filename }}"
-        content: "{{ item.content }}"
+        src: "{{ item.source }}"
         owner: "{{ active_user }}"
         group: "{{ active_user }}"
       loop: "{{ startup }}"
       any_errors_fatal: false
+      register: r_create_startup_applications
+      retries: "{{ retries_count }}"
+      delay: "{{delay_time}}"
+      until: r_create_startup_applications is success
+
 # Start OS related block
   - block:
     # OS related tweaks and finetuning
@@ -312,7 +322,7 @@
       reboot:
         pre_reboot_delay: 60
       when: (reboot_required is defined and reboot_required == true) or (apt_upgrade.changed)
-      register: reboot_after_upgrade
+      register: r_reboot_after_upgrade
       any_errors_fatal: false
     - name: Wait for the server to finish rebooting (SSH)
       wait_for:
@@ -327,7 +337,10 @@
       delay: "{{delay_time}}"
       ignore_errors: true
       until: r_wait_for_ssh is success
-      when: (reboot_after_upgrade is defined and reboot_after_upgrade.changed) or (reboot_required == true)
+      when: (r_reboot_after_upgrade is defined and r_reboot_after_upgrade.changed) or (reboot_required == true)
     - name: clean apt cache
       shell: apt clean all -y
       any_errors_fatal: false
+      register: r_clean_apt_cache
+      retries: "{{ retries_count }}"
+      delay: "{{delay_time}}"

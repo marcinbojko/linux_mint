@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Exec=cairo-dock -o
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=false
+Name[en_US]=Cairo-Dock
+Name=Cairo-Dock
+Comment[en_US]=
+Comment=
+X-GNOME-Autostart-Delay=0
