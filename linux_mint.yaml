@@ -7,6 +7,7 @@
   vars:
     install_optional: true                    # should optional packages be installed?
     install_deb: true                         # should extra deb packages should be installed
+    install_vscode_extensions: true
     active_user: "{{ ansible_ssh_user }}"     # user for which you're setting folders. By default taken from group_vars
     codename: bionic                          # codename of version you're setting PPAs for
     retries_count: 3                          # how many retries
@@ -42,11 +43,16 @@
       name: ntp
       state: latest
     any_errors_fatal: true
+    tags:
+    - packages
+    - base
   - name: start ntp
     systemd:
       name: ntp
       state: started
       enabled: true
+    tags:
+    - base
 # Install apt pgp keys (files)
   - name: Apt Keys
     apt_key:
@@ -58,6 +64,9 @@
     delay: "{{ delay_time }}"
     until: keys is success
     any_errors_fatal: true
+    tags:
+    - keys
+    - base
 # Install apt gpg keys (ID)
   - name: Apt Keys - specific keys by ID
     apt_key:
@@ -70,6 +79,9 @@
     delay: "{{ delay_time }}"
     until: keys_pgp is success
     any_errors_fatal: true
+    tags:
+    - keys
+    - base
 # Add basic repositories
   - name: add repositories from variables.yml
     apt_repository:
@@ -83,6 +95,9 @@
     register: repositories
     until: repositories  is success
     any_errors_fatal: false
+    tags:
+    - repositories
+    - base
 # Add optional repositories
   - name: add optional repositories from variables.yml
     apt_repository:
@@ -96,6 +111,9 @@
     register: repositories
     until: repositories  is success
     any_errors_fatal: false
+    tags:
+    - repositories
+    - base
   # Install 3-rd party software not available in repos
   - name: install extra deb packages/repositories
     apt:
@@ -109,12 +127,15 @@
     register: r_apt_deb
     until: r_apt_deb is success
     any_errors_fatal: true
-    tags: packages
     when: install_deb == true
+    tags:
+    - packages
   - name: apt refresh
     apt:
       update_cache: yes
     # Install essentials - packages needed for repos or other packages. Mostly OS-related
+    tags:
+    - packages
   - name: install essential packages
     apt:
       name: "{{ item }}"
@@ -126,7 +147,9 @@
     register: packages_essential
     until: packages_essential is success
     any_errors_fatal: false
-    tags: packages
+    tags:
+    - packages
+    - base
 # Install basic packages
   - name: install packages
     apt:
@@ -198,7 +221,8 @@
       force: yes
     loop: "{{ files }}"
 # Start user-related modification block
-  - block:
+  - name: user mod block
+    block:
     - name: create or check user
       user:
         name: "{{ active_user }}"
@@ -243,6 +267,26 @@
       retries: "{{ retries_count }}"
       delay: "{{delay_time}}"
       until: r_create_startup_applications is success
+# start application mod block
+  - name: install vscode extensions
+    block:
+      - shell: dpkg-query -s code | grep 'install ok installed'
+        register: r_dpkg_query_vscode
+        any_errors_fatal: false
+        ignore_errors: true
+        changed_when: "r_dpkg_query_vscode.stdout != 'Status: install ok installed'"
+      - shell: if [ ! $(code --list-extensions|grep {{ item }}) ]; then code --install-extension {{ item }}; fi
+        loop: "{{ vscode }}"
+        register: r_install_extension
+        retries: "{{ retries_count }}"
+        delay: "{{ delay_time }}"
+        until: r_install_extension is success
+        become: "{{ active_user }}"
+        changed_when: "r_install_extension.stdout  != ''"
+        when: r_dpkg_query_vscode.rc == 0
+    tags:
+      - modify
+    when: install_vscode_extensions == true
 
 # Start OS related block
   - block:
@@ -307,7 +351,6 @@
         name: fstrim.timer
         state: started
         enabled: true
-  # Update and reboot
     - name: update and reboot
       apt:
         upgrade: yes

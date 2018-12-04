@@ -1,5 +1,12 @@
 # Changelog "linux_mint"
 
+## Version 1.0.2 - 2018-02-04
+
+* [APPLICATION] upgraded `Vault` to version 1.0.0
+* [VSCODE] added section to install required vscode extensions
+* [PACKAGES] added `iperf3`
+* [VARIABLE] added `install_vscode_extensions`, defaults to `true`
+
 ## Version 1.0.1 - 2018-11-29
 
 * [PACKAGES] added `zenmap`
