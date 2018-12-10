@@ -1,6 +1,12 @@
 # Changelog "linux_mint"
 
-## Version 1.0.2 - 2018-02-04
+## Version 1.0.3 - 2018-12-10
+
+* [APPLICATION] upgrade  `Boostnote` to version 0.11.11
+* [KEYS] update `Pale Moon` repository key to 18.04
+* [APPLICATION] upgrade `packer` to version 1.3.3
+
+## Version 1.0.2 - 2018-12-04
 
 * [APPLICATION] upgraded `Vault` to version 1.0.0
 * [VSCODE] added section to install required vscode extensions
