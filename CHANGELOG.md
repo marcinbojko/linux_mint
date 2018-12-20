@@ -1,4 +1,11 @@
-# Changelog "linux_mint"
+# Changelog "linux_mint
+
+## Version 1.0.4 - 2018-12-18
+
+* [PACKAGES] added `traceroute`
+* [APPLICATION] upgraded `terraform` to versiob 0.11.11
+* [APPLICATION] `vault` upgraded to 1.0.1
+* [APPLICATION] upgrade  `Boostnote` to version 0.11.12
 
 ## Version 1.0.3 - 2018-12-10
 

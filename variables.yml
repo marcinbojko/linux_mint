@@ -190,6 +190,7 @@ packages:
 - redshift-gtk
 - asbru-cm
 - iperf3
+- traceroute
 packages_optional:
 - enpass
 - pdk
@@ -218,7 +219,7 @@ deb:
 - https://release.axocdn.com/linux/gitkraken-amd64.deb
 - https://releases.hashicorp.com/vagrant/2.2.2/vagrant_2.2.2_x86_64.deb
 - https://launchpad.net/ubuntu/+archive/primary/+files/libgoo-canvas-perl_0.06-2ubuntu3_amd64.deb
-- https://github.com/BoostIO/boost-releases/releases/download/v0.11.11/boostnote_0.11.11_amd64.deb
+- https://github.com/BoostIO/boost-releases/releases/download/v0.11.12/boostnote_0.11.12_amd64.deb
 - https://github.com/Eugeny/terminus/releases/download/v1.0.1/terminus-1.0.1-linux.deb
 - https://github.com/meetfranz/franz/releases/download/v5.0.0-beta.18/franz_5.0.0-beta.18_amd64.deb
 - https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
@@ -237,10 +238,10 @@ down:
 - urls: https://storage.googleapis.com/kubernetes-helm/helm-v2.11.0-linux-amd64.tar.gz
   destination: helm
   skip_tree: true
-- urls: https://releases.hashicorp.com/terraform/0.11.10/terraform_0.11.10_linux_amd64.zip
+- urls: https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_linux_amd64.zip
   destination: terraform
   skip_tree: false
-- urls: https://releases.hashicorp.com/vault/1.0.0/vault_1.0.0_linux_amd64.zip
+- urls: https://releases.hashicorp.com/vault/1.0.1/vault_1.0.1_linux_amd64.zip
   destination: vault
   skip_tree: false
 files:
