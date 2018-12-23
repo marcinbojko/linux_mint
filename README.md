@@ -1,27 +1,44 @@
-# Ansible playbook for your super-admin/devops Linux Mint 19 based workstation
+# Ansible playbook for your super-admin/devops Linux Mint 19.x based workstation
+
+             *
+           _/ \_
+          \     /
+          /_' '_\
+           /  @\
+          /@  . \
+         / -'   .\
+        /+      . \
+       /--@ @.o .o \
+      / '''. +@.o+ @\
+     /.'+ - *o-  *-- \
+    /. @.   o**  . -  \
+    *------------------*
+         [_______]
+          \_____/
 
 ## Prerequisites
 
-* installed Linux Mint 19, 64-bit, standard options with extra codecs (selectable during install)
-* access to Internet (NAT/bridged)
+* installed Linux Mint 19, 19.1, 64-bit, standard options with extra codecs (selectable during install)
+* access to Internet
 * openssh-server installed and running
 * Ansible in version 2.7 higher
+* ssh server for Ansible ready and running
 
-```bash
-sudo apt install openssh-server;systemctl enable ssh && systemctl start ssh
-```
+  ```bash
+  sudo apt install openssh-server;systemctl enable ssh && systemctl start ssh
+  ```
 
 ## Assumptions
 
 * 5GB free space on OS drive
 * ssh private key or password method
-* user specified in `group_vars` or passed in variable `active_user` will have applications added to `Startup Applications`
-* by default extra binaries (outside packages) will be installed in `/usr/local/bin`. If you prefer to keep them in cloud (syn between computers), down below I'll attach info how to replace binaries with proper symlinks
-* Adds repositories with codename and filename
+* user specified in `group_vars` or passed in variable `ansible_ssh_user` Startup Applications`
+* by default extra binaries (outside packages) will be installed in `/usr/local/bin`. If you prefer to keep them in cloud (syn between computers), down below I'll attach info how to replace binaries with proper symlinks (not done yet)
+* adds repositories with codename and filename
 * adds missing pgp keys for repositories
-* install essential packages
-* install main packages
-* install extra/optional packages
+* installs essential packages
+* installs main packages
+* installs extra/optional packages
 * downloads outside repository software and puts it in proper path `/usr/local/bin` by default
 
 ## Usage
@@ -30,26 +47,41 @@ sudo apt install openssh-server;systemctl enable ssh && systemctl start ssh
 ansible-playbook ../linux_mint.yaml -i myhost.lst
 ```
 
+or change user you're using
+
+```bash
+ansible-playbook ../linux_mint.yaml -i myhost.lst --extra-vars "ansible_ssh_user=myuser"
+```
+
 or start at specific step
 
 ```bash
 ansible-playbook ../linux_mint.yaml -i myhost.lst --start-at-task="taskname"
 ```
 
+or with specific tags
+
+```bash
+ansible-playbook ../linux_mint.yaml -i myhost.lst --tags "base"
+```
+
 ## Variables
 
-Most Variables are stored in `variables.yml` file. Feel free to adjust them to suit your needs.
-For these in playbook:
+Most variables are stored in `variables.yml` file. Feel free to adjust them to suit your needs.
+For these variables in playbook:
 
-```yaml
-    install_optional: true                    # should optional packages be installed?
-    active_user: "{{ ansible_ssh_user }}"     # user for which you're setting folders. By default taken from group_vars
-    codename: bionic                          # codename of version you're setting PPAs for
-    retries_count: 3                          # how many retries
-    delay_time: 10                            # delay time in seconds between retries
-    bin_path: /usr/local/bin                  # Where to put all downloades execs.
-    reboot_required: false                    # force reboot even if apt upgrade won't changed anything
-```
+|variable|default|description|
+|--------|-------|-----------|
+|install_optional|true|should optional packages be installed|
+|install_deb|true|should extra deb packages should be installed|
+|install_vscode_extensions|true|should we install extra vscode extensions|
+|modify_grub|false|don't touch grub settings, unless told so|
+|active_user|"{{ ansible_ssh_user }}"|user for which you're setting folders. By default taken from group_vars|
+|codename|bionic|codename of version you're setting PPAs for|
+|retries_count|3|how many retries|
+|delay_time|10|delay time in seconds between retries|
+|bin_path|/usr/local/bin|Where to put all downloaded execs|
+|reboot_required|false|force reboot even if apt upgrade won't change anything|
 
 ## Repositories
 
@@ -123,6 +155,8 @@ For these in playbook:
 | Veeam Agent for Linux | Backup tool| [https://www.veeam.com](https://www.veeam.com)|
 | Sublime Text 3 | Text Editor | [https://www.sublimetext.com/3](https://www.sublimetext.com/3)
 | Veracrypt | Source disk encryption | [https://www.veracrypt.fr/en/Home.html](https://www.veracrypt.fr/en/Home.html)|
+| Neofetch | | [https://github.com/dylanaraps/neofetch](https://github.com/dylanaraps/neofetch)|
+| GIMP | GNU Image Manipulation Program | [https://www.gimp.org/](https://www.gimp.org/)|
 
 ## 3-rd party apps
 
@@ -172,17 +206,21 @@ Some applications are copied to `autostart` folder
 ## To Do
 
 * better download file versioning (switch to latest where possible, separate version from URL, use separate folder for downloads)
-* more idempotency
 * better docs
 * services handling part (by default in Ubuntu/Debian, installed service is set to `enabled/started`)
+* ~~more idempotency~~
 * ~~fix Bionic's broken apps like Asbru-CM~~
-* ~~more OS tweaks (scheduler)~~
-* ~~Add AWS/GCE repositories for their tools.~~
-* Add Vagrant plugins
-* Add Visual Studio Code extra extensions
+* ~~more OS tweaks (i/o scheduler)~~
+* ~~add AWS/GCE repositories for their tools~~
+* ~~add Visual Studio Code extra extensions~~
+* add Vagrant plugins
+* more variables or tags `never`
+* better grub defaults handing
+* continue to use tagging
+* manual handle 3rd party deb files - pre-download and re-usage on demand
+* configure neofetch
 
 ## Known issues
 
 * Due to how deb packages are treated by app, we should find a way to install always 'latest' version not specific version. If (after initial run) we'll upgrade package outside this script, next time deb part will fail trying to 'downgrade' package.
-
 * Downloading & installing all packages can be time consuming, depending on your Internet connection speed (aprox 40-60 minut)

@@ -1,5 +1,35 @@
 # Changelog "linux_mint
 
+## Version 1.0.5 - 2018-12-23 Christmas Edition
+
+             *
+           _/ \_
+          \     /
+          /_' '_\
+           /  @\
+          /@  . \
+         / -'   .\
+        /+      . \
+       /--@ @.o .o \
+      / '''. +@.o+ @\
+     /.'+ - *o-  *-- \
+    /. @.   o**  . -  \
+    *------------------*
+         [_______]
+          \_____/
+
+* [REPOSITORY] - added `ppa:mozillateam/ppa`
+* [APPLICATION] - upgrade `Franz` to version 5.0.0-beta22
+* [APPLICATION] - upgrade `minikube` to version 0.32.0
+* [APPLICATION] - upgrade `helm` to version 2.12.1
+* [KEYS] - added key to `Forticlient` repository
+* [REPOSITORY] - added `Forticlient` repository
+* [VARIABLE] - added variable `modify_grub` defaults to (false) - modify grub settings or not
+* General cleaning
+  * removing spaces from task names
+  * adding rest of missing tags
+* Tested with `Linux Mint 19.1 Tessa`
+
 ## Version 1.0.4 - 2018-12-18
 
 * [PACKAGES] added `traceroute`

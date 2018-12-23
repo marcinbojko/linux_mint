@@ -41,6 +41,8 @@ repositories:
    filename: google-cloud-sdk
  - repo: deb https://packagecloud.io/asbru-cm/asbru-cm/ubuntu/ bionic main
    filename: asbru-cm
+ - repo: ppa:mozillateam/ppa
+   filename: mozillateam
 repositories_optional:
  - repo: ppa:danielrichter2007/grub-customizer
    codename: xenial
@@ -75,6 +77,9 @@ repositories_optional:
  - repo: deb http://apt.puppetlabs.com bionic puppet5
    filename: puppet5
    codename: bionic
+ - repo: deb [arch=amd64] http://repo.fortinet.com/repo/ubuntu/ bionic multiverse
+   filename: forticlient
+   codename: bionic
 keys:
  - https://download.opensuse.org/repositories/home:stevenpusser/xUbuntu_18.04/Release.key
  - https://packages.microsoft.com/keys/microsoft.asc
@@ -89,6 +94,7 @@ keys:
  - https://packagecloud.io/github/git-lfs/gpgkey
  - https://apt.puppetlabs.com/pubkey.gpg
  - https://packagecloud.io/asbru-cm/asbru-cm/gpgkey
+ - http://repo.fortinet.com/repo/ubuntu/DEB-GPG-KEY
 keys_pgp:
  - server: keyserver.ubuntu.com
    key: 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
@@ -221,9 +227,9 @@ deb:
 - https://launchpad.net/ubuntu/+archive/primary/+files/libgoo-canvas-perl_0.06-2ubuntu3_amd64.deb
 - https://github.com/BoostIO/boost-releases/releases/download/v0.11.12/boostnote_0.11.12_amd64.deb
 - https://github.com/Eugeny/terminus/releases/download/v1.0.1/terminus-1.0.1-linux.deb
-- https://github.com/meetfranz/franz/releases/download/v5.0.0-beta.18/franz_5.0.0-beta.18_amd64.deb
+- https://github.com/meetfranz/franz/releases/download/v5.0.0-beta.22/franz_5.0.0-beta.22_amd64.deb
 - https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
-- https://github.com/kubernetes/minikube/releases/download/v0.30.0/minikube_0.30-0.deb
+- https://github.com/kubernetes/minikube/releases/download/v0.32.0/minikube_0.32-0.deb
 - http://kdl.cc.ksosoft.com/wps-community/download/6757/wps-office_10.1.0.6757_amd64.deb
 pip:
 - pip
@@ -235,7 +241,7 @@ down:
 - urls: https://releases.hashicorp.com/packer/1.3.3/packer_1.3.3_linux_amd64.zip
   destination: packer
   skip_tree: false
-- urls: https://storage.googleapis.com/kubernetes-helm/helm-v2.11.0-linux-amd64.tar.gz
+- urls: https://storage.googleapis.com/kubernetes-helm/helm-v2.12.1-linux-amd64.tar.gz
   destination: helm
   skip_tree: true
 - urls: https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_linux_amd64.zip

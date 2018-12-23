@@ -7,11 +7,12 @@
   vars:
     install_optional: true                    # should optional packages be installed?
     install_deb: true                         # should extra deb packages should be installed
-    install_vscode_extensions: true
+    install_vscode_extensions: true           # should we install extra vscode extensions
+    modify_grub: false                        # don't touch grub settings, unless told so
     active_user: "{{ ansible_ssh_user }}"     # user for which you're setting folders. By default taken from group_vars
     codename: bionic                          # codename of version you're setting PPAs for
-    retries_count: 3                          # how many retries
-    delay_time: 10                            # delay time in seconds between retries
+    retries_count: 4                          # how many retries
+    delay_time: 15                            # delay time in seconds between retries
     bin_path: /usr/local/bin                  # Where to put all downloaded execs.
     reboot_required: false                    # force reboot even if apt upgrade won't change anything
   vars_files:
@@ -19,26 +20,32 @@
   become: true
   gather_facts: no
   pre_tasks:
-    - name: Verify Ansible meets  version requirements.
+    - name: verify_ansible_meets_version_requirements.
       assert:
         that: "ansible_version.full is version_compare('2.7', '>=')"
         msg: >
           "You must update Ansible to at least 2.7 to use this version of playbook"
-    - name: run initial setup instead of gather facts
+      tags:
+      - assert
+    - name: run_initial_setup_instead_of_gather_facts
       setup:
         gather_timeout: 30
       retries: "{{ retries_count }}"
       delay: "{{ delay_time }}"
       register: setup_status
       until: setup_status is success
-    - name: Assert root partition is 5 GB free
+      tags:
+      - assert
+    - name: assert_root_partition_is_5_GB_of_free_space
       assert: { that: item.mount != '/' or item.size_available > 5368709120 } # 5 GB free
       loop: '{{ ansible_mounts }}'
       ignore_errors: yes
       register: freespace
+      tags:
+      - assert
   tasks:
 # start ntp
-  - name: install ntp
+  - name: install_ntp
     apt:
       name: ntp
       state: latest
@@ -46,7 +53,7 @@
     tags:
     - packages
     - base
-  - name: start ntp
+  - name: start_ntp
     systemd:
       name: ntp
       state: started
@@ -54,7 +61,7 @@
     tags:
     - base
 # Install apt pgp keys (files)
-  - name: Apt Keys
+  - name: install_apt_keys
     apt_key:
       url: "{{ item }}"
       state: present
@@ -68,7 +75,7 @@
     - keys
     - base
 # Install apt gpg keys (ID)
-  - name: Apt Keys - specific keys by ID
+  - name: install_apt_keys_by_id
     apt_key:
       keyserver: "{{ item.server}}"
       state: present
@@ -83,7 +90,7 @@
     - keys
     - base
 # Add basic repositories
-  - name: add repositories from variables.yml
+  - name: add_basic_repositories_from_variables_file
     apt_repository:
       repo: "{{ item.repo }}"
       state: present
@@ -99,7 +106,7 @@
     - repositories
     - base
 # Add optional repositories
-  - name: add optional repositories from variables.yml
+  - name: add_optional_repositories_from_variables_file
     apt_repository:
       repo: "{{ item.repo }}"
       state: present
@@ -115,7 +122,7 @@
     - repositories
     - base
   # Install 3-rd party software not available in repos
-  - name: install extra deb packages/repositories
+  - name: install_extra_deb_packages_from_variables_file
     apt:
       deb: "{{ item }}"
       state: present
@@ -130,13 +137,14 @@
     when: install_deb == true
     tags:
     - packages
-  - name: apt refresh
+  - name: apt_initial_refresh
     apt:
       update_cache: yes
     # Install essentials - packages needed for repos or other packages. Mostly OS-related
+    changed_when: false
     tags:
     - packages
-  - name: install essential packages
+  - name: install_essential_packages
     apt:
       name: "{{ item }}"
       state: latest
@@ -151,7 +159,7 @@
     - packages
     - base
 # Install basic packages
-  - name: install packages
+  - name: install_packages
     apt:
       name: "{{ item }}"
       state: latest
@@ -162,8 +170,11 @@
     register: packages
     until: packages is success
     any_errors_fatal: false
+    tags:
+    - packages
+    - base
 # Install optional packages - if variable `install_optional` is set to true
-  - name: install optional packages
+  - name: install_optional_packages
     apt:
       name: "{{ item }}"
       state: latest
@@ -175,8 +186,11 @@
     until: packages_optional is success
     when: install_optional == true
     any_errors_fatal: false
+    tags:
+    - packages
+    - optional
 # Install Python's pip packages
-  - name: install pip packages
+  - name: install_pip_packages
     pip:
       name: "{{ item }}"
       extra_args: --upgrade
@@ -186,9 +200,12 @@
     register: pip
     until: pip is success
     any_errors_fatal: true
-
+    tags:
+    - packages
+    - base
+    - python
     # Download 3-rd party software and unarchive it to `bin_path` setting +x
-  - name: unarchive
+  - name: download_and_unarchive
     unarchive:
       src: "{{ item.urls }}"
       dest: "{{ bin_path }}"
@@ -198,8 +215,12 @@
       extra_opts: [-j]
     when: item.skip_tree == false
     loop: "{{ down }}"
+    tags:
+    - base
+    - downloads
+    - apps
 # Download 3-rd party software and unarchive  it (flatten archive folder tree) to `bin_path` setting +x
-  - name: unarchive and flatten
+  - name: download_unarchive_and_flatten
     unarchive:
       src: "{{ item.urls }}"
       dest: "{{ bin_path }}"
@@ -212,18 +233,26 @@
        - README.md
     when: item.skip_tree == true
     loop: "{{ down }}"
+    tags:
+    - base
+    - downloads
+    - apps
 # Download 3-rd party software to `bin_path` setting +x
-  - name: download files
+  - name: download_files
     get_url:
       url: "{{ item.urls }}"
       dest: "{{ bin_path }}/{{ item.destination }}"
       mode: 0755
       force: yes
     loop: "{{ files }}"
+    tags:
+    - base
+    - downloads
+    - apps
 # Start user-related modification block
-  - name: user mod block
+  - name: user_mods_block
     block:
-    - name: create or check user
+    - name: create_or_check_users_groups
       user:
         name: "{{ active_user }}"
         groups:
@@ -240,10 +269,16 @@
         append: true
       any_errors_fatal: false
       register: active_user_account
-    - name: set fact user home dir
+      tags:
+      - base
+      - user
+    - name: set_fact_for_users_home_dir
       set_fact:
         "active_user_homedir": "{{ active_user_account.home }}"
-    - name: make sure 'autostart' exists
+      tags:
+      - base
+      - user
+    - name: make_sure_autostart_folder_exists
       file:
         path: "{{ active_user_homedir }}/.config/autostart"
         state: directory
@@ -255,7 +290,10 @@
       delay: "{{delay_time}}"
       until: create_autostart is success
       any_errors_fatal: true
-    - name: create startup applications
+      tags:
+      - base
+      - user
+    - name: create_startup_applications
       copy:
         dest: "{{ active_user_homedir }}/.config/autostart/{{ item.filename }}"
         src: "{{ item.source }}"
@@ -267,8 +305,11 @@
       retries: "{{ retries_count }}"
       delay: "{{delay_time}}"
       until: r_create_startup_applications is success
+      tags:
+      - base
+      - user
 # start application mod block
-  - name: install vscode extensions
+  - name: install_vscode_extensions
     block:
       - shell: dpkg-query -s code | grep 'install ok installed'
         register: r_dpkg_query_vscode
@@ -285,36 +326,38 @@
         changed_when: "r_install_extension.stdout  != ''"
         when: r_dpkg_query_vscode.rc == 0
     tags:
-      - modify
+    - optional
+    - user
+    - vscode
     when: install_vscode_extensions == true
 
 # Start OS related block
   - block:
     # OS related tweaks and finetuning
-    - name: set timezone
+    - name: set_timezone
       timezone:
         name: "{{ timezone }}"
       any_errors_fatal: false
-    - name: add neofetch to bashrc globals
+    - name: add_neofetch_to_bashrc_globals
       lineinfile:
         path: /etc/bash.bashrc
         line: neofetch
       any_errors_fatal: false
-    - name: avahi config
+    - name: set_avahi_config
       lineinfile:
         dest: /etc/avahi/avahi-daemon.conf
         regexp: 'domain-name=local'
         line: 'domain-name=alocal'
         backrefs: yes
       any_errors_fatal: false
-    - name: nsswitch config
+    - name: nsswitch_config
       lineinfile:
         dest: /etc/nsswitch.conf
         regexp: '^hosts:'
         line: 'hosts:          files dns'
         backrefs: yes
       any_errors_fatal: false
-    - name: grub defaults for SSD
+    - name: set_grub_defaults_for_SSD
       lineinfile:
         dest: /etc/default/grub
         regexp: '^GRUB_CMDLINE_LINUX_DEFAULT='
@@ -322,15 +365,16 @@
         backrefs: true
       any_errors_fatal: false
       register: grub_default
-    - name: grub update
+      when: modify_grub == true
+    - name: grub_update
       shell: update-grub2
-      when: grub_default.changed
-    - name: enable timeshift in rsync mode
+      when: grub_default.changed and modify_grub == true
+    - name: enable_timeshift_in_rsync_mode
       shell: timeshift --rsync --yes
       args:
         creates: /etc/timeshift.json
       any_errors_fatal: false
-    - name: add to sudoers
+    - name: add_user_to_sudoers
       copy:
         dest: "/etc/sudoers.d/{{ active_user }}"
         owner: root
@@ -340,18 +384,18 @@
           {{ active_user }} ALL=(ALL) NOPASSWD: ALL
       any_errors_fatal: false
       retries: "{{ retries_count }}"
-    - name: change fstrim to run daily
+    - name: change_fstrim_to_run_daily
       lineinfile:
         dest: /lib/systemd/system/fstrim.timer
         regexp: '^OnCalendar='
         line: 'OnCalendar=daily'
         backrefs: yes
-    - name: start fstrim.timer
+    - name: start_fstrim.timer
       systemd:
         name: fstrim.timer
         state: started
         enabled: true
-    - name: update and reboot
+    - name: update_and_reboot
       apt:
         upgrade: yes
         update_cache: yes
@@ -360,20 +404,20 @@
       retries: "{{ retries_count }}"
       delay: "{{delay_time}}"
       until: apt_upgrade is success
-  # Reboot
-    - name: reboot after changes
+    # Reboot
+    - name: reboot_after_changes
       reboot:
         pre_reboot_delay: 60
       when: (reboot_required is defined and reboot_required == true) or (apt_upgrade.changed)
       register: r_reboot_after_upgrade
       any_errors_fatal: false
-    - name: Wait for the server to finish rebooting (SSH)
+    - name: wait_for_server_to_finish_rebooting_ssh
       wait_for:
         host: '{{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}'
         state: started
         delay: 60
         port: 22
-        timeout: 600
+        timeout: 1200
       connection: local
       register: r_wait_for_ssh
       retries: "{{ retries_count }}"
@@ -381,9 +425,13 @@
       ignore_errors: true
       until: r_wait_for_ssh is success
       when: (r_reboot_after_upgrade is defined and r_reboot_after_upgrade.changed) or (reboot_required == true)
-    - name: clean apt cache
+    - name: clean_apt_cache
       shell: apt clean all -y
       any_errors_fatal: false
       register: r_clean_apt_cache
       retries: "{{ retries_count }}"
       delay: "{{delay_time}}"
+      changed_when: false
+    tags:
+    - base
+    - user
