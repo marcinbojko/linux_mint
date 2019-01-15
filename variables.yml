@@ -39,6 +39,8 @@ repositories:
    filename: github_git-lfs
  - repo: deb http://packages.cloud.google.com/apt cloud-sdk-bionic main
    filename: google-cloud-sdk
+ - repo: deb http://packages.cloud.google.com/apt gcsfuse-bionic main
+   filename: gcsfuse
  - repo: deb https://packagecloud.io/asbru-cm/asbru-cm/ubuntu/ bionic main
    filename: asbru-cm
  - repo: ppa:mozillateam/ppa
@@ -77,7 +79,7 @@ repositories_optional:
  - repo: deb http://apt.puppetlabs.com bionic puppet5
    filename: puppet5
    codename: bionic
- - repo: deb [arch=amd64] http://repo.fortinet.com/repo/ubuntu/ bionic multiverse
+ - repo: deb [arch=amd64] http://repo.fortinet.com/repo/ubuntu/ /bionic multiverse
    filename: forticlient
    codename: bionic
 keys:
@@ -116,6 +118,7 @@ packages:
 - ansible
 - azure-cli
 - google-cloud-sdk
+- gcsfuse
 - awscli
 - palemoon
 - code
@@ -223,7 +226,7 @@ packages_optional:
 deb:
 - https://github.com/angryip/ipscan/releases/download/3.5.3/ipscan_3.5.3_amd64.deb
 - https://release.axocdn.com/linux/gitkraken-amd64.deb
-- https://releases.hashicorp.com/vagrant/2.2.2/vagrant_2.2.2_x86_64.deb
+- https://releases.hashicorp.com/vagrant/2.2.3/vagrant_2.2.3_x86_64.deb
 - https://launchpad.net/ubuntu/+archive/primary/+files/libgoo-canvas-perl_0.06-2ubuntu3_amd64.deb
 - https://github.com/BoostIO/boost-releases/releases/download/v0.11.12/boostnote_0.11.12_amd64.deb
 - https://github.com/Eugeny/terminus/releases/download/v1.0.1/terminus-1.0.1-linux.deb
@@ -253,6 +256,8 @@ down:
 files:
 - urls: https://github.com/docker/compose/releases/download/1.23.1/docker-compose-Linux-x86_64
   destination: docker-compose
+- urls: https://github.com/bcicen/ctop/releases/download/v0.7.1/ctop-0.7.1-linux-amd64
+  destination: ctop
 startup:
 - filename: redshift-gtk.desktop
   source: ./files/apps/redshift-gtk/redshift-gtk.desktop

@@ -1,5 +1,14 @@
 # Changelog "linux_mint
 
+## Version 1.0.6 2019-01-15
+
+* fixed copying autostart files . Now it doesn't override these already existing
+* fixed inproper dist name in forticlient repository
+* [APPLICATION] - added `ctop` as application available in `bin_path`
+* [REPOSITORY] - added `gcsfuse` repository [https://github.com/GoogleCloudPlatform/gcsfuse](https://github.com/GoogleCloudPlatform/gcsfuse)
+* [PACKAGES] - upgrade `vagrant` to version 2.2.3
+* verification of existence of `bin_path` added
+
 ## Version 1.0.5 - 2018-12-23 Christmas Edition
 
              *

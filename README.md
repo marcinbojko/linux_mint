@@ -137,7 +137,8 @@ For these variables in playbook:
 | Dropbox/Nemo Integration | Tool | [https://github.com/linuxmint/nemo-extensions/tree/master/nemo-dropbox](https://github.com/linuxmint/nemo-extensions/tree/master/nemo-dropbox)|
 | Team Viewer | Remote desktop | [https://www.teamviewer.com](https://www.teamviewer.com) |
 | WPS Office for Linux | Productivity Tools | [https://www.wps.com/wps-office-for-linux/](https://www.wps.com/wps-office-for-linux/)
-| htop/atop/nmon/stress |Tools| |
+| ctop| Container process monitor | [https://github.com/bcicen/ctop](https://github.com/bcicen/ctop)|
+| htop/atop/nmon/stress |Monitoring tools| |
 
 ### Packages: Optional (not complete list)
 

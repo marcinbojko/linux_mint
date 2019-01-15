@@ -133,7 +133,7 @@
     delay: "{{delay_time}}"
     register: r_apt_deb
     until: r_apt_deb is success
-    any_errors_fatal: true
+    any_errors_fatal: false
     when: install_deb == true
     tags:
     - packages
@@ -205,6 +205,16 @@
     - base
     - python
     # Download 3-rd party software and unarchive it to `bin_path` setting +x
+  - name: check_if_bin_path_exists
+    file:
+      path: "{{ bin_path }}"
+      state: directory
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
+    tags:
+    - base
+    - downloads
+    - apps
   - name: download_and_unarchive
     unarchive:
       src: "{{ item.urls }}"
@@ -299,6 +309,7 @@
         src: "{{ item.source }}"
         owner: "{{ active_user }}"
         group: "{{ active_user }}"
+        force: false
       loop: "{{ startup }}"
       any_errors_fatal: false
       register: r_create_startup_applications
