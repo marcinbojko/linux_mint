@@ -1,5 +1,13 @@
 # Changelog "linux_mint
 
+## Version 1.0.7 2019-01-23
+
+* [APPLICATION] upgrade `helm` to version 2.12.3
+* [APPLICATION] upgrade `minikube` version to 0.33.1
+* [APPLICATION] upgrade `vault` to version 1.0.2
+* [APPLICATION] upgrade `docker-compose` to version 1.23.2
+* [APPLICATION] added `rke` Rancher Kubernetes Engine in version 0.1.15
+
 ## Version 1.0.6 2019-01-15
 
 * fixed copying autostart files . Now it doesn't override these already existing
