@@ -8,6 +8,7 @@
     install_optional: true                    # should optional packages be installed?
     install_deb: true                         # should extra deb packages should be installed
     install_vscode_extensions: true           # should we install extra vscode extensions
+    install_mitogen: false
     modify_grub: false                        # don't touch grub settings, unless told so
     active_user: "{{ ansible_ssh_user }}"     # user for which you're setting folders. By default taken from group_vars
     codename: bionic                          # codename of version you're setting PPAs for
@@ -229,6 +230,44 @@
     - base
     - downloads
     - apps
+# Need time to rework this
+#  - block:
+#    - name: check_if_mitogen_path_exists
+#      file:
+#        path: "{{ item.dest_path }}"
+#        state: directory
+#      retries: "{{ retries_count }}"
+#      delay: "{{ delay_time }}"
+#      loop: "{{ mitogen }}"
+#    - name: download_and_unarchive_mitogen
+#      unarchive:
+#        src: "{{ item.urls }}"
+#        dest: "{{ item.dest_path }}"
+#        keep_newer: true
+##        mode: +x
+#        remote_src: yes
+##        extra_opts: [-j]
+#        extra_opts: [--strip-components=1]
+#      loop: "{{ mitogen }}"
+#    - name: replace_mitogen_values_in_ansible_config
+#      lineinfile:
+#        path: /etc/ansible/ansible.cfg.copy
+#        #regexp: '^[defaults]'
+#        insertafter: '(\[defaults\])'
+#        firstmatch: yes
+#        line: '\1 = STRATEGy=mitogen'
+#        regexp: '(\[defaults\])'
+#        backrefs: no
+#        #state: present
+#        #backrefs: yes
+#
+#    when: install_mitogen == true
+#    tags:
+#    - base
+#    - downloads
+#    - apps
+#    - mitogen
+
 # Download 3-rd party software and unarchive  it (flatten archive folder tree) to `bin_path` setting +x
   - name: download_unarchive_and_flatten
     unarchive:

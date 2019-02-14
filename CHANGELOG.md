@@ -1,5 +1,27 @@
 # Changelog "linux_mint
 
+## Version 1.0.8 2019-02-14
+
+* [APPLICATION] upgraded `Boostnote` to version 0.11.15
+* [APPLICATION] upgraded `Terminus Alfa` to version 1.0.71
+* [APPLICATION] upgraded `packer` to version 1.3.4
+* [APPLICATION] upgraded `vault` to version 1.0.3
+* [APPLICATION] added 'rancher-cli` in version 2.2.0-rc6
+* [APPLICATION] changed `virtualbox 5.2` to `virtualbox-6`
+* [BROKEN] added mitogen optional installation `install_mitogen=true` in variables. Not included in this release.
+* [PACKAGES] `iotop` added instead of `itop`
+* [PACKAGES] added `nfs-client`
+* [PACKAGES] added `spotify-client`
+* [PACKAGES] added `powertop`
+* [PACKAGES] added `gddrescue`
+* [PACKAGES] added `testdisk`
+* [PACKAGES] added `partclone`
+* [PACKAGES] added `rdesktop`
+* [PACKAGES] removed `cairo-dock` as not active anymore. Replaced with DockbarX
+* [PACKAGES] added `dockbarx` as default dock in the system
+* [PACKAGES] upgraded `dotnet-runtime` to version 2.2
+* [PACKAGES] upgraded `dotnet-sdk` to version 2.2
+
 ## Version 1.0.7 2019-01-23
 
 * [APPLICATION] upgrade `helm` to version 2.12.3
