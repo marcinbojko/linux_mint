@@ -1,4 +1,22 @@
-# Changelog "linux_mint
+# Changelog "linux_mint"
+
+## Version 1.0.9 2019-02-25
+
+* [APPLICATION] upgraded `minikube` to version 0.34
+* [APPLICATION] upgraded `ipscan` to version 3.5.5
+* [APPLICATION] upgrade `Franz` to version 5.0.0. **Warning** - remove Franz beta version before proceeding
+* [APPLICATION] upgrade `rancher` to version 2.2.0-rc9
+* [APPLICATION] upgrade `ctop` to version 0.7.2
+* [APPLICATION] upgrade `rke` to version 0.1.16
+* [REPOSITORY] removed `ppa:alexx2000/doublecmd` repository as obsolete
+* [REPOSITORY] added `http://download.opensuse.org/repositories/home:/Alexx2000/xUbuntu_18.04/` repository for doublecmd
+* added section `repositories_remove` in variables.yml which contains repositories we'd like to remove.
+* added option `skip_levels` for unarchive module, which is substituted into `--strip-components=`
+* added variable `enable_bbr`, by default set to true. If true, enables TCP BBR congestion control
+* [OS] added section to enable TCP BBR congestion control
+* [OS] added section to change vm_swappiness to 1
+* [OS] changed the way fstrim.timer service works
+* [OS] replace ntpd with systemctl-timezoned.
 
 ## Version 1.0.8 2019-02-14
 

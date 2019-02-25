@@ -2,14 +2,15 @@
 # start from preparing ssh:
 # sudo apt install openssh-server ntp;systemctl enable ssh && systemctl start ssh
 #
-- name: prepare mint desktop
+- name: prepare_mint_desktop
   hosts: all
   vars:
     install_optional: true                    # should optional packages be installed?
     install_deb: true                         # should extra deb packages should be installed
     install_vscode_extensions: true           # should we install extra vscode extensions
     install_mitogen: false
-    modify_grub: false                        # don't touch grub settings, unless told so
+    enable_bbr: true                          # enable TCP BBR congestion control
+    modify_grub: false                        # don't touch grub settings, unless told to do so
     active_user: "{{ ansible_ssh_user }}"     # user for which you're setting folders. By default taken from group_vars
     codename: bionic                          # codename of version you're setting PPAs for
     retries_count: 4                          # how many retries
@@ -40,27 +41,24 @@
     - name: assert_root_partition_is_5_GB_of_free_space
       assert: { that: item.mount != '/' or item.size_available > 5368709120 } # 5 GB free
       loop: '{{ ansible_mounts }}'
-      ignore_errors: yes
+      ignore_errors: no
       register: freespace
       tags:
       - assert
   tasks:
-# start ntp
-  - name: install_ntp
-    apt:
-      name: ntp
-      state: latest
-    any_errors_fatal: true
-    tags:
-    - packages
-    - base
-  - name: start_ntp
+  - name: start_timesyncd
     systemd:
-      name: ntp
+      name: systemd-timesyncd
       state: started
       enabled: true
+    changed_when: false
     tags:
     - base
+  - name: start_timedatectl_set_ntp
+    shell: timedatectl set-ntp on
+    tags:
+    - base
+    changed_when: false
 # Install apt pgp keys (files)
   - name: install_apt_keys
     apt_key:
@@ -89,6 +87,20 @@
     any_errors_fatal: true
     tags:
     - keys
+    - base
+# remove obsolete repositories
+  - name: remove_obsolete_repositories_from_variables_file
+    apt_repository:
+      repo: "{{ item.repo }}"
+      state: absent
+    loop: "{{ repositories_remove }}"
+    retries: "{{ retries_count }}"
+    delay: 3
+    register: repositories_remove
+    until: repositories_remove  is success
+    any_errors_fatal: false
+    tags:
+    - repositories
     - base
 # Add basic repositories
   - name: add_basic_repositories_from_variables_file
@@ -141,10 +153,11 @@
   - name: apt_initial_refresh
     apt:
       update_cache: yes
-    # Install essentials - packages needed for repos or other packages. Mostly OS-related
+    ignore_errors: true
     changed_when: false
     tags:
     - packages
+# Install essentials - packages needed for repos or other packages. Mostly OS-related
   - name: install_essential_packages
     apt:
       name: "{{ item }}"
@@ -276,7 +289,7 @@
       keep_newer: true
       mode: +x
       remote_src: yes
-      extra_opts: [--strip-components=1]
+      extra_opts: ['--strip-components={{ item.skip_levels|int }}']
       exclude:
        - LICENSE
        - README.md
@@ -355,10 +368,10 @@
       retries: "{{ retries_count }}"
       delay: "{{delay_time}}"
       until: r_create_startup_applications is success
-      tags:
-      - base
-      - user
-# start application mod block
+    tags:
+    - base
+    - user
+  # start application mod block
   - name: install_vscode_extensions
     block:
       - shell: dpkg-query -s code | grep 'install ok installed'
@@ -380,9 +393,9 @@
     - user
     - vscode
     when: install_vscode_extensions == true
-
-# Start OS related block
-  - block:
+  # Start OS related block
+  - name: start_os_tweaks
+    block:
     # OS related tweaks and finetuning
     - name: set_timezone
       timezone:
@@ -400,6 +413,7 @@
         line: 'domain-name=alocal'
         backrefs: yes
       any_errors_fatal: false
+      register: r_set_avahi_config
     - name: nsswitch_config
       lineinfile:
         dest: /etc/nsswitch.conf
@@ -407,6 +421,12 @@
         line: 'hosts:          files dns'
         backrefs: yes
       any_errors_fatal: false
+    - name: restar_avahi_after_changes
+      systemd:
+        name: avahi-daemon
+        state: restarted
+        enabled: true
+      when: r_set_avahi_config is changed
     - name: set_grub_defaults_for_SSD
       lineinfile:
         dest: /etc/default/grub
@@ -434,17 +454,44 @@
           {{ active_user }} ALL=(ALL) NOPASSWD: ALL
       any_errors_fatal: false
       retries: "{{ retries_count }}"
-    - name: change_fstrim_to_run_daily
-      lineinfile:
-        dest: /lib/systemd/system/fstrim.timer
-        regexp: '^OnCalendar='
-        line: 'OnCalendar=daily'
-        backrefs: yes
+    - name: create_fstrim_folder_for_systemd_override
+      file:
+        path: /etc/systemd/system/fstrim.timer.d
+        state: directory
+    - name: create_fstrim_override_for_systemd
+      copy:
+        dest: /etc/systemd/system/fstrim.timer.d/override.conf
+        content: |
+          [Timer]
+          OnCalendar=daily
+      register: r_create_fstrim_override
     - name: start_fstrim.timer
       systemd:
+        daemon_reload: true
         name: fstrim.timer
-        state: started
+        state: restarted
         enabled: true
+      when: r_create_fstrim_override is changed
+    - name: sysctl_change_qdisc
+      sysctl:
+        name: net.core.default_qdisc
+        value: fq
+        state: present
+        reload: no
+      when: enable_bbr == true
+    - name: sysctl_change_congestion_control
+      sysctl:
+        name: net.ipv4.tcp_congestion_control
+        value: bbr
+        state: present
+        reload: yes
+      when: enable_bbr == true
+    - name: sysctl_change_vm_swappines
+      sysctl:
+        name: vm.swappiness
+        value: 1
+        state: present
+        reload: yes
     - name: update_and_reboot
       apt:
         upgrade: yes
@@ -485,3 +532,4 @@
     tags:
     - base
     - user
+    - os

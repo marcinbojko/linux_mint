@@ -18,11 +18,10 @@
 
 ## Prerequisites
 
-* installed Linux Mint 19, 19.1, 64-bit, standard options with extra codecs (selectable during install)
+* installed Linux Mint 19, 19.1, 64-bit, standard options with extra codecs (available as selection during install)
 * access to Internet
 * openssh-server installed and running
 * Ansible in version 2.7 higher
-* ssh server for Ansible ready and running
 
   ```bash
   sudo apt install openssh-server;systemctl enable ssh && systemctl start ssh
@@ -32,14 +31,14 @@
 
 * 5GB free space on OS drive
 * ssh private key or password method
-* user specified in `group_vars` or passed in variable `ansible_ssh_user` Startup Applications`
-* by default extra binaries (outside packages) will be installed in `/usr/local/bin`. If you prefer to keep them in cloud (syn between computers), down below I'll attach info how to replace binaries with proper symlinks (not done yet)
+* user specified in `group_vars` or passed in variable `ansible_ssh_user`
+* by default, extra binaries (outside packages) will be installed in `/usr/local/bin`. If you prefer to keep them in cloud (sync between computers), down below I'll attach info how to replace binaries with proper symlinks (work in progress)
 * adds repositories with codename and filename
 * adds missing pgp keys for repositories
 * installs essential packages
 * installs main packages
 * installs extra/optional packages
-* downloads outside repository software and puts it in proper path `/usr/local/bin` by default
+* downloads 3rd party software and puts it in proper path - `/usr/local/bin` by default
 
 ## Usage
 
@@ -209,7 +208,7 @@ Some applications are copied to `autostart` folder
 
 * better download file versioning (switch to latest where possible, separate version from URL, use separate folder for downloads)
 * better docs
-* services handling part (by default in Ubuntu/Debian, installed service is set to `enabled/started`)
+* ~~services handling part (by default in Ubuntu/Debian, installed service is set to `enabled/started`)~~
 * ~~more idempotency~~
 * ~~fix Bionic's broken apps like Asbru-CM~~
 * ~~more OS tweaks (i/o scheduler)~~
@@ -218,11 +217,11 @@ Some applications are copied to `autostart` folder
 * add Vagrant plugins
 * more variables or tags `never`
 * better grub defaults handing
-* continue to use tagging
+* ~~continue to use tagging~~
 * manual handle 3rd party deb files - pre-download and re-usage on demand
 * configure neofetch
 
 ## Known issues
 
-* Due to how deb packages are treated by app, we should find a way to install always 'latest' version not specific version. If (after initial run) we'll upgrade package outside this script, next time deb part will fail trying to 'downgrade' package.
+* Due to how deb packages are treated by apt, we should find a way to install always 'latest' version not specific version. If (after initial run) we'll upgrade package outside this script, next time deb part will fail trying to 'downgrade' package.
 * Downloading & installing all packages can be time consuming, depending on your Internet connection speed (aprox 40-60 minut)
