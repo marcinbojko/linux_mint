@@ -1,6 +1,10 @@
 # Changelog "linux_mint"
 
-## Version 1.1.0 2019-03-11 [test]
+## Version 1.1.1 2019-03-12
+
+* [APPLICATION] upgraded `terminus alpha` to version 1.0.73
+
+## Version 1.1.0 2019-03-11
 
 * [REPOSITORY] **Warning** - after switching to 1.0.7 for `veeam-release-deb` filename for repository changes to `veeam.lst` instead `veeam-agent.lst`. To avoid duplicates remove this file `veeam-agent.lst` manually before running playbook.
 * [APPLICATION] upgraded `packer` to version 1.3.5
