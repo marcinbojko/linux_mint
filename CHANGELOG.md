@@ -1,5 +1,16 @@
 # Changelog "linux_mint"
 
+## Version 1.1.0 2019-03-11 [test]
+
+* [REPOSITORY] **Warning** - after switching to 1.0.7 for `veeam-release-deb` filename for repository changes to `veeam.lst` instead `veeam-agent.lst`. To avoid duplicates remove this file `veeam-agent.lst` manually before running playbook.
+* [APPLICATION] upgraded `packer` to version 1.3.5
+* [APPLICATION] upgraded `helm` to version 2.13
+* [APPLICATION] upgraded `vagrant` to version 2.2.4
+* [APPLICATION] upgraded `terminus alpha` to version 1.0.72
+* [APPLICATION] upgrade `terraform` to version 0.11.12
+* [APPLICATION] upgrade `minikube` to version 0.35.0
+* [APPLICATION] added `isomaster` to optional packages
+
 ## Version 1.0.9 2019-02-25
 
 * [APPLICATION] upgraded `minikube` to version 0.34
