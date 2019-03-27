@@ -1,5 +1,15 @@
 # Changelog "linux_mint"
 
+## Version 1.1.2 2019-03-27
+
+* [APPLICATION] upgraded `terraform` to version 0.11.13
+* [APPLICATION] upgraded `WPS Ofice` to version 10.1.0.6758
+* [APPLICATION] upgraded `helm` to version 2.13.1
+* [APPLICATION] upgraded `vault` to version 1.1.0
+* [APPLICATION] upgraded `rancher` to version 2.2.0
+* [APPLICATION] upgraded `rke` to version 0.2.0
+* [APPLICATION] upgraded `minikube` to versio 1.0.0
+
 ## Version 1.1.1 2019-03-12
 
 * [APPLICATION] upgraded `terminus alpha` to version 1.0.73

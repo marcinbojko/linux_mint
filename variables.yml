@@ -2,14 +2,8 @@
 repositories:
  - repo: ppa:ansible/ansible
    filename: ansible
- - repo: ppa:noobslab/themes
-   filename: noobslab-themes
- - repo: ppa:noobslab/icons
-   filename: noobslab-icons
  - repo: ppa:synapse-core/testing
    filename: synapse-core
- - repo: ppa:nilarimogard/webupd8
-   filename: webupdt
  - repo: ppa:ubuntu-mozilla-security/ppa
    filename: ubuntu-mozilla-security
  - repo: ppa:remmina-ppa-team/remmina-next
@@ -47,6 +41,15 @@ repositories:
  - repo: deb http://download.opensuse.org/repositories/home:/Alexx2000/xUbuntu_18.04/ /
    filename: alexx2000
 repositories_optional:
+ - repo: ppa:nilarimogard/webupd8
+   filename: webupdt
+   codename: bionic
+ - repo: ppa:noobslab/themes
+   filename: noobslab-themes
+   codename: bionic
+ - repo: ppa:noobslab/icons
+   filename: noobslab-icons
+   codename: bionic
  - repo: ppa:danielrichter2007/grub-customizer
    codename: xenial
    filename: grub-customizer
@@ -252,8 +255,8 @@ deb:
 - https://github.com/Eugeny/terminus/releases/download/v1.0.73/terminus-1.0.73-linux.deb
 - https://github.com/meetfranz/franz/releases/download/v5.0.0/franz_5.0.0_amd64.deb
 - https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
-- https://github.com/kubernetes/minikube/releases/download/v0.35.0/minikube_0.35.0.deb
-- http://kdl.cc.ksosoft.com/wps-community/download/6757/wps-office_10.1.0.6757_amd64.deb
+- https://github.com/kubernetes/minikube/releases/download/v1.0.0/minikube_1.0.0.deb
+- http://kdl.cc.ksosoft.com/wps-community/download/6758/wps-office_10.1.0.6758_amd64.deb
 pip:
 - pip
 - s-tui
@@ -264,17 +267,17 @@ down:
 - urls: https://releases.hashicorp.com/packer/1.3.5/packer_1.3.5_linux_amd64.zip
   destination: packer
   skip_tree: false
-- urls: https://storage.googleapis.com/kubernetes-helm/helm-v2.13.0-linux-amd64.tar.gz
+- urls: https://storage.googleapis.com/kubernetes-helm/helm-v2.13.1-linux-amd64.tar.gz
   destination: helm
   skip_tree: true
   skip_levels: 1
-- urls: https://releases.hashicorp.com/terraform/0.11.12/terraform_0.11.12_linux_amd64.zip
+- urls: https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip
   destination: terraform
   skip_tree: false
-- urls: https://releases.hashicorp.com/vault/1.0.3/vault_1.0.3_linux_amd64.zip
+- urls: https://releases.hashicorp.com/vault/1.1.0/vault_1.1.0_linux_amd64.zip
   destination: vault
   skip_tree: false
-- urls: https://github.com/rancher/cli/releases/download/v2.2.0-rc9/rancher-linux-amd64-v2.2.0-rc9.tar.gz
+- urls: https://github.com/rancher/cli/releases/download/v2.2.0/rancher-linux-amd64-v2.2.0.tar.gz
   destination: rancher
   skip_tree: true
   skip_levels: 2
@@ -283,7 +286,7 @@ files:
   destination: docker-compose
 - urls: https://github.com/bcicen/ctop/releases/download/v0.7.2/ctop-0.7.2-linux-amd64
   destination: ctop
-- urls: https://github.com/rancher/rke/releases/download/v0.1.16/rke_linux-amd64
+- urls: https://github.com/rancher/rke/releases/download/v0.2.0/rke_linux-amd64
   destination: rke
 mitogen:
 - urls: https://files.pythonhosted.org/packages/source/m/mitogen/mitogen-0.2.4.tar.gz

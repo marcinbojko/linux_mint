@@ -1,21 +1,5 @@
 # Ansible playbook for your super-admin/devops Linux Mint 19.x based workstation
 
-             *
-           _/ \_
-          \     /
-          /_' '_\
-           /  @\
-          /@  . \
-         / -'   .\
-        /+      . \
-       /--@ @.o .o \
-      / '''. +@.o+ @\
-     /.'+ - *o-  *-- \
-    /. @.   o**  . -  \
-    *------------------*
-         [_______]
-          \_____/
-
 ## Prerequisites
 
 * installed Linux Mint 19, 19.1, 64-bit, standard options with extra codecs (available as selection during install)
@@ -74,6 +58,8 @@ For these variables in playbook:
 |install_optional|true|should optional packages be installed|
 |install_deb|true|should extra deb packages should be installed|
 |install_vscode_extensions|true|should we install extra vscode extensions|
+|install_mitogen|false||
+|enable_bbr|true| enable TCP BBR congestion control|
 |modify_grub|false|don't touch grub settings, unless told so|
 |active_user|"{{ ansible_ssh_user }}"|user for which you're setting folders. By default taken from group_vars|
 |codename|bionic|codename of version you're setting PPAs for|
@@ -87,20 +73,38 @@ For these variables in playbook:
 ### Repositories: Basic
 
 * ansible - `Ansible`
+* synapse-core - `synapse-core`
+* ubuntu-mozilla-security - `Firefox and Thunderbird Security`
+* mozilla-team - `Stable Firefox and Mozilla`
 * remmina - `Best Connection manager - RDP/SSH/VNC`
 * y-ppa-manager - `manage your PPA as human being`
+* gezakovacs - `UNetbootin`
+* azure-cli - `Azure CLI`
 * vscode - `suprisingly good product from Microsoft`
+* microsoft-prod - `.Net Core`
 * palemoon - `chrome based Java+Flash+nonsecure websites access`
 * google chrome - `best browser`
+* google-cloud-sdk - `google cloud sdk`
+* asbru - `Asbru Connection Manager`
+* alexx2000 - `Double Commander`
 * virtualbox - `virtualization`
 * puppet5 -`Puppet5 and PDK for easy module writing`
 * kubernetes - `kubeadm & kubectl`
+* git-lfs - `git-lfs`
 * docker - `Docker-CE`
 * veeam - `Veeam Agent for Linux`
 
 ### Repositories: Optional
 
 * grub-customizer - `customize black screen to something useful`
+* noobslab/themes
+* noobslab/icons
+* neofetch
+* skype
+* veeam
+* veracrypt
+* puppet5
+* forticlient
 * shutter (screenshot & image manipulation) - `screenshoot, manipulate, publish`
 * sublime text 3 (vscode alternative)
 * enpass (keepass alternative)
