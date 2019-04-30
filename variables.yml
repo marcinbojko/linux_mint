@@ -252,11 +252,12 @@ deb:
 - https://releases.hashicorp.com/vagrant/2.2.4/vagrant_2.2.4_x86_64.deb
 - https://launchpad.net/ubuntu/+archive/primary/+files/libgoo-canvas-perl_0.06-2ubuntu3_amd64.deb
 - https://github.com/BoostIO/boost-releases/releases/download/v0.11.15/boostnote_0.11.15_amd64.deb
-- https://github.com/Eugeny/terminus/releases/download/v1.0.73/terminus-1.0.73-linux.deb
-- https://github.com/meetfranz/franz/releases/download/v5.0.0/franz_5.0.0_amd64.deb
+- https://github.com/Eugeny/terminus/releases/download/v1.0.76/terminus-1.0.76-linux.deb
+- https://github.com/meetfranz/franz/releases/download/v5.0.1/franz_5.0.1_amd64.deb
 - https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
-- https://github.com/kubernetes/minikube/releases/download/v1.0.0/minikube_1.0.0.deb
-- http://kdl.cc.ksosoft.com/wps-community/download/6758/wps-office_10.1.0.6758_amd64.deb
+- https://github.com/kubernetes/minikube/releases/download/v1.0.1/minikube_1.0.1.deb
+- http://kdl.cc.ksosoft.com/wps-community/download/8392/wps-office_11.1.0.8392_amd64.deb
+- https://github.com/wagoodman/dive/releases/download/v0.7.2/dive_0.7.2_linux_amd64.deb
 pip:
 - pip
 - s-tui
@@ -274,7 +275,7 @@ down:
 - urls: https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip
   destination: terraform
   skip_tree: false
-- urls: https://releases.hashicorp.com/vault/1.1.0/vault_1.1.0_linux_amd64.zip
+- urls: https://releases.hashicorp.com/vault/1.1.1/vault_1.1.1_linux_amd64.zip
   destination: vault
   skip_tree: false
 - urls: https://github.com/rancher/cli/releases/download/v2.2.0/rancher-linux-amd64-v2.2.0.tar.gz
@@ -282,14 +283,14 @@ down:
   skip_tree: true
   skip_levels: 2
 files:
-- urls: https://github.com/docker/compose/releases/download/1.23.2/docker-compose-Linux-x86_64
+- urls: https://github.com/docker/compose/releases/download/1.24.0/docker-compose-Linux-x86_64
   destination: docker-compose
 - urls: https://github.com/bcicen/ctop/releases/download/v0.7.2/ctop-0.7.2-linux-amd64
   destination: ctop
-- urls: https://github.com/rancher/rke/releases/download/v0.2.0/rke_linux-amd64
+- urls: https://github.com/rancher/rke/releases/download/v0.1.18/rke_linux-amd64
   destination: rke
 mitogen:
-- urls: https://files.pythonhosted.org/packages/source/m/mitogen/mitogen-0.2.4.tar.gz
+- urls: https://networkgenomics.com/try/mitogen-0.2.6.tar.gz
   dest_path: /usr/local/bin.copy/mitogen
 startup:
 - filename: redshift-gtk.desktop

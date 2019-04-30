@@ -1,5 +1,16 @@
 # Changelog "linux_mint"
 
+## Version 1.1.3 2019-04-30
+
+* [APPLICATION] upgraded `terminus alpha` to version 1.0.76
+* [APPLICATION] upgraded `WPS office` to version 11.1.0.8392
+* [APPLICATION] upgraded `Franz` to version 5.0.1
+* [APPLICATION] upgraded `minikube` to version 1.0.1
+* [APPLICATION] downgrade `rke` to version 0.1.18 as 0.2.x branch is too unstable
+* [APPLICATION] upgrade `docker-compose` to version 1.24.0
+* [APPLICATION] upgrade `vault` to version 1.1.1
+* [APPLICATION] added `dive` to applications - [https://github.com/wagoodman/dive](https://github.com/wagoodman/dive)
+
 ## Version 1.1.2 2019-03-27
 
 * [APPLICATION] upgraded `terraform` to version 0.11.13

@@ -141,6 +141,7 @@ For these variables in playbook:
 | Team Viewer | Remote desktop | [https://www.teamviewer.com](https://www.teamviewer.com) |
 | WPS Office for Linux | Productivity Tools | [https://www.wps.com/wps-office-for-linux/](https://www.wps.com/wps-office-for-linux/)
 | ctop| Container process monitor | [https://github.com/bcicen/ctop](https://github.com/bcicen/ctop)|
+| dive| Docker image explorer | [https://github.com/wagoodman/dive](https://github.com/wagoodman/dive)|
 |rke| Rancher Kubernetes Engine | [https://github.com/rancher/rke](https://github.com/rancher/rke) |
 | htop/atop/nmon/stress |Monitoring tools| |
 
