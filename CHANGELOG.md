@@ -1,5 +1,15 @@
 # Changelog "linux_mint"
 
+## Version 1.1.4 2019-05-18
+
+* [APPLICATION] upgraded `terminus alpha` to version 1.0.77
+* change `fstrim.timer` to run on hourly basis instead of daily
+* [APPLICATION] upgraded `packer` to version 1.4.1
+* [APPLICATION] upgraded `helm` to version 2.14.0
+* [APPLICATION] upgraded `terraform` to version 0.11.14
+* [APPLICATION] upgraded `vault` to version 1.1.2
+* [APPLICATION] upgraded `franz` to version 5.1.0
+
 ## Version 1.1.3 2019-04-30
 
 * [APPLICATION] upgraded `terminus alpha` to version 1.0.76
@@ -7,7 +17,7 @@
 * [APPLICATION] upgraded `Franz` to version 5.0.1
 * [APPLICATION] upgraded `minikube` to version 1.0.1
 * [APPLICATION] downgrade `rke` to version 0.1.18 as 0.2.x branch is too unstable
-* [APPLICATION] upgrade `docker-compose` to version 1.24.0
+* [APPLICATION] upgraded `docker-compose` to version 1.24.0
 * [APPLICATION] upgrade `vault` to version 1.1.1
 * [APPLICATION] added `dive` to applications - [https://github.com/wagoodman/dive](https://github.com/wagoodman/dive)
 

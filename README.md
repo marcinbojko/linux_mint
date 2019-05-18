@@ -11,6 +11,8 @@
   sudo apt install openssh-server;systemctl enable ssh && systemctl start ssh
   ```
 
+* PermitRootLogin in `/etc/ssh/sshd_config` if you're using root account
+
 ## Assumptions
 
 * 5GB free space on OS drive
