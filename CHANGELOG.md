@@ -1,5 +1,11 @@
 # Changelog "linux_mint"
 
+## Version 1.1.5 2019-05-25
+
+* [APPLICATION] upgraded `boostnote` to version 0.11.6
+* [APPLICATION] upgraded `terraform` to version 0.12  - please read terraform's releases notes
+* [APPLICATION] upgraded `minikube` to version 1.1.0
+
 ## Version 1.1.4 2019-05-18
 
 * [APPLICATION] upgraded `terminus alpha` to version 1.0.77
@@ -29,7 +35,7 @@
 * [APPLICATION] upgraded `vault` to version 1.1.0
 * [APPLICATION] upgraded `rancher` to version 2.2.0
 * [APPLICATION] upgraded `rke` to version 0.2.0
-* [APPLICATION] upgraded `minikube` to versio 1.0.0
+* [APPLICATION] upgraded `minikube` to version 1.0.0
 
 ## Version 1.1.1 2019-03-12
 
