@@ -253,12 +253,13 @@ deb:
 - https://releases.hashicorp.com/vagrant/2.2.4/vagrant_2.2.4_x86_64.deb
 - https://launchpad.net/ubuntu/+archive/primary/+files/libgoo-canvas-perl_0.06-2ubuntu3_amd64.deb
 - https://github.com/BoostIO/boost-releases/releases/download/v0.11.16/boostnote_0.11.16_amd64.deb
-- https://github.com/Eugeny/terminus/releases/download/v1.0.77/terminus-1.0.77-linux.deb
+- https://github.com/Eugeny/terminus/releases/download/v1.0.79/terminus-1.0.79-linux.deb
 - https://github.com/meetfranz/franz/releases/download/v5.1.0/franz_5.1.0_amd64.deb
 - https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
 - https://github.com/kubernetes/minikube/releases/download/v1.1.0/minikube_1.1.0.deb
 - http://kdl.cc.ksosoft.com/wps-community/download/8392/wps-office_11.1.0.8392_amd64.deb
 - https://github.com/wagoodman/dive/releases/download/v0.7.2/dive_0.7.2_linux_amd64.deb
+- https://github.com/knqyf263/trivy/releases/download/v0.1.2/trivy_0.1.2_Linux-64bit.deb
 pip:
 - pip
 - s-tui
@@ -269,11 +270,11 @@ down:
 - urls: https://releases.hashicorp.com/packer/1.4.1/packer_1.4.1_linux_amd64.zip
   destination: packer
   skip_tree: false
-- urls: https://storage.googleapis.com/kubernetes-helm/helm-v2.14.0-linux-amd64.tar.gz
+- urls: https://get.helm.sh/helm-v2.14.1-linux-amd64.tar.gz
   destination: helm
   skip_tree: true
   skip_levels: 1
-- urls: https://releases.hashicorp.com/terraform/0.12.0/terraform_0.12.0_linux_amd64.zip
+- urls: https://releases.hashicorp.com/terraform/0.12.1/terraform_0.12.1_linux_amd64.zip
   destination: terraform
   skip_tree: false
 - urls: https://releases.hashicorp.com/vault/1.1.2/vault_1.1.2_linux_amd64.zip
@@ -288,7 +289,7 @@ files:
   destination: docker-compose
 - urls: https://github.com/bcicen/ctop/releases/download/v0.7.2/ctop-0.7.2-linux-amd64
   destination: ctop
-- urls: https://github.com/rancher/rke/releases/download/v0.1.18/rke_linux-amd64
+- urls: https://github.com/rancher/rke/releases/download/v0.2.4/rke_linux-amd64
   destination: rke
 mitogen:
 - urls: https://networkgenomics.com/try/mitogen-0.2.6.tar.gz
@@ -335,3 +336,6 @@ vscode:
 - vscoss.vscode-ansible
 - wholroyd.jinja
 - yzane.markdown-pdf
+alternatives:
+- name: editor
+  path: /bin/nano

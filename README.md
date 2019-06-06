@@ -144,6 +144,7 @@ For these variables in playbook:
 | WPS Office for Linux | Productivity Tools | [https://www.wps.com/wps-office-for-linux/](https://www.wps.com/wps-office-for-linux/)
 | ctop| Container process monitor | [https://github.com/bcicen/ctop](https://github.com/bcicen/ctop)|
 | dive| Docker image explorer | [https://github.com/wagoodman/dive](https://github.com/wagoodman/dive)|
+| trivy|A Simple and Comprehensive Vulnerability Scanner for Containers, Suitable for CI|[https://github.com/knqyf263/trivy](https://github.com/knqyf263/trivy)
 |rke| Rancher Kubernetes Engine | [https://github.com/rancher/rke](https://github.com/rancher/rke) |
 | htop/atop/nmon/stress |Monitoring tools| |
 
@@ -178,7 +179,8 @@ Some applications are copied to `autostart` folder
 
 * Remmina
 * Diodon
-* Cairo-Dock
+* DockbarX
+* Dropbox
 * Synapse
 * Redshift
 * Shutter
@@ -189,7 +191,7 @@ Some applications are copied to `autostart` folder
 * handle mDNS with .local domains
 * change IO Scheduler for SSD Drives
 * initial `Timeshift` launch
-* change fstrim schedule to `daily`
+* change fstrim schedule to `hourly`
 
 ## Q&A
 
@@ -222,7 +224,7 @@ Some applications are copied to `autostart` folder
 * ~~add AWS/GCE repositories for their tools~~
 * ~~add Visual Studio Code extra extensions~~
 * add Vagrant plugins
-* more variables or tags `never`
+* more variables or tags
 * better grub defaults handing
 * ~~continue to use tagging~~
 * manual handle 3rd party deb files - pre-download and re-usage on demand

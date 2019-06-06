@@ -492,9 +492,18 @@
         value: 1
         state: present
         reload: yes
+    - name: change_alternatives
+      alternatives:
+        name: "{{ item.name }}"
+        path: "{{ item.path }}"
+      loop: "{{ alternatives }}"
+      register: r_alternatives
+      retries: "{{ retries_count }}"
+      delay: "{{ delay_time }}"
+      until: r_alternatives is success
     - name: update_and_reboot
       apt:
-        upgrade: yes
+        upgrade: "yes"
         update_cache: yes
         autoclean: yes
       register: apt_upgrade

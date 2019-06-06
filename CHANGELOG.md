@@ -1,5 +1,15 @@
 # Changelog "linux_mint"
 
+## Version 1.1.6 2019-06-06
+
+* [APPLICATION] upgraded `terminus alpha` to version 1.0.79
+* [APPLICATION] upgrade `rke` to version 0.2.4
+* [APPLICATION] upgrade `helm` to version 2.4.1
+* [APPLICATION] upgrade `terraform` to version 0.12.1
+* [APPLICATION] added `trivy` to optional applications [https://github.com/knqyf263/trivy/releases/download/v0.1.2/trivy_0.1.2_Linux-64bit.deb](https://github.com/knqyf263/trivy/releases/download/v0.1.2/trivy_0.1.2_Linux-64bit.deb)
+* change yum upgrade parameter from `yes` to `"yes"` - [https://github.com/ansible/ansible/issues/56788](https://github.com/ansible/ansible/issues/56788)
+* [OS] added possibility to change alternatives using `variables.yml`
+
 ## Version 1.1.5 2019-05-25
 
 * [APPLICATION] upgraded `boostnote` to version 0.11.6
