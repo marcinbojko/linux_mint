@@ -8,7 +8,7 @@
     install_optional: true                    # should optional packages be installed?
     install_deb: true                         # should extra deb packages should be installed
     install_vscode_extensions: true           # should we install extra vscode extensions
-    install_mitogen: false
+    install_mitogen: false                    # false by default
     enable_bbr: true                          # enable TCP BBR congestion control
     modify_grub: false                        # don't touch grub settings, unless told to do so
     active_user: "{{ ansible_ssh_user }}"     # user for which you're setting folders. By default taken from group_vars
@@ -388,6 +388,8 @@
         become: "{{ active_user }}"
         changed_when: "r_install_extension.stdout  != ''"
         when: r_dpkg_query_vscode.rc == 0
+        any_errors_fatal: false
+        ignore_errors: true
     tags:
     - optional
     - user
@@ -489,7 +491,7 @@
     - name: sysctl_change_vm_swappines
       sysctl:
         name: vm.swappiness
-        value: 1
+        value: "{{ 1|int }}"
         state: present
         reload: yes
     - name: change_alternatives

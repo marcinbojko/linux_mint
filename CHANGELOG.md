@@ -1,5 +1,21 @@
 # Changelog "linux_mint"
 
+## Version 1.1.7 2019-06-23
+
+* [APPLICATION] upgrade `minikube` to version 1.1.1
+* [APPLICATION] upgrade `boostnote` to version 0.11.17
+* [APPLICATION] upgrade `terminus alpha` to version 1.0.82
+* [APPLICATION] upgrade `terraform` to version 0.12.2
+* [APPLICATION] upgrade `vault` to version 1.1.3
+* [PIP] added `yamllint`
+* [PACKAGES] added `httpie`
+* [PACKAGES] added `ngrep`
+* [PACKAGES] added `hping3`
+* [PACKAGES] added `siege`
+* [PACKAGES] switch `openjdk-8-jre` to `openjdk-11-jre`
+* [VSCODE] change name of `PeterJausovec.vscode-docker` exyension into `ms-azuretools.vscode-docker`
+* [VSCODE] added `p1c2u.docker-compose` extension
+
 ## Version 1.1.6 2019-06-06
 
 * [APPLICATION] upgraded `terminus alpha` to version 1.0.79
@@ -7,7 +23,7 @@
 * [APPLICATION] upgrade `helm` to version 2.4.1
 * [APPLICATION] upgrade `terraform` to version 0.12.1
 * [APPLICATION] added `trivy` to optional applications [https://github.com/knqyf263/trivy/releases/download/v0.1.2/trivy_0.1.2_Linux-64bit.deb](https://github.com/knqyf263/trivy/releases/download/v0.1.2/trivy_0.1.2_Linux-64bit.deb)
-* change yum upgrade parameter from `yes` to `"yes"` - [https://github.com/ansible/ansible/issues/56788](https://github.com/ansible/ansible/issues/56788)
+* change apt upgrade parameter from `yes` to `"yes"` - [https://github.com/ansible/ansible/issues/56788](https://github.com/ansible/ansible/issues/56788)
 * [OS] added possibility to change alternatives using `variables.yml`
 
 ## Version 1.1.5 2019-05-25
