@@ -234,3 +234,8 @@ Some applications are copied to `autostart` folder
 
 * Due to how deb packages are treated by apt, we should find a way to install always 'latest' version not specific version. If (after initial run) we'll upgrade package outside this script, next time deb part will fail trying to 'downgrade' package.
 * Downloading & installing all packages can be time consuming, depending on your Internet connection speed (aprox 40-60 minut)
+* pip - `no module named _internal`
+
+  ```bash
+  sudo curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && sudo python2.7 get-pip.py --force-reinstall
+  ```

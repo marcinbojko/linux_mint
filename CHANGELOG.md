@@ -1,5 +1,14 @@
 # Changelog "linux_mint"
 
+## Version 1.1.8 2019-07-01
+
+* [APPLICATION] upgrade `trivy` to version 0.1.3
+* [APPLICATION] upgrade `minikube` to version 1.2.0
+* [APPLICATION] upgrade `docker-compose` to version 1.24.1
+* [APPLICATION] upgrade `terraform` to version 0.12.3
+* [APPLICATION] upgrade `vagrant` to version 2.2.5
+* [APPLICATION] upgrade `packer` to version 1.4.2
+
 ## Version 1.1.7 2019-06-23
 
 * [APPLICATION] upgrade `minikube` to version 1.1.1
