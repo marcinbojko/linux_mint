@@ -1,5 +1,35 @@
 # Changelog "linux_mint"
 
+## Version 1.1.9 2019-07-26
+
+```txt
+ _____             ___      _           _       _      ______
+/  ___|           / _ \    | |         (_)     ( )     |  _  \
+\ `--. _   _ ___ / /_\ \ __| |_ __ ___  _ _ __ |/ ___  | | | |__ _ _   _
+ `--. \ | | / __||  _  |/ _` | '_ ` _ \| | '_ \  / __| | | | / _` | | | |
+/\__/ / |_| \__ \| | | | (_| | | | | | | | | | | \__ \ | |/ / (_| | |_| |
+\____/ \__, |___/\_| |_/\__,_|_| |_| |_|_|_| |_| |___/ |___/ \__,_|\__, |
+        __/ |                                                       __/ |
+       |___/                                                       |___/
+ _____  _____  __   _____
+/ __  \|  _  |/  | |  _  |
+`' / /'| |/' |`| | | |_| |
+  / /  |  /| | | | \____ |
+./ /___\ |_/ /_| |_.___/ /
+\_____/ \___/ \___/\____/
+```
+
+* [REPOSITORY] added `trivy` repository and key [https://github.com/knqyf263/trivy#debianubuntu](https://github.com/knqyf263/trivy#debianubuntu)
+* [APPLICATION] upgraded `WPS Office for Linux` to version 11.1.0.8722
+* [APPLICATION] upgraded `helm` to version 2.14.2
+* [APPLICATION] upgraded `terraform` to version 0.12.5
+* [GLOBAL_ENV] added section in variables.yml for adding global environments in /etc/environment
+* [APPLICATION] upgraded `rke` to version 0.2.6
+* [APPLICATION] upgraded `boostnote` to version 0.12.1-1
+* [APPLICATION] upgraded `terminus alpha` to version 1.0.87
+* [APPLICATION] upgraded `vault` to version 1.1.4
+* [PACKAGES] added `sshfs`
+
 ## Version 1.1.8 2019-07-01
 
 * [APPLICATION] upgrade `trivy` to version 0.1.3
@@ -146,6 +176,7 @@
 
 ## Version 1.0.5 - 2018-12-23 Christmas Edition
 
+```txt
              *
            _/ \_
           \     /
@@ -161,6 +192,7 @@
     *------------------*
          [_______]
           \_____/
+```
 
 * [REPOSITORY] - added `ppa:mozillateam/ppa`
 * [APPLICATION] - upgrade `Franz` to version 5.0.0-beta22

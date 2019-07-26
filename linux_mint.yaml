@@ -503,6 +503,17 @@
       retries: "{{ retries_count }}"
       delay: "{{ delay_time }}"
       until: r_alternatives is success
+    - name: set_EDITOR_variable
+      lineinfile:
+        dest: "/etc/environment"
+        state: present
+        regexp: "^{{ item.name }}"
+        line: "{{ item.name }}={{ item.value }}"
+      loop: "{{ global_env }}"
+      register: r_environment
+      retries: "{{ retries_count }}"
+      delay: "{{ delay_time }}"
+      until: r_environment is success
     - name: update_and_reboot
       apt:
         upgrade: "yes"
