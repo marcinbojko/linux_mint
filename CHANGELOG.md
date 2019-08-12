@@ -1,5 +1,24 @@
 # Changelog "linux_mint"
 
+## Version 1.2.0 2019-08-12
+
+* upgraded `minikube` to version 1.3.0
+* upgraded `rke` to version 0.2.7
+* upgraded `helm` to version 2.14.3
+* upgraded `angryip` to version 3.6.0
+* upgraded `terraform` to version 0.12.6
+* upgraded `vault` to version 1.2.1
+* upgraded `franz` to version 5.2.0
+* removed `nero-dropbox` from list of packages as it stops apt actions waiting for dropbox download
+* added Spotify repository key `4773BD5E130D1D45`
+* added vs-code extensions:
+  * ms-python.python
+  * ms-vscode.azure-account
+  * ms-vscode.azurecli
+  * ms-vscode.cpptools
+  * ms-vscode.Go
+  * ms-vscode.wordcount
+
 ## Version 1.1.9 2019-07-26
 
 ```txt

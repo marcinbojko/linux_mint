@@ -466,6 +466,7 @@
         content: |
           [Timer]
           OnCalendar=hourly
+          OnBootSec=5m
       register: r_create_fstrim_override
     - name: start_fstrim.timer
       systemd:

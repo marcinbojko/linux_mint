@@ -115,6 +115,9 @@ keys:
 keys_pgp:
  - server: keyserver.ubuntu.com
    key: 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
+# spotify 2019
+ - server: keyserver.ubuntu.com
+   key: 4773BD5E130D1D45
  - server: keyserver.ubuntu.com
    key: ACCAF35C
  - server: packages.microsoft.com
@@ -179,7 +182,7 @@ packages:
 - unetbootin-translations
 - va-driver-all
 - p7zip-rar
-- nemo-dropbox
+#- nemo-dropbox
 - chromium-codecs-ffmpeg-extra
 - wireshark
 - xca
@@ -259,15 +262,15 @@ packages_optional:
 - spotify-client
 - isomaster
 deb:
-- https://github.com/angryip/ipscan/releases/download/3.5.5/ipscan_3.5.5_amd64.deb
+- https://github.com/angryip/ipscan/releases/download/3.6.0/ipscan_3.6.0_amd64.deb
 - https://release.axocdn.com/linux/gitkraken-amd64.deb
 - https://releases.hashicorp.com/vagrant/2.2.5/vagrant_2.2.5_x86_64.deb
 - https://launchpad.net/ubuntu/+archive/primary/+files/libgoo-canvas-perl_0.06-2ubuntu3_amd64.deb
 - https://github.com/BoostIO/boost-releases/releases/download/v0.12.1-1/boostnote_0.12.1-1_amd64.deb
 - https://github.com/Eugeny/terminus/releases/download/v1.0.87/terminus-1.0.87-linux.deb
-- https://github.com/meetfranz/franz/releases/download/v5.1.0/franz_5.1.0_amd64.deb
+- https://github.com/meetfranz/franz/releases/download/v5.2.0/franz_5.2.0_amd64.deb
 - https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
-- https://github.com/kubernetes/minikube/releases/download/v1.2.0/minikube_1.2.0.deb
+- https://github.com/kubernetes/minikube/releases/download/v1.3.0/minikube_1.3.0.deb
 - http://kdl.cc.ksosoft.com/wps-community/download/8722/wps-office_11.1.0.8722_amd64.deb
 - https://github.com/wagoodman/dive/releases/download/v0.7.2/dive_0.7.2_linux_amd64.deb
 pip:
@@ -281,14 +284,14 @@ down:
 - urls: https://releases.hashicorp.com/packer/1.4.2/packer_1.4.2_linux_amd64.zip
   destination: packer
   skip_tree: false
-- urls: https://get.helm.sh/helm-v2.14.2-linux-amd64.tar.gz
+- urls: https://get.helm.sh/helm-v2.14.3-linux-amd64.tar.gz
   destination: helm
   skip_tree: true
   skip_levels: 1
-- urls: https://releases.hashicorp.com/terraform/0.12.5/terraform_0.12.5_linux_amd64.zip
+- urls: https://releases.hashicorp.com/terraform/0.12.6/terraform_0.12.6_linux_amd64.zip
   destination: terraform
   skip_tree: false
-- urls: https://releases.hashicorp.com/vault/1.1.4/vault_1.1.4_linux_amd64.zip
+- urls: https://releases.hashicorp.com/vault/1.2.1/vault_1.2.1_linux_amd64.zip
   destination: vault
   skip_tree: false
 - urls: https://github.com/rancher/cli/releases/download/v2.2.0/rancher-linux-amd64-v2.2.0.tar.gz
@@ -300,7 +303,7 @@ files:
   destination: docker-compose
 - urls: https://github.com/bcicen/ctop/releases/download/v0.7.2/ctop-0.7.2-linux-amd64
   destination: ctop
-- urls: https://github.com/rancher/rke/releases/download/v0.2.6/rke_linux-amd64
+- urls: https://github.com/rancher/rke/releases/download/v0.2.7/rke_linux-amd64
   destination: rke
 mitogen:
 - urls: https://networkgenomics.com/try/mitogen-0.2.7.tar.gz
@@ -337,8 +340,14 @@ vscode:
 - mauve.terraform
 - mohsen1.prettify-json
 - ms-kubernetes-tools.vscode-kubernetes-tools
-- ms-vscode.PowerShell
+- ms-vscode.powershell
 - ms-azuretools.vscode-docker
+- ms-python.python
+- ms-vscode.azure-account
+- ms-vscode.azurecli
+- ms-vscode.cpptools
+- ms-vscode.Go
+- ms-vscode.wordcount
 - pgourlain.erlang
 - rebornix.ruby
 - redhat.vscode-yaml
