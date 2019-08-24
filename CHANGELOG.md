@@ -1,17 +1,29 @@
 # Changelog "linux_mint"
 
+## Version 1.2.1 2019-08-24
+
+* [APPLICATION] upgraded `terminus` to version 1.0.88
+* [APPLICATION] upgraded `packer` to version 1.4.3
+* [APPLICATION] upgraded `vault` to version 1.2.2
+* [APPLICATION] upgraded `minikube` to version 1.3.1
+* [REPOSITORY] removed `knqyf263/trivy` repository in favor of `auqasecurity/trivy`
+* [APPLICATION] upgraded `rke` to version 0.2.8
+* [APPLICATION] added `tflint` 0.10.1
+* [APPLICATION] upgraded `terraform` to version 0.12.7
+
 ## Version 1.2.0 2019-08-12
 
-* upgraded `minikube` to version 1.3.0
-* upgraded `rke` to version 0.2.7
-* upgraded `helm` to version 2.14.3
-* upgraded `angryip` to version 3.6.0
-* upgraded `terraform` to version 0.12.6
-* upgraded `vault` to version 1.2.1
-* upgraded `franz` to version 5.2.0
-* removed `nero-dropbox` from list of packages as it stops apt actions waiting for dropbox download
-* added Spotify repository key `4773BD5E130D1D45`
-* added vs-code extensions:
+* tested with Linux Mint Tina 19.2
+* [APPLICATION] upgraded `minikube` to version 1.3.0
+* [APPLICATION] upgraded `rke` to version 0.2.7
+* [APPLICATION] upgraded `helm` to version 2.14.3
+* [APPLICATION] upgraded `angryip` to version 3.6.0
+* [APPLICATION] upgraded `terraform` to version 0.12.6
+* [APPLICATION] upgraded `vault` to version 1.2.1
+* [APPLICATION] upgraded `franz` to version 5.2.0
+* [PACKAGES] removed `nero-dropbox` from list of packages as it stops apt actions waiting for dropbox download
+* [KEYS] added Spotify repository key `4773BD5E130D1D45`
+* [VSCODE] added vs-code extensions:
   * ms-python.python
   * ms-vscode.azure-account
   * ms-vscode.azurecli

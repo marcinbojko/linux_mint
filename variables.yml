@@ -89,12 +89,14 @@ repositories_optional:
  - repo: ppa:xuzhen666/dockbarx
    codename: bionic
    filename: dockbarx
- - repo: deb https://knqyf263.github.io/trivy-repo/deb bionic main
+ - repo: deb https://aquasecurity.github.io/trivy-repo/deb bionic main
    filename: trivy
    codename: bionic
 repositories_remove:
  - repo: ppa:alexx2000/doublecmd
    filename: alexx2000-doublecmd
+ - repo: deb https://knqyf263.github.io/trivy-repo/deb bionic main
+   filename: trivy
 keys:
  - https://download.opensuse.org/repositories/home:stevenpusser/xUbuntu_18.04/Release.key
  - https://download.opensuse.org/repositories/home:Alexx2000/xUbuntu_18.04/Release.key
@@ -111,7 +113,7 @@ keys:
  - https://apt.puppetlabs.com/pubkey.gpg
  - https://packagecloud.io/asbru-cm/asbru-cm/gpgkey
  - http://repo.fortinet.com/repo/ubuntu/DEB-GPG-KEY
- - https://knqyf263.github.io/trivy-repo/deb/public.key
+ - https://aquasecurity.github.io/trivy-repo/deb/public.key
 keys_pgp:
  - server: keyserver.ubuntu.com
    key: 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
@@ -267,10 +269,10 @@ deb:
 - https://releases.hashicorp.com/vagrant/2.2.5/vagrant_2.2.5_x86_64.deb
 - https://launchpad.net/ubuntu/+archive/primary/+files/libgoo-canvas-perl_0.06-2ubuntu3_amd64.deb
 - https://github.com/BoostIO/boost-releases/releases/download/v0.12.1-1/boostnote_0.12.1-1_amd64.deb
-- https://github.com/Eugeny/terminus/releases/download/v1.0.87/terminus-1.0.87-linux.deb
+- https://github.com/Eugeny/terminus/releases/download/v1.0.88/terminus-1.0.88-linux.deb
 - https://github.com/meetfranz/franz/releases/download/v5.2.0/franz_5.2.0_amd64.deb
 - https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
-- https://github.com/kubernetes/minikube/releases/download/v1.3.0/minikube_1.3.0.deb
+- https://github.com/kubernetes/minikube/releases/download/v1.3.1/minikube_1.3.1.deb
 - http://kdl.cc.ksosoft.com/wps-community/download/8722/wps-office_11.1.0.8722_amd64.deb
 - https://github.com/wagoodman/dive/releases/download/v0.7.2/dive_0.7.2_linux_amd64.deb
 pip:
@@ -281,29 +283,32 @@ pip:
 - pypsrp
 - yamllint
 down:
-- urls: https://releases.hashicorp.com/packer/1.4.2/packer_1.4.2_linux_amd64.zip
+- urls: https://releases.hashicorp.com/packer/1.4.3/packer_1.4.3_linux_amd64.zip
   destination: packer
   skip_tree: false
 - urls: https://get.helm.sh/helm-v2.14.3-linux-amd64.tar.gz
   destination: helm
   skip_tree: true
   skip_levels: 1
-- urls: https://releases.hashicorp.com/terraform/0.12.6/terraform_0.12.6_linux_amd64.zip
+- urls: https://releases.hashicorp.com/terraform/0.12.7/terraform_0.12.7_linux_amd64.zip
   destination: terraform
   skip_tree: false
-- urls: https://releases.hashicorp.com/vault/1.2.1/vault_1.2.1_linux_amd64.zip
+- urls: https://releases.hashicorp.com/vault/1.2.2/vault_1.2.2_linux_amd64.zip
   destination: vault
   skip_tree: false
 - urls: https://github.com/rancher/cli/releases/download/v2.2.0/rancher-linux-amd64-v2.2.0.tar.gz
   destination: rancher
   skip_tree: true
   skip_levels: 2
+- urls: https://github.com/wata727/tflint/releases/download/v0.10.1/tflint_linux_amd64.zip
+  destination: tflint
+  skip_tree: false
 files:
 - urls: https://github.com/docker/compose/releases/download/1.24.1/docker-compose-Linux-x86_64
   destination: docker-compose
 - urls: https://github.com/bcicen/ctop/releases/download/v0.7.2/ctop-0.7.2-linux-amd64
   destination: ctop
-- urls: https://github.com/rancher/rke/releases/download/v0.2.7/rke_linux-amd64
+- urls: https://github.com/rancher/rke/releases/download/v0.2.8/rke_linux-amd64
   destination: rke
 mitogen:
 - urls: https://networkgenomics.com/try/mitogen-0.2.7.tar.gz
