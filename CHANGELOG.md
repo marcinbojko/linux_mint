@@ -1,5 +1,18 @@
 # Changelog "linux_mint"
 
+## Version 1.2.2 2019-09-28
+
+* [APPLICATION] upgraded `ipscan` to version 3.6.1
+* [APPLICATION] upgraded `terminus` to version 1.0.90
+* [APPLICATION] upgraded `dive` to version 0.8.1
+* [APPLICATION] upgraded `terraform` to version 0.12.9
+* [APPLICATION] upgraded `tflint` to version 0.11.2
+* [APPLICATION] added `packetsender` in version 6.2.3 [https://packetsender.com/](https://packetsender.com/)
+* [APPLICATION] upgraded `minikube` to version 1.4.0
+* [APPLICATION] added `whois`
+* [APPLICATION] upgraded `wps Office` to version 11.1.0.8865
+* [APPLICATION] upgraded `franz` to version 5.3.3
+
 ## Version 1.2.1 2019-08-24
 
 * [APPLICATION] upgraded `terminus` to version 1.0.88
