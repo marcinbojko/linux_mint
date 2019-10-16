@@ -1,9 +1,28 @@
 # Changelog "linux_mint"
 
+## Version 1.2.3 2019-10-16
+
+* increased requirements for free space on / to 15 GB
+* added section `ansible` - changes in ansible config.
+* [APPLICATION] upgraded `angryip` to version 3.6.2
+* [APPLICATION] upgraded `terminus alfa` to version 1.0.92
+* [APPLICATION] upgraded `terraform` to version 0.12.10
+* [APPLICATION] removed `rancher` as obsolete package
+* [APPLICATION] upgraded `tflint` to version 0.12.1
+* [APPLICATION] upgraded `vagrant` to version 2.2.6
+* [PACKAGES] added `dos2unix`
+* [GLOBAL_ENV] changed default editor to `mcedit`
+* [VARIABLE] added `config_ansible` boolean type. When set to true [default] changes ansible options
+* [VSCODE] added `vscode` extensions:
+  * gep13.chocolatey-vscode
+  * ms-vsliveshare.vsliveshare
+  * ms-azuretools.vscode-azureterraform
+* bumped to ansible 2.8 as minimum version (mitogen)
+
 ## Version 1.2.2 2019-09-28
 
 * [APPLICATION] upgraded `ipscan` to version 3.6.1
-* [APPLICATION] upgraded `terminus` to version 1.0.90
+* [APPLICATION] upgraded `terminus alfa` to version 1.0.90
 * [APPLICATION] upgraded `dive` to version 0.8.1
 * [APPLICATION] upgraded `terraform` to version 0.12.9
 * [APPLICATION] upgraded `tflint` to version 0.11.2

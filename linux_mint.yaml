@@ -8,7 +8,8 @@
     install_optional: true                    # should optional packages be installed?
     install_deb: true                         # should extra deb packages should be installed
     install_vscode_extensions: true           # should we install extra vscode extensions
-    install_mitogen: false                    # false by default
+    install_mitogen: true                     # true by default
+    config_ansible: true                      # do changes in change ansible.cfg
     enable_bbr: true                          # enable TCP BBR congestion control
     modify_grub: false                        # don't touch grub settings, unless told to do so
     active_user: "{{ ansible_ssh_user }}"     # user for which you're setting folders. By default taken from group_vars
@@ -22,13 +23,15 @@
   become: true
   gather_facts: no
   pre_tasks:
+    # ansible version
     - name: verify_ansible_meets_version_requirements
       assert:
-        that: "ansible_version.full is version_compare('2.7', '>=')"
+        that: "ansible_version.full is version_compare('2.8', '>=')"
         msg: >
-          "You must update Ansible to at least 2.7 to use this version of playbook"
+          "You must update Ansible to at least 2.8 to use this version of playbook"
       tags:
       - assert
+    # setup module - we need these facts
     - name: run_initial_setup_instead_of_gather_facts
       setup:
         gather_timeout: 30
@@ -38,14 +41,16 @@
       until: setup_status is success
       tags:
       - assert
-    - name: assert_root_partition_is_5_GB_of_free_space
-      assert: { that: item.mount != '/' or item.size_available > 5368709120 } # 5 GB free
+    # free space for stuff
+    - name: assert_root_partition_is_15_GB_of_free_space
+      assert: { that: item.mount != '/' or item.size_available > 16106127360 } # 15 GB free
       loop: '{{ ansible_mounts }}'
       ignore_errors: no
       register: freespace
       tags:
       - assert
   tasks:
+  # we need proper time to refresh repositories
   - name: start_timesyncd
     systemd:
       name: systemd-timesyncd
@@ -243,44 +248,6 @@
     - base
     - downloads
     - apps
-# Need time to rework this
-#  - block:
-#    - name: check_if_mitogen_path_exists
-#      file:
-#        path: "{{ item.dest_path }}"
-#        state: directory
-#      retries: "{{ retries_count }}"
-#      delay: "{{ delay_time }}"
-#      loop: "{{ mitogen }}"
-#    - name: download_and_unarchive_mitogen
-#      unarchive:
-#        src: "{{ item.urls }}"
-#        dest: "{{ item.dest_path }}"
-#        keep_newer: true
-##        mode: +x
-#        remote_src: yes
-##        extra_opts: [-j]
-#        extra_opts: [--strip-components=1]
-#      loop: "{{ mitogen }}"
-#    - name: replace_mitogen_values_in_ansible_config
-#      lineinfile:
-#        path: /etc/ansible/ansible.cfg.copy
-#        #regexp: '^[defaults]'
-#        insertafter: '(\[defaults\])'
-#        firstmatch: yes
-#        line: '\1 = STRATEGy=mitogen'
-#        regexp: '(\[defaults\])'
-#        backrefs: no
-#        #state: present
-#        #backrefs: yes
-#
-#    when: install_mitogen == true
-#    tags:
-#    - base
-#    - downloads
-#    - apps
-#    - mitogen
-
 # Download 3-rd party software and unarchive  it (flatten archive folder tree) to `bin_path` setting +x
   - name: download_unarchive_and_flatten
     unarchive:
@@ -330,13 +297,14 @@
         state: present
         append: true
       any_errors_fatal: false
-      register: active_user_account
+      register: r_active_user_account
+      until: r_active_user_account is success
       tags:
       - base
       - user
     - name: set_fact_for_users_home_dir
       set_fact:
-        "active_user_homedir": "{{ active_user_account.home }}"
+        "active_user_homedir": "{{ r_active_user_account.home }}"
       tags:
       - base
       - user
@@ -371,7 +339,77 @@
     tags:
     - base
     - user
-  # start application mod block
+ # mitogen block
+  - block:
+    - name: check_if_mitogen_path_exists
+      file:
+        path: "{{ item.dest_path }}"
+        state: directory
+      retries: "{{ retries_count }}"
+      delay: "{{ delay_time }}"
+      loop: "{{ mitogen.download }}"
+      register: r_check_if_mitogen_path_exists
+      until: r_check_if_mitogen_path_exists is success
+    - name: download_and_unarchive_mitogen
+      unarchive:
+        src: "{{ item.urls }}"
+        dest: "{{ item.dest_path }}"
+        keep_newer: true
+        remote_src: yes
+        extra_opts: [--strip-components=1]
+      loop: "{{ mitogen.download }}"
+      register: r_download_and_unarchive_mitogen
+      retries: "{{ retries_count }}"
+      delay: "{{ delay_time }}"
+      until: r_download_and_unarchive_mitogen is success
+    - name: enable_mitogen_in_ansible_config
+      ini_file:
+        path: /etc/ansible/ansible.cfg
+        section: "{{ item.section }}"
+        option: "{{ item.option }}"
+        value: "{{ item.value }}"
+        state: present
+        backup: yes
+      retries: "{{ retries_count }}"
+      delay: "{{ delay_time }}"
+      loop: "{{ mitogen.config }}"
+      register: r_enable_mitogen_in_ansible_config
+      until: r_enable_mitogen_in_ansible_config is success
+      when: r_download_and_unarchive_mitogen is success
+    when: install_mitogen == true
+    tags:
+    - base
+    - downloads
+    - apps
+    - mitogen
+  # start ansible block
+  - block:
+    - name: check_if_ansible_cfg_exists
+      stat:
+        path: "{{ ansible.cfg }}"
+      register: r_check_if_ansible_cfg_exists
+      retries: "{{ retries_count }}"
+      delay: "{{ delay_time }}"
+      until: r_check_if_ansible_cfg_exists is success
+    - set_fact:
+        ansible_exists: "{{ r_check_if_ansible_cfg_exists.stat.exists }}"
+      when: r_check_if_ansible_cfg_exists is success
+    - name: change_ansible_options
+      ini_file:
+        path: /etc/ansible/ansible.cfg
+        section: "{{ item.section }}"
+        option: "{{ item.option }}"
+        value: "{{ item.value }}"
+        state: present
+        backup: yes
+      retries: "{{ retries_count }}"
+      delay: "{{ delay_time }}"
+      loop: "{{ ansible.config }}"
+      register: r_change_ansible_options
+      until: r_change_ansible_options is success
+      when: ansible_exists == true
+    when: config_ansible == true
+  # start vscode extensions block
   - name: install_vscode_extensions
     block:
       - shell: dpkg-query -s code | grep 'install ok installed'
@@ -474,7 +512,7 @@
         name: fstrim.timer
         state: restarted
         enabled: true
-      when: r_create_fstrim_override is changed
+      when: r_create_fstrim_override.changed
     - name: sysctl_change_qdisc
       sysctl:
         name: net.core.default_qdisc
@@ -515,7 +553,7 @@
       retries: "{{ retries_count }}"
       delay: "{{ delay_time }}"
       until: r_environment is success
-    - name: update_and_reboot
+    - name: update_all_packages
       apt:
         upgrade: "yes"
         update_cache: yes
@@ -527,24 +565,19 @@
     # Reboot
     - name: reboot_after_changes
       reboot:
-        pre_reboot_delay: 60
+        pre_reboot_delay: 15
+        post_reboot_delay: 15
+        msg: "Initial reboot"
       when: (reboot_required is defined and reboot_required == true) or (apt_upgrade.changed)
       register: r_reboot_after_upgrade
       any_errors_fatal: false
-    - name: wait_for_server_to_finish_rebooting_ssh
-      wait_for:
-        host: '{{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}'
-        state: started
-        delay: 60
-        port: 22
-        timeout: 1200
-      connection: local
-      register: r_wait_for_ssh
       retries: "{{ retries_count }}"
-      delay: "{{delay_time}}"
-      ignore_errors: true
-      until: r_wait_for_ssh is success
-      when: (r_reboot_after_upgrade is defined and r_reboot_after_upgrade.changed) or (reboot_required == true)
+      delay: "{{ delay_time }}"
+      until: r_reboot_after_upgrade is success
+      tags:
+        - base
+        - user
+        - os
     - name: clean_apt_cache
       shell: apt clean all -y
       any_errors_fatal: false
@@ -552,7 +585,7 @@
       retries: "{{ retries_count }}"
       delay: "{{delay_time}}"
       changed_when: false
-    tags:
-    - base
-    - user
-    - os
+      tags:
+      - base
+      - user
+      - os

@@ -5,7 +5,7 @@
 * installed Linux Mint 19, 19.1, 19.2 64-bit, standard options with extra codecs (available as selection during install)
 * access to Internet
 * openssh-server installed and running
-* Ansible in version 2.7/2.8 higher
+* Ansible in version 2.8 or higher
 
   ```bash
   sudo apt install openssh-server;systemctl enable ssh && systemctl start ssh
@@ -15,7 +15,7 @@
 
 ## Assumptions
 
-* 5GB free space on OS drive
+* 15GB free space on OS drive
 * ssh private key or password method
 * user specified in `group_vars` or passed in variable `ansible_ssh_user`
 * by default, extra binaries (outside packages) will be installed in `/usr/local/bin`. If you prefer to keep them in cloud (sync between computers), down below I'll attach info how to replace binaries with proper symlinks (work in progress)
