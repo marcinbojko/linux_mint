@@ -318,7 +318,7 @@ mitogen:
       value: mitogen_linear
     - section: defaults
       option: strategy_plugins
-      value: /etc/ansible/mitogen
+      value: /etc/ansible/mitogen/ansible_mitogen/plugins/strategy
   download:
     - urls: https://networkgenomics.com/try/mitogen-0.2.8.tar.gz
       dest_path: /etc/ansible/mitogen

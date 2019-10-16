@@ -1,5 +1,10 @@
 # Changelog "linux_mint"
 
+## Version 1.2.4 2019-10-16
+
+* fixed mitogen strategy path for ansible
+* update `README.md`
+
 ## Version 1.2.3 2019-10-16
 
 * increased requirements for free space on / to 15 GB
@@ -11,6 +16,7 @@
 * [APPLICATION] upgraded `tflint` to version 0.12.1
 * [APPLICATION] upgraded `vagrant` to version 2.2.6
 * [PACKAGES] added `dos2unix`
+* [PACKAGES] added `python3-gpg`
 * [GLOBAL_ENV] changed default editor to `mcedit`
 * [VARIABLE] added `config_ansible` boolean type. When set to true [default] changes ansible options
 * [VSCODE] added `vscode` extensions:

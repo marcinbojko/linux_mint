@@ -60,13 +60,14 @@ For these variables in playbook:
 |install_optional|true|should optional packages be installed|
 |install_deb|true|should extra deb packages should be installed|
 |install_vscode_extensions|true|should we install extra vscode extensions|
-|install_mitogen|false||
+|install_mitogen|true|install mitogen for ansible and change ansible settings|
+|config_ansible|true|change ansible settings in ansible.cfg|
 |enable_bbr|true| enable TCP BBR congestion control|
 |modify_grub|false|don't touch grub settings, unless told so|
 |active_user|"{{ ansible_ssh_user }}"|user for which you're setting folders. By default taken from group_vars|
 |codename|bionic|codename of version you're setting PPAs for|
-|retries_count|3|how many retries|
-|delay_time|10|delay time in seconds between retries|
+|retries_count|4|how many retries|
+|delay_time|15|delay time in seconds between retries|
 |bin_path|/usr/local/bin|Where to put all downloaded execs|
 |reboot_required|false|force reboot even if apt upgrade won't change anything|
 
