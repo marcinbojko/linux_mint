@@ -240,6 +240,9 @@ packages:
 - sshfs
 - whois
 - dos2unix
+- ioping
+- dstat
+- rclone
 packages_optional:
 - enpass
 - pdk
@@ -273,9 +276,9 @@ deb:
 - https://launchpad.net/ubuntu/+archive/primary/+files/libgoo-canvas-perl_0.06-2ubuntu3_amd64.deb
 - https://github.com/BoostIO/boost-releases/releases/download/v0.12.1-1/boostnote_0.12.1-1_amd64.deb
 - https://github.com/Eugeny/terminus/releases/download/v1.0.92/terminus-1.0.92-linux.deb
-- https://github.com/meetfranz/franz/releases/download/v5.3.3/franz_5.3.3_amd64.deb
+- https://github.com/TheGoddessInari/hamsket/releases/download/0.5.20/Rambox_0.5.20_amd64.deb
 - https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
-- https://github.com/kubernetes/minikube/releases/download/v1.4.0/minikube_1.4.0.deb
+- https://github.com/kubernetes/minikube/releases/download/v1.5.2/minikube_1.5.2.deb
 - http://kdl.cc.ksosoft.com/wps-community/download/8865/wps-office_11.1.0.8865_amd64.deb
 - https://github.com/wagoodman/dive/releases/download/v0.8.1/dive_0.8.1_linux_amd64.deb
 pip:
@@ -293,7 +296,7 @@ down:
   destination: helm
   skip_tree: true
   skip_levels: 1
-- urls: https://releases.hashicorp.com/terraform/0.12.10/terraform_0.12.10_linux_amd64.zip
+- urls: https://releases.hashicorp.com/terraform/0.12.13/terraform_0.12.13_linux_amd64.zip
   destination: terraform
   skip_tree: false
 - urls: https://releases.hashicorp.com/vault/1.2.3/vault_1.2.3_linux_amd64.zip
@@ -307,10 +310,12 @@ files:
   destination: docker-compose
 - urls: https://github.com/bcicen/ctop/releases/download/v0.7.2/ctop-0.7.2-linux-amd64
   destination: ctop
-- urls: https://github.com/rancher/rke/releases/download/v0.3.0/rke_linux-amd64
+- urls: https://github.com/rancher/rke/releases/download/v0.3.2/rke_linux-amd64
   destination: rke
 - urls: https://github.com/dannagle/PacketSender/releases/download/v6.2.3/PacketSender_Linux_x64_v6.2.3.AppImage
   destination: packetsender
+- urls: https://github.com/rancher/k3s/releases/download/v0.10.2/k3s
+  destination: k3s
 mitogen:
   config:
     - section: defaults
@@ -356,23 +361,26 @@ vscode:
 - DotJoshJohnson.xml
 - emmanuelbeziat.vscode-great-icons
 - florianloch.text-transform
+- gep13.chocolatey-vscode
 - hypnoes.word-count
 - jansenfuller.crayon-vscode
 - joffreykern.markdown-toc
 - jpogran.puppet-vscode
+- marcostazi.VS-code-vagrantfile
 - mauve.terraform
 - mohsen1.prettify-json
-- ms-kubernetes-tools.vscode-kubernetes-tools
-- ms-vscode.powershell
+- ms-azuretools.vscode-azureterraform
 - ms-azuretools.vscode-docker
+- ms-kubernetes-tools.vscode-kubernetes-tools
 - ms-python.python
 - ms-vscode.azure-account
 - ms-vscode.azurecli
 - ms-vscode.cpptools
 - ms-vscode.Go
+- ms-vscode.powershell
 - ms-vscode.wordcount
-- ms-azuretools.vscode-azureterraform
 - ms-vsliveshare.vsliveshare
+- p1c2u.docker-compose
 - pgourlain.erlang
 - rebornix.ruby
 - redhat.vscode-yaml
@@ -380,9 +388,7 @@ vscode:
 - tht13.html-preview-vscode
 - vscoss.vscode-ansible
 - wholroyd.jinja
-- p1c2u.docker-compose
 - yzane.markdown-pdf
-- gep13.chocolatey-vscode
 alternatives:
 - name: editor
   path: /usr/bin/mcedit

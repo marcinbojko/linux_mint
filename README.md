@@ -75,43 +75,47 @@ For these variables in playbook:
 
 ### Repositories: Basic
 
+* alexx2000 - `Double Commander`
 * ansible - `Ansible`
-* synapse-core - `synapse-core`
-* ubuntu-mozilla-security - `Firefox and Thunderbird Security`
-* mozilla-team - `Stable Firefox and Mozilla`
-* remmina - `Best Connection manager - RDP/SSH/VNC`
-* y-ppa-manager - `manage your PPA as human being`
-* gezakovacs - `UNetbootin`
+* asbru-cm - `Asbru Connection Manager`
 * azure-cli - `Azure CLI`
-* vscode - `suprisingly good product from Microsoft`
-* microsoft-prod - `.Net Core`
-* palemoon - `chrome based Java+Flash+nonsecure websites access`
+* docker - `Docker-CE`
+* gcsfuse - `gcsfuse - Mount a GCS bucket locally`
+* gezakovacs - `UNetbootin`
+* git-lfs - `git-lfs`
 * google chrome - `best browser`
 * google-cloud-sdk - `google cloud sdk`
-* asbru - `Asbru Connection Manager`
-* alexx2000 - `Double Commander`
-* virtualbox - `virtualization`
-* puppet5 -`Puppet5 and PDK for easy module writing`
 * kubernetes - `kubeadm & kubectl`
-* git-lfs - `git-lfs`
-* docker - `Docker-CE`
-* veeam - `Veeam Agent for Linux`
+* microsoft-prod - `.Net Core`
+* mozilla-team - `Stable Firefox and Mozilla`
+* palemoon - `chrome based Java+Flash+nonsecure websites access`
+* puppet5 -`Puppet5 and PDK for easy module writing`
+* remmina - `Best Connection manager - RDP/SSH/VNC`
+* synapse-core - `synapse-core`
+* ubuntu-mozilla-security - `Firefox and Thunderbird Security`
+* virtualbox - `virtualization`
+* vscode - `suprisingly good product from Microsoft`
+* y-ppa-manager - `manage your PPA as human being`
 
 ### Repositories: Optional
 
-* grub-customizer - `customize black screen to something useful`
-* noobslab/themes
-* noobslab/icons
-* neofetch
-* skype
-* veeam
-* veracrypt
-* puppet5
-* forticlient
-* shutter (screenshot & image manipulation) - `screenshoot, manipulate, publish`
-* sublime text 3 (vscode alternative)
 * enpass (keepass alternative)
+* compholio
+* dockbarx - `DockBarX is a lightweight taskbar`
+* forticlient
+* grub-customizer - `customize black screen to something useful`
+* neofetch -  `A command-line system information tool written in bash 3.2+`
+* noobslab/icons
+* noobslab/themes
+* puppet5
+* shutter (screenshot & image manipulation) - `screenshoot, manipulate, publish`
+* skype
 * spotify - `music for atmosphere`
+* sublime text 3 (vscode alternative)
+* trivy - `container security scanner`
+* wepupdt8
+* veeam - `Veeam Agent for Linux`
+* veracrypt - `device encryption utility`
 
 ## Packages
 
@@ -189,10 +193,16 @@ Some applications are copied to `autostart` folder
 ### OS Tweaks
 
 * handle *.local domain with avahi
+* changes timezone and ntpd settings
 * handle mDNS with .local domains
 * change IO Scheduler for SSD Drives
+* modifies sysctl settings to start use `tcp_congestion_control` set to `bbr`
+* modifies sysctl settings to decrease default swappiness
+* changes alternatives for EDITOR
 * initial `Timeshift` launch
 * change fstrim schedule to `hourly`
+* adds `mitogen` for your ansible and adjusts config
+* installs popular Microsoft Visual Studio Code extensions
 
 ## Q&A
 

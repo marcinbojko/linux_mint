@@ -43,10 +43,11 @@
       - assert
     # free space for stuff
     - name: assert_root_partition_is_15_GB_of_free_space
-      assert: { that: item.mount != '/' or item.size_available > 16106127360 } # 15 GB free
+      assert: { that: item.size_available > 16106127360 } # 15 GB free
       loop: '{{ ansible_mounts }}'
       ignore_errors: no
-      register: freespace
+      #register: freespace
+      when: item.mount == '/'
       tags:
       - assert
   tasks:
@@ -447,12 +448,14 @@
         line: neofetch
       any_errors_fatal: false
     - name: set_avahi_config
-      lineinfile:
-        dest: /etc/avahi/avahi-daemon.conf
-        regexp: 'domain-name=local'
-        line: 'domain-name=alocal'
-        backrefs: yes
+      ini_file:
+        path: /etc/avahi/avahi-daemon.conf
+        section: server
+        option: domain-name
+        value: alocal
+        no_extra_spaces: yes
       any_errors_fatal: false
+      ignore_errors: true
       register: r_set_avahi_config
     - name: nsswitch_config
       lineinfile:
@@ -461,12 +464,13 @@
         line: 'hosts:          files dns'
         backrefs: yes
       any_errors_fatal: false
-    - name: restar_avahi_after_changes
+      ignore_errors: true
+    - name: restart_avahi_after_changes
       systemd:
         name: avahi-daemon
         state: restarted
         enabled: true
-      when: r_set_avahi_config is changed
+      when: r_set_avahi_config is changed and r_set_avahi_config is defined
     - name: set_grub_defaults_for_SSD
       lineinfile:
         dest: /etc/default/grub
