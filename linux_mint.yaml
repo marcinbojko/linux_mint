@@ -7,9 +7,11 @@
   vars:
     install_optional: true                    # should optional packages be installed?
     install_deb: true                         # should extra deb packages should be installed
+    install_flatpak: true
     install_vscode_extensions: true           # should we install extra vscode extensions
     install_mitogen: true                     # true by default
     config_ansible: true                      # do changes in change ansible.cfg
+    config_dconf: true                        # do changes in dconf editor
     enable_bbr: true                          # enable TCP BBR congestion control
     modify_grub: false                        # don't touch grub settings, unless told to do so
     active_user: "{{ ansible_ssh_user }}"     # user for which you're setting folders. By default taken from group_vars
@@ -224,6 +226,21 @@
     - packages
     - base
     - python
+  - name: install_flatpak_apps
+    flatpak:
+      name: "{{ item.name|string }}"
+      state: present
+      method: system
+    loop: "{{ flatpak }}"
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
+    register: r_install_flatpak
+    until: r_install_flatpak is success
+    any_errors_fatal: false
+    when: install_flatpak == true
+    tags:
+    - packages
+    - flatpak
     # Download 3-rd party software and unarchive it to `bin_path` setting +x
   - name: check_if_bin_path_exists
     file:
@@ -400,7 +417,7 @@
         path: /etc/ansible/ansible.cfg
         section: "{{ item.section }}"
         option: "{{ item.option }}"
-        value: "{{ item.value }}"
+        value: "{{ item.value|string }}"
         state: present
         backup: yes
       retries: "{{ retries_count }}"
@@ -557,6 +574,18 @@
       retries: "{{ retries_count }}"
       delay: "{{ delay_time }}"
       until: r_environment is success
+    - name: set_dconf_values
+      dconf:
+        key: "{{ item.key|string }}"
+        state: "{{ item.state|string }}"
+        value: "{{ item.value|string }}"
+      loop: "{{ dconf }}"
+      register: r_dconf_values
+      retries: "{{ retries_count }}"
+      delay: "{{ delay_time }}"
+      until: r_dconf_values is success
+      when: config_dconf == true|bool
+      become_user: "{{ active_user }}"
     - name: update_all_packages
       apt:
         upgrade: "yes"

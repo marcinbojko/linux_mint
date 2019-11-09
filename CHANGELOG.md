@@ -1,12 +1,30 @@
 # Changelog "linux_mint"
 
+## Version 1.2.6 2019-11-09
+
+* [PACKAGES] added `multitail`
+* [PACKAGES] added `shellcheck`
+* [PACKAGES] added `dconf-cli`
+* [PACKAGES] added `dconf-editor`
+* [APPLICATION] upgraded `packer` to version 1.4.5
+* [APPLICATION] upgraded `dive` to version 0.9.0
+* [APPLICATION] upgraded `vault` to version 1.2.4
+* [APPLICATION] added `brave-browser`
+* [REPOSITORY] added `brave-browser`
+* [VSCODE] added `timonwong.shellcheck` extension
+* [DCONF] added `dconf` section in variables and playbook - settings related with dconf are now possible
+* [PIP] added `psutil`
+* [FLATPAK] added possibility to install flatpak files
+* [FLATPAK] added `postman`
+* [MITOGEN] upgraded `mitogen` to support ansible 0.2.9
+
 ## Version 1.2.5 2019-11-02
 
 * [APPLICATION] upgraded `rke` to version 0.3.2
 * [APPLICATION] upgraded `terraform` to version 0.12.13
 * [APPLICATION] removed `franz` - for its bloatware/adaware policy and paid service
 * [APPLICATION] added `Rambox-OS - Hamsket` [https://github.com/TheGoddessInari/hamsket/releases/download/0.5.20/Rambox_0.5.20_amd64.deb](https://github.com/TheGoddessInari/hamsket/releases/download/0.5.20/Rambox_0.5.20_amd64.deb)
-* [APPLICATION] upgrade `minikube` to version `1.5.2`
+* [APPLICATION] upgraded `minikube` to version `1.5.2`
 * [APPLICATION] added `k3s` to downoaded as files
 * [PACKAGES] added `ioping` to packages
 * [PACKAGES] added `dstat` to packages

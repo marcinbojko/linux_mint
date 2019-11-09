@@ -59,9 +59,11 @@ For these variables in playbook:
 |--------|-------|-----------|
 |install_optional|true|should optional packages be installed|
 |install_deb|true|should extra deb packages should be installed|
+|install_flatpak|true|should flatpak packages be installed
 |install_vscode_extensions|true|should we install extra vscode extensions|
 |install_mitogen|true|install mitogen for ansible and change ansible settings|
 |config_ansible|true|change ansible settings in ansible.cfg|
+|config_dconf|true|change dconf settings|
 |enable_bbr|true| enable TCP BBR congestion control|
 |modify_grub|false|don't touch grub settings, unless told so|
 |active_user|"{{ ansible_ssh_user }}"|user for which you're setting folders. By default taken from group_vars|
@@ -178,7 +180,7 @@ For these variables in playbook:
 
 ### Files
 
-## Startups
+## Startup applications
 
 Some applications are copied to `autostart` folder
 
@@ -195,14 +197,15 @@ Some applications are copied to `autostart` folder
 * handle *.local domain with avahi
 * changes timezone and ntpd settings
 * handle mDNS with .local domains
-* change IO Scheduler for SSD Drives
-* modifies sysctl settings to start use `tcp_congestion_control` set to `bbr`
-* modifies sysctl settings to decrease default swappiness
-* changes alternatives for EDITOR
+* change IO Scheduler for SSD Drives (use install_grub=true)
+* modifies `sysctl` settings to start use `tcp_congestion_control` set to `bbr`
+* modifies `sysctl` settings to decrease default swappiness
+* changes `alternatives` for EDITOR
 * initial `Timeshift` launch
 * change fstrim schedule to `hourly`
-* adds `mitogen` for your ansible and adjusts config
+* adds `mitogen` for your ansible and adjusts config (if your mitogen is older then ansible disable this using `config_ansible=false`)
 * installs popular Microsoft Visual Studio Code extensions
+* change `dconf` settings
 
 ## Q&A
 
@@ -234,10 +237,11 @@ Some applications are copied to `autostart` folder
 * ~~more OS tweaks (i/o scheduler)~~
 * ~~add AWS/GCE repositories for their tools~~
 * ~~add Visual Studio Code extra extensions~~
-* add Vagrant plugins
-* more variables or tags
-* better grub defaults handing
 * ~~continue to use tagging~~
+* add Vagrant plugins
+* ~~add Flatpak packages handling~~
+* convert single sysctl values into whole section
+* better grub defaults handing
 * manual handle 3rd party deb files - pre-download and re-usage on demand
 * configure neofetch
 

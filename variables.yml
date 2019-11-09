@@ -92,6 +92,9 @@ repositories_optional:
  - repo: deb https://aquasecurity.github.io/trivy-repo/deb bionic main
    filename: trivy
    codename: bionic
+ - repo: deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ bionic main
+   filename: brave-browser-release-bionic.list
+   codename: bionic
 repositories_remove:
  - repo: ppa:alexx2000/doublecmd
    filename: alexx2000-doublecmd
@@ -114,6 +117,7 @@ keys:
  - https://packagecloud.io/asbru-cm/asbru-cm/gpgkey
  - http://repo.fortinet.com/repo/ubuntu/DEB-GPG-KEY
  - https://aquasecurity.github.io/trivy-repo/deb/public.key
+ - https://brave-browser-apt-release.s3.brave.com/brave-core.asc
 keys_pgp:
  - server: keyserver.ubuntu.com
    key: 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
@@ -157,10 +161,12 @@ packages:
 - python-all-dev
 - python-wheel
 - python-gpg
+- python-psutil
 - python3-pip
 - python3-all-dev
 - python3-wheel
 - python3-gpg
+- python3-psutil
 - diodon
 - doublecmd-gtk
 - htop
@@ -243,6 +249,10 @@ packages:
 - ioping
 - dstat
 - rclone
+- multitail
+- shellcheck
+- dconf-cli
+- dconf-editor
 packages_optional:
 - enpass
 - pdk
@@ -269,6 +279,7 @@ packages_optional:
 - veracrypt
 - spotify-client
 - isomaster
+- brave-browser
 deb:
 - https://github.com/angryip/ipscan/releases/download/3.6.2/ipscan_3.6.2_amd64.deb
 - https://release.axocdn.com/linux/gitkraken-amd64.deb
@@ -280,7 +291,9 @@ deb:
 - https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
 - https://github.com/kubernetes/minikube/releases/download/v1.5.2/minikube_1.5.2.deb
 - http://kdl.cc.ksosoft.com/wps-community/download/8865/wps-office_11.1.0.8865_amd64.deb
-- https://github.com/wagoodman/dive/releases/download/v0.8.1/dive_0.8.1_linux_amd64.deb
+- https://github.com/wagoodman/dive/releases/download/v0.9.0/dive_0.9.0_linux_amd64.deb
+flatpak:
+- name: https://flathub.org/repo/appstream/com.getpostman.Postman.flatpakref
 pip:
 - pip
 - s-tui
@@ -289,7 +302,7 @@ pip:
 - pypsrp
 - yamllint
 down:
-- urls: https://releases.hashicorp.com/packer/1.4.4/packer_1.4.4_linux_amd64.zip
+- urls: https://releases.hashicorp.com/packer/1.4.5/packer_1.4.5_linux_amd64.zip
   destination: packer
   skip_tree: false
 - urls: https://get.helm.sh/helm-v2.14.3-linux-amd64.tar.gz
@@ -299,7 +312,7 @@ down:
 - urls: https://releases.hashicorp.com/terraform/0.12.13/terraform_0.12.13_linux_amd64.zip
   destination: terraform
   skip_tree: false
-- urls: https://releases.hashicorp.com/vault/1.2.3/vault_1.2.3_linux_amd64.zip
+- urls: https://releases.hashicorp.com/vault/1.2.4/vault_1.2.4_linux_amd64.zip
   destination: vault
   skip_tree: false
 - urls: https://github.com/wata727/tflint/releases/download/v0.12.1/tflint_linux_amd64.zip
@@ -325,7 +338,7 @@ mitogen:
       option: strategy_plugins
       value: /etc/ansible/mitogen/ansible_mitogen/plugins/strategy
   download:
-    - urls: https://networkgenomics.com/try/mitogen-0.2.8.tar.gz
+    - urls: https://networkgenomics.com/try/mitogen-0.2.9.tar.gz
       dest_path: /etc/ansible/mitogen
 ansible:
   cfg: /etc/ansible/ansible.cfg
@@ -354,6 +367,14 @@ startup:
 services:
 - ssh
 - docker
+dconf:
+   # remove alt+f7 move window shortcut
+ - key: "/org/cinnamon/muffin/keybindings/begin-move"
+   state: present
+   value: "['']"
+ - key: "/org/cinnamon/desktop/keybindings/wm/begin-move"
+   state: present
+   value: "['']"
 timezone: Europe/Warsaw
 vscode:
 - alefragnani.project-manager
@@ -389,6 +410,7 @@ vscode:
 - vscoss.vscode-ansible
 - wholroyd.jinja
 - yzane.markdown-pdf
+- timonwong.shellcheck
 alternatives:
 - name: editor
   path: /usr/bin/mcedit
