@@ -1,5 +1,19 @@
 # Changelog "linux_mint"
 
+## Version 1.2.7 2019-11-16
+
+* [APPLICATION] upgraded dive to version 0.9.1
+* [APPLICATION] upgraded `boostnote` to version 0.13.0
+* [APPLICATION] upgraded `vault` to version 1.3.0
+* [APPLICATION] upgraded `terraform` to version 0.12.15
+* [APPLICATION] added Helm 3.0 as `helm3` in downloaded files
+* deleted `enable_bbr` and `modify_grub` variables
+* introduced `change_sysctl` variable,, defaults to true
+* removed `modify grub` section, on kernel 5.0 it is pointless
+* new variables section `sysctl`
+* moved `bbr congestion control` and `vm.swappiness` from standalone settings into `sysctl` section
+* allowed 3-rd party deb applications to fail during install - due to possible internet connection problems when handling big files
+
 ## Version 1.2.6 2019-11-09
 
 * [PACKAGES] added `multitail`

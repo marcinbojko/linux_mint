@@ -29,13 +29,13 @@
 ## Usage
 
 ```bash
-ansible-playbook ../linux_mint.yaml -i myhost.lst
+ansible-playbook ./linux_mint.yaml -i myhost.lst
 ```
 
 or change user you're using
 
 ```bash
-ansible-playbook ../linux_mint.yaml -i myhost.lst --extra-vars "ansible_ssh_user=myuser"
+ansible-playbook ./linux_mint.yaml -i myhost.lst --extra-vars "ansible_ssh_user=myuser"
 ```
 
 or start at specific step
@@ -64,8 +64,7 @@ For these variables in playbook:
 |install_mitogen|true|install mitogen for ansible and change ansible settings|
 |config_ansible|true|change ansible settings in ansible.cfg|
 |config_dconf|true|change dconf settings|
-|enable_bbr|true| enable TCP BBR congestion control|
-|modify_grub|false|don't touch grub settings, unless told so|
+|config_sysctl|true|change sysctl settings|
 |active_user|"{{ ansible_ssh_user }}"|user for which you're setting folders. By default taken from group_vars|
 |codename|bionic|codename of version you're setting PPAs for|
 |retries_count|4|how many retries|

@@ -12,8 +12,7 @@
     install_mitogen: true                     # true by default
     config_ansible: true                      # do changes in change ansible.cfg
     config_dconf: true                        # do changes in dconf editor
-    enable_bbr: true                          # enable TCP BBR congestion control
-    modify_grub: false                        # don't touch grub settings, unless told to do so
+    config_sysctl: true
     active_user: "{{ ansible_ssh_user }}"     # user for which you're setting folders. By default taken from group_vars
     codename: bionic                          # codename of version you're setting PPAs for
     retries_count: 4                          # how many retries
@@ -39,8 +38,8 @@
         gather_timeout: 30
       retries: "{{ retries_count }}"
       delay: "{{ delay_time }}"
-      register: setup_status
-      until: setup_status is success
+      register: r_setup_status
+      until: r_setup_status is success
       tags:
       - assert
     # free space for stuff
@@ -208,6 +207,7 @@
     register: r_apt_deb
     until: r_apt_deb is success
     any_errors_fatal: false
+    ignore_errors: true
     when: install_deb == true
     tags:
     - packages
@@ -254,14 +254,18 @@
     - apps
   - name: download_and_unarchive
     unarchive:
-      src: "{{ item.urls }}"
+      src: "{{ item.url }}"
       dest: "{{ bin_path }}"
       keep_newer: true
       mode: +x
       remote_src: yes
       extra_opts: [-j]
     when: item.skip_tree == false
-    loop: "{{ down }}"
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
+    register: r_unarchive
+    until: r_unarchive is success
+    loop: "{{ downloads }}"
     tags:
     - base
     - downloads
@@ -269,7 +273,7 @@
 # Download 3-rd party software and unarchive  it (flatten archive folder tree) to `bin_path` setting +x
   - name: download_unarchive_and_flatten
     unarchive:
-      src: "{{ item.urls }}"
+      src: "{{ item.url }}"
       dest: "{{ bin_path }}"
       keep_newer: true
       mode: +x
@@ -279,7 +283,11 @@
        - LICENSE
        - README.md
     when: item.skip_tree == true
-    loop: "{{ down }}"
+    loop: "{{ downloads }}"
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
+    register: r_unarchive_flatten
+    until: r_unarchive_flatten is success
     tags:
     - base
     - downloads
@@ -287,11 +295,15 @@
 # Download 3-rd party software to `bin_path` setting +x
   - name: download_files
     get_url:
-      url: "{{ item.urls }}"
+      url: "{{ item.url }}"
       dest: "{{ bin_path }}/{{ item.destination }}"
       mode: 0755
       force: yes
     loop: "{{ files }}"
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
+    register: r_download_files
+    until: r_download_files is success
     tags:
     - base
     - downloads
@@ -400,6 +412,7 @@
     - downloads
     - apps
     - mitogen
+    - ansible
   # start ansible block
   - block:
     - name: check_if_ansible_cfg_exists
@@ -427,6 +440,8 @@
       until: r_change_ansible_options is success
       when: ansible_exists == true
     when: config_ansible == true
+    tags:
+    - ansible
   # start vscode extensions block
   - name: install_vscode_extensions
     block:
@@ -488,18 +503,18 @@
         state: restarted
         enabled: true
       when: r_set_avahi_config is changed and r_set_avahi_config is defined
-    - name: set_grub_defaults_for_SSD
-      lineinfile:
-        dest: /etc/default/grub
-        regexp: '^GRUB_CMDLINE_LINUX_DEFAULT='
-        line: 'GRUB_CMDLINE_LINUX_DEFAULT="quiet splash elevator=deadline"'
-        backrefs: true
-      any_errors_fatal: false
-      register: grub_default
-      when: modify_grub == true
-    - name: grub_update
-      shell: update-grub2
-      when: grub_default.changed and modify_grub == true
+#    - name: set_grub_defaults_for_SSD
+#      lineinfile:
+#        dest: /etc/default/grub
+#        regexp: '^GRUB_CMDLINE_LINUX_DEFAULT='
+#        line: 'GRUB_CMDLINE_LINUX_DEFAULT="quiet splash elevator=deadline"'
+#        backrefs: true
+#      any_errors_fatal: false
+#      register: grub_default
+#      when: modify_grub == true
+#    - name: grub_update
+#      shell: update-grub2
+#      when: grub_default.changed and modify_grub == true
     - name: enable_timeshift_in_rsync_mode
       shell: timeshift --rsync --yes
       args:
@@ -534,26 +549,38 @@
         state: restarted
         enabled: true
       when: r_create_fstrim_override.changed
-    - name: sysctl_change_qdisc
+    - name: sysctl_changes
       sysctl:
-        name: net.core.default_qdisc
-        value: fq
-        state: present
-        reload: no
-      when: enable_bbr == true
-    - name: sysctl_change_congestion_control
-      sysctl:
-        name: net.ipv4.tcp_congestion_control
-        value: bbr
-        state: present
+        name: "{{ item.name|string }}"
+        value: "{{ item.value|string }}"
+        state: "{{ item.state|string }}"
         reload: yes
-      when: enable_bbr == true
-    - name: sysctl_change_vm_swappines
-      sysctl:
-        name: vm.swappiness
-        value: "{{ 1|int }}"
-        state: present
-        reload: yes
+      loop: "{{ sysctl }}"
+      register: r_sysctl_changes
+      retries: "{{ retries_count }}"
+      delay: "{{ delay_time }}"
+      until: r_sysctl_changes is success
+      when: config_sysctl == true|bool
+#    - name: sysctl_change_qdisc
+#      sysctl:
+#        name: net.core.default_qdisc
+#        value: fq
+#        state: present
+#        reload: no
+#      when: enable_bbr == true
+#    - name: sysctl_change_congestion_control
+#      sysctl:
+#        name: net.ipv4.tcp_congestion_control
+#        value: bbr
+#        state: present
+#        reload: yes
+#      when: enable_bbr == true
+#    - name: sysctl_change_vm_swappines
+#      sysctl:
+#        name: vm.swappiness
+#        value: "{{ 1|int }}"
+#        state: present
+#        reload: yes
     - name: change_alternatives
       alternatives:
         name: "{{ item.name }}"
