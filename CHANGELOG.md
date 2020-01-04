@@ -1,5 +1,24 @@
 # Changelog "linux_mint"
 
+## Version 1.2.8 2020-01-04 Birthday Edition
+
+* [APPLICATION] changed link for WPS Office (same version)
+* [APPLICATION] upgraded `k3s` to version 1.0.1
+* [APPLICATION] upgraded `terraform` to version 0.12.8
+* [APPLICATION] upgraded `docker-compose` to version 1.25.0
+* [APPLICATION] upgraded `terminus` to version 1.0.97
+* [APPLICATION] upgraded `minikube` to version 1.6.2
+* [APPLICATION] upgraded `boostnote` to version 0.14.0
+* [APPLICATION] upgraded `packer` to version 1.5.1
+* [APPLICATION] upgraded `vault` to version 1.3.1
+* [APPLICATION] upgraded `ctop` to version 0.7.3
+* [APPLICATION] removal of helm3 package as it conflicts with helm2 - need to rethink it
+* [PACKAGES] added `tlpui` for TLP graphical management
+* [REPOSITORY] removal of `compholio` repository - obsoleted
+* [REPOSITORY] removal of `forticlient` repository - bloated
+* [REPOSITORY] `shutter` moved from optional to basic repos
+* [REPOSITORY] added `linuxuprising/apps` to repos
+
 ## Version 1.2.7 2019-11-16
 
 * [APPLICATION] upgraded dive to version 0.9.1
@@ -9,7 +28,7 @@
 * [APPLICATION] added Helm 3.0 as `helm3` in downloaded files
 * deleted `enable_bbr` and `modify_grub` variables
 * introduced `change_sysctl` variable,, defaults to true
-* removed `modify grub` section, on kernel 5.0 it is pointless
+* removed `modify grub` section, on kernel 5.0 it is useless
 * new variables section `sysctl`
 * moved `bbr congestion control` and `vm.swappiness` from standalone settings into `sysctl` section
 * allowed 3-rd party deb applications to fail during install - due to possible internet connection problems when handling big files
@@ -30,7 +49,7 @@
 * [PIP] added `psutil`
 * [FLATPAK] added possibility to install flatpak files
 * [FLATPAK] added `postman`
-* [MITOGEN] upgraded `mitogen` to support ansible 0.2.9
+* [MITOGEN] upgraded `mitogen` to support ansible 2.9
 
 ## Version 1.2.5 2019-11-02
 

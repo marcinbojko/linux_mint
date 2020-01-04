@@ -2,10 +2,10 @@
 
 ## Prerequisites
 
-* installed Linux Mint 19, 19.1, 19.2 64-bit, standard options with extra codecs (available as selection during install)
+* installed `Linux Mint` 19, 19.1, 19.2 64-bit, standard options with extra codecs (available as selection during install)
 * access to Internet
-* openssh-server installed and running
-* Ansible in version 2.8 or higher
+* `openssh-server` installed and running
+* `ansible` in version 2.8 or higher
 
   ```bash
   sudo apt install openssh-server;systemctl enable ssh && systemctl start ssh
@@ -24,7 +24,8 @@
 * installs essential packages
 * installs main packages
 * installs extra/optional packages
-* downloads 3rd party software and puts it in proper path - `/usr/local/bin` by default
+* downloads 3rd party software and puts it in proper path - `/usr/local/bin` by default (adjustable by `bin_path` variable)
+* changes startup settings for specific user (that's why you should not run this as root)
 
 ## Usage
 
@@ -32,7 +33,7 @@
 ansible-playbook ./linux_mint.yaml -i myhost.lst
 ```
 
-or change user you're using
+or change user you're using (startup related stuff will be done for that user)
 
 ```bash
 ansible-playbook ./linux_mint.yaml -i myhost.lst --extra-vars "ansible_ssh_user=myuser"
@@ -90,8 +91,8 @@ For these variables in playbook:
 * microsoft-prod - `.Net Core`
 * mozilla-team - `Stable Firefox and Mozilla`
 * palemoon - `chrome based Java+Flash+nonsecure websites access`
-* puppet5 -`Puppet5 and PDK for easy module writing`
 * remmina - `Best Connection manager - RDP/SSH/VNC`
+* shutter (screenshot & image manipulation) - `screenshoot, manipulate, publish`
 * synapse-core - `synapse-core`
 * ubuntu-mozilla-security - `Firefox and Thunderbird Security`
 * virtualbox - `virtualization`
@@ -100,23 +101,21 @@ For these variables in playbook:
 
 ### Repositories: Optional
 
-* enpass (keepass alternative)
-* compholio
+* brave browser - `Browsing alternative`
 * dockbarx - `DockBarX is a lightweight taskbar`
-* forticlient
+* enpass - `keepass alternative`
 * grub-customizer - `customize black screen to something useful`
-* neofetch -  `A command-line system information tool written in bash 3.2+`
-* noobslab/icons
-* noobslab/themes
-* puppet5
-* shutter (screenshot & image manipulation) - `screenshoot, manipulate, publish`
-* skype
+* neofetch - `A command-line system information tool written in bash 3.2+`
+* noobslab/icons - `Extra icons pack`
+* noobslab/themes - `Extra themes pack`
+* puppet5 -`Puppet5 and PDK for easy module writing`
+* skype - `Microsoft's communicator`
 * spotify - `music for atmosphere`
-* sublime text 3 (vscode alternative)
+* sublime text 3 - `editor alternative`
 * trivy - `container security scanner`
-* wepupdt8
 * veeam - `Veeam Agent for Linux`
 * veracrypt - `device encryption utility`
+* wepupd8 - `packages from webupd8 team`
 
 ## Packages
 
@@ -143,7 +142,6 @@ For these variables in playbook:
 | Keepass | Password Manager| [https://keepass.info/](https://keepass.info/)|
 | Redshift | Monitor temperature changer| [http://jonls.dk/redshift/](http://jonls.dk/redshift/)|
 | Boostnote | Notes for developers |[https://boostnote.io](https://boostnote.io)|
-| Franz | Multi IM |[https://meetfranz.com/](https://meetfranz.com/)|
 | Diodon | Clipboard Manager | [https://launchpad.net/diodon](https://launchpad.net/diodon)|
 | Dropbox/Nemo Integration | Tool | [https://github.com/linuxmint/nemo-extensions/tree/master/nemo-dropbox](https://github.com/linuxmint/nemo-extensions/tree/master/nemo-dropbox)|
 | Team Viewer | Remote desktop | [https://www.teamviewer.com](https://www.teamviewer.com) |
@@ -170,14 +168,51 @@ For these variables in playbook:
 | Veeam Agent for Linux | Backup tool| [https://www.veeam.com](https://www.veeam.com)|
 | Sublime Text 3 | Text Editor | [https://www.sublimetext.com/3](https://www.sublimetext.com/3)
 | Veracrypt | Source disk encryption | [https://www.veracrypt.fr/en/Home.html](https://www.veracrypt.fr/en/Home.html)|
-| Neofetch | | [https://github.com/dylanaraps/neofetch](https://github.com/dylanaraps/neofetch)|
+| Neofetch |A command-line system information tool written in bash 3.2+| [https://github.com/dylanaraps/neofetch](https://github.com/dylanaraps/neofetch)|
 | GIMP | GNU Image Manipulation Program | [https://www.gimp.org/](https://www.gimp.org/)|
+
+### Packages: Flatpak
+
+|Software|Type|Link|
+|------------------|--------|---------------------|
+|Postman|The Collaboration Platform for API Development|[https://www.getpostman.com/](https://www.getpostman.com/)|
 
 ## 3-rd party apps
 
 ### Archives
 
+|Software|Type|Link|
+|------------------|--------|---------------------|
+|Packer|Build Automated Machine Images|[https://www.packer.io/](https://www.packer.io/)|
+|Helm|The package manager for Kubernetes|[https://helm.sh/](https://helm.sh/)|
+|Terraform|Infrastructure as Code|[https://www.terraform.io/](https://www.terraform.io/)|
+|Vault|Manage secrets and protect sensitive data|[https://www.vaultproject.io/](https://www.vaultproject.io/)|
+|Tflint|TFLint is a Terraform linter focused on possible errors, best practices, etc|[https://github.com/terraform-linters/tflint](https://github.com/terraform-linters/tflint)|
+
 ### Files
+
+|Software|Type|Link|
+|------------------|--------|---------------------|
+|Docker-compose|Compose is a tool for defining and running multi-container Docker applications|[https://docs.docker.com/compose/](https://docs.docker.com/compose/)|
+|ctop|Top-like interface for container metrics|[https://github.com/bcicen/ctop](https://github.com/bcicen/ctop)|
+|rke|Rancher Kubernetes Engine (RKE), an extremely simple, lightning fast Kubernetes distribution that runs entirely within containers|[https://github.com/rancher/rke](https://github.com/rancher/rke)|
+|packetsender|Packet Sender can send and receive UDP, TCP, and SSL on the ports of your choosing|[https://packetsender.com/](https://packetsender.com/)|
+|k3s|Lightweight Kubernetes. 5 less than k8s.|[https://k3s.io/](https://k3s.io/)|
+
+### Deb Files
+
+|Software|Type|Link|
+|------------------|--------|---------------------|
+|ipscan|||
+|gitkraken|||
+|vagrant|||
+|boostnote|||
+|terminus|||
+|Rambox|||
+|teamviewer|||
+|minikube|||
+|wps office|||
+|dive|||
 
 ## Startup applications
 
@@ -230,6 +265,9 @@ Some applications are copied to `autostart` folder
 
 * better download file versioning (switch to latest where possible, separate version from URL, use separate folder for downloads)
 * better docs
+* add Vagrant plugins
+* manual handle 3rd party deb files - pre-download and re-usage on demand
+* configure neofetch
 * ~~services handling part (by default in Ubuntu/Debian, installed service is set to `enabled/started`)~~
 * ~~more idempotency~~
 * ~~fix Bionic's broken apps like Asbru-CM~~
@@ -237,12 +275,9 @@ Some applications are copied to `autostart` folder
 * ~~add AWS/GCE repositories for their tools~~
 * ~~add Visual Studio Code extra extensions~~
 * ~~continue to use tagging~~
-* add Vagrant plugins
 * ~~add Flatpak packages handling~~
-* convert single sysctl values into whole section
-* better grub defaults handing
-* manual handle 3rd party deb files - pre-download and re-usage on demand
-* configure neofetch
+* ~~convert single sysctl values into whole section~~
+* ~~better grub defaults handing~~
 
 ## Known issues
 
