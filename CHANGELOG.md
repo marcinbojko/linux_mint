@@ -1,5 +1,10 @@
 # Changelog "linux_mint"
 
+## Version 1.2.9 2020-01-07
+
+* [APPLICATION] upgraded `terminus alpha` to version 1.0.98
+* Added support for Linux Mint 19.3 `Tricia`
+
 ## Version 1.2.8 2020-01-04 Birthday Edition
 
 * [APPLICATION] changed link for WPS Office (same version)

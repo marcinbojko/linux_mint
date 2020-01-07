@@ -2,10 +2,10 @@
 
 ## Prerequisites
 
-* installed `Linux Mint` 19, 19.1, 19.2 64-bit, standard options with extra codecs (available as selection during install)
+* installed `Linux Mint` 19, 19.1, 19.2, 19.3 64-bit, standard options with extra codecs (available as selection during install)
 * access to Internet
 * `openssh-server` installed and running
-* `ansible` in version 2.8 or higher
+* `ansible` in version 2.9 or higher
 
   ```bash
   sudo apt install openssh-server;systemctl enable ssh && systemctl start ssh
