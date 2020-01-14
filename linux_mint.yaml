@@ -9,7 +9,7 @@
     install_deb: true                         # should extra deb packages should be installed
     install_flatpak: true
     install_vscode_extensions: true           # should we install extra vscode extensions
-    install_mitogen: true                     # true by default
+    install_mitogen: false                    # true by default
     config_ansible: true                      # do changes in change ansible.cfg
     config_dconf: true                        # do changes in dconf editor
     config_sysctl: true
@@ -108,6 +108,20 @@
     any_errors_fatal: false
     tags:
     - repositories
+    - base
+# remove absolete keys
+  - name: remove_obsolete_apt_keys
+    apt_key:
+      id: "{{ item }}"
+      state: absent
+    loop: "{{ keys_remove }}"
+    register: remove_keys
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
+    until: remove_keys is success
+    any_errors_fatal: true
+    tags:
+    - keys
     - base
 # Add basic repositories
   - name: add_basic_repositories_from_variables_file

@@ -1,5 +1,17 @@
 # Changelog "linux_mint"
 
+## Version 1.3.0 2020-01-14
+
+* [APPLICATION] added `hadolint` in files section [https://github.com/hadolint/hadolint](https://github.com/hadolint/hadolint)
+* [APPLICATION] upgraded `docker-compose` to version 1.25.1
+* [APPLICATION] upgraded `terraform` to version 0.12.19
+* [APPLICATION] upgraded `k3s` to version 1.17.0
+* [APPLICATION] upgraded `tflint` to version 0.13.4
+* [VSCODE] added `exiasr.hadolint`
+* [APPLICATION] upgraded `wps-office` to version 11.1.0.9080
+* added `keys_remove` section in variables
+* switched instal_mitogen to false by default
+
 ## Version 1.2.9 2020-01-07
 
 * [APPLICATION] upgraded `terminus alpha` to version 1.0.98

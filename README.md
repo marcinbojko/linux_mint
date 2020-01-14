@@ -62,7 +62,7 @@ For these variables in playbook:
 |install_deb|true|should extra deb packages should be installed|
 |install_flatpak|true|should flatpak packages be installed
 |install_vscode_extensions|true|should we install extra vscode extensions|
-|install_mitogen|true|install mitogen for ansible and change ansible settings|
+|install_mitogen|false|install mitogen for ansible and change ansible settings|
 |config_ansible|true|change ansible settings in ansible.cfg|
 |config_dconf|true|change dconf settings|
 |config_sysctl|true|change sysctl settings|
