@@ -229,7 +229,7 @@
   - name: install_pip_packages
     pip:
       name: "{{ item }}"
-      extra_args: --upgrade
+      extra_args: --upgrade --ignore-installed
     loop: "{{ pip }}"
     retries: "{{ retries_count }}"
     delay: "{{ delay_time }}"

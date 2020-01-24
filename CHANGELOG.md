@@ -1,5 +1,14 @@
 # Changelog "linux_mint"
 
+## Version 1.3.1 2020-01-24
+
+* [APPLICATION] upgraded `terminus alpha` to version 1.0.100
+* [APPLICATION] upgraded `docker-compose` to version 1.25.3
+* [APPLICATION] upgraded `rke` to version 1.0.2
+* [APPLICATION] upgraded `terraform` to version 0.12.20
+* [APPLICATION] upgraded `vault` to version 1.3.2
+* [APPLICATION] upgraded `hadolint` to version 1.17.4
+
 ## Version 1.3.0 2020-01-14
 
 * [APPLICATION] added `hadolint` in files section [https://github.com/hadolint/hadolint](https://github.com/hadolint/hadolint)
