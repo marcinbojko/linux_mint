@@ -1,5 +1,19 @@
 # Changelog "linux_mint"
 
+## Version 1.3.2 2020-02-02
+
+* [APPLICATION] upgraded `k3s` to version 1.17.2
+* [APPLICATION] upgraded `rke` to version 1.0.4
+* [APPLICATION] upgraded `hadolint` to version 1.17.5
+* [APPLICATION] upgraded `terminus alpha` to version 1.0.101
+* [APPLICATION] upgraded `vagrant` to version 2.2.7
+* [APPLICATION] upgraded `tflint` to version 1.14.0
+* [ANSIBLE] added `callback_whitelist` to display tasks length
+* [VSCODE] added `ext install medo64.render-crlf`
+* [SYSCTL] added network tweaks
+* [SYSCTL] added memory tweaks
+* [PIP] added `ansible-lint`
+
 ## Version 1.3.1 2020-01-24
 
 * [APPLICATION] upgraded `terminus alpha` to version 1.0.100
@@ -8,6 +22,7 @@
 * [APPLICATION] upgraded `terraform` to version 0.12.20
 * [APPLICATION] upgraded `vault` to version 1.3.2
 * [APPLICATION] upgraded `hadolint` to version 1.17.4
+* [APPLICATION] added `teams` - Microsoft Teams Client for Linux
 
 ## Version 1.3.0 2020-01-14
 

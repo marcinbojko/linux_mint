@@ -293,10 +293,10 @@ packages_optional:
 deb:
 - https://github.com/angryip/ipscan/releases/download/3.6.2/ipscan_3.6.2_amd64.deb
 - https://release.axocdn.com/linux/gitkraken-amd64.deb
-- https://releases.hashicorp.com/vagrant/2.2.6/vagrant_2.2.6_x86_64.deb
+- https://releases.hashicorp.com/vagrant/2.2.7/vagrant_2.2.7_x86_64.deb
 - https://launchpad.net/ubuntu/+archive/primary/+files/libgoo-canvas-perl_0.06-2ubuntu3_amd64.deb
 - https://github.com/BoostIO/boost-releases/releases/download/v0.14.0/boostnote_0.14.0_amd64.deb
-- https://github.com/Eugeny/terminus/releases/download/v1.0.100/terminus-1.0.100-linux.deb
+- https://github.com/Eugeny/terminus/releases/download/v1.0.101/terminus-1.0.101-linux.deb
 - https://github.com/TheGoddessInari/hamsket/releases/download/0.5.20/Rambox_0.5.20_amd64.deb
 - https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
 - https://github.com/kubernetes/minikube/releases/download/v1.6.1/minikube_1.6.1.deb
@@ -311,14 +311,11 @@ pip:
 - pywinrm[credssp]
 - pypsrp
 - yamllint
+- ansible-lint
 downloads:
 - url: https://releases.hashicorp.com/packer/1.5.1/packer_1.5.1_linux_amd64.zip
   destination: packer
   skip_tree: false
-#- url: https://get.helm.sh/helm-v3.0.0-linux-arm64.tar.gz
-#  destination: helm3
-#  skip_tree: true
-#  skip_levels: 1
 - url: https://get.helm.sh/helm-v2.14.3-linux-amd64.tar.gz
   destination: helm
   skip_tree: true
@@ -329,7 +326,7 @@ downloads:
 - url: https://releases.hashicorp.com/vault/1.3.2/vault_1.3.2_linux_amd64.zip
   destination: vault
   skip_tree: false
-- url: https://github.com/terraform-linters/tflint/releases/download/v0.13.4/tflint_linux_amd64.zip
+- url: https://github.com/terraform-linters/tflint/releases/download/v0.14.0/tflint_linux_amd64.zip
   destination: tflint
   skip_tree: false
 files:
@@ -337,13 +334,13 @@ files:
   destination: docker-compose
 - url: https://github.com/bcicen/ctop/releases/download/v0.7.3/ctop-0.7.3-linux-amd64
   destination: ctop
-- url: https://github.com/rancher/rke/releases/download/v1.0.2/rke_linux-amd64
+- url: https://github.com/rancher/rke/releases/download/v1.0.4/rke_linux-amd64
   destination: rke
 - url: https://github.com/dannagle/PacketSender/releases/download/v6.2.3/PacketSender_Linux_x64_v6.2.3.AppImage
   destination: packetsender
-- url: https://github.com/rancher/k3s/releases/download/v1.17.0%2Bk3s.1/k3s
+- url: https://github.com/rancher/k3s/releases/download/v1.17.2%2Bk3s1/k3s
   destination: k3s
-- url: https://github.com/hadolint/hadolint/releases/download/v1.17.4/hadolint-Linux-x86_64
+- url: https://github.com/hadolint/hadolint/releases/download/v1.17.5/hadolint-Linux-x86_64
   destination: hadolint
 mitogen:
   config:
@@ -365,6 +362,9 @@ ansible:
     - section: defaults
       option: retry_file_enable
       value: False
+    - section: defaults
+      option: callback_whitelist
+      value: timer,mail,profile_tasks
 startup:
 - filename: redshift-gtk.desktop
   source: ./files/apps/redshift-gtk/redshift-gtk.desktop
@@ -428,6 +428,7 @@ vscode:
 - yzane.markdown-pdf
 - timonwong.shellcheck
 - exiasr.hadolint
+- medo64.render-crlf
 sysctl:
   # enable bbr congestion for tcp
   - name: net.core.default_qdisc
@@ -440,6 +441,74 @@ sysctl:
   - name: vm.swappiness
     value: 1
     state: present
+  # cache settings for more mem
+  - name: vm.vfs_cache_pressure
+    value: 30
+    state: present
+  - name: vm.dirty_ratio
+    value: 50
+    state: present
+  - name: vm.dirty_background_ratio
+    value: 5
+    state: present
+  - name: vm.dirty_expire_centisecs
+    value: 1200
+    state: present
+  # better network settings
+  - name: net.core.netdev_max_backlog
+    value: 100000
+    state: present
+  - name: net.core.netdev_budget
+    value: 50000
+    state: present
+  - name: net.core.netdev_budget_usecs
+    value: 5000
+    state: present
+  - name: net.core.somaxconn
+    value: 1024
+    state: present
+  - name: net.core.rmem_default
+    value: 1048576
+    state: present
+  - name: net.core.rmem_max
+    value: 16777216
+    state: present
+  - name: net.core.wmem_default
+    value: 1048576
+    state: present
+  - name: net.core.wmem_max
+    value: 16777216
+    state: present
+  - name: net.core.optmem_max
+    value: 65536
+    state: present
+  - name: net.ipv4.tcp_rmem
+    value: "4096 1048576 2097152"
+    state: present
+  - name: net.ipv4.tcp_wmem
+    value: "4096 65536 16777216"
+    state: present
+  - name: net.ipv4.udp_rmem_min
+    value: 8192
+    state: present
+  - name: net.ipv4.udp_wmem_min
+    value: 8192
+    state: present
+  - name: net.ipv4.tcp_max_syn_backlog
+    value: 8192
+    state: present
+  - name: net.ipv4.tcp_max_tw_buckets
+    value: 2000000
+    state: present
+  - name: net.ipv4.tcp_fastopen
+    value: 3
+    state: present
+  - name: net.ipv4.tcp_slow_start_after_idle
+    value: 0
+    state: present
+  - name: net.ipv4.tcp_tw_reuse
+    value: 1
+    state: present
 alternatives:
   - name: editor
     path: /usr/bin/mcedit
@@ -447,3 +516,4 @@ alternatives:
 global_env:
   - name: EDITOR
     value: mcedit
+# end

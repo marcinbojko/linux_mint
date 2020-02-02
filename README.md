@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-* installed `Linux Mint` 19, 19.1, 19.2, 19.3 64-bit, standard options with extra codecs (available as selection during install)
+* installed `Linux Mint` 19, 19.1, 19.2, 19.3, 64-bit, standard options with extra codecs (available as selection during install)
 * access to Internet
 * `openssh-server` installed and running
 * `ansible` in version 2.9 or higher
@@ -26,6 +26,9 @@
 * installs extra/optional packages
 * downloads 3rd party software and puts it in proper path - `/usr/local/bin` by default (adjustable by `bin_path` variable)
 * changes startup settings for specific user (that's why you should not run this as root)
+* changes `ansible.cg`
+* changes `dconf` settings`
+* changes system variables
 
 ## Usage
 
@@ -33,10 +36,16 @@
 ansible-playbook ./linux_mint.yaml -i myhost.lst
 ```
 
-or change user you're using (startup related stuff will be done for that user)
+or change user you're using (startup related stuff will be done for that  specific user user)
 
 ```bash
-ansible-playbook ./linux_mint.yaml -i myhost.lst --extra-vars "ansible_ssh_user=myuser"
+ansible-playbook ./linux_mint.yaml -i myhost.lst --extra-vars "active_user=myuser"
+```
+
+in case you'd like to run as root with password or ssh key, you can do desktop related changes for user bob
+
+```bash
+ansible-playbook ./linux_mint.yaml -i myhost.lst --extra-vars "active_user=bob"
 ```
 
 or start at specific step
@@ -63,6 +72,7 @@ For these variables in playbook:
 |install_flatpak|true|should flatpak packages be installed
 |install_vscode_extensions|true|should we install extra vscode extensions|
 |install_mitogen|false|install mitogen for ansible and change ansible settings|
+|install_state|latest|if set to latest, every pass of playbook will also update packages|
 |config_ansible|true|change ansible settings in ansible.cfg|
 |config_dconf|true|change dconf settings|
 |config_sysctl|true|change sysctl settings|

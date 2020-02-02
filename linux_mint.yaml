@@ -10,9 +10,10 @@
     install_flatpak: true
     install_vscode_extensions: true           # should we install extra vscode extensions
     install_mitogen: false                    # true by default
+    install_state: latest                     # if set to latest, every pass of playbook will also update packages
     config_ansible: true                      # do changes in change ansible.cfg
     config_dconf: true                        # do changes in dconf editor
-    config_sysctl: true
+    config_sysctl: true                       # do changes in sysctl
     active_user: "{{ ansible_ssh_user }}"     # user for which you're setting folders. By default taken from group_vars
     codename: bionic                          # codename of version you're setting PPAs for
     retries_count: 4                          # how many retries
@@ -83,7 +84,7 @@
 # Install apt gpg keys (ID)
   - name: install_apt_keys_by_id
     apt_key:
-      keyserver: "{{ item.server}}"
+      keyserver: "{{ item.server }}"
       state: present
       id: "{{ item.key }}"
     loop: "{{ keys_pgp }}"
@@ -148,7 +149,7 @@
       filename: "{{ item.filename }}"
     loop: "{{ repositories_optional }}"
     retries: "{{ retries_count }}"
-    delay: "{{delay_time}}"
+    delay: "{{ delay_time }}"
     register: repositories
     until: repositories  is success
     any_errors_fatal: false
@@ -159,18 +160,36 @@
     apt:
       update_cache: yes
     ignore_errors: true
+    any_errors_fatal: false
     changed_when: false
+    register: r_apt_initial_refresh
+    retries: "{{ retries_count }}"
+    delay: 3
+    until: r_apt_initial_refresh is success
     tags:
     - packages
+    - base
+# clean cache in case of initial apt failure
+  - name: apt_clean
+    shell: apt clean all -y
+    any_errors_fatal: false
+    register: r_apt_clean
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
+    until: r_apt_clean is success
+    when: r_apt_initial_refresh.failed
+    tags:
+    - packages
+    - base
 # Install essentials - packages needed for repos or other packages. Mostly OS-related
   - name: install_essential_packages
     apt:
       name: "{{ item }}"
-      state: latest
+      state: "{{ install_state }}"
       update_cache: no
     loop: "{{ packages_essential }}"
     retries: "{{ retries_count }}"
-    delay: "{{delay_time}}"
+    delay: "{{ delay_time }}"
     register: packages_essential
     until: packages_essential is success
     any_errors_fatal: false
@@ -181,11 +200,11 @@
   - name: install_packages
     apt:
       name: "{{ item }}"
-      state: latest
+      state: "{{ install_state }}"
       update_cache: no
     loop: "{{ packages }}"
     retries: "{{ retries_count }}"
-    delay: "{{delay_time}}"
+    delay: "{{ delay_time }}"
     register: packages
     until: packages is success
     any_errors_fatal: false
@@ -196,14 +215,14 @@
   - name: install_optional_packages
     apt:
       name: "{{ item }}"
-      state: latest
+      state: "{{ install_state }}"
       update_cache: no
     loop: "{{ packages_optional }}"
     retries: "{{ retries_count }}"
-    delay: "{{delay_time}}"
+    delay: "{{ delay_time }}"
     register: packages_optional
     until: packages_optional is success
-    when: install_optional == true
+    when: install_optional
     any_errors_fatal: false
     tags:
     - packages
@@ -217,12 +236,12 @@
       only_upgrade: yes
     loop: "{{ deb }}"
     retries: "{{ retries_count }}"
-    delay: "{{delay_time}}"
+    delay: "{{ delay_time }}"
     register: r_apt_deb
     until: r_apt_deb is success
     any_errors_fatal: false
     ignore_errors: true
-    when: install_deb == true
+    when: install_deb
     tags:
     - packages
 # Install Python's pip packages
@@ -251,7 +270,7 @@
     register: r_install_flatpak
     until: r_install_flatpak is success
     any_errors_fatal: false
-    when: install_flatpak == true
+    when: install_flatpak
     tags:
     - packages
     - flatpak
@@ -274,7 +293,7 @@
       mode: +x
       remote_src: yes
       extra_opts: [-j]
-    when: item.skip_tree == false
+    when: not item.skip_tree
     retries: "{{ retries_count }}"
     delay: "{{ delay_time }}"
     register: r_unarchive
@@ -296,7 +315,7 @@
       exclude:
        - LICENSE
        - README.md
-    when: item.skip_tree == true
+    when: item.skip_tree
     loop: "{{ downloads }}"
     retries: "{{ retries_count }}"
     delay: "{{ delay_time }}"
@@ -346,7 +365,7 @@
       tags:
       - base
       - user
-    - name: set_fact_for_users_home_dir
+    - name: fact_for_user_home_dir
       set_fact:
         "active_user_homedir": "{{ r_active_user_account.home }}"
       tags:
@@ -361,7 +380,7 @@
         mode: 0755
       register: create_autostart
       retries: "{{ retries_count }}"
-      delay: "{{delay_time}}"
+      delay: "{{ delay_time }}"
       until: create_autostart is success
       any_errors_fatal: true
       tags:
@@ -378,7 +397,7 @@
       any_errors_fatal: false
       register: r_create_startup_applications
       retries: "{{ retries_count }}"
-      delay: "{{delay_time}}"
+      delay: "{{ delay_time }}"
       until: r_create_startup_applications is success
     tags:
     - base
@@ -420,7 +439,7 @@
       register: r_enable_mitogen_in_ansible_config
       until: r_enable_mitogen_in_ansible_config is success
       when: r_download_and_unarchive_mitogen is success
-    when: install_mitogen == true
+    when: install_mitogen
     tags:
     - base
     - downloads
@@ -436,7 +455,8 @@
       retries: "{{ retries_count }}"
       delay: "{{ delay_time }}"
       until: r_check_if_ansible_cfg_exists is success
-    - set_fact:
+    - name: fact_if_ansible_cfg_exists
+      set_fact:
         ansible_exists: "{{ r_check_if_ansible_cfg_exists.stat.exists }}"
       when: r_check_if_ansible_cfg_exists is success
     - name: change_ansible_options
@@ -452,26 +472,31 @@
       loop: "{{ ansible.config }}"
       register: r_change_ansible_options
       until: r_change_ansible_options is success
-      when: ansible_exists == true
-    when: config_ansible == true
+      when: ansible_exists
+    when: config_ansible
     tags:
     - ansible
   # start vscode extensions block
   - name: install_vscode_extensions
     block:
-      - shell: dpkg-query -s code | grep 'install ok installed'
+      - debug:
+          var: active_user
+      - name: run_dpkg_query_for_installed_extensions
+        shell: dpkg-query -s code | grep 'install ok installed'
         register: r_dpkg_query_vscode
         any_errors_fatal: false
         ignore_errors: true
         changed_when: "r_dpkg_query_vscode.stdout != 'Status: install ok installed'"
-      - shell: if [ ! $(code --list-extensions|grep {{ item }}) ]; then code --install-extension {{ item }}; fi
+      - name: install_missing_extensions
+        shell: if [ ! $(code --list-extensions|grep {{ item }}) ]; then code --install-extension {{ item }}; fi
         loop: "{{ vscode }}"
         register: r_install_extension
         retries: "{{ retries_count }}"
         delay: "{{ delay_time }}"
         until: r_install_extension is success
-        become: "{{ active_user }}"
-        changed_when: "r_install_extension.stdout  != ''"
+        become: yes
+        become_user: "{{ active_user }}"
+        changed_when: r_install_extension.stdout | length > 0
         when: r_dpkg_query_vscode.rc == 0
         any_errors_fatal: false
         ignore_errors: true
@@ -479,7 +504,7 @@
     - optional
     - user
     - vscode
-    when: install_vscode_extensions == true
+    when: install_vscode_extensions
   # Start OS related block
   - name: start_os_tweaks
     block:
@@ -517,18 +542,6 @@
         state: restarted
         enabled: true
       when: r_set_avahi_config is changed and r_set_avahi_config is defined
-#    - name: set_grub_defaults_for_SSD
-#      lineinfile:
-#        dest: /etc/default/grub
-#        regexp: '^GRUB_CMDLINE_LINUX_DEFAULT='
-#        line: 'GRUB_CMDLINE_LINUX_DEFAULT="quiet splash elevator=deadline"'
-#        backrefs: true
-#      any_errors_fatal: false
-#      register: grub_default
-#      when: modify_grub == true
-#    - name: grub_update
-#      shell: update-grub2
-#      when: grub_default.changed and modify_grub == true
     - name: enable_timeshift_in_rsync_mode
       shell: timeshift --rsync --yes
       args:
@@ -574,27 +587,7 @@
       retries: "{{ retries_count }}"
       delay: "{{ delay_time }}"
       until: r_sysctl_changes is success
-      when: config_sysctl == true|bool
-#    - name: sysctl_change_qdisc
-#      sysctl:
-#        name: net.core.default_qdisc
-#        value: fq
-#        state: present
-#        reload: no
-#      when: enable_bbr == true
-#    - name: sysctl_change_congestion_control
-#      sysctl:
-#        name: net.ipv4.tcp_congestion_control
-#        value: bbr
-#        state: present
-#        reload: yes
-#      when: enable_bbr == true
-#    - name: sysctl_change_vm_swappines
-#      sysctl:
-#        name: vm.swappiness
-#        value: "{{ 1|int }}"
-#        state: present
-#        reload: yes
+      when: config_sysctl
     - name: change_alternatives
       alternatives:
         name: "{{ item.name }}"
@@ -625,7 +618,8 @@
       retries: "{{ retries_count }}"
       delay: "{{ delay_time }}"
       until: r_dconf_values is success
-      when: config_dconf == true|bool
+      when: config_dconf
+      become: yes
       become_user: "{{ active_user }}"
     - name: update_all_packages
       apt:
@@ -642,7 +636,7 @@
         pre_reboot_delay: 15
         post_reboot_delay: 15
         msg: "Initial reboot"
-      when: (reboot_required is defined and reboot_required == true) or (apt_upgrade.changed)
+      when: (reboot_required is defined and reboot_required) or (apt_upgrade.changed)
       register: r_reboot_after_upgrade
       any_errors_fatal: false
       retries: "{{ retries_count }}"
@@ -657,7 +651,7 @@
       any_errors_fatal: false
       register: r_clean_apt_cache
       retries: "{{ retries_count }}"
-      delay: "{{delay_time}}"
+      delay: "{{ delay_time }}"
       changed_when: false
       tags:
       - base
