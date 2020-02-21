@@ -73,25 +73,10 @@
       url: "{{ item }}"
       state: present
     loop: "{{ keys }}"
-    register: keys
+    register: r_keys
     retries: "{{ retries_count }}"
     delay: "{{ delay_time }}"
-    until: keys is success
-    any_errors_fatal: true
-    tags:
-    - keys
-    - base
-# Install apt gpg keys (ID)
-  - name: install_apt_keys_by_id
-    apt_key:
-      keyserver: "{{ item.server }}"
-      state: present
-      id: "{{ item.key }}"
-    loop: "{{ keys_pgp }}"
-    register: keys_pgp
-    retries: "{{ retries_count }}"
-    delay: "{{ delay_time }}"
-    until: keys_pgp is success
+    until: r_keys is success
     any_errors_fatal: true
     tags:
     - keys

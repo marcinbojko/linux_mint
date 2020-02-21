@@ -1,5 +1,15 @@
 # Changelog "linux_mint"
 
+## Version 1.3.3 2020-02-21
+
+* [KEYS] removed section `keys+pgp`. All keys should be added as files now
+* [APPLICATION] upgraded `dive` to version 0.9.2
+* [APPLICATION] upgraded `docker-compose` to version 1.25.4
+* [APPLICATION] upgraded `minikube` to version 1.7.3
+* [APPLICATION] upgraded `terminus alpha` to version 1.0.103
+* [APPLICATION] upgraded `packer` to version 1.5.4
+* [APPLICATION] upgraded `terraform` to version 0.12.21
+
 ## Version 1.3.2 2020-02-02
 
 * [APPLICATION] upgraded `k3s` to version 1.17.2
