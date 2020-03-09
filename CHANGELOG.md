@@ -1,5 +1,18 @@
 # Changelog "linux_mint"
 
+## Version 1.3.4 2020-03-09
+
+* [APPLICATION] upgraded `virtuabox` to version 6.1
+* [APPLICATION] upgraded `tflint` to version 0.15.1
+* [APPLICATION] upgraded `wps-office` to version 11.1.0.9216
+* [APPLICATION] upgraded `boostnote` to version 0.15.0
+* [APPLICATION] upgraded `vault` to version 1.3.3
+* [APPLICATION] upgraded `terraform` to version 0.12.23
+* [APPLICATION] upgraded `terminus alpha` to version 1.0.104
+* [APPLICATION] added `balena-etcher` version 1.5.79 [https://www.balena.io/etcher/](https://www.balena.io/etcher/)
+* [REPOSITORY] added `insync` Mint repoitory
+* [KEYS] added 'insync` GPG key
+
 ## Version 1.3.3 2020-02-21
 
 * [KEYS] removed section `keys+pgp`. All keys should be added as files now

@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-* installed `Linux Mint` 19, 19.1, 19.2, 19.3, 64-bit, standard options with extra codecs (available as selection during install)
+* installed `Linux Mint` 19, 19.1, 19.2, 19.3 all 64-bit, standard options with extra codecs (available as selection during install)
 * access to Internet
 * `openssh-server` installed and running
 * `ansible` in version 2.9 or higher
@@ -160,6 +160,7 @@ For these variables in playbook:
 | dive| Docker image explorer | [https://github.com/wagoodman/dive](https://github.com/wagoodman/dive)|
 | trivy|A Simple and Comprehensive Vulnerability Scanner for Containers, Suitable for CI|[https://github.com/knqyf263/trivy](https://github.com/knqyf263/trivy)
 |rke| Rancher Kubernetes Engine | [https://github.com/rancher/rke](https://github.com/rancher/rke) |
+|balena-etcher|Image Writer| [https://www.balena.io/etcher/](https://www.balena.io/etcher/)
 | htop/atop/nmon/stress |Monitoring tools| |
 
 ### Packages: Optional (not complete list)
