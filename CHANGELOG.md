@@ -1,5 +1,21 @@
 # Changelog "linux_mint"
 
+## Version 1.3.5 2020-03-28
+
+* [PACKAGES] added `goaccess` to optional packages
+* [APPLICATION] upgraded `k3s` to version 1.17.4
+* [APPLICATION] upgraded `minikube` to version 1.9.0
+* [APPLICATION] upgraded `angryip` to 1.9.0
+* [APPLICATION] upgraded `boostnote` to 0.15.2
+* [APPLICATION] upgraded `balena-etcher` to version 1.5.80
+* [APPLICATION] upgraded `packer` to version 1.5.5
+* [APPLICATION] upgraded `termins alpha` to version 1.0.105
+* [APPLICATION] upgraded `terraform` to version 0.12.24
+* [APPLICATION] upgraded `tflint` to version 0.15.3
+* [APPLICATION] upgraded `rke` to version 1.0.5
+* Added application `Lens` for K8S cluster management
+* Added possibility to add *.desktop files for AppImage applications
+
 ## Version 1.3.4 2020-03-09
 
 * [APPLICATION] upgraded `virtuabox` to version 6.1

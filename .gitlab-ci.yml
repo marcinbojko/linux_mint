@@ -1,0 +1,16 @@
+stages:
+  - ansible-lint
+ansible-lint:
+  stage: ansible-lint
+  image: python:3-slim
+  services:
+    - docker:19.03-dind
+  before_script:
+  - pip install ansible-lint
+  - ansible-lint --version
+  script:
+    - ansible-lint .
+  tags:
+    - docker
+    - shared
+

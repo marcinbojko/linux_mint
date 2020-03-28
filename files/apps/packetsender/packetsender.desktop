@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=PacketSender
+Comment=PacketSender
+Exec=/usr/local/bin/packetsender
+Terminal=false
+Type=Application
+Icon=packetsender
+Categories=System;Network

@@ -326,6 +326,24 @@
     - base
     - downloads
     - apps
+  - name: put_desktop_files_for_application
+    copy:
+      dest: /usr/share/application
+      src: "{{ item.desktop_file }}"
+      owner: root
+      group: root
+      mode: 0644
+    loop: "{{ files }}"
+    when: item.desktop_file is defined and item.desktop_file | length >0
+    any_errors_fatal: false
+    register: r_put_desktop_files
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
+    until: r_put_desktop_files is success
+    tags:
+    - base
+    - downloads
+    - apps
 # Start user-related modification block
   - name: user_mods_block
     block:
