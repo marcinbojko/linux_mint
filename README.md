@@ -1,5 +1,7 @@
 # Ansible playbook for your super-admin/devops Linux Mint 19.x based workstation
 
+[![Build Status](https://travis-ci.org/marcinbojko/linux_mint.svg?branch=master)](https://travis-ci.org/marcinbojko/linux_mint)
+
 ## Prerequisites
 
 * installed `Linux Mint` 19, 19.1, 19.2, 19.3 all 64-bit, standard options with extra codecs (available as selection during install)

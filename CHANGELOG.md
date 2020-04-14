@@ -1,5 +1,15 @@
 # Changelog "linux_mint"
 
+## Version 1.3.6 2020-04-14
+
+* [APPLICATION] upgraded `docker-compose` to version 1.25.5
+* [APPLICATION] upgraded `Lens` to version 3.2.0
+* [APPLICATION] upgraded `minikube` to version 1.9.2
+* [APPLICATION] upgraded `rke` to version 1.1.0
+* [APPLICATION] upgraded `terminus alpha` to version 1.0.106
+* [APPLICATION] upgraded `tflint` to version 0.15.4
+* [APPLICATION] upgraded `vault` to version 1.4.0
+
 ## Version 1.3.5 2020-03-28
 
 * [PACKAGES] added `goaccess` to optional packages
