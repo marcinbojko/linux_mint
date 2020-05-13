@@ -1,5 +1,22 @@
 # Changelog "linux_mint"
 
+## Version 1.3.7 [2020-05-13]
+
+* [APPLICATION] upgraded `wps-office` to 11.1.0.9505
+* [APPLICATION] upgraded `k3s` to version 1.17.5
+* [APPLICATION] upgraded `lens` to version 3.4.0
+* [APPLICATION] upgraded `rke` to version 1.1.1
+* [APPLICATION] upgraded `boostnote` to version 0.15.3
+* [APPLICATION] upgraded `balena-etcher` to version 1.5.88
+* [APPLICATION] upgraded `hadolint` to version 1.17.6
+* [APPLICATION] upgraded `tflint` to version 1.15.5
+* [APPLICATION] upgraded `vagrant` to version 2.2.9
+* [APPLICATION] upgraded `vault` to version 1.4.1
+* [APPLICATION] upgraded `minikube` to version 1.10.1
+* [APPLICATION] upgraded `terminus alpha` to version 1.0.111
+* updated `README.md`
+* added extra checks for active_user [https://github.com/marcinbojko/linux_mint/pull/1](https://github.com/marcinbojko/linux_mint/pull/1)
+
 ## Version 1.3.6 2020-04-14
 
 * [APPLICATION] upgraded `docker-compose` to version 1.25.5

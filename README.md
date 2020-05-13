@@ -20,7 +20,7 @@
 * 15GB free space on OS drive
 * ssh private key or password method
 * user specified in `group_vars` or passed in variable `ansible_ssh_user`
-* by default, extra binaries (outside packages) will be installed in `/usr/local/bin`. If you prefer to keep them in cloud (sync between computers), down below I'll attach info how to replace binaries with proper symlinks (work in progress)
+* by default, extra binaries (outside packages) will be installed in `/usr/local/bin` (adjustable by `bin_path` variable) If you prefer to keep them in cloud (sync between computers), down below I'll attach info how to replace binaries with proper symlinks (work in progress)
 * adds repositories with codename and filename
 * adds missing pgp keys for repositories
 * installs essential packages
@@ -28,9 +28,9 @@
 * installs extra/optional packages
 * downloads 3rd party software and puts it in proper path - `/usr/local/bin` by default (adjustable by `bin_path` variable)
 * changes startup settings for specific user (that's why you should not run this as root)
-* changes `ansible.cg`
-* changes `dconf` settings`
-* changes system variables
+* changes in `ansible.cfg`
+* changes in `dconf` settings`
+* changes system variables (sysctl)
 
 ## Usage
 
@@ -62,6 +62,10 @@ or with specific tags
 ansible-playbook ../linux_mint.yaml -i myhost.lst --tags "base"
 ```
 
+or passing true/false
+
+ansible-playbook ./linux_mint.yaml -i myhost.lst --extra-vars '{"install_optional": "true"}'
+
 ## Variables
 
 Most variables are stored in `variables.yml` file. Feel free to adjust them to suit your needs.
@@ -89,45 +93,48 @@ For these variables in playbook:
 
 ### Repositories: Basic
 
-* alexx2000 - `Double Commander`
-* ansible - `Ansible`
-* asbru-cm - `Asbru Connection Manager`
-* azure-cli - `Azure CLI`
-* docker - `Docker-CE`
-* gcsfuse - `gcsfuse - Mount a GCS bucket locally`
-* gezakovacs - `UNetbootin`
-* git-lfs - `git-lfs`
-* google chrome - `best browser`
-* google-cloud-sdk - `google cloud sdk`
-* kubernetes - `kubeadm & kubectl`
-* microsoft-prod - `.Net Core`
-* mozilla-team - `Stable Firefox and Mozilla`
-* palemoon - `chrome based Java+Flash+nonsecure websites access`
-* remmina - `Best Connection manager - RDP/SSH/VNC`
-* shutter (screenshot & image manipulation) - `screenshoot, manipulate, publish`
-* synapse-core - `synapse-core`
-* ubuntu-mozilla-security - `Firefox and Thunderbird Security`
-* virtualbox - `virtualization`
-* vscode - `suprisingly good product from Microsoft`
-* y-ppa-manager - `manage your PPA as human being`
+* `alexx2000` - Double Commander
+* `ansible` - Ansible
+* `asbru-cm` - Asbru Connection Manager
+* `azure-cli` - Azure CLI SDK
+* `docker` - Docker-CE
+* `gcsfuse` - Google Storage gcsfuse - Mount a GCS bucket locally`
+* `gezakovacs` - UNetbootin
+* `git-lfs` - Git Large File System
+* `googlechrome` - Google Chrome Browser
+* `google-cloud-sdk` - Google Cloud Tools SDK
+* `kubernetes` - Google Kubernetes kubeadm & kubectl
+* `microsoft-prod` - Microsoft .Net Core
+* `mozilla-team` - Stable Firefox and Mozilla Software
+* `palemoon` - Chromium based Java+Flash browser
+* `remmina` - Connection manager - RDP/SSH/VNC
+* `shutter` - screenshoot, manipulate, publish
+* `synapse-core` - Synaptic Launcher
+* `ubuntu-mozilla-security` - Firefox and Thunderbird Security
+* `virtualbox` - Virtualization Software
+* `vscode` - Microsoft Visual Studio Code
+* `y-ppa-manager` - Manage your PPA as human being
 
 ### Repositories: Optional
 
-* brave browser - `Browsing alternative`
-* dockbarx - `DockBarX is a lightweight taskbar`
-* enpass - `keepass alternative`
-* grub-customizer - `customize black screen to something useful`
-* neofetch - `A command-line system information tool written in bash 3.2+`
-* noobslab/icons - `Extra icons pack`
-* noobslab/themes - `Extra themes pack`
-* puppet5 -`Puppet5 and PDK for easy module writing`
-* skype - `Microsoft's communicator`
-* spotify - `music for atmosphere`
-* sublime text 3 - `editor alternative`
-* trivy - `container security scanner`
-* veeam - `Veeam Agent for Linux`
-* veracrypt - `device encryption utility`
-* wepupd8 - `packages from webupd8 team`
+* `brave browser` - Chromium-based secure browsing alternative
+* `dockbarx` - DockBarX is a lightweight taskbar
+* `enpass` - Password Manager
+* `grub-customizer` - customize black screen to something useful
+* `insync` - Googledrive & Onedrive Linux Client
+* `linuxuprising` - Extra Ubuntu / Linux Mint Applications
+* `neofetch` - A command-line system information tool written in bash 3.2+
+* `noobslab/icons` - Extra icons pack
+* `noobslab/themes` - Extra themes pack
+* `puppet5` - Puppet5 and PDK for easy module writing
+* `skype` - Microsoft's communicator
+* `spotify` - Music streaming service
+* `sublime text 3` - Alternative text editor
+* `teams` - Microsoft Teams Linux Client
+* `trivy` - Container security scanner
+* `veeam` - Veeam Agent for Linux
+* `veracrypt` - Device encryption utility
+* `wepupd8` - packages from webupd8 team
 
 ## Packages
 
@@ -138,94 +145,75 @@ For these variables in playbook:
 |Software|Type|Link|
 |------------------|--------|---------------------|
 | AngryIP Scanner |Network Scanner |[https://angryip.org/](https://angryip.org/)|
-| GitKraken | Git Client |[https://www.gitkraken.com/](https://www.gitkraken.com/) |
-| Remmina | Remote Connection Manager |[https://remmina.org/](https://remmina.org/)
-| Helm | Package manager for Kubernetes |[https://helm.sh/](https://helm.sh/)|
-| Hashicorp Packer | Image creator |[https://www.packer.io/](https://www.packer.io/)|
-| Hashicorp Vault | Secrets Manager |[https://www.vaultproject.io/](https://www.vaultproject.io/)
-| Hashicorp Vagrant | Unified Workflow|[https://www.vagrantup.com/](https://www.vagrantup.com/)
-| Docker/Docker Compose |Docker manager | [https://docs.docker.com/compose/](https://docs.docker.com/compose/)
-| Google Kubectl/Kubeadm | Kubernetes Manager| [https://kubernetes.io/docs/reference/kubectl/overview/](https://kubernetes.io/docs/reference/kubectl/overview/)|
-| Synapse | Symantic Launcher|[https://launchpad.net/synapse-project](https://launchpad.net/synapse-project)|
-| XCA | Certificate Manager|[https://hohnstaedt.de/xca/](https://hohnstaedt.de/xca/)|
-| Shutter | Screenshot Manipulation| [http://shutter-project.org/](http://shutter-project.org/)|
-| Palemoon | Browser alternative (Java_+Flash)| [https://www.palemoon.org/](https://www.palemoon.org/)
-| Google Chrome |Browser | [https://www.google.com/intl/pl_ALL/chrome/](https://www.google.com/intl/pl_ALL/chrome/)|
-| Keepass | Password Manager| [https://keepass.info/](https://keepass.info/)|
-| Redshift | Monitor temperature changer| [http://jonls.dk/redshift/](http://jonls.dk/redshift/)|
+| Asbru Manager |Connection Manager|[https://www.asbru-cm.net/](https://www.asbru-cm.net/)|
+| Azure CLI |Command-line tools for Azure|[https://github.com/Azure/azure-cli](https://github.com/Azure/azure-cli)|
+| Balena-etcher |Image Writer| [https://www.balena.io/etcher/](https://www.balena.io/etcher/)|
 | Boostnote | Notes for developers |[https://boostnote.io](https://boostnote.io)|
+| Ctop| Container process monitor | [https://github.com/bcicen/ctop](https://github.com/bcicen/ctop)|
 | Diodon | Clipboard Manager | [https://launchpad.net/diodon](https://launchpad.net/diodon)|
+| Dive| Docker image explorer | [https://github.com/wagoodman/dive](https://github.com/wagoodman/dive)|
+| Docker/Docker Compose |Docker manager | [https://docs.docker.com/compose/](https://docs.docker.com/compose/)
+| Double Commander|File Manager|[https://doublecmd.sourceforge.io/](https://doublecmd.sourceforge.io/)|
 | Dropbox/Nemo Integration | Tool | [https://github.com/linuxmint/nemo-extensions/tree/master/nemo-dropbox](https://github.com/linuxmint/nemo-extensions/tree/master/nemo-dropbox)|
+| GitKraken | Git Client |[https://www.gitkraken.com/](https://www.gitkraken.com/) |
+| Google Chrome |Browser | [https://www.google.com/intl/pl_ALL/chrome/](https://www.google.com/intl/pl_ALL/chrome/)|
+| Google Cloud SDK|Command-line tools for GCP|[https://cloud.google.com/sdk](https://cloud.google.com/sdk)|
+| Google Kubectl/Kubeadm | Kubernetes Manager| [https://kubernetes.io/docs/reference/kubectl/overview/](https://kubernetes.io/docs/reference/kubectl/overview/)|
+| Hadolint| Docker linter|[https://github.com/hadolint/hadolint](https://github.com/hadolint/hadolint)|
+| Helm | Package manager for Kubernetes |[https://helm.sh/](https://helm.sh/)|
+| k3s |Lightweight Kubernetes. 5 less than k8s.|[https://k3s.io/](https://k3s.io/)|
+| Keepass | Password Manager| [https://keepass.info/](https://keepass.info/)|
+| Kubernetes| Production-Grade Container Orchestration|[https://kubernetes.io/](https://kubernetes.io/)|
+| Lens| Kubernetes IDE| [https://k8slens.dev/](https://k8slens.dev/)|
+| Minikube | Run Kubernetes locally |[https://github.com/kubernetes/minikube](https://github.com/kubernetes/minikube)|
+| Packer | Image creator |[https://www.packer.io/](https://www.packer.io/)|
+| Packetsender|Packet Sender can send and receive UDP, TCP, and SSL on the ports of your choosing|[https://packetsender.com/](https://packetsender.com/)|
+| Palemoon | Browser alternative (Java_+Flash)| [https://www.palemoon.org/](https://www.palemoon.org/)
+| RamboxOS |Multi IM|[https://github.com/TheGoddessInari/hamsket](https://github.com/TheGoddessInari/hamsket)|
+| Redshift | Monitor temperature changer| [http://jonls.dk/redshift/](http://jonls.dk/redshift/)|
+| Remmina | Remote Connection Manager |[https://remmina.org/](https://remmina.org/)
+| RKE| Rancher Kubernetes Engine | [https://github.com/rancher/rke](https://github.com/rancher/rke) |
+| Shutter | Screenshot Manipulation| [http://shutter-project.org/](http://shutter-project.org/)|
+| Synapse | Symantic Launcher|[https://launchpad.net/synapse-project](https://launchpad.net/synapse-project)|
 | Team Viewer | Remote desktop | [https://www.teamviewer.com](https://www.teamviewer.com) |
+| Terminus Alpha | Modern Terminal|[https://github.com/Eugeny/terminus](https://github.com/Eugeny/terminus)|
+| Terraform|Infrastructure as Code|[https://www.terraform.io/](https://www.terraform.io/)|
+| Tflint|TFLint is a Terraform linter focused on possible errors, best practices, etc|[https://github.com/terraform-linters/tflint](https://github.com/terraform-linters/tflint)|
+| Vagrant | Unified Workflow|[https://www.vagrantup.com/](https://www.vagrantup.com/)
+| Vault | Secrets Manager |[https://www.vaultproject.io/](https://www.vaultproject.io/)
+| VirtualBox|Virtualization|[https://www.virtualbox.org/](https://www.virtualbox.org/)|
+| Visual Studio Code|Code editor|[https://code.visualstudio.com/](https://code.visualstudio.com/)|
 | WPS Office for Linux | Productivity Tools | [https://www.wps.com/wps-office-for-linux/](https://www.wps.com/wps-office-for-linux/)
-| ctop| Container process monitor | [https://github.com/bcicen/ctop](https://github.com/bcicen/ctop)|
-| dive| Docker image explorer | [https://github.com/wagoodman/dive](https://github.com/wagoodman/dive)|
-| trivy|A Simple and Comprehensive Vulnerability Scanner for Containers, Suitable for CI|[https://github.com/knqyf263/trivy](https://github.com/knqyf263/trivy)
-|rke| Rancher Kubernetes Engine | [https://github.com/rancher/rke](https://github.com/rancher/rke) |
-|balena-etcher|Image Writer| [https://www.balena.io/etcher/](https://www.balena.io/etcher/)
-| htop/atop/nmon/stress |Monitoring tools| |
+| XCA | Certificate Manager|[https://hohnstaedt.de/xca/](https://hohnstaedt.de/xca/)|
 
 ### Packages: Optional (not complete list)
 
 |Software|Type|Link|
 |------------------|--------|---------------------|
-| Spotify | Music Player| [https://www.spotify.com/pl/download/linux/](https://www.spotify.com/pl/download/linux/)|
+| Brave Browser| Browser alternative|[https://brave.com/](https://brave.com/)|
+| DockbarX|Panel|[https://github.com/M7S/dockbarx](https://github.com/M7S/dockbarx)|
 | Enpass | Password manager | [https://www.enpass.io/](https://www.enpass.io/)|
+| GIMP | GNU Image Manipulation Program | [https://www.gimp.org/](https://www.gimp.org/)|
+| Insync|Googledrive & Onedrive linux client|[https://www.insynchq.com/](https://www.insynchq.com/)|
 | Kodi | Open Source Home Theater| [https://kodi.tv/](https://kodi.tv/)|
-| Cairo-Dock | Desktop interface | [http://glx-dock.org/](http://glx-dock.org/)|
+| Microsoft Teams | IM |[https://www.microsoft.com/en/microsoft-365?omkt=en-US&rtc=1](https://www.microsoft.com/en/microsoft-365?omkt=en-US&rtc=1)|
+| Neofetch |A command-line system information tool written in bash 3.2+| [https://github.com/dylanaraps/neofetch](https://github.com/dylanaraps/neofetch)|
 | PDK/Puppet Agent | Puppet Development Kit | [https://puppet.com/docs/pdk/1.x/pdk.html](https://puppet.com/docs/pdk/1.x/pdk.html)|
-| Thunderbird | Email client | [https://www.thunderbird.net](https://www.thunderbird.net)|
 | Pinta | Drawing/Image Editing| [https://pinta-project.com/pintaproject/pinta/](https://pinta-project.com/pintaproject/pinta/)|
 | Skype for Linux | Communicator | [https://www.skype.com](https://www.skype.com)|
-| WoeUSB | USB Image writer | [https://github.com/slacka/WoeUSB](https://github.com/slacka/WoeUSB)|
-| Veeam Agent for Linux | Backup tool| [https://www.veeam.com](https://www.veeam.com)|
+| Spotify | Music Player| [https://www.spotify.com/pl/download/linux/](https://www.spotify.com/pl/download/linux/)|
 | Sublime Text 3 | Text Editor | [https://www.sublimetext.com/3](https://www.sublimetext.com/3)
+| Thunderbird | Email client | [https://www.thunderbird.net](https://www.thunderbird.net)|
+| Trivy |A Simple and Comprehensive Vulnerability Scanner for Containers, Suitable for CI|[https://github.com/aquasecurity/trivy](https://github.com/aquasecurity/trivy)
+| Veeam Agent for Linux | Backup tool| [https://www.veeam.com](https://www.veeam.com)|
 | Veracrypt | Source disk encryption | [https://www.veracrypt.fr/en/Home.html](https://www.veracrypt.fr/en/Home.html)|
-| Neofetch |A command-line system information tool written in bash 3.2+| [https://github.com/dylanaraps/neofetch](https://github.com/dylanaraps/neofetch)|
-| GIMP | GNU Image Manipulation Program | [https://www.gimp.org/](https://www.gimp.org/)|
+| WoeUSB | USB Image writer | [https://github.com/slacka/WoeUSB](https://github.com/slacka/WoeUSB)|
 
 ### Packages: Flatpak
 
 |Software|Type|Link|
 |------------------|--------|---------------------|
 |Postman|The Collaboration Platform for API Development|[https://www.getpostman.com/](https://www.getpostman.com/)|
-
-## 3-rd party apps
-
-### Archives
-
-|Software|Type|Link|
-|------------------|--------|---------------------|
-|Packer|Build Automated Machine Images|[https://www.packer.io/](https://www.packer.io/)|
-|Helm|The package manager for Kubernetes|[https://helm.sh/](https://helm.sh/)|
-|Terraform|Infrastructure as Code|[https://www.terraform.io/](https://www.terraform.io/)|
-|Vault|Manage secrets and protect sensitive data|[https://www.vaultproject.io/](https://www.vaultproject.io/)|
-|Tflint|TFLint is a Terraform linter focused on possible errors, best practices, etc|[https://github.com/terraform-linters/tflint](https://github.com/terraform-linters/tflint)|
-
-### Files
-
-|Software|Type|Link|
-|------------------|--------|---------------------|
-|Docker-compose|Compose is a tool for defining and running multi-container Docker applications|[https://docs.docker.com/compose/](https://docs.docker.com/compose/)|
-|ctop|Top-like interface for container metrics|[https://github.com/bcicen/ctop](https://github.com/bcicen/ctop)|
-|rke|Rancher Kubernetes Engine (RKE), an extremely simple, lightning fast Kubernetes distribution that runs entirely within containers|[https://github.com/rancher/rke](https://github.com/rancher/rke)|
-|packetsender|Packet Sender can send and receive UDP, TCP, and SSL on the ports of your choosing|[https://packetsender.com/](https://packetsender.com/)|
-|k3s|Lightweight Kubernetes. 5 less than k8s.|[https://k3s.io/](https://k3s.io/)|
-
-### Deb Files
-
-|Software|Type|Link|
-|------------------|--------|---------------------|
-|ipscan|||
-|gitkraken|||
-|vagrant|||
-|boostnote|||
-|terminus|||
-|Rambox|||
-|teamviewer|||
-|minikube|||
-|wps office|||
-|dive|||
 
 ## Startup applications
 
@@ -244,13 +232,11 @@ Some applications are copied to `autostart` folder
 * handle *.local domain with avahi
 * changes timezone and ntpd settings
 * handle mDNS with .local domains
-* change IO Scheduler for SSD Drives (use install_grub=true)
 * modifies `sysctl` settings to start use `tcp_congestion_control` set to `bbr`
 * modifies `sysctl` settings to decrease default swappiness
 * changes `alternatives` for EDITOR
 * initial `Timeshift` launch
 * change fstrim schedule to `hourly`
-* adds `mitogen` for your ansible and adjusts config (if your mitogen is older then ansible disable this using `config_ansible=false`)
 * installs popular Microsoft Visual Studio Code extensions
 * change `dconf` settings
 
