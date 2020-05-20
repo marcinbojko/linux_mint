@@ -287,7 +287,7 @@ packages_optional:
 - teams
 - goaccess
 deb:
-- https://github.com/angryip/ipscan/releases/download/3.7.0/ipscan_3.7.0_amd64.deb
+- https://github.com/angryip/ipscan/releases/download/3.7.1/ipscan_3.7.1_amd64.deb
 - https://release.axocdn.com/linux/gitkraken-amd64.deb
 - https://releases.hashicorp.com/vagrant/2.2.9/vagrant_2.2.9_x86_64.deb
 - https://launchpad.net/ubuntu/+archive/primary/+files/libgoo-canvas-perl_0.06-2ubuntu3_amd64.deb
@@ -298,7 +298,8 @@ deb:
 - https://github.com/kubernetes/minikube/releases/download/v1.10.1/minikube_1.10.1-0_amd64.deb
 - http://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/9505/wps-office_11.1.0.9505.XA_amd64.deb
 - https://github.com/wagoodman/dive/releases/download/v0.9.2/dive_0.9.2_linux_amd64.deb
-- https://github.com/balena-io/etcher/releases/download/v1.5.88/balena-etcher-electron_1.5.88_amd64.deb
+- https://github.com/balena-io/etcher/releases/download/v1.5.90/balena-etcher-electron_1.5.90_amd64.deb
+- https://github.com/goodwithtech/dockle/releases/download/v0.2.4/dockle_0.2.4_Linux-64bit.deb
 flatpak:
 - name: https://flathub.org/repo/appstream/com.getpostman.Postman.flatpakref
 pip:
@@ -317,13 +318,13 @@ downloads:
   destination: helm
   skip_tree: true
   skip_levels: 1
-- url: https://releases.hashicorp.com/terraform/0.12.24/terraform_0.12.24_linux_amd64.zip
+- url: https://releases.hashicorp.com/terraform/0.12.25/terraform_0.12.25_linux_amd64.zip
   destination: terraform
   skip_tree: false
 - url: https://releases.hashicorp.com/vault/1.4.1/vault_1.4.1_linux_amd64.zip
   destination: vault
   skip_tree: false
-- url: https://github.com/terraform-linters/tflint/releases/download/v0.15.5/tflint_linux_amd64.zip
+- url: https://github.com/terraform-linters/tflint/releases/download/v0.16.0/tflint_linux_amd64.zip
   destination: tflint
   skip_tree: false
 files:

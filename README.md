@@ -153,6 +153,7 @@ For these variables in playbook:
 | Diodon | Clipboard Manager | [https://launchpad.net/diodon](https://launchpad.net/diodon)|
 | Dive| Docker image explorer | [https://github.com/wagoodman/dive](https://github.com/wagoodman/dive)|
 | Docker/Docker Compose |Docker manager | [https://docs.docker.com/compose/](https://docs.docker.com/compose/)
+| Dockle|Container Image Linter for Security|[https://github.com/goodwithtech/dockle](https://github.com/goodwithtech/dockle)|
 | Double Commander|File Manager|[https://doublecmd.sourceforge.io/](https://doublecmd.sourceforge.io/)|
 | Dropbox/Nemo Integration | Tool | [https://github.com/linuxmint/nemo-extensions/tree/master/nemo-dropbox](https://github.com/linuxmint/nemo-extensions/tree/master/nemo-dropbox)|
 | GitKraken | Git Client |[https://www.gitkraken.com/](https://www.gitkraken.com/) |

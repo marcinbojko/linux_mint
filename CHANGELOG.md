@@ -1,6 +1,15 @@
 # Changelog "linux_mint"
 
-## Version 1.3.7 [2020-05-13]
+## Version 1.3.8 2020-05-20
+
+* [APPLICATION] added `dockle` - container image linter [https://github.com/goodwithtech/dockle](https://github.com/goodwithtech/dockle)
+* [APPLICATION] upgraded `angryip` to version 3.7.1
+* [APPLICATION] upgraded `etcher` to version 1.5.90
+* [APPLICATION] upgraded `tflint` to version 0.16.0
+* [APPLICATION] upgraded `terraform` to version 0.12.25
+* changed `variables.yml` into `mint19.yml` to prepare for future releases
+
+## Version 1.3.7 2020-05-13
 
 * [APPLICATION] upgraded `wps-office` to 11.1.0.9505
 * [APPLICATION] upgraded `k3s` to version 1.17.5

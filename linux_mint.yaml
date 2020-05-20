@@ -21,7 +21,7 @@
     bin_path: /usr/local/bin                  # Where to put all downloaded execs.
     reboot_required: false                    # force reboot even if apt upgrade won't change anything
   vars_files:
-    - variables.yml
+    - mint19.yml
   become: true
   gather_facts: no
   pre_tasks:
