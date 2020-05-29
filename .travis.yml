@@ -1,6 +1,8 @@
 language: python
 install:
-  - pip install ansible-lint
+  - pip install --upgrade ansible-lint yamllint
+  - yamllint --version
   - ansible-lint --version
 script:
+  - yamllint -c ./.yamllint *.yaml
   - ansible-lint .

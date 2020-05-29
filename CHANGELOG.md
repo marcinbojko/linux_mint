@@ -1,13 +1,27 @@
 # Changelog "linux_mint"
 
+## Version 1.3.9 2020-05-29
+
+* [BREAKING_CHANGE] `mint19.yml` renamed to `mint19.yaml` to keep same naming convention
+* linting and aligning with playbook and variables file.
+* [APPLICATION] added `ffluf` [https://github.com/ffuf/ffuf](https://github.com/ffuf/ffuf)
+* [APPLICATION] upgraded `etcher` to version 1.5.94
+* [APPLICATION] upgraded `terminus alpha` to version 1.0.112
+* [APPLICATION] upgraded `terraform` to version 0.12.26
+* [APPLICATION] upgraded `tflint` to version 0.16.1
+* [APPLICATION] upgraded `vault` to version 1.4.2
+* [VSCODE] replace depreciated extension `jpogran.puppet-vscode` in favor of `puppet.puppet-vscode`
+* [PIP] added `jsonlint`
+* [PIP] added `jmespath`
+
 ## Version 1.3.8 2020-05-20
 
+* [BREAKING_CHANGE] changed `variables.yml` into `mint19.yml` to prepare for future releases
 * [APPLICATION] added `dockle` - container image linter [https://github.com/goodwithtech/dockle](https://github.com/goodwithtech/dockle)
 * [APPLICATION] upgraded `angryip` to version 3.7.1
 * [APPLICATION] upgraded `etcher` to version 1.5.90
 * [APPLICATION] upgraded `tflint` to version 0.16.0
 * [APPLICATION] upgraded `terraform` to version 0.12.25
-* changed `variables.yml` into `mint19.yml` to prepare for future releases
 
 ## Version 1.3.7 2020-05-13
 
@@ -17,7 +31,7 @@
 * [APPLICATION] upgraded `rke` to version 1.1.1
 * [APPLICATION] upgraded `boostnote` to version 0.15.3
 * [APPLICATION] upgraded `balena-etcher` to version 1.5.88
-* [APPLICATION] upgraded `hadolint` to version 1.17.6
+* [APPLICATION] upgraded `hadolint` to version 1.17.6p
 * [APPLICATION] upgraded `tflint` to version 1.15.5
 * [APPLICATION] upgraded `vagrant` to version 2.2.9
 * [APPLICATION] upgraded `vault` to version 1.4.1

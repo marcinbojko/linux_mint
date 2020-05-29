@@ -21,45 +21,45 @@
     bin_path: /usr/local/bin                  # Where to put all downloaded execs.
     reboot_required: false                    # force reboot even if apt upgrade won't change anything
   vars_files:
-    - mint19.yml
+  - mint19.yaml
   become: true
   gather_facts: no
   pre_tasks:
-    # ansible version
-    - name: verify_ansible_meets_version_requirements
-      assert:
-        that: "ansible_version.full is version_compare('2.9', '>=')"
-        msg: >
-          "You must update Ansible to at least 2.9 to use this version of playbook"
-      tags:
-      - assert
-    # setup module - we need these facts
-    - name: run_initial_setup_instead_of_gather_facts
-      setup:
-        gather_timeout: 30
-      retries: "{{ retries_count }}"
-      delay: "{{ delay_time }}"
-      register: r_setup_status
-      until: r_setup_status is success
-      tags:
-      - assert
-    # free space for stuff
-    - name: assert_root_partition_is_15_GB_of_free_space
-      assert: { that: item.size_available > 16106127360 } # 15 GB free
-      loop: '{{ ansible_mounts }}'
-      ignore_errors: no
-      #register: freespace
-      when: item.mount == '/'
-      tags:
-      - assert
-    # check that ansible_ssh_user have been defined
-    - name: assert_active_user_have_been_defined_and_has_value
-      assert:
-        that: active_user is defined and active_user | length >0
-        msg: >
-          "Specify user in group_vars or passed in variable active_user"
-      tags:
-      - assert
+  # ansible version
+  - name: verify_ansible_meets_version_requirements
+    assert:
+      that: "ansible_version.full is version_compare('2.9', '>=')"
+      msg: >
+        "You must update Ansible to at least 2.9 to use this version of playbook"
+    tags:
+    - assert
+  # setup module - we need these facts
+  - name: run_initial_setup_instead_of_gather_facts
+    setup:
+      gather_timeout: 30
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
+    register: r_setup_status
+    until: r_setup_status is success
+    tags:
+    - assert
+  # free space for stuff
+  - name: assert_root_partition_is_15_GB_of_free_space
+    assert: { that: item.size_available > 16106127360 } # 15 GB free
+    loop: '{{ ansible_mounts }}'
+    ignore_errors: no
+    #register: freespace
+    when: item.mount == '/'
+    tags:
+    - assert
+  # check that ansible_ssh_user have been defined
+  - name: assert_active_user_have_been_defined_and_has_value
+    assert:
+      that: active_user is defined and active_user | length >0
+      msg: >
+        "Specify user in group_vars or passed in variable active_user"
+    tags:
+    - assert
   tasks:
   # we need proper time to refresh repositories
   - name: start_timesyncd
@@ -241,13 +241,14 @@
   - name: install_pip_packages
     pip:
       name: "{{ item }}"
-      extra_args: --upgrade --ignore-installed
+      extra_args: --upgrade --upgrade-strategy=only-if-needed
     loop: "{{ pip }}"
     retries: "{{ retries_count }}"
     delay: "{{ delay_time }}"
-    register: pip
-    until: pip is success
-    any_errors_fatal: true
+    register: r_pip
+    until: r_pip is success
+    any_errors_fatal: false
+    ignore_errors: true
     tags:
     - packages
     - base
@@ -306,8 +307,8 @@
       remote_src: yes
       extra_opts: ['--strip-components={{ item.skip_levels|int }}']
       exclude:
-       - LICENSE
-       - README.md
+      - LICENSE
+      - README.md
     when: item.skip_tree
     loop: "{{ downloads }}"
     retries: "{{ retries_count }}"
@@ -359,15 +360,15 @@
       user:
         name: "{{ active_user }}"
         groups:
-          - root
-          - vboxusers
-          - docker
-          - adm
-          - sudo
-          - video
-          - cdrom
-          - plugdev
-          - dialout
+        - root
+        - vboxusers
+        - docker
+        - adm
+        - sudo
+        - video
+        - cdrom
+        - plugdev
+        - dialout
         state: present
         append: true
       any_errors_fatal: false
@@ -490,27 +491,25 @@
   # start vscode extensions block
   - name: install_vscode_extensions
     block:
-      - debug:
-          var: active_user
-      - name: run_dpkg_query_for_installed_extensions
-        shell: dpkg-query -s code | grep 'install ok installed'
-        register: r_dpkg_query_vscode
-        any_errors_fatal: false
-        ignore_errors: true
-        changed_when: "r_dpkg_query_vscode.stdout != 'Status: install ok installed'"
-      - name: install_missing_extensions
-        shell: if [ ! $(code --list-extensions|grep {{ item }}) ]; then code --install-extension {{ item }}; fi
-        loop: "{{ vscode }}"
-        register: r_install_extension
-        retries: "{{ retries_count }}"
-        delay: "{{ delay_time }}"
-        until: r_install_extension is success
-        become: yes
-        become_user: "{{ active_user }}"
-        changed_when: r_install_extension.stdout | length > 0
-        when: r_dpkg_query_vscode.rc == 0
-        any_errors_fatal: false
-        ignore_errors: true
+    - name: run_dpkg_query_for_installed_extensions
+      shell: dpkg-query -s code | grep 'install ok installed'
+      register: r_dpkg_query_vscode
+      any_errors_fatal: false
+      ignore_errors: true
+      changed_when: "r_dpkg_query_vscode.stdout != 'Status: install ok installed'"
+    - name: install_missing_extensions
+      shell: if [ ! $(code --list-extensions|grep {{ item }}) ]; then code --install-extension {{ item }}; fi
+      loop: "{{ vscode }}"
+      register: r_install_extension
+      retries: "{{ retries_count }}"
+      delay: "{{ delay_time }}"
+      until: r_install_extension is success
+      become: yes
+      become_user: "{{ active_user }}"
+      changed_when: r_install_extension.stdout | length > 0
+      when: r_dpkg_query_vscode.rc == 0
+      any_errors_fatal: false
+      ignore_errors: true
     tags:
     - optional
     - user
@@ -654,9 +653,9 @@
       delay: "{{ delay_time }}"
       until: r_reboot_after_upgrade is success
       tags:
-        - base
-        - user
-        - os
+      - base
+      - user
+      - os
     - name: clean_apt_cache
       shell: apt clean all -y
       any_errors_fatal: false
