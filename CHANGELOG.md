@@ -1,5 +1,11 @@
 # Changelog "linux_mint"
 
+## Version 1.4.0 2020-06-02
+
+* [APPLICATION] upgraded `packer` to version 1.5.6
+* [APPLICATION] upgraded `minikube` to version 1.11.0
+* [APPLICATION] upgraded `etcher` to version 1.5.95
+
 ## Version 1.3.9 2020-05-29
 
 * [BREAKING_CHANGE] `mint19.yml` renamed to `mint19.yaml` to keep same naming convention
