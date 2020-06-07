@@ -287,7 +287,10 @@
       list_files: yes
       mode: +x
       remote_src: yes
-      extra_opts: [-j]
+      exclude:
+      - LICENSE
+      - README.md
+      - CHANGELOG.md
     when: not item.skip_tree
     retries: "{{ retries_count }}"
     delay: "{{ delay_time }}"

@@ -331,8 +331,7 @@ downloads:
   skip_tree: false
 - url: https://github.com/ffuf/ffuf/releases/download/v1.0.2/ffuf_1.0.2_linux_amd64.tar.gz
   destination: ffluf
-  skip_tree: true
-  skip_levels: 1
+  skip_tree: false
 files:
 - url: https://github.com/docker/compose/releases/download/1.25.5/docker-compose-Linux-x86_64
   destination: docker-compose
