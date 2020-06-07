@@ -284,6 +284,7 @@
       src: "{{ item.url }}"
       dest: "{{ bin_path }}"
       keep_newer: true
+      list_files: yes
       mode: +x
       remote_src: yes
       extra_opts: [-j]
@@ -292,6 +293,7 @@
     delay: "{{ delay_time }}"
     register: r_unarchive
     until: r_unarchive is success
+    failed_when: r_unarchive.files is not defined or r_unarchive.files|reject("equalto", "")|list|length==0
     loop: "{{ downloads }}"
     tags:
     - base
@@ -303,6 +305,7 @@
       src: "{{ item.url }}"
       dest: "{{ bin_path }}"
       keep_newer: true
+      list_files: yes
       mode: +x
       remote_src: yes
       extra_opts: ['--strip-components={{ item.skip_levels|int }}']
@@ -315,6 +318,7 @@
     delay: "{{ delay_time }}"
     register: r_unarchive_flatten
     until: r_unarchive_flatten is success
+    failed_when: r_unarchive_flatten.files is not defined or r_unarchive_flatten.files|reject("equalto", "")|list|length==0
     tags:
     - base
     - downloads
