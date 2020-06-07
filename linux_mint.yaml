@@ -45,7 +45,7 @@
     - assert
   # free space for stuff
   - name: assert_root_partition_is_15_GB_of_free_space
-    assert: { that: item.size_available > 16106127360 } # 15 GB free
+    assert: { that: item.size_available > 14106127360 } # 15 GB free
     loop: '{{ ansible_mounts }}'
     ignore_errors: no
     #register: freespace
@@ -326,6 +326,7 @@
     - base
     - downloads
     - apps
+
 # Download 3-rd party software to `bin_path` setting +x
   - name: download_files
     get_url:
