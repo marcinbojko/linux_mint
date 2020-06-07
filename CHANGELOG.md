@@ -4,7 +4,13 @@
 
 * [APPLICATION] upgraded `packer` to version 1.5.6
 * [APPLICATION] upgraded `minikube` to version 1.11.0
-* [APPLICATION] upgraded `etcher` to version 1.5.95
+* [APPLICATION] upgraded `rke` to version 1.1.2
+* [APPLICATION] upgraded `docker-compose` to version 1.26.0
+* [APPLICATION] upgraded `angryip` to version 3.7.2
+* [APPLICATION] upgraded `hadolint` to version 1.18.0
+* [VSCODE] replaced depreciated extension `mauve.terraform` with `hashicorp.terraform`
+* [APPLICATION] added `hashcat`
+* [APPLICATION] added `polaris` [https://github.com/FairwindsOps/polaris](https://github.com/FairwindsOps/polaris)
 
 ## Version 1.3.9 2020-05-29
 
@@ -16,7 +22,7 @@
 * [APPLICATION] upgraded `terraform` to version 0.12.26
 * [APPLICATION] upgraded `tflint` to version 0.16.1
 * [APPLICATION] upgraded `vault` to version 1.4.2
-* [VSCODE] replace depreciated extension `jpogran.puppet-vscode` in favor of `puppet.puppet-vscode`
+* [VSCODE] replaced depreciated extension `jpogran.puppet-vscode` in favor of `puppet.puppet-vscode`
 * [PIP] added `jsonlint`
 * [PIP] added `jmespath`
 

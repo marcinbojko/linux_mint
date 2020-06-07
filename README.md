@@ -170,6 +170,7 @@ For these variables in playbook:
 | Packer | Image creator |[https://www.packer.io/](https://www.packer.io/)|
 | Packetsender|Packet Sender can send and receive UDP, TCP, and SSL on the ports of your choosing|[https://packetsender.com/](https://packetsender.com/)|
 | Palemoon | Browser alternative (Java_+Flash)| [https://www.palemoon.org/](https://www.palemoon.org/)
+| Polaris|Validation of best practices in your Kubernetes clusters|[https://www.fairwinds.com/polaris](https://www.fairwinds.com/polaris)|
 | RamboxOS |Multi IM|[https://github.com/TheGoddessInari/hamsket](https://github.com/TheGoddessInari/hamsket)|
 | Redshift | Monitor temperature changer| [http://jonls.dk/redshift/](http://jonls.dk/redshift/)|
 | Remmina | Remote Connection Manager |[https://remmina.org/](https://remmina.org/)

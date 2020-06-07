@@ -286,8 +286,9 @@ packages_optional:
 - tlpui
 - teams
 - goaccess
+- hashcat
 deb:
-- https://github.com/angryip/ipscan/releases/download/3.7.1/ipscan_3.7.1_amd64.deb
+- https://github.com/angryip/ipscan/releases/download/3.7.2/ipscan_3.7.2_amd64.deb
 - https://release.axocdn.com/linux/gitkraken-amd64.deb
 - https://releases.hashicorp.com/vagrant/2.2.9/vagrant_2.2.9_x86_64.deb
 - https://launchpad.net/ubuntu/+archive/primary/+files/libgoo-canvas-perl_0.06-2ubuntu3_amd64.deb
@@ -304,6 +305,7 @@ flatpak:
 - name: https://flathub.org/repo/appstream/com.getpostman.Postman.flatpakref
 pip:
 - pip
+- psutil
 - s-tui
 - pywinrm[kerberos]
 - pywinrm[credssp]
@@ -333,19 +335,23 @@ downloads:
   destination: ffluf
   skip_tree: true
   skip_levels: 1
+- url: https://github.com/FairwindsOps/polaris/releases/download/1.0.3/polaris_1.0.3_linux_amd64.tar.gz
+  destination: polaris
+  skip_tree: true
+  skip_levels: 1
 files:
-- url: https://github.com/docker/compose/releases/download/1.25.5/docker-compose-Linux-x86_64
+- url: https://github.com/docker/compose/releases/download/1.26.0/docker-compose-Linux-x86_64
   destination: docker-compose
 - url: https://github.com/bcicen/ctop/releases/download/v0.7.3/ctop-0.7.3-linux-amd64
   destination: ctop
-- url: https://github.com/rancher/rke/releases/download/v1.1.1/rke_linux-amd64
+- url: https://github.com/rancher/rke/releases/download/v1.1.2/rke_linux-amd64
   destination: rke
 - url: https://github.com/dannagle/PacketSender/releases/download/v6.2.3/PacketSender_Linux_x64_v6.2.3.AppImage
   destination: packetsender
   desktop_file: ./files/apps/packetsender/packetsender.desktop
 - url: https://github.com/rancher/k3s/releases/download/v1.17.5%2Bk3s1/k3s
   destination: k3s
-- url: https://github.com/hadolint/hadolint/releases/download/v1.17.6/hadolint-Linux-x86_64
+- url: https://github.com/hadolint/hadolint/releases/download/v1.18.0/hadolint-Linux-x86_64
   destination: hadolint
 - url: https://github.com/lensapp/lens/releases/download/v3.4.0/Lens-3.4.0.AppImage
   destination: lens
@@ -412,7 +418,7 @@ vscode:
 - joffreykern.markdown-toc
 - puppet.puppet-vscode
 - marcostazi.VS-code-vagrantfile
-- mauve.terraform
+- hashicorp.terraform
 - mohsen1.prettify-json
 - ms-azuretools.vscode-azureterraform
 - ms-azuretools.vscode-docker
