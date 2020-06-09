@@ -20,6 +20,7 @@
     delay_time: 15                            # delay time in seconds between retries
     bin_path: /usr/local/bin                  # Where to put all downloaded execs.
     reboot_required: false                    # force reboot even if apt upgrade won't change anything
+    unpack_folder: /tmp/linux_mint            # folder to which we're going to unpack and download files
   vars_files:
   - mint19.yaml
   become: true
@@ -62,7 +63,7 @@
     - assert
   tasks:
   # we need proper time to refresh repositories
-  - name: start_timesyncd
+  - name: start_timesyncd_service
     systemd:
       name: systemd-timesyncd
       state: started
@@ -238,10 +239,10 @@
     tags:
     - packages
 # Install Python's pip packages
-  - name: install_pip_packages
+  - name: install_and_upgrade_pip_packages
     pip:
       name: "{{ item }}"
-      extra_args: --upgrade --upgrade-strategy=only-if-needed
+      extra_args: --upgrade --upgrade-strategy=only-if-needed --ignore-installed
     loop: "{{ pip }}"
     retries: "{{ retries_count }}"
     delay: "{{ delay_time }}"
@@ -284,43 +285,29 @@
       src: "{{ item.url }}"
       dest: "{{ bin_path }}"
       keep_newer: true
+      list_files: yes
       mode: +x
       remote_src: yes
-      extra_opts: [-j]
-    when: not item.skip_tree
+      exclude:
+      - LICENSE
+      - README.md
+      - CHANGELOG.md
     retries: "{{ retries_count }}"
     delay: "{{ delay_time }}"
     register: r_unarchive
     until: r_unarchive is success
+    failed_when: r_unarchive.files is not defined or r_unarchive.files|reject("equalto", "")|list|length==0
     loop: "{{ downloads }}"
     tags:
     - base
     - downloads
     - apps
 # Download 3-rd party software and unarchive  it (flatten archive folder tree) to `bin_path` setting +x
-  - name: download_unarchive_and_flatten
-    unarchive:
-      src: "{{ item.url }}"
-      dest: "{{ bin_path }}"
-      keep_newer: true
-      mode: +x
-      remote_src: yes
-      extra_opts: ['--strip-components={{ item.skip_levels|int }}']
-      exclude:
-      - LICENSE
-      - README.md
-    when: item.skip_tree
-    loop: "{{ downloads }}"
-    retries: "{{ retries_count }}"
-    delay: "{{ delay_time }}"
-    register: r_unarchive_flatten
-    until: r_unarchive_flatten is success
-    tags:
-    - base
-    - downloads
-    - apps
+  - name: download_unarchive_flatten
+    include_tasks: ./tasks/download_files.yml
+    loop: "{{ unpack }}"
 # Download 3-rd party software to `bin_path` setting +x
-  - name: download_files
+  - name: download_regular_files
     get_url:
       url: "{{ item.url }}"
       dest: "{{ bin_path }}/{{ item.destination }}"
@@ -354,7 +341,7 @@
     - downloads
     - apps
 # Start user-related modification block
-  - name: user_mods_block
+  - name: user_modifications_block
     block:
     - name: create_or_check_users_groups
       user:
@@ -415,49 +402,49 @@
     - base
     - user
  # mitogen block
-  - block:
-    - name: check_if_mitogen_path_exists
-      file:
-        path: "{{ item.dest_path }}"
-        state: directory
-      retries: "{{ retries_count }}"
-      delay: "{{ delay_time }}"
-      loop: "{{ mitogen.download }}"
-      register: r_check_if_mitogen_path_exists
-      until: r_check_if_mitogen_path_exists is success
-    - name: download_and_unarchive_mitogen
-      unarchive:
-        src: "{{ item.urls }}"
-        dest: "{{ item.dest_path }}"
-        keep_newer: true
-        remote_src: yes
-        extra_opts: [--strip-components=1]
-      loop: "{{ mitogen.download }}"
-      register: r_download_and_unarchive_mitogen
-      retries: "{{ retries_count }}"
-      delay: "{{ delay_time }}"
-      until: r_download_and_unarchive_mitogen is success
-    - name: enable_mitogen_in_ansible_config
-      ini_file:
-        path: /etc/ansible/ansible.cfg
-        section: "{{ item.section }}"
-        option: "{{ item.option }}"
-        value: "{{ item.value }}"
-        state: present
-        backup: yes
-      retries: "{{ retries_count }}"
-      delay: "{{ delay_time }}"
-      loop: "{{ mitogen.config }}"
-      register: r_enable_mitogen_in_ansible_config
-      until: r_enable_mitogen_in_ansible_config is success
-      when: r_download_and_unarchive_mitogen is success
-    when: install_mitogen
-    tags:
-    - base
-    - downloads
-    - apps
-    - mitogen
-    - ansible
+#  - block:
+#    - name: check_if_mitogen_path_exists
+#      file:
+#        path: "{{ item.dest_path }}"
+#        state: directory
+#      retries: "{{ retries_count }}"
+#      delay: "{{ delay_time }}"
+#      loop: "{{ mitogen.download }}"
+#      register: r_check_if_mitogen_path_exists
+#      until: r_check_if_mitogen_path_exists is success
+#    - name: download_and_unarchive_mitogen
+#      unarchive:
+#        src: "{{ item.urls }}"
+#        dest: "{{ item.dest_path }}"
+#        keep_newer: true
+#        remote_src: yes
+#        extra_opts: [--strip-components=1]
+#      loop: "{{ mitogen.download }}"
+#      register: r_download_and_unarchive_mitogen
+#      retries: "{{ retries_count }}"
+#      delay: "{{ delay_time }}"
+#      until: r_download_and_unarchive_mitogen is success
+#    - name: enable_mitogen_in_ansible_config
+#      ini_file:
+#        path: /etc/ansible/ansible.cfg
+#        section: "{{ item.section }}"
+#        option: "{{ item.option }}"
+#        value: "{{ item.value }}"
+#        state: present
+#        backup: yes
+#      retries: "{{ retries_count }}"
+#      delay: "{{ delay_time }}"
+#      loop: "{{ mitogen.config }}"
+#      register: r_enable_mitogen_in_ansible_config
+#      until: r_enable_mitogen_in_ansible_config is success
+#      when: r_download_and_unarchive_mitogen is success
+#    when: install_mitogen
+#    tags:
+#    - base
+#    - downloads
+#    - apps
+#    - mitogen
+#    - ansible
   # start ansible block
   - block:
     - name: check_if_ansible_cfg_exists
@@ -491,14 +478,25 @@
   # start vscode extensions block
   - name: install_vscode_extensions
     block:
+    - name: remove_obsolete_extensions
+      shell: "code --uninstall-extension {{ item }}|true"
+      any_errors_fatal: false
+      ignore_errors: true
+      loop: "{{ vscode_obsolete }}"
+      become: yes
+      become_user: "{{ active_user }}"
+      register: r_remove_obsolete_extensions
+      changed_when: "'was successfully uninstalled!' in r_remove_obsolete_extensions.stdout"
     - name: run_dpkg_query_for_installed_extensions
       shell: dpkg-query -s code | grep 'install ok installed'
       register: r_dpkg_query_vscode
       any_errors_fatal: false
       ignore_errors: true
       changed_when: "r_dpkg_query_vscode.stdout != 'Status: install ok installed'"
+      become: yes
+      become_user: "{{ active_user }}"
     - name: install_missing_extensions
-      shell: if [ ! $(code --list-extensions|grep {{ item }}) ]; then code --install-extension {{ item }}; fi
+      shell: if [ ! $(code --list-extensions|grep {{ item }}) ]; then code --install-extension {{ item }} --force; fi
       loop: "{{ vscode }}"
       register: r_install_extension
       retries: "{{ retries_count }}"

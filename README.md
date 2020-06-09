@@ -88,6 +88,7 @@ For these variables in playbook:
 |delay_time|15|delay time in seconds between retries|
 |bin_path|/usr/local/bin|Where to put all downloaded execs|
 |reboot_required|false|force reboot even if apt upgrade won't change anything|
+|unpack_folder|/tmp/linux_mint|Which folder to use when downloading and unarchiving|
 
 ## Repositories
 
@@ -144,6 +145,7 @@ For these variables in playbook:
 
 |Software|Type|Link|
 |------------------|--------|---------------------|
+| Amass| In-depth Attack Surface Mapping and Asset Discovery|[https://github.com/OWASP/Amass](https://github.com/OWASP/Amass)|
 | AngryIP Scanner |Network Scanner |[https://angryip.org/](https://angryip.org/)|
 | Asbru Manager |Connection Manager|[https://www.asbru-cm.net/](https://www.asbru-cm.net/)|
 | Azure CLI |Command-line tools for Azure|[https://github.com/Azure/azure-cli](https://github.com/Azure/azure-cli)|
@@ -156,6 +158,7 @@ For these variables in playbook:
 | Dockle|Container Image Linter for Security|[https://github.com/goodwithtech/dockle](https://github.com/goodwithtech/dockle)|
 | Double Commander|File Manager|[https://doublecmd.sourceforge.io/](https://doublecmd.sourceforge.io/)|
 | Dropbox/Nemo Integration | Tool | [https://github.com/linuxmint/nemo-extensions/tree/master/nemo-dropbox](https://github.com/linuxmint/nemo-extensions/tree/master/nemo-dropbox)|
+| Ffuf|Fast web fuzzer written in Go|[https://github.com/ffuf/ffuf](https://github.com/ffuf/ffuf)|
 | GitKraken | Git Client |[https://www.gitkraken.com/](https://www.gitkraken.com/) |
 | Google Chrome |Browser | [https://www.google.com/intl/pl_ALL/chrome/](https://www.google.com/intl/pl_ALL/chrome/)|
 | Google Cloud SDK|Command-line tools for GCP|[https://cloud.google.com/sdk](https://cloud.google.com/sdk)|
@@ -170,6 +173,7 @@ For these variables in playbook:
 | Packer | Image creator |[https://www.packer.io/](https://www.packer.io/)|
 | Packetsender|Packet Sender can send and receive UDP, TCP, and SSL on the ports of your choosing|[https://packetsender.com/](https://packetsender.com/)|
 | Palemoon | Browser alternative (Java_+Flash)| [https://www.palemoon.org/](https://www.palemoon.org/)
+| Polaris|Validation of best practices in your Kubernetes clusters|[https://www.fairwinds.com/polaris](https://www.fairwinds.com/polaris)|
 | RamboxOS |Multi IM|[https://github.com/TheGoddessInari/hamsket](https://github.com/TheGoddessInari/hamsket)|
 | Redshift | Monitor temperature changer| [http://jonls.dk/redshift/](http://jonls.dk/redshift/)|
 | Remmina | Remote Connection Manager |[https://remmina.org/](https://remmina.org/)
@@ -268,6 +272,7 @@ Some applications are copied to `autostart` folder
 * add Vagrant plugins
 * manual handle 3rd party deb files - pre-download and re-usage on demand
 * configure neofetch
+* ~~better archive handle~~
 * ~~services handling part (by default in Ubuntu/Debian, installed service is set to `enabled/started`)~~
 * ~~more idempotency~~
 * ~~fix Bionic's broken apps like Asbru-CM~~

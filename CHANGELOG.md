@@ -1,5 +1,23 @@
 # Changelog "linux_mint"
 
+## Version 1.4.0 2020-06-09
+
+* [APPLICATION] upgraded `packer` to version 1.5.6
+* [APPLICATION] upgraded `minikube` to version 1.11.0
+* [APPLICATION] upgraded `rke` to version 1.1.2
+* [APPLICATION] upgraded `docker-compose` to version 1.26.0
+* [APPLICATION] upgraded `angryip` to version 3.7.2
+* [APPLICATION] upgraded `hadolint` to version 1.18.0
+* [APPLICATION] upgraded `etcher` to version 1.5.97
+* [APPLICATION] upgraded `tflint` to version 0.16.2
+* [APPLICATION] added `hashcat`
+* [APPLICATION] added `polaris` [https://github.com/FairwindsOps/polaris](https://github.com/FairwindsOps/polaris)
+* [APPLICATION] added `amass` [https://github.com/OWASP/Amass](https://github.com/OWASP/Amass)
+* [APPLICATION] added `helm` with version 3. It will coexist with helm version 2, using name `helm3`
+* [VSCODE] replaced depreciated extension `mauve.terraform` with `hashicorp.terraform`
+* [VSCODE] replaced depreciated extension `ms-vscode.go` with `golang.go`
+* download and unarchive is now handled by separate task: `/tasks/download_files.yml`. New section in mint19.yml variables list has been created: `unpack`. No longer is needed to check how many levels we do want to flatten extracted files.
+
 ## Version 1.3.9 2020-05-29
 
 * [BREAKING_CHANGE] `mint19.yml` renamed to `mint19.yaml` to keep same naming convention
@@ -10,7 +28,7 @@
 * [APPLICATION] upgraded `terraform` to version 0.12.26
 * [APPLICATION] upgraded `tflint` to version 0.16.1
 * [APPLICATION] upgraded `vault` to version 1.4.2
-* [VSCODE] replace depreciated extension `jpogran.puppet-vscode` in favor of `puppet.puppet-vscode`
+* [VSCODE] replaced depreciated extension `jpogran.puppet-vscode` in favor of `puppet.puppet-vscode`
 * [PIP] added `jsonlint`
 * [PIP] added `jmespath`
 

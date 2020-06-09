@@ -1,0 +1,65 @@
+- name: task_display_processing_item
+  debug:
+    msg: "Processing: {{ item.url }}"
+- name: "task_empty_unpack_{{ item.destination }}"
+  file:
+    path: "{{ folder_item }}"
+    state: absent
+  loop:
+    - "{{ unpack_folder }}/unpack"
+  changed_when: false
+  loop_control:
+    loop_var: folder_item
+  retries: "{{ retries_count }}"
+  delay: "{{ delay_time }}"
+  register: r_task_empty_unpack
+  until: r_task_empty_unpack is defined and r_task_empty_unpack is success
+- name: task_create_folder_structure
+  file:
+    path: "{{ folder_item }}"
+    state: directory
+  loop:
+    - "{{ unpack_folder }}/downloads"
+    - "{{ unpack_folder }}/unpack"
+  loop_control:
+    loop_var: folder_item
+  retries: "{{ retries_count }}"
+  delay: "{{ delay_time }}"
+  register: r_task_create_folder_structure
+  until: r_task_create_folder_structure is defined and r_task_create_folder_structure is success
+  changed_when: false
+- name: task_download_files
+  get_url:
+    url: "{{ item.url }}"
+    dest: "{{ unpack_folder }}/downloads/{{ item.destination_file }}"
+  retries: "{{ retries_count }}"
+  delay: "{{ delay_time }}"
+  register: r_task_download_files
+  until: r_task_download_files is defined and r_task_download_files is success
+  when: r_task_create_folder_structure is defined and r_task_create_folder_structure is success
+- name: task_unpack_files
+  unarchive:
+    src: "{{ unpack_folder }}/downloads/{{ item.destination_file }}"
+    dest: "{{ unpack_folder }}/unpack/"
+    keep_newer: true
+    list_files: yes
+    mode: +x
+    remote_src: yes
+  retries: "{{ retries_count }}"
+  delay: "{{ delay_time }}"
+  register: r_task_unpack_files
+  until: r_task_unpack_files is defined and r_task_unpack_files is success
+  when: r_task_download_files is defined and r_task_download_files is success
+- name: task_copy_files
+  copy:
+    src: "{{ unpack_folder }}/unpack/{{ item.folder }}/{{ item.source }}"
+    dest: "{{ bin_path }}/{{ item.destination }}"
+    remote_src: yes
+    mode: +x
+  become_user: root
+  become: true
+  retries: "{{ retries_count }}"
+  delay: "{{ delay_time }}"
+  register: r_task_copy_files
+  until: r_task_copy_files is success
+  when: r_task_unpack_files is defined and r_task_unpack_files is success

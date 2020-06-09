@@ -10,7 +10,9 @@ ansible-lint:
   - yamllint --version
   - ansible-lint --version
   script:
+    - yamllint -c ./.yamllint ./tasks/*.yml
     - yamllint -c ./.yamllint *.yaml
+    - ansible-lint ./tasks/*.yml
     - ansible-lint .
   tags:
     - docker
