@@ -322,9 +322,9 @@
     - base
     - downloads
     - apps
-  - name: put_desktop_files_for_application
+  - name: put_desktop_files_for_applications
     copy:
-      dest: /usr/share/application
+      dest: /usr/share/applications
       src: "{{ item.desktop_file }}"
       owner: root
       group: root
