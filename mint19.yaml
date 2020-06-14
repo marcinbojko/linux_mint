@@ -232,7 +232,7 @@ packages:
 - asbru-cm
 - iperf3
 - traceroute
-- nfs-client
+- nfs-common
 - rdesktop
 - gddrescue
 - testdisk
