@@ -238,7 +238,6 @@ packages:
 - testdisk
 - partclone
 - clonezilla
-- rdesktop
 - httpie
 - ngrep
 - tshark
