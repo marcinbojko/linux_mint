@@ -1,5 +1,17 @@
 # Changelog "linux_mint"
 
+## Version 1.4.1 [2020-06-23]
+
+* [APPLICATION] upgraded `packer` to version 1.6.0
+* [APPLICATION] upgraded `k3s` to version 1.18.4
+* [APPLICATION] upgraded `etcher` to 1.5.100
+* [APPLICATION] upgraded `helm3` to version 3.2.4
+* [APPLICATION] upgraded `amass` to version 3.7.2
+* [APPLICATION] upgraded `polaris` to version 1.1.0
+* [PIP] added `gittyleaks` [https://github.com/kootenpv/gittyleaks](https://github.com/kootenpv/gittyleaks)
+* fixes in `applications` desktop files section [https://github.com/marcinbojko/linux_mint/pull/4](https://github.com/marcinbojko/linux_mint/pull/4)
+* removed duplicate packages [https://github.com/marcinbojko/linux_mint/pull/4](https://github.com/marcinbojko/linux_mint/pull/4)
+
 ## Version 1.4.0 2020-06-09
 
 * [APPLICATION] upgraded `packer` to version 1.5.6

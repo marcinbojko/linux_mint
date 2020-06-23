@@ -46,7 +46,7 @@
     - assert
   # free space for stuff
   - name: assert_root_partition_is_15_GB_of_free_space
-    assert: { that: item.size_available > 16106127360 } # 15 GB free
+    assert: { that: item.size_available > 14106127360 } # 15 GB free
     loop: '{{ ansible_mounts }}'
     ignore_errors: no
     #register: freespace
@@ -160,6 +160,15 @@
     retries: "{{ retries_count }}"
     delay: 3
     until: r_apt_initial_refresh is success
+    tags:
+    - packages
+    - base
+# make sure all dpkg are already configured
+  - name: reconfigure_all_waiting_packages
+    shell: dpkg --configure -a
+    any_errors_fatal: false
+    ignore_errors: true
+    changed_when: false
     tags:
     - packages
     - base
@@ -322,9 +331,9 @@
     - base
     - downloads
     - apps
-  - name: put_desktop_files_for_application
+  - name: put_desktop_files_for_applications
     copy:
-      dest: /usr/share/application
+      dest: /usr/share/applications
       src: "{{ item.desktop_file }}"
       owner: root
       group: root
