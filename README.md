@@ -4,7 +4,7 @@
 
 ## Prerequisites
 
-* installed `Linux Mint` 19, 19.1, 19.2, 19.3 all 64-bit, standard options with extra codecs (available as selection during install)
+* installed `Linux Mint` 19, 19.1, 19.2, 19.3, 20.0 - all 64-bit, standard options with extra codecs (available as selection during install)
 * access to Internet
 * `openssh-server` installed and running
 * `ansible` in version 2.9 or higher
@@ -17,7 +17,7 @@
 
 ## Assumptions
 
-* 15GB free space on OS drive
+* 20 GB free space on OS drive
 * ssh private key or password method
 * user specified in `group_vars` or passed in variable `ansible_ssh_user`
 * by default, extra binaries (outside packages) will be installed in `/usr/local/bin` (adjustable by `bin_path` variable) If you prefer to keep them in cloud (sync between computers), down below I'll attach info how to replace binaries with proper symlinks (work in progress)
@@ -31,6 +31,10 @@
 * changes in `ansible.cfg`
 * changes in `dconf` settings`
 * changes system variables (sysctl)
+
+## In-place upgraded OS warning
+
+Role of this playbook to to work on clean, or clean-upgraded system. This means, it works best when installed for a first time on a clean OS install. I haven't tested it properly on in-place upgrade systems, so both 18=>19 and 19=>20 upgrades are risky and experimental. Make sure all apt repositories (except system ones) are removed from /etc/apt - playbook works best when this list is empty.
 
 ## Usage
 
@@ -62,9 +66,11 @@ or with specific tags
 ansible-playbook ../linux_mint.yaml -i myhost.lst --tags "base"
 ```
 
-or passing true/false
+or passing true/false as JSON
 
+```bash
 ansible-playbook ./linux_mint.yaml -i myhost.lst --extra-vars '{"install_optional": "true"}'
+```
 
 ## Variables
 
@@ -83,7 +89,6 @@ For these variables in playbook:
 |config_dconf|true|change dconf settings|
 |config_sysctl|true|change sysctl settings|
 |active_user|"{{ ansible_ssh_user }}"|user for which you're setting folders. By default taken from group_vars|
-|codename|bionic|codename of version you're setting PPAs for|
 |retries_count|4|how many retries|
 |delay_time|15|delay time in seconds between retries|
 |bin_path|/usr/local/bin|Where to put all downloaded execs|

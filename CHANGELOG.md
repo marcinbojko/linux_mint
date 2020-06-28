@@ -1,5 +1,19 @@
 # Changelog "linux_mint"
 
+## Version 2.0.0 [2020-06-28]
+
+* [MINT] addedd experimental support for Linux Mint 20 `Ulyana`. After reaching stability support for Linux Mint 19 will be removed.
+* variables are now separated by major distribution version and used accordingly
+* [BREAKING_CHANGE] Linux Mint 20 doesn't offer support for `powershell` other than a snap
+* [BREAKING_CHANGE] Linux Mint 20 by default uses python3.
+* [BREAKING_CHANGE] Linux Mint 20 `ansible` ppa is removed in favour of system packages
+* [BREAKING_CHANGE] Linux Mint 20 `git-lfs` ppa is removed in favour of system packages
+* [BREAKING_CHANGE] Linux Mint 20 `woeusb` package is removed
+* [BREAKING_CHANGE] Linux Mint 20 `zenmap` package is removed
+* [APPLICATION] upgraded `rke` to version 1.1.3
+* [APPLICATION] upgraded `amass` to version 3.7.3
+* [APPLICATION] upgraded `tflint` to version 1.17.0
+
 ## Version 1.4.1 [2020-06-23]
 
 * [APPLICATION] upgraded `packer` to version 1.6.0

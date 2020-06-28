@@ -1,4 +1,4 @@
-# Prepares LinuxMint19 desktop.
+# Prepares LinuxMint19/20 desktop.
 # start from preparing ssh:
 # sudo apt install openssh-server ntp;systemctl enable ssh && systemctl start ssh
 #
@@ -15,14 +15,11 @@
     config_dconf: true                        # do changes in dconf editor
     config_sysctl: true                       # do changes in sysctl
     active_user: "{{ ansible_ssh_user }}"     # user for which you're setting folders. By default taken from group_vars
-    codename: bionic                          # codename of version you're setting PPAs for
     retries_count: 4                          # how many retries
     delay_time: 15                            # delay time in seconds between retries
     bin_path: /usr/local/bin                  # Where to put all downloaded execs.
     reboot_required: false                    # force reboot even if apt upgrade won't change anything
     unpack_folder: /tmp/linux_mint            # folder to which we're going to unpack and download files
-  vars_files:
-  - mint19.yaml
   become: true
   gather_facts: no
   pre_tasks:
@@ -46,7 +43,7 @@
     - assert
   # free space for stuff
   - name: assert_root_partition_is_15_GB_of_free_space
-    assert: { that: item.size_available > 14106127360 } # 15 GB free
+    assert: { that: item.size_available > 23622320128 } # 20 GB free
     loop: '{{ ansible_mounts }}'
     ignore_errors: no
     #register: freespace
@@ -61,6 +58,18 @@
         "Specify user in group_vars or passed in variable active_user"
     tags:
     - assert
+  - name: load_vars_depending_on_distribution
+    include_vars:
+      file: "mint{{ ansible_distribution_major_version }}.yaml"
+    any_errors_fatal: true
+    ignore_errors: false
+    register: r_load_vars
+    until: r_load_vars is success
+    changed_when: false
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
+    tags:
+    - assert
   tasks:
   # we need proper time to refresh repositories
   - name: start_timesyncd_service
@@ -69,6 +78,10 @@
       state: started
       enabled: true
     changed_when: false
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
+    register: r_start_timesyncd
+    until: r_start_timesyncd is success
     tags:
     - base
   - name: start_timedatectl_set_ntp
@@ -247,11 +260,11 @@
     when: install_deb
     tags:
     - packages
-# Install Python's pip packages
   - name: install_and_upgrade_pip_packages
     pip:
       name: "{{ item }}"
       extra_args: --upgrade --upgrade-strategy=only-if-needed --ignore-installed
+      executable: "{{ pip_executable }}"
     loop: "{{ pip }}"
     retries: "{{ retries_count }}"
     delay: "{{ delay_time }}"
@@ -259,6 +272,7 @@
     until: r_pip is success
     any_errors_fatal: false
     ignore_errors: true
+    when: pip_executable is defined
     tags:
     - packages
     - base
