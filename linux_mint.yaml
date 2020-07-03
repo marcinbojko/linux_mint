@@ -43,10 +43,9 @@
     - assert
   # free space for stuff
   - name: assert_root_partition_is_15_GB_of_free_space
-    assert: { that: item.size_available > 23622320128 } # 20 GB free
+    assert: { that: item.size_available > 13622320128 } # 20 GB free
     loop: '{{ ansible_mounts }}'
     ignore_errors: no
-    #register: freespace
     when: item.mount == '/'
     tags:
     - assert
@@ -58,9 +57,11 @@
         "Specify user in group_vars or passed in variable active_user"
     tags:
     - assert
+  # load variables
   - name: load_vars_depending_on_distribution
     include_vars:
-      file: "mint{{ ansible_distribution_major_version }}.yaml"
+      dir: .
+      files_matching: "mint{{ ansible_distribution_major_version }}.*.yaml"
     any_errors_fatal: true
     ignore_errors: false
     register: r_load_vars
@@ -68,6 +69,7 @@
     changed_when: false
     retries: "{{ retries_count }}"
     delay: "{{ delay_time }}"
+    failed_when: r_load_vars is failed or r_load_vars.ansible_included_var_files is not defined
     tags:
     - assert
   tasks:
@@ -103,6 +105,21 @@
     tags:
     - keys
     - base
+  - name: install_custom_apt_keys
+    apt_key:
+      url: "{{ item }}"
+      state: present
+    loop: "{{ custom_keys | default([]) }}"
+    register: r_custom_keys
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
+    until: r_custom_keys is success
+    when: custom_keys is defined
+    any_errors_fatal: true
+    tags:
+    - keys
+    - base
+    - custom
 # remove obsolete repositories
   - name: remove_obsolete_repositories_from_variables_file
     apt_repository:
@@ -147,6 +164,23 @@
     tags:
     - repositories
     - base
+  - name: add_custom_basic_repositories_from_variables_file
+    apt_repository:
+      repo: "{{ item.repo }}"
+      state: present
+      codename: "{{ codename }}"
+      filename: "{{ item.filename }}"
+    loop: "{{ custom_repositories }}"
+    retries: "{{ retries_count }}"
+    delay: 3
+    register: custom_repositories
+    until: custom_repositories  is success
+    when: custom_repositories is defined and custom_repositories|length >0
+    any_errors_fatal: false
+    tags:
+    - repositories
+    - base
+    - custom
 # Add optional repositories
   - name: add_optional_repositories_from_variables_file
     apt_repository:
@@ -221,12 +255,27 @@
     loop: "{{ packages }}"
     retries: "{{ retries_count }}"
     delay: "{{ delay_time }}"
-    register: packages
-    until: packages is success
+    register: r_packages
+    until: r_packages is success
     any_errors_fatal: false
     tags:
     - packages
     - base
+  - name: install_custom_packages
+    apt:
+      name: "{{ item }}"
+      state: "{{ install_state }}"
+      update_cache: no
+    loop: "{{ custom_packages | default ([]) }}"
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
+    register: r_custom_packages
+    until: r_custom_packages is success
+    any_errors_fatal: false
+    tags:
+    - packages
+    - base
+    - custom
 # Install optional packages - if variable `install_optional` is set to true
   - name: install_optional_packages
     apt:

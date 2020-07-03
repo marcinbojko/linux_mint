@@ -339,7 +339,7 @@ downloads:
 - url: https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip
   destination: terraform
   skip_tree: false
-- url: https://releases.hashicorp.com/vault/1.4.2/vault_1.4.2_linux_amd64.zip
+- url: https://releases.hashicorp.com/vault/1.4.3/vault_1.4.3_linux_amd64.zip
   destination: vault
   skip_tree: false
 - url: https://github.com/terraform-linters/tflint/releases/download/v0.17.0/tflint_linux_amd64.zip
@@ -352,7 +352,7 @@ downloads:
   destination: polaris
   skip_tree: false
 files:
-- url: https://github.com/docker/compose/releases/download/1.26.0/docker-compose-Linux-x86_64
+- url: https://github.com/docker/compose/releases/download/1.26.2/docker-compose-Linux-x86_64
   destination: docker-compose
 - url: https://github.com/bcicen/ctop/releases/download/v0.7.3/ctop-0.7.3-linux-amd64
   destination: ctop
@@ -365,7 +365,7 @@ files:
   destination: k3s
 - url: https://github.com/hadolint/hadolint/releases/download/v1.18.0/hadolint-Linux-x86_64
   destination: hadolint
-- url: https://github.com/lensapp/lens/releases/download/v3.4.0/Lens-3.4.0.AppImage
+- url: https://github.com/lensapp/lens/releases/download/v3.5.1/Lens-3.5.1.AppImage
   destination: lens
   desktop_file: ./files/apps/lens/lens.desktop
 mitogen:

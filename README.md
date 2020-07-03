@@ -1,4 +1,4 @@
-# Ansible playbook for your super-admin/devops Linux Mint 19.x based workstation
+# Ansible playbook for your super-admin/devops Linux Mint 19.x/20.x based workstation
 
 [![Build Status](https://travis-ci.org/marcinbojko/linux_mint.svg?branch=master)](https://travis-ci.org/marcinbojko/linux_mint)
 
@@ -34,7 +34,7 @@
 
 ## In-place upgraded OS warning
 
-Role of this playbook to to work on clean, or clean-upgraded system. This means, it works best when installed for a first time on a clean OS install. I haven't tested it properly on in-place upgrade systems, so both 18=>19 and 19=>20 upgrades are risky and experimental. Make sure all apt repositories (except system ones) are removed from /etc/apt - playbook works best when this list is empty.
+Role of this playbook is to work on clean or cleanly-upgraded system. I haven't tested it properly in case of in-place upgrade systems, so both 18=>19 and 19=>20 upgrades and playbook usage, are risky and experimental. Make sure all apt repositories (except system ones) are removed from /etc/apt - playbook works best when this list is empty.
 
 ## Usage
 
@@ -74,8 +74,7 @@ ansible-playbook ./linux_mint.yaml -i myhost.lst --extra-vars '{"install_optiona
 
 ## Variables
 
-Most variables are stored in `variables.yml` file. Feel free to adjust them to suit your needs.
-For these variables in playbook:
+Most variables are stored in `mint19|20.yaml` file. If you need extra settings, instead of modyfing it, use custom variable files.
 
 |variable|default|description|
 |--------|-------|-----------|
@@ -95,18 +94,48 @@ For these variables in playbook:
 |reboot_required|false|force reboot even if apt upgrade won't change anything|
 |unpack_folder|/tmp/linux_mint|Which folder to use when downloading and unarchiving|
 
+## Custom variables, custom variable files
+
+If you don't want to track changes or change main variable file content with every pull, create your own custom variable files. By default playbook will look for files: `mint[ansible_distribution_major_version]*.yaml`.
+This means - if your distro is Linux Mint 19, place a file in a playbook folder witha name: mint19_custom.yaml
+If your distro is Linux Mint 19, place a file in a playbook folder with a name: mint20_custom.yaml.
+These filters are added to .gitignore to not override your changes.
+Be careful not to add multiple matching files with corresponding names
+
+### Custom file content
+
+```yaml
+custom_repositories: []
+custom_keys: []
+custom_packages: []
+```
+
+### Custom file example
+
+`mint20_custom.yaml`
+
+```yaml
+custom_repositories:
+- repo: ppa:videolan/master-daily
+  filename: videolan
+custom_keys:
+- https://somekeyfile/key.pgp
+custom_packages:
+- vlc
+```
+
 ## Repositories
 
 ### Repositories: Basic
 
 * `alexx2000` - Double Commander
-* `ansible` - Ansible
+* `ansible` - Ansible - **removed in Linux Mint 20**
 * `asbru-cm` - Asbru Connection Manager
 * `azure-cli` - Azure CLI SDK
 * `docker` - Docker-CE
 * `gcsfuse` - Google Storage gcsfuse - Mount a GCS bucket locally`
 * `gezakovacs` - UNetbootin
-* `git-lfs` - Git Large File System
+* `git-lfs` - Git Large File System - **removed in Linux Mint 20**
 * `googlechrome` - Google Chrome Browser
 * `google-cloud-sdk` - Google Cloud Tools SDK
 * `kubernetes` - Google Kubernetes kubeadm & kubectl

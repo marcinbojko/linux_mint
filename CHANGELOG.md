@@ -1,5 +1,12 @@
 # Changelog "linux_mint"
 
+## Version 2.0.1 [2020-07-03]
+
+*[REPOSITORY] added `libreoffice` ppa
+*[BREAKING_CHANGE] introduced `custom` variable files for easier config separation - more in README.md
+*[APPLICATION] upgraded `docker-compose` to version 1.26.2
+*[APPLICATION] upgraded `lens` to version 3.5.1
+
 ## Version 2.0.0 [2020-06-28]
 
 * [MINT] addedd experimental support for Linux Mint 20 `Ulyana`. After reaching stability support for Linux Mint 19 will be removed.
