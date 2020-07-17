@@ -74,6 +74,20 @@
     - assert
   tasks:
   # we need proper time to refresh repositories
+  - name: make_sure_timesyncd_is_installed
+    apt:
+      name: systemd-timesyncd
+      state: present
+      update_cache: yes
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
+    register: r_systemd_timesyncd
+    until: r_systemd_timesyncd is success
+    when: ansible_distribution_major_version|int > 19
+    any_errors_fatal: true
+    tags:
+    - packages
+    - base
   - name: start_timesyncd_service
     systemd:
       name: systemd-timesyncd
@@ -688,52 +702,73 @@
       retries: "{{ retries_count }}"
       delay: "{{ delay_time }}"
       until: r_environment is success
+    - name: reset_dconf_values
+      dconf:
+        key: "{{ item.key }}"
+        state: "{{ item.state }}"
+      loop: "{{ dconf }}"
+      register: r_dconf_values
+      retries: "{{ retries_count }}"
+      delay: "{{ delay_time }}"
+      until: r_dconf_values is success
+      when: config_dconf and "absent" in item.state
+      become: yes
+      become_user: "{{ active_user }}"
+      tags:
+      - dconf
     - name: set_dconf_values
       dconf:
-        key: "{{ item.key|string }}"
-        state: "{{ item.state|string }}"
+        key: "{{ item.key }}"
+        state: "{{ item.state }}"
         value: "{{ item.value|string }}"
       loop: "{{ dconf }}"
       register: r_dconf_values
       retries: "{{ retries_count }}"
       delay: "{{ delay_time }}"
       until: r_dconf_values is success
-      when: config_dconf
+      when: config_dconf and "present" in item.state
       become: yes
       become_user: "{{ active_user }}"
-    - name: update_all_packages
-      apt:
-        upgrade: "yes"
-        update_cache: yes
-        autoclean: yes
-      register: apt_upgrade
-      retries: "{{ retries_count }}"
-      delay: "{{ delay_time }}"
-      until: apt_upgrade is success
+      tags:
+      - dconf
     # Reboot
-    - name: reboot_after_changes
-      reboot:
-        pre_reboot_delay: 15
-        post_reboot_delay: 15
-        msg: "Initial reboot"
-      when: (reboot_required is defined and reboot_required) or (apt_upgrade.changed)
-      register: r_reboot_after_upgrade
-      any_errors_fatal: false
-      retries: "{{ retries_count }}"
-      delay: "{{ delay_time }}"
-      until: r_reboot_after_upgrade is success
-      tags:
-      - base
-      - user
-      - os
-    - name: clean_apt_cache
-      shell: apt clean all -y
-      any_errors_fatal: false
-      register: r_clean_apt_cache
-      retries: "{{ retries_count }}"
-      delay: "{{ delay_time }}"
-      changed_when: false
-      tags:
-      - base
-      - user
-      - os
+    tags:
+    - user
+    - base
+  - name: update_all_packages
+    apt:
+      upgrade: "yes"
+      update_cache: yes
+      autoclean: yes
+    register: apt_upgrade
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
+    until: apt_upgrade is success
+    tags:
+    - base
+    - apt
+  - name: reboot_after_changes
+    reboot:
+      pre_reboot_delay: 15
+      post_reboot_delay: 15
+      msg: "Initial reboot"
+    when: (reboot_required is defined and reboot_required) or (apt_upgrade.changed)
+    register: r_reboot_after_upgrade
+    any_errors_fatal: false
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
+    until: r_reboot_after_upgrade is success
+    tags:
+    - base
+    - os
+  - name: clean_apt_cache
+    shell: apt clean all -y
+    any_errors_fatal: false
+    register: r_clean_apt_cache
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
+    changed_when: false
+    tags:
+    - base
+    - os
+    - apt

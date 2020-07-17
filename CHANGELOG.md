@@ -1,5 +1,22 @@
 # Changelog "linux_mint"
 
+## Version 2.0.3 [2020-07-17]
+
+* more test for Linux Mint 19=>20 upgrade scenario
+* [EXPERIMENTAL] added section in README.md how to get rid of python 2
+* [DCONF] added shortcuts for `Synapse` and `Diodon` applications
+* [APPLICATION] upgraded `etcher`to 1.5.101
+* [APPLICATION] upgraded `amass` to 3.7.4
+* [APPLICATION] upgraded `terraform` to version 0.12.28
+* [APPLICATION] upgraded `wps-office` to version 11.1.0.9604.XA
+* [APPLICATION] upgraded `k3s` to version 1.18.6
+* [APPLICATION] upgraded `rke` to version 1.1.4
+* [APPLICATION] upgraded `minikube` to version 1.12.0
+* [APPLICATION] added `Key Store Explorer` in version 5.4.3
+* [PACKAGES] upgraded `dotnet-sdk` to version 3.1 for Linux Mint 19
+* [PACKAGES] added `zsh`
+* [PACKAGES] added `netcat`
+
 ## Version 2.0.2 [2020-07-03]
 
 * `CHANGELOG.md` changed

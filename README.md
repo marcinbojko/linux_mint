@@ -1,4 +1,4 @@
-# Ansible playbook for your super-admin/devops Linux Mint 19.x/20.x based workstation
+# Ansible playbook for your DevOps/Super-Admin Linux Mint 19.x/20.x based workstation
 
 [![Build Status](https://travis-ci.org/marcinbojko/linux_mint.svg?branch=master)](https://travis-ci.org/marcinbojko/linux_mint)
 
@@ -10,7 +10,7 @@
 * `ansible` in version 2.9 or higher
 
   ```bash
-  sudo apt install openssh-server;systemctl enable ssh && systemctl start ssh
+  sudo apt install openssh-server;sudo systemctl enable ssh && sudo systemctl start ssh
   ```
 
 * PermitRootLogin in `/etc/ssh/sshd_config` if you're using root account
@@ -29,12 +29,26 @@
 * downloads 3rd party software and puts it in proper path - `/usr/local/bin` by default (adjustable by `bin_path` variable)
 * changes startup settings for specific user (that's why you should not run this as root)
 * changes in `ansible.cfg`
-* changes in `dconf` settings`
-* changes system variables (sysctl)
+* changes in `dconf` settings
+* changes in `sysctl` system settings
 
 ## In-place upgraded OS warning
 
 Role of this playbook is to work on clean or cleanly-upgraded system. I haven't tested it properly in case of in-place upgrade systems, so both 18=>19 and 19=>20 upgrades and playbook usage, are risky and experimental. Make sure all apt repositories (except system ones) are removed from /etc/apt - playbook works best when this list is empty.
+
+Warning - systems after upgrade will require: `ansible_python_interpreter=/usr/bin/python3` setting.
+
+### Python2 removal
+
+Be aware several packages (virtualbox-6.1, zenmap) will install python2 and remove python-is-python3 package.
+
+```bash
+sudo apt update
+sudo apt install python-is-python3
+sudo apt update
+sudo apt remove python2 --simulate
+sudo apt remove python2
+```
 
 ## Usage
 
@@ -327,3 +341,6 @@ Some applications are copied to `autostart` folder
   ```bash
   sudo curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && sudo python2.7 get-pip.py --force-reinstall
   ```
+
+* Playbook exits with a message `Could not import python modules: apt, apt_pkg. Please install python3-apt package`
+  * Resolution: set `ansible_python_interpreter=/usr/bin/python3`
