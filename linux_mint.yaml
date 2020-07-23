@@ -14,7 +14,6 @@
     config_ansible: true                      # do changes in change ansible.cfg
     config_dconf: true                        # do changes in dconf editor
     config_sysctl: true                       # do changes in sysctl
-    active_user: "{{ ansible_ssh_user }}"     # user for which you're setting folders. By default taken from group_vars
     retries_count: 4                          # how many retries
     delay_time: 15                            # delay time in seconds between retries
     bin_path: /usr/local/bin                  # Where to put all downloaded execs.
@@ -23,6 +22,12 @@
   become: true
   gather_facts: no
   pre_tasks:
+  # To support ansible_connection type "local", use fact for become_user
+  - name: set_fact_active_user
+    set_fact:
+      active_user: "{{ ansible_ssh_user }}"     # user for which you're setting folders. By default taken from group_vars
+    tags:
+    - base
   # ansible version
   - name: verify_ansible_meets_version_requirements
     assert:
@@ -752,7 +757,7 @@
       pre_reboot_delay: 15
       post_reboot_delay: 15
       msg: "Initial reboot"
-    when: (reboot_required is defined and reboot_required) or (apt_upgrade.changed)
+    when: (reboot_required is defined and reboot_required) or (apt_upgrade.changed) and (ansible_connection != "local")
     register: r_reboot_after_upgrade
     any_errors_fatal: false
     retries: "{{ retries_count }}"
