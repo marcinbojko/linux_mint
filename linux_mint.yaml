@@ -21,6 +21,7 @@
     bin_path: /usr/local/bin                  # Where to put all downloaded execs.
     reboot_required: false                    # force reboot even if apt upgrade won't change anything
     unpack_folder: /tmp/linux_mint            # folder to which we're going to unpack and download files
+    wireshark_setuid: "{{ hostvars[inventory_hostname].wireshark_setuid | default('false') }}" # The default is false in deb package wireshark-common
   become: true
   gather_facts: no
   pre_tasks:
@@ -232,6 +233,31 @@
     tags:
     - packages
     - base
+  - name: package_facts
+    package_facts:
+      manager: apt
+    tags:
+    - packages
+    - base
+    - facts
+  - name: debconf_wireshark_common
+    debconf:
+      name: wireshark-common
+      question: wireshark-common/install-setuid
+      value: "{{ wireshark_setuid }}"
+      vtype: boolean
+    register: r_debconf_wireshark_common
+    tags:
+    - packages
+    - base
+    - wireshark
+  - name: reconfigure_wireshark_common
+    shell: dpkg-reconfigure --frontend noninteractive wireshark-common
+    when: "'wireshark-common' in ansible_facts.packages and (r_debconf_wireshark_common is changed and r_debconf_wireshark_common is defined)"
+    tags:
+    - packages
+    - base
+    - wireshark
 # make sure all dpkg are already configured
   - name: reconfigure_all_waiting_packages
     shell: dpkg --configure -a
@@ -445,21 +471,30 @@
 # Start user-related modification block
   - name: user_modifications_block
     block:
+    - name: getent_group
+      getent:
+        database: group
+      tags:
+      - base
+      - user
     - name: create_or_check_users_groups
       user:
         name: "{{ active_user }}"
-        groups:
-        - root
-        - vboxusers
-        - docker
-        - adm
-        - sudo
-        - video
-        - cdrom
-        - plugdev
-        - dialout
+        groups: "{{ item }}"
         state: present
         append: true
+      loop:
+      - root
+      - vboxusers
+      - docker
+      - adm
+      - sudo
+      - video
+      - cdrom
+      - plugdev
+      - dialout
+      - wireshark
+      when: item in getent_group
       any_errors_fatal: false
       register: r_active_user_account
       until: r_active_user_account is success
@@ -468,7 +503,7 @@
       - user
     - name: fact_for_user_home_dir
       set_fact:
-        "active_user_homedir": "{{ r_active_user_account.home }}"
+        "active_user_homedir": "{{ r_active_user_account.results[0].home }}"
       tags:
       - base
       - user

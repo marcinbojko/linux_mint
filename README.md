@@ -107,6 +107,7 @@ Most variables are stored in `mint19|20.yaml` file. If you need extra settings, 
 |bin_path|/usr/local/bin|Where to put all downloaded execs|
 |reboot_required|false|force reboot even if apt upgrade won't change anything|
 |unpack_folder|/tmp/linux_mint|Which folder to use when downloading and unarchiving|
+|wireshark_setuid|false|Should wireshark be configured for non-root package capture|
 
 ## Custom variables, custom variable files
 
@@ -237,6 +238,7 @@ custom_packages:
 | Vault | Secrets Manager |[https://www.vaultproject.io/](https://www.vaultproject.io/)
 | VirtualBox|Virtualization|[https://www.virtualbox.org/](https://www.virtualbox.org/)|
 | Visual Studio Code|Code editor|[https://code.visualstudio.com/](https://code.visualstudio.com/)|
+| Wireshark | Network protocol analyzer | [https://www.wireshark.org/](https://www.wireshark.org/)|
 | WPS Office for Linux | Productivity Tools | [https://www.wps.com/wps-office-for-linux/](https://www.wps.com/wps-office-for-linux/)
 | XCA | Certificate Manager|[https://hohnstaedt.de/xca/](https://hohnstaedt.de/xca/)|
 
