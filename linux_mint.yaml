@@ -22,12 +22,14 @@
   become: true
   gather_facts: no
   pre_tasks:
-  # To support ansible_connection type "local", use fact for become_user
+  # Define active_user as fact for become_user to avoid "smart" variable problems where "ansible_ssh_user" is seen as undefined.
+  # Happens when playbook is used with vagrant provisioner "ansible_local".
   - name: set_fact_active_user
     set_fact:
       active_user: "{{ ansible_ssh_user }}"     # user for which you're setting folders. By default taken from group_vars
     tags:
     - base
+    - user
   # ansible version
   - name: verify_ansible_meets_version_requirements
     assert:
