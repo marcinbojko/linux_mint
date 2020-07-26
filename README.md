@@ -164,6 +164,7 @@ custom_packages:
 * `virtualbox` - Virtualization Software
 * `vscode` - Microsoft Visual Studio Code
 * `y-ppa-manager` - Manage your PPA as human being
+* `wireshark` - Network protocol analyzer
 
 ### Repositories: Optional
 

@@ -45,6 +45,8 @@ repositories:
   filename: vscode
 - repo: ppa:webupd8team/y-ppa-manager
   filename: y-ppa-manager
+- repo: ppa:wireshark-dev/stable
+  filename: wireshark
 repositories_optional:
  # brave browser
 - repo: deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ bionic main

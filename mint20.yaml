@@ -43,6 +43,8 @@ repositories:
   filename: y-ppa-manager
 - repo: ppa:libreoffice/ppa
   filename: libreoffice
+- repo: ppa:wireshark-dev/stable
+  filename: wireshark
 repositories_optional:
  # brave browser
 - repo: deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main
