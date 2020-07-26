@@ -233,13 +233,6 @@
     tags:
     - packages
     - base
-  - name: package_facts
-    package_facts:
-      manager: apt
-    tags:
-    - packages
-    - base
-    - facts
   - name: debconf_wireshark_common
     debconf:
       name: wireshark-common
@@ -251,9 +244,17 @@
     - packages
     - base
     - wireshark
+  - name: package_facts
+    package_facts:
+      manager: apt
+    when: r_debconf_wireshark_common is changed and r_debconf_wireshark_common is defined
+    tags:
+    - packages
+    - base
+    - facts
   - name: reconfigure_wireshark_common
     shell: dpkg-reconfigure --frontend noninteractive wireshark-common
-    when: "'wireshark-common' in ansible_facts.packages and (r_debconf_wireshark_common is changed and r_debconf_wireshark_common is defined)"
+    when: "(ansible_facts.packages is defined and 'wireshark-common' in ansible_facts.packages) and (r_debconf_wireshark_common is changed and r_debconf_wireshark_common is defined)"
     tags:
     - packages
     - base
