@@ -18,6 +18,7 @@
   file:
     path: "{{ folder_item }}"
     state: directory
+    mode: "0644"
   loop:
     - "{{ unpack_folder }}/downloads"
     - "{{ unpack_folder }}/unpack"

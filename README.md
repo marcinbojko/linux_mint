@@ -112,7 +112,7 @@ Most variables are stored in `mint19|20.yaml` file. If you need extra settings, 
 
 If you don't want to track changes or change main variable file content with every pull, create your own custom variable files. By default playbook will look for files: `mint[ansible_distribution_major_version]*.yaml`.
 This means - if your distro is Linux Mint 19, place a file in a playbook folder witha name: mint19_custom.yaml
-If your distro is Linux Mint 19, place a file in a playbook folder with a name: mint20_custom.yaml.
+If your distro is Linux Mint 20, place a file in a playbook folder with a name: mint20_custom.yaml.
 These filters are added to .gitignore to not override your changes.
 Be careful not to add multiple matching files with corresponding names
 
@@ -216,6 +216,7 @@ custom_packages:
 | k3s |Lightweight Kubernetes. 5 less than k8s.|[https://k3s.io/](https://k3s.io/)|
 | Keepass | Password Manager| [https://keepass.info/](https://keepass.info/)|
 | Kubernetes| Production-Grade Container Orchestration|[https://kubernetes.io/](https://kubernetes.io/)|
+| Kubeval| Kubernetes config validator|[https://github.com/instrumenta/kubeval](https://github.com/instrumenta/kubeval)|
 | Lens| Kubernetes IDE| [https://k8slens.dev/](https://k8slens.dev/)|
 | Minikube | Run Kubernetes locally |[https://github.com/kubernetes/minikube](https://github.com/kubernetes/minikube)|
 | Packer | Image creator |[https://www.packer.io/](https://www.packer.io/)|

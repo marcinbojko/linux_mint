@@ -10,6 +10,7 @@
     install_flatpak: true
     install_vscode_extensions: true           # should we install extra vscode extensions
     install_mitogen: false                    # true by default
+    install_zsh: false                        # install and configure oh-my-zhs and power10k
     install_state: latest                     # if set to latest, every pass of playbook will also update packages
     config_ansible: true                      # do changes in change ansible.cfg
     config_dconf: true                        # do changes in dconf editor
@@ -73,6 +74,10 @@
     tags:
     - assert
   tasks:
+# debug
+#  - name: configure_zsh
+#    include_tasks: ./tasks/configure_zsh.yml
+#  - meta: end_play
   # we need proper time to refresh repositories
   - name: make_sure_timesyncd_is_installed
     apt:
@@ -169,6 +174,7 @@
       state: present
       codename: "{{ codename }}"
       filename: "{{ item.filename }}"
+      mode: "0644"
     loop: "{{ repositories }}"
     retries: "{{ retries_count }}"
     delay: 3
@@ -184,6 +190,7 @@
       state: present
       codename: "{{ codename }}"
       filename: "{{ item.filename }}"
+      mode: "0644"
     loop: "{{ custom_repositories }}"
     retries: "{{ retries_count }}"
     delay: 3
@@ -202,6 +209,7 @@
       state: present
       codename: "{{ item.codename }}"
       filename: "{{ item.filename }}"
+      mode: "0644"
     loop: "{{ repositories_optional }}"
     retries: "{{ retries_count }}"
     delay: "{{ delay_time }}"
@@ -392,6 +400,14 @@
   - name: download_unarchive_flatten
     include_tasks: ./tasks/download_files.yml
     loop: "{{ unpack }}"
+    args:
+      apply:
+        tags:
+        - downloads
+        - apps
+        - tasks
+    tags:
+    - always
 # Download 3-rd party software to `bin_path` setting +x
   - name: download_regular_files
     get_url:
@@ -477,6 +493,7 @@
         src: "{{ item.source }}"
         owner: "{{ active_user }}"
         group: "{{ active_user }}"
+        mode: 0644
         force: false
       loop: "{{ startup }}"
       any_errors_fatal: false
@@ -655,6 +672,7 @@
       file:
         path: /etc/systemd/system/fstrim.timer.d
         state: directory
+        mode: 0644
     - name: create_fstrim_override_for_systemd
       copy:
         dest: /etc/systemd/system/fstrim.timer.d/override.conf

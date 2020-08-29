@@ -1,5 +1,27 @@
 # Changelog "linux_mint"
 
+## Version 2.0.4 [2020-08-26]
+
+* [APPLICATION] upgraded `minikube` to version 1.12.2
+* [APPLICATION] upgraded `lens` to version 3.5.3
+* [APPLICATION] upgraded `terminus alfa` to version 1.0.120
+* [APPLICATION] upgraded `tflint` to version 0.19.1
+* [APPLICATION] upgraded `vault` to version 1.5.3
+* [APPLICATION] upgraded `amass` to 3.9.1
+* [APPLICATION] upgraded `wps-office` to version 11.1.0.9615.XA
+* [APPLICATION] upgraded `etcher` to version 1.5.102
+* [APPLICATION] upgraded `terraform` to version 0.12.29
+* [APPLICATION] upgraded `polaris` to version 1.2.1
+* [APPLICATION] upgraded `k3s` to version 1.18.8
+* [APPLICATION] upgraded `dockle` to version 0.3.1
+* [APPLICATION] upgraded `etcher` to version 1.5.106
+* [APPLICATION] upgraded `packer` to version 1.6.2
+* [APPLICATION] upgraded `vagrant` to version 2.2.10
+* [APPLICATION] upgraded `helm` to version 3.3.0
+* [PACKAGES] added `clusterssh`
+* [APPLICATION] added `kubeval` - [https://github.com/instrumenta/kubeval](https://github.com/instrumenta/kubeval)
+* fixes in `mode` for created files
+
 ## Version 2.0.3 [2020-07-17]
 
 * more test for Linux Mint 19=>20 upgrade scenario
@@ -131,7 +153,7 @@
 * [APPLICATION] upgraded `boostnote` to 0.15.2
 * [APPLICATION] upgraded `balena-etcher` to version 1.5.80
 * [APPLICATION] upgraded `packer` to version 1.5.5
-* [APPLICATION] upgraded `termins alpha` to version 1.0.105
+* [APPLICATION] upgraded `terminus alpha` to version 1.0.105
 * [APPLICATION] upgraded `terraform` to version 0.12.24
 * [APPLICATION] upgraded `tflint` to version 0.15.3
 * [APPLICATION] upgraded `rke` to version 1.0.5
