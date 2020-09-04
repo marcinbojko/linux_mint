@@ -239,6 +239,8 @@
       question: wireshark-common/install-setuid
       value: "{{ wireshark_setuid }}"
       vtype: boolean
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
     register: r_debconf_wireshark_common
     tags:
     - packages
@@ -251,10 +253,12 @@
     tags:
     - packages
     - base
-    - facts
+    - wireshark
   - name: reconfigure_wireshark_common
     shell: dpkg-reconfigure --frontend noninteractive wireshark-common
     when: "(ansible_facts.packages is defined and 'wireshark-common' in ansible_facts.packages) and (r_debconf_wireshark_common is changed and r_debconf_wireshark_common is defined)"
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
     tags:
     - packages
     - base
