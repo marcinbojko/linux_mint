@@ -33,6 +33,7 @@
   get_url:
     url: "{{ item.url }}"
     dest: "{{ unpack_folder }}/downloads/{{ item.destination_file }}"
+    mode: "0644"
   retries: "{{ retries_count }}"
   delay: "{{ delay_time }}"
   register: r_task_download_files

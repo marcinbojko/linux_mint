@@ -9,7 +9,6 @@
     install_deb: true                         # should extra deb packages should be installed
     install_flatpak: true
     install_vscode_extensions: true           # should we install extra vscode extensions
-    install_mitogen: false                    # true by default
     install_zsh: false                        # install and configure oh-my-zhs and power10k
     install_state: latest                     # if set to latest, every pass of playbook will also update packages
     config_ansible: true                      # do changes in change ansible.cfg
@@ -74,10 +73,6 @@
     tags:
     - assert
   tasks:
-# debug
-#  - name: configure_zsh
-#    include_tasks: ./tasks/configure_zsh.yml
-#  - meta: end_play
   # we need proper time to refresh repositories
   - name: make_sure_timesyncd_is_installed
     apt:
@@ -120,6 +115,20 @@
     retries: "{{ retries_count }}"
     delay: "{{ delay_time }}"
     until: r_keys is success
+    any_errors_fatal: true
+    tags:
+    - keys
+    - base
+  - name: install_apt_keys_keyserver
+    apt_key:
+      keyserver: "{{ item.keyserver }}"
+      state: present
+      id: "{{ item.id }}"
+    loop: "{{ keys_keyserver }}"
+    register: r_keys_keyserver
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
+    until: r_keys_keyserver is success
     any_errors_fatal: true
     tags:
     - keys
@@ -368,6 +377,7 @@
     file:
       path: "{{ bin_path }}"
       state: directory
+      mode: 0755
     retries: "{{ retries_count }}"
     delay: "{{ delay_time }}"
     tags:
@@ -501,53 +511,12 @@
       retries: "{{ retries_count }}"
       delay: "{{ delay_time }}"
       until: r_create_startup_applications is success
+    - name: configure_zsh
+      include_tasks: ./tasks/configure_zsh.yml
+      when: install_zsh is defined and install_zsh
     tags:
     - base
     - user
- # mitogen block
-#  - block:
-#    - name: check_if_mitogen_path_exists
-#      file:
-#        path: "{{ item.dest_path }}"
-#        state: directory
-#      retries: "{{ retries_count }}"
-#      delay: "{{ delay_time }}"
-#      loop: "{{ mitogen.download }}"
-#      register: r_check_if_mitogen_path_exists
-#      until: r_check_if_mitogen_path_exists is success
-#    - name: download_and_unarchive_mitogen
-#      unarchive:
-#        src: "{{ item.urls }}"
-#        dest: "{{ item.dest_path }}"
-#        keep_newer: true
-#        remote_src: yes
-#        extra_opts: [--strip-components=1]
-#      loop: "{{ mitogen.download }}"
-#      register: r_download_and_unarchive_mitogen
-#      retries: "{{ retries_count }}"
-#      delay: "{{ delay_time }}"
-#      until: r_download_and_unarchive_mitogen is success
-#    - name: enable_mitogen_in_ansible_config
-#      ini_file:
-#        path: /etc/ansible/ansible.cfg
-#        section: "{{ item.section }}"
-#        option: "{{ item.option }}"
-#        value: "{{ item.value }}"
-#        state: present
-#        backup: yes
-#      retries: "{{ retries_count }}"
-#      delay: "{{ delay_time }}"
-#      loop: "{{ mitogen.config }}"
-#      register: r_enable_mitogen_in_ansible_config
-#      until: r_enable_mitogen_in_ansible_config is success
-#      when: r_download_and_unarchive_mitogen is success
-#    when: install_mitogen
-#    tags:
-#    - base
-#    - downloads
-#    - apps
-#    - mitogen
-#    - ansible
   # start ansible block
   - block:
     - name: check_if_ansible_cfg_exists
@@ -680,6 +649,7 @@
           [Timer]
           OnCalendar=hourly
           OnBootSec=5m
+        mode: 0755
       register: r_create_fstrim_override
     - name: start_fstrim.timer
       systemd:

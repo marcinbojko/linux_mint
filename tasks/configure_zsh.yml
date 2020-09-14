@@ -32,17 +32,17 @@
   any_errors_fatal: false
   ignore_errors: true
   tags:
-  - zsh
-  - power10k
-  - fonts
+    - zsh
+    - power10k
+    - fonts
 - name: update_font_cache
   shell: fc-cache
   any_errors_fatal: false
   ignore_errors: true
   tags:
-  - zsh
-  - power10k
-  - fonts
+    - zsh
+    - power10k
+    - fonts
   changed_when: false
 - name: display_user_name
   debug:
@@ -66,13 +66,13 @@
   register: r_active_user_account
   until: r_active_user_account is success
   tags:
-  - base
-  - user
+    - base
+    - user
 - name: fact_for_user_home_dir_zsh
   set_fact:
     active_user_homedir: "{{ r_active_user_account.home }}"
   tags:
-  - zsh
+    - zsh
   any_errors_fatal: true
   ignore_errors: false
 - name: check_if_oh_my_zsh_exists
@@ -88,7 +88,7 @@
     repo: https://github.com/robbyrussell/oh-my-zsh
     dest: "{{ active_user_homedir }}/.oh-my-zsh"
   when: (active_user_homedir is defined and active_user_homedir|length >0) and (not r_stat_check_if_oh_my_zsh.stat.exists)
-  become_user:  "{{ active_user }}"
+  become_user: "{{ active_user }}"
   become: true
   register: r_clone_oh_my_zsh
   until: r_clone_oh_my_zsh is success
@@ -97,7 +97,7 @@
     repo: https://github.com/romkatv/powerlevel10k.git
     dest: "{{ active_user_homedir }}/.oh-my-zsh/custom/themes/powerlevel10k"
     depth: "1"
-  become_user:  "{{ active_user }}"
+  become_user: "{{ active_user }}"
   become: true
   register: r_clone_power10k
   until: r_clone_power10k is success

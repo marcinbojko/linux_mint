@@ -96,7 +96,7 @@ Most variables are stored in `mint19|20.yaml` file. If you need extra settings, 
 |install_deb|true|should extra deb packages should be installed|
 |install_flatpak|true|should flatpak packages be installed
 |install_vscode_extensions|true|should we install extra vscode extensions|
-|install_mitogen|false|install mitogen for ansible and change ansible settings|
+|install_zsh|false|should we install oh-my-zsh and p10k theme|
 |install_state|latest|if set to latest, every pass of playbook will also update packages|
 |config_ansible|true|change ansible settings in ansible.cfg|
 |config_dconf|true|change dconf settings|

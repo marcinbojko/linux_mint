@@ -96,9 +96,9 @@ repositories_optional:
 - repo: deb [arch=amd64] https://packages.microsoft.com/repos/ms-teams stable main
   filename: teams
   codename: focal
-- repo: deb http://apt.insync.io/mint tricia non-free contrib
+- repo: deb http://apt.insync.io/mint ulyana non-free contrib
   filename: insync
-  codename: tricia
+  codename: ulyana
 repositories_remove:
 - repo: ppa:alexx2000/doublecmd
   filename: alexx2000-doublecmd
@@ -136,6 +136,9 @@ keys:
 - https://brave-browser-apt-release.s3.brave.com/brave-core.asc
 - https://download.spotify.com/debian/pubkey.gpg
 - https://d2t3ff60b2tol4.cloudfront.net/repomd.xml.key
+keys_keyserver:
+- keyserver: keyserver.ubuntu.com
+  id: ACCAF35C
 keys_remove:
 - 5E54716D
 packages_essential:
@@ -266,6 +269,7 @@ packages:
 - zsh
 - netcat
 - clusterssh
+- moreutils
 packages_optional:
 - enpass
 - pdk
@@ -303,14 +307,14 @@ deb:
 - https://github.com/angryip/ipscan/releases/download/3.7.2/ipscan_3.7.2_amd64.deb
 - https://release.axocdn.com/linux/gitkraken-amd64.deb
 - https://releases.hashicorp.com/vagrant/2.2.10/vagrant_2.2.10_x86_64.deb
-- https://github.com/BoostIO/boost-releases/releases/download/v0.15.3/boostnote_0.15.3_amd64.deb
+- https://github.com/BoostIO/boost-releases/releases/download/v0.16.1/boostnote_0.16.1_amd64.deb
 - https://github.com/Eugeny/terminus/releases/download/v1.0.120/terminus-1.0.120-linux.deb
 - https://github.com/TheGoddessInari/hamsket/releases/download/0.5.20/Rambox_0.5.20_amd64.deb
 - https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
-- https://github.com/kubernetes/minikube/releases/download/v1.12.2/minikube_1.12.2-0_amd64.deb
+- https://github.com/kubernetes/minikube/releases/download/v1.13.0/minikube_1.13.0-0_amd64.deb
 - http://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/9615/wps-office_11.1.0.9615.XA_amd64.deb
 - https://github.com/wagoodman/dive/releases/download/v0.9.2/dive_0.9.2_linux_amd64.deb
-- https://github.com/balena-io/etcher/releases/download/v1.5.106/balena-etcher-electron_1.5.106_amd64.deb
+- https://github.com/balena-io/etcher/releases/download/v1.5.108/balena-etcher-electron_1.5.108_amd64.deb
 - https://github.com/goodwithtech/dockle/releases/download/v0.3.1/dockle_0.3.1_Linux-64bit.deb
 - http://archive.ubuntu.com/ubuntu/pool/universe/p/pygtk/python-gtk2_2.24.0-6_amd64.deb
 - http://archive.ubuntu.com/ubuntu/pool/universe/n/nmap/zenmap_7.80+dfsg1-1build1_all.deb
@@ -336,12 +340,12 @@ unpack:
   source: helm
   destination_file: helm.tar.gz
   folder: linux-amd64
-- url: https://get.helm.sh/helm-v3.3.0-linux-amd64.tar.gz
+- url: https://get.helm.sh/helm-v3.3.1-linux-amd64.tar.gz
   destination: helm3
   source: helm
   destination_file: helm3.tar.gz
   folder: linux-amd64
-- url: https://github.com/OWASP/Amass/releases/download/v3.9.1/amass_linux_amd64.zip
+- url: https://github.com/OWASP/Amass/releases/download/v3.10.3/amass_linux_amd64.zip
   destination: amass
   source: amass
   folder: amass_linux_amd64
@@ -351,18 +355,17 @@ unpack:
   source: kubeval
   folder:
   destination_file: kubeval-linux-amd64.tar.gz
-
 downloads:
 - url: https://releases.hashicorp.com/packer/1.6.2/packer_1.6.2_linux_amd64.zip
   destination: packer
   skip_tree: false
-- url: https://releases.hashicorp.com/terraform/0.12.29/terraform_0.12.29_linux_amd64.zip
+- url: https://releases.hashicorp.com/terraform/0.13.2/terraform_0.13.2_linux_amd64.zip
   destination: terraform
   skip_tree: false
 - url: https://releases.hashicorp.com/vault/1.5.3/vault_1.5.3_linux_amd64.zip
   destination: vault
   skip_tree: false
-- url: https://github.com/terraform-linters/tflint/releases/download/v0.19.1/tflint_linux_amd64.zip
+- url: https://github.com/terraform-linters/tflint/releases/download/v0.20.1/tflint_linux_amd64.zip
   destination: tflint
   skip_tree: false
 - url: https://github.com/ffuf/ffuf/releases/download/v1.0.2/ffuf_1.0.2_linux_amd64.tar.gz
@@ -372,20 +375,20 @@ downloads:
   destination: polaris
   skip_tree: false
 files:
-- url: https://github.com/docker/compose/releases/download/1.26.2/docker-compose-Linux-x86_64
+- url: https://github.com/docker/compose/releases/download/1.27.2/docker-compose-Linux-x86_64
   destination: docker-compose
 - url: https://github.com/bcicen/ctop/releases/download/v0.7.3/ctop-0.7.3-linux-amd64
   destination: ctop
-- url: https://github.com/rancher/rke/releases/download/v1.1.4/rke_linux-amd64
+- url: https://github.com/rancher/rke/releases/download/v1.1.7/rke_linux-amd64
   destination: rke
-- url: https://github.com/dannagle/PacketSender/releases/download/v6.2.3/PacketSender_Linux_x64_v6.2.3.AppImage
+- url: https://github.com/dannagle/PacketSender/releases/download/v7.0.5/PacketSender_v7.0.5.AppImage
   destination: packetsender
   desktop_file: ./files/apps/packetsender/packetsender.desktop
 - url: https://github.com/rancher/k3s/releases/download/v1.18.8%2Bk3s1/k3s
   destination: k3s
 - url: https://github.com/hadolint/hadolint/releases/download/v1.18.0/hadolint-Linux-x86_64
   destination: hadolint
-- url: https://github.com/lensapp/lens/releases/download/v3.5.3/Lens-3.5.3.AppImage
+- url: https://github.com/lensapp/lens/releases/download/v3.6.0/Lens-3.6.0.AppImage
   destination: lens
   desktop_file: ./files/apps/lens/lens.desktop
 mitogen:
@@ -462,43 +465,52 @@ dconf:
 timezone: Europe/Warsaw
 vscode_obsolete:
 - ms-vscode.go
+- hypnoes.word-count
 vscode:
 - alefragnani.project-manager
 - DavidAnson.vscode-markdownlint
 - DotJoshJohnson.xml
 - emmanuelbeziat.vscode-great-icons
+- exiasr.hadolint
 - florianloch.text-transform
 - gep13.chocolatey-vscode
-- hypnoes.word-count
+- golang.go
+- hashicorp.terraform
+- huntertran.auto-markdown-toc
 - jansenfuller.crayon-vscode
 - joffreykern.markdown-toc
-- puppet.puppet-vscode
 - marcostazi.VS-code-vagrantfile
-- hashicorp.terraform
+- medo64.render-crlf
 - mohsen1.prettify-json
 - ms-azuretools.vscode-azureterraform
 - ms-azuretools.vscode-docker
 - ms-kubernetes-tools.vscode-kubernetes-tools
 - ms-python.python
+- ms-vscode-remote.remote-containers
+- ms-vscode-remote.remote-ssh
+- ms-vscode-remote.remote-ssh-edit
+- ms-vscode-remote.remote-wsl
+- ms-vscode-remote.vscode-remote-extensionpack
 - ms-vscode.azure-account
 - ms-vscode.azurecli
 - ms-vscode.cpptools
-- golang.go
 - ms-vscode.powershell
 - ms-vscode.wordcount
 - ms-vsliveshare.vsliveshare
+- ms-vsliveshare.vsliveshare-audio
+- ms-vsliveshare.vsliveshare-pack
 - p1c2u.docker-compose
+- PascalReitermann93.vscode-yaml-sort
 - pgourlain.erlang
+- puppet.puppet-vscode
 - rebornix.ruby
 - redhat.vscode-yaml
 - shardulm94.trailing-spaces
 - tht13.html-preview-vscode
+- timonwong.shellcheck
 - vscoss.vscode-ansible
 - wholroyd.jinja
 - yzane.markdown-pdf
-- timonwong.shellcheck
-- exiasr.hadolint
-- medo64.render-crlf
 sysctl:
 # enable bbr congestion for tcp
 - name: net.core.default_qdisc
