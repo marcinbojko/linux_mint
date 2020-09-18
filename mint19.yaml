@@ -1,3 +1,4 @@
+# Mint 19 variables file
 ---
 codename: bionic
 # repositories we'd like to add - mandatory
@@ -308,7 +309,7 @@ deb:
 - https://github.com/kubernetes/minikube/releases/download/v1.13.0/minikube_1.13.0-0_amd64.deb
 - http://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/9615/wps-office_11.1.0.9615.XA_amd64.deb
 - https://github.com/wagoodman/dive/releases/download/v0.9.2/dive_0.9.2_linux_amd64.deb
-- https://github.com/balena-io/etcher/releases/download/v1.5.108/balena-etcher-electron_1.5.108_amd64.deb
+- https://github.com/balena-io/etcher/releases/download/v1.5.109/balena-etcher-electron_1.5.109_amd64.deb
 - https://github.com/goodwithtech/dockle/releases/download/v0.3.1/dockle_0.3.1_Linux-64bit.deb
 - https://github.com/kaikramer/keystore-explorer/releases/download/v5.4.3/kse-5.4.3.deb
 flatpak:
@@ -332,7 +333,7 @@ unpack:
   source: helm
   destination_file: helm.tar.gz
   folder: linux-amd64
-- url: https://get.helm.sh/helm-v3.3.1-linux-amd64.tar.gz
+- url: https://get.helm.sh/helm-v3.3.2-linux-amd64.tar.gz
   destination: helm3
   source: helm
   destination_file: helm3.tar.gz
@@ -351,7 +352,7 @@ downloads:
 - url: https://releases.hashicorp.com/packer/1.6.2/packer_1.6.2_linux_amd64.zip
   destination: packer
   skip_tree: false
-- url: https://releases.hashicorp.com/terraform/0.13.2/terraform_0.13.2_linux_amd64.zip
+- url: https://releases.hashicorp.com/terraform/0.13.3/terraform_0.13.3_linux_amd64.zip
   destination: terraform
   skip_tree: false
 - url: https://releases.hashicorp.com/vault/1.5.3/vault_1.5.3_linux_amd64.zip
@@ -367,7 +368,7 @@ downloads:
   destination: polaris
   skip_tree: false
 files:
-- url: https://github.com/docker/compose/releases/download/1.27.2/docker-compose-Linux-x86_64
+- url: https://github.com/docker/compose/releases/download/1.27.3/docker-compose-Linux-x86_64
   destination: docker-compose
 - url: https://github.com/bcicen/ctop/releases/download/v0.7.3/ctop-0.7.3-linux-amd64
   destination: ctop
@@ -376,11 +377,11 @@ files:
 - url: https://github.com/dannagle/PacketSender/releases/download/v7.0.5/PacketSender_v7.0.5.AppImage
   destination: packetsender
   desktop_file: ./files/apps/packetsender/packetsender.desktop
-- url: https://github.com/rancher/k3s/releases/download/v1.18.8%2Bk3s1/k3s
+- url: https://github.com/rancher/k3s/releases/download/v1.18.9%2Bk3s1/k3s
   destination: k3s
 - url: https://github.com/hadolint/hadolint/releases/download/v1.18.0/hadolint-Linux-x86_64
   destination: hadolint
-- url: https://github.com/lensapp/lens/releases/download/v3.6.0/Lens-3.6.0.AppImage
+- url: https://github.com/lensapp/lens/releases/download/v3.6.3/Lens-3.6.3.AppImage
   destination: lens
   desktop_file: ./files/apps/lens/lens.desktop
 mitogen:
