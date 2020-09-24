@@ -1,5 +1,15 @@
 # Changelog "linux_mint"
 
+## Version 2.0.7 [2020-09-24]
+
+* [APPLICATION] upgraded `tflint` to version 0.20.2
+* [APPLICATION] upgraded `amass` to version 3.10.4
+* [APPLICATION] upgraded `minikube` to version 1.13.1
+* [APPLICATION] upgraded `lens` to version 3.6.4
+* [APPLICATION] upgraded `helm3` to version 3.3.4
+* [APPLICATION] upgraded `k3s` to version 1.19.2
+* [APPLICATION] upgraded `wps-office` to version 11.1.0.9662
+
 ## Version 2.0.6 [2020-09-18]
 
 * workaround in case where future tasks add proper gpg keys (timesyncd install will fail)
