@@ -79,7 +79,7 @@
       name: systemd-timesyncd
       state: present
       update_cache: no
-      allow_unauthenticated:  true #workaround for expired keys
+      allow_unauthenticated: true #workaround for expired keys
     retries: "{{ retries_count }}"
     delay: "{{ delay_time }}"
     register: r_systemd_timesyncd

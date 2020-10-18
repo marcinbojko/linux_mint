@@ -1,5 +1,19 @@
 # Changelog "linux_mint"
 
+## Version 2.0.8 [2020-10-17]
+
+* [BREAKING_CHANGE] remove RamboxOS from list. Replaced by (name change) Hamsket. Please remember to remove RamboxOS package manually
+* [APPLICATION] upgraded `hamsket` to version 0.6.0
+* [APPLICATION] upgraded `docker-compose` to version 1.27.4
+* [APPLICATION] upgraded `k3s` to version 1.19.3
+* [APPLICATION] upgraded `lens` to version 3.6.7
+* [APPLICATION] upgraded `minikube` to version 1.14.0
+* [APPLICATION] upgraded `rke` to version 1.2.1
+* [APPLICATION] upgraded `amass` to version 3.10.5
+* [APPLICATION] upgraded `packer` to version 1.6.4
+* [APPLICATION] upgraded `terraform` to version 0.13.4
+* [APPLICATION] upgraded `vault` to version 1.5.4
+
 ## Version 2.0.7 [2020-09-24]
 
 * [APPLICATION] upgraded `tflint` to version 0.20.2
