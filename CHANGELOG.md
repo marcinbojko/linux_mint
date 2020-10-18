@@ -1,5 +1,9 @@
 # Changelog "linux_mint"
 
+## Version 2.0.9 [2020-10-18]
+
+* wrong architecture binary for `packer`
+
 ## Version 2.0.8 [2020-10-17]
 
 * [BREAKING_CHANGE] remove RamboxOS from list. Replaced by (name change) Hamsket. Please remember to remove RamboxOS package manually

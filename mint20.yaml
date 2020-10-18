@@ -379,7 +379,7 @@ files:
   destination: docker-compose
 - url: https://github.com/bcicen/ctop/releases/download/v0.7.3/ctop-0.7.3-linux-amd64
   destination: ctop
-- url: https://github.com/rancher/rke/releases/download/v1.2.1/rke_linux-arm64
+- url: https://github.com/rancher/rke/releases/download/v1.2.1/rke_linux-amd64
   destination: rke
 - url: https://github.com/dannagle/PacketSender/releases/download/v7.0.5/PacketSender_v7.0.5.AppImage
   destination: packetsender
