@@ -1,5 +1,18 @@
 # Changelog "linux_mint"
 
+## Version 2.1.0 [2020-11-01]
+
+* [APPLICATION] upgraded `helm3` to version 3.4.0
+* [APPLICATION] upgraded `minikube` to version 1.14.2
+* [APPLICATION] upgraded `angryip` to version 3.7.3
+* [APPLICATION] upgraded `hadolint` to version 1.18.2
+* [APPLICATION] upgraded `packer` to version 1.6.5
+* [APPLICATION] upgraded `terraform` to version 1.13.5
+* [APPLICATION] upgraded `tflint` to version 0.20.3
+* [APPLICATION] upgraded `vault` to version 1.5.5
+* [APPLICATION] upgraded `wpsoffice` to version 11.1.0.9719
+* [APPLICATION] upgraded `ctop` to version 0.7.4
+
 ## Version 2.0.9 [2020-10-18]
 
 * wrong architecture binary for `packer`
