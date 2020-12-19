@@ -341,6 +341,21 @@
     when: install_deb
     tags:
     - packages
+  - name: remove_ansible_from_pip
+    pip:
+      name: ansible
+      state: absent
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
+    register: r_pip_ansible
+    until: r_pip_ansible is success
+    any_errors_fatal: false
+    ignore_errors: true
+    when: pip_executable is defined
+    tags:
+    - packages
+    - base
+    - python
   - name: install_and_upgrade_pip_packages
     pip:
       name: "{{ item }}"
