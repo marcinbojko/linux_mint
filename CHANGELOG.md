@@ -1,5 +1,12 @@
 # Changelog "linux_mint"
 
+## Version 2.1.3 [2020-12-22]
+
+* [APPLICATION] fixed broken minikube release
+* [APPLICATION] fixed helm v3 still renaming to `helm3`
+* [BREAKING_CHANGE] downgrade `python-gtk2` to 2.24.0.5 for ubuntu 20
+* [BREAKING_CHANGE] downgrade `zenmap` to 7.60 for ubuntu 20
+
 ## Version 2.1.2 [2020-12-19]
 
 * [BREAKING_CHANGE] removal of helm v2, helm v3 changes name to `helm` replacing `helm3`
