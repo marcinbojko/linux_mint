@@ -4,7 +4,7 @@ ansible-lint:
   stage: ansible-lint
   image: python:3-slim
   services:
-    - docker:19.03-dind
+    - docker:20.10-dind
   before_script:
   - pip install --upgrade ansible-lint yamllint
   - yamllint --version

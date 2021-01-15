@@ -1,5 +1,17 @@
 # Changelog "linux_mint"
 
+## Version 2.1.4 [2021-01-15]
+
+* [BREAKING_CHANGE] - since version 2.2.0, planned in February support for Linux Mint 19.x will be removed
+* [OS] Playbook supports Linux Mint 20.1 'Ulyssa'
+* [APPLICATION] upgraded `lens` to version 4.0.6
+* [APPLICATION] upgraded `rke` to version 1.2.4
+* [APPLICATION] upgraded `terraform` to version 0.14.4
+* [APPLICATION] upgraded `tflint` to version 0.23.1
+* [APPLICATION] upgraded `terminus alfa` to version 1.0.127
+* [APPLICATION] upgraded `helm` to version 3.5.0
+* [APPLICATION] upgraded `etcher` to version 1.5.114
+
 ## Version 2.1.3 [2020-12-22]
 
 * [APPLICATION] fixed broken minikube release

@@ -1,36 +1,63 @@
 # Ansible playbook for your DevOps/Super-Admin Linux Mint 19.x/20.x based workstation
+<!-- TOC -->
+
+- [Ansible playbook for your DevOps/Super-Admin Linux Mint 19.x/20.x based workstation](#ansible-playbook-for-your-devopssuper-admin-linux-mint-19x20x-based-workstation)
+  - [Prerequisites](#prerequisites)
+  - [Assumptions](#assumptions)
+  - [In-place upgraded OS warning](#in-place-upgraded-os-warning)
+    - [Python2 removal](#python2-removal)
+  - [Usage](#usage)
+  - [Variables](#variables)
+  - [Custom variables, custom variable files](#custom-variables-custom-variable-files)
+    - [Custom file content](#custom-file-content)
+    - [Custom file example](#custom-file-example)
+  - [Repositories](#repositories)
+    - [Repositories: Basic](#repositories-basic)
+    - [Repositories: Optional](#repositories-optional)
+  - [Packages](#packages)
+    - [Packages: Essential](#packages-essential)
+    - [Packages: Basic not complete list](#packages-basic-not-complete-list)
+    - [Packages: Optional not complete list](#packages-optional-not-complete-list)
+    - [Packages: Flatpak](#packages-flatpak)
+  - [Startup applications](#startup-applications)
+    - [OS Tweaks](#os-tweaks)
+  - [Q&A](#qa)
+  - [To Do](#to-do)
+  - [Known issues](#known-issues)
+
+<!-- /TOC -->
 
 [![Build Status](https://travis-ci.org/marcinbojko/linux_mint.svg?branch=master)](https://travis-ci.org/marcinbojko/linux_mint)
 
 ## Prerequisites
 
-* installed `Linux Mint` 19, 19.1, 19.2, 19.3, 20.0 - all 64-bit, standard options with extra codecs (available as selection during install)
-* access to Internet
-* `openssh-server` installed and running
-* `ansible` in version 2.9 or higher
+- installed `Linux Mint` 19, 19.1, 19.2, 19.3, 20.0 - all 64-bit, standard options with extra codecs (available as selection during install)
+- access to Internet
+- `openssh-server` installed and running
+- `ansible` in version 2.9 or higher
 
   ```bash
   sudo apt install openssh-server;sudo systemctl enable ssh && sudo systemctl start ssh
   ```
 
-* PermitRootLogin in `/etc/ssh/sshd_config` if you're using root account
+- PermitRootLogin in `/etc/ssh/sshd_config` if you're using root account
 
 ## Assumptions
 
-* 20 GB free space on OS drive
-* ssh private key or password method
-* user specified in `group_vars` or passed in variable `ansible_ssh_user`
-* by default, extra binaries (outside packages) will be installed in `/usr/local/bin` (adjustable by `bin_path` variable) If you prefer to keep them in cloud (sync between computers), down below I'll attach info how to replace binaries with proper symlinks (work in progress)
-* adds repositories with codename and filename
-* adds missing pgp keys for repositories
-* installs essential packages
-* installs main packages
-* installs extra/optional packages
-* downloads 3rd party software and puts it in proper path - `/usr/local/bin` by default (adjustable by `bin_path` variable)
-* changes startup settings for specific user (that's why you should not run this as root)
-* changes in `ansible.cfg`
-* changes in `dconf` settings
-* changes in `sysctl` system settings
+- 20 GB free space on OS drive
+- ssh private key or password method
+- user specified in `group_vars` or passed in variable `ansible_ssh_user`
+- by default, extra binaries (outside packages) will be installed in `/usr/local/bin` (adjustable by `bin_path` variable) If you prefer to keep them in cloud (sync between computers), down below I'll attach info how to replace binaries with proper -ymlinks (work in progress)
+- adds repositories with codename and filename
+- adds missing pgp keys for repositories
+- installs essential packages
+- installs main packages
+- installs extra/optional packages
+- downloads 3rd party software and puts it in proper path - `/usr/local/bin` by default (adjustable by `bin_path` variable)
+- changes startup settings for specific user (that's why you should not run this as root)
+- changes in `ansible.cfg`
+- changes in `dconf` settings
+- changes in `sysctl` system settings
 
 ## In-place upgraded OS warning
 
@@ -142,48 +169,48 @@ custom_packages:
 
 ### Repositories: Basic
 
-* `alexx2000` - Double Commander
-* `ansible` - Ansible - **removed in Linux Mint 20**
-* `asbru-cm` - Asbru Connection Manager
-* `azure-cli` - Azure CLI SDK
-* `docker` - Docker-CE
-* `gcsfuse` - Google Storage gcsfuse - Mount a GCS bucket locally`
-* `gezakovacs` - UNetbootin
-* `git-lfs` - Git Large File System - **removed in Linux Mint 20**
-* `googlechrome` - Google Chrome Browser
-* `google-cloud-sdk` - Google Cloud Tools SDK
-* `kubernetes` - Google Kubernetes kubeadm & kubectl
-* `microsoft-prod` - Microsoft .Net Core
-* `mozilla-team` - Stable Firefox and Mozilla Software
-* `palemoon` - Chromium based Java+Flash browser
-* `remmina` - Connection manager - RDP/SSH/VNC
-* `shutter` - screenshoot, manipulate, publish
-* `synapse-core` - Synaptic Launcher
-* `ubuntu-mozilla-security` - Firefox and Thunderbird Security
-* `virtualbox` - Virtualization Software
-* `vscode` - Microsoft Visual Studio Code
-* `y-ppa-manager` - Manage your PPA as human being
+- `alexx2000` - Double Commander
+- `ansible` - Ansible - **removed in Linux Mint 20**
+- `asbru-cm` - Asbru Connection Manager
+- `azure-cli` - Azure CLI SDK
+- `docker` - Docker-CE
+- `gcsfuse` - Google Storage gcsfuse - Mount a GCS bucket locally`
+- `gezakovacs` - UNetbootin
+- `git-lfs` - Git Large File System - **removed in Linux Mint 20**
+- `googlechrome` - Google Chrome Browser
+- `google-cloud-sdk` - Google Cloud Tools SDK
+- `kubernetes` - Google Kubernetes kubeadm & kubectl
+- `microsoft-prod` - Microsoft .Net Core
+- `mozilla-team` - Stable Firefox and Mozilla Software
+- `palemoon` - Chromium based Java+Flash browser
+- `remmina` - Connection manager - RDP/SSH/VNC
+- `shutter` - screenshoot, manipulate, publish
+- `synapse-core` - Synaptic Launcher
+- `ubuntu-mozilla-security` - Firefox and Thunderbird Security
+- `virtualbox` - Virtualization Software
+- `vscode` - Microsoft Visual Studio Code
+- `y-ppa-manager` - Manage your PPA as human being
 
 ### Repositories: Optional
 
-* `brave browser` - Chromium-based secure browsing alternative
-* `dockbarx` - DockBarX is a lightweight taskbar
-* `enpass` - Password Manager
-* `grub-customizer` - customize black screen to something useful
-* `insync` - Googledrive & Onedrive Linux Client
-* `linuxuprising` - Extra Ubuntu / Linux Mint Applications
-* `neofetch` - A command-line system information tool written in bash 3.2+
-* `noobslab/icons` - Extra icons pack
-* `noobslab/themes` - Extra themes pack
-* `puppet5` - Puppet5 and PDK for easy module writing
-* `skype` - Microsoft's communicator
-* `spotify` - Music streaming service
-* `sublime text 3` - Alternative text editor
-* `teams` - Microsoft Teams Linux Client
-* `trivy` - Container security scanner
-* `veeam` - Veeam Agent for Linux
-* `veracrypt` - Device encryption utility
-* `wepupd8` - packages from webupd8 team
+- `brave browser` - Chromium-based secure browsing alternative
+- `dockbarx` - DockBarX is a lightweight taskbar
+- `enpass` - Password Manager
+- `grub-customizer` - customize black screen to something useful
+- `insync` - Googledrive & Onedrive Linux Client
+- `linuxuprising` - Extra Ubuntu / Linux Mint Applications
+- `neofetch` - A command-line system information tool written in bash 3.2+
+- `noobslab/icons` - Extra icons pack
+- `noobslab/themes` - Extra themes pack
+- `puppet5` - Puppet5 and PDK for easy module writing
+- `skype` - Microsoft's communicator
+- `spotify` - Music streaming service
+- `sublime text 3` - Alternative text editor
+- `teams` - Microsoft Teams Linux Client
+- `trivy` - Container security scanner
+- `veeam` - Veeam Agent for Linux
+- `veracrypt` - Device encryption utility
+- `wepupd8` - packages from webupd8 team
 
 ## Packages
 
@@ -273,75 +300,75 @@ custom_packages:
 
 Some applications are copied to `autostart` folder
 
-* Remmina
-* Diodon
-* DockbarX
-* Dropbox
-* Synapse
-* Redshift
-* Shutter
+- Remmina
+- Diodon
+- DockbarX
+- Dropbox
+- Synapse
+- Redshift
+- Shutter
 
 ### OS Tweaks
 
-* handle *.local domain with avahi
-* changes timezone and ntpd settings
-* handle mDNS with .local domains
-* modifies `sysctl` settings to start use `tcp_congestion_control` set to `bbr`
-* modifies `sysctl` settings to decrease default swappiness
-* changes `alternatives` for EDITOR
-* initial `Timeshift` launch
-* change fstrim schedule to `hourly`
-* installs popular Microsoft Visual Studio Code extensions
-* change `dconf` settings
+- handle *.local domain with avahi
+- changes timezone and ntpd settings
+- handle mDNS with .local domains
+- modifies `sysctl` settings to start use `tcp_congestion_control` set to `bbr`
+- modifies `sysctl` settings to decrease default swappiness
+- changes `alternatives` for EDITOR
+- initial `Timeshift` launch
+- change fstrim schedule to `hourly`
+- installs popular Microsoft Visual Studio Code extensions
+- change `dconf` settings
 
 ## Q&A
 
-* Q: Will it work with specific version WSL/Ubuntu/PidgeonOS?
-* A: Don't know, don't care. Do your own variables.yml and check
+- Q: Will it work with specific version WSL/Ubuntu/PidgeonOS?
+- A: Don't know, don't care. Do your own variables.yml and check
 
-* Q: What will happen if I'll run it multiple times?
-* A: I hope - your applications will be upgraded, same for repos and keys. But, due to DEB/APT dependency you have to look for possible `downgrade` related errors. See `Known Issues` for it.
+- Q: What will happen if I'll run it multiple times?
+- A: I hope - your applications will be upgraded, same for repos and keys. But, due to DEB/APT dependency you have to look for possible `downgrade` related errors. See `Known Issues` for it.
 
-* Q: Can i check this in Ubuntu
-* A: Yes, but be prepared to create your own `variables.yml` and pass it as a parameter
+- Q: Can i check this in Ubuntu
+- A: Yes, but be prepared to create your own `variables.yml` and pass it as a parameter
 
-* Q: Can I participate?
-* A: Yes, but please create your own branch and do PR. Do not merge to master. Please keep master branch clean.
+- Q: Can I participate?
+- A: Yes, but please create your own branch and do PR. Do not merge to master. Please keep master branch clean.
 
-* Q: I don't know how to do the above
-* A: Then don't do it ;)
+- Q: I don't know how to do the above
+- A: Then don't do it ;)
 
-* Q: Why there is so many Ubuntu:Bionic/Xenial, not so many LinuxMint:Tara repositories?
-* A: Tara is built over Bionic packages, so rarely it requires to have specific repo.
+- Q: Why there is so many Ubuntu:Bionic/Xenial, not so many LinuxMint:Tara repositories?
+- A: Tara is built over Bionic packages, so rarely it requires to have specific repo.
 
 ## To Do
 
-* better download file versioning (switch to latest where possible, separate version from URL, use separate folder for downloads)
-* better docs
-* add Vagrant plugins
-* manual handle 3rd party deb files - pre-download and re-usage on demand
-* configure neofetch
-* ~~better archive handle~~
-* ~~services handling part (by default in Ubuntu/Debian, installed service is set to `enabled/started`)~~
-* ~~more idempotency~~
-* ~~fix Bionic's broken apps like Asbru-CM~~
-* ~~more OS tweaks (i/o scheduler)~~
-* ~~add AWS/GCE repositories for their tools~~
-* ~~add Visual Studio Code extra extensions~~
-* ~~continue to use tagging~~
-* ~~add Flatpak packages handling~~
-* ~~convert single sysctl values into whole section~~
-* ~~better grub defaults handing~~
+- better download file versioning (switch to latest where possible, separate version from URL, use separate folder for downloads)
+- better docs
+- add Vagrant plugins
+- manual handle 3rd party deb files - pre-download and re-usage on demand
+- configure neofetch
+- ~~better archive handle~~
+- ~~services handling part (by default in Ubuntu/Debian, installed service is set to `enabled/started`)~~
+- ~~more idempotency~~
+- ~~fix Bionic's broken apps like Asbru-CM~~
+- ~~more OS tweaks (i/o scheduler)~~
+- ~~add AWS/GCE repositories for their tools~~
+- ~~add Visual Studio Code extra extensions~~
+- ~~continue to use tagging~~
+- ~~add Flatpak packages handling~~
+- ~~convert single sysctl values into whole section~~
+- ~~better grub defaults handing~~
 
 ## Known issues
 
-* Due to how deb packages are treated by apt, we should find a way to install always 'latest' version not specific version. If (after initial run) we'll upgrade package outside this script, next time deb part will fail trying to 'downgrade' package.
-* Downloading & installing all packages can be time consuming, depending on your Internet connection speed (aprox 40-60 minut)
-* pip - `no module named _internal`
+- Due to how deb packages are treated by apt, we should find a way to install always 'latest' version not specific version. If (after initial run) we'll upgrade package outside this script, next time deb part will fail trying to 'downgrade' package.
+- Downloading & installing all packages can be time consuming, depending on your Internet connection speed (aprox 40-60 minut)
+- pip - `no module named _internal`
 
   ```bash
   sudo curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && sudo python2.7 get-pip.py --force-reinstall
   ```
 
-* Playbook exits with a message `Could not import python modules: apt, apt_pkg. Please install python3-apt package`
-  * Resolution: set `ansible_python_interpreter=/usr/bin/python3`
+- Playbook exits with a message `Could not import python modules: apt, apt_pkg. Please install python3-apt package`
+  - Resolution: set `ansible_python_interpreter=/usr/bin/python3`
