@@ -6,6 +6,7 @@ ansible-lint:
   services:
     - docker:20.10-dind
   before_script:
+  - /usr/local/bin/python -m pip install --upgrade pip
   - pip install --upgrade ansible-lint yamllint
   - yamllint --version
   - ansible-lint --version

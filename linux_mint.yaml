@@ -73,6 +73,24 @@
     tags:
     - assert
   tasks:
+  - name: display_basic_information
+    debug:
+      msg:
+      - "Install optional packages    : {{ install_optional|bool }}"
+      - "Install deb packages         : {{ install_deb|bool }}"
+      - "Install_flatpak packages     : {{ install_flatpak|bool }}"
+      - "Install vscode extensions    : {{ install_vscode_extensions|bool }} "
+      - "Install zsh                  : {{ install_zsh|bool }}"
+      - "Config for Ansible           : {{ config_ansible }}"
+      - "Config dconf                 : {{ config_dconf }}"
+      - "Config sysctl                : {{ config_sysctl }}"
+      - "Bin Path to put files into   : {{ bin_path }}"
+      - "Active user                  : {{ active_user|string }}"
+      - "Linux Mint major version     : {{ ansible_distribution_major_version }}"
+  - name: wait_15_seconds
+    pause:
+      seconds: 15
+      prompt: "Check variables - last chance to abort in 15 seconds"
   # we need proper time to refresh repositories
   - name: make_sure_timesyncd_is_installed
     apt:
@@ -553,6 +571,7 @@
         option: "{{ item.option }}"
         value: "{{ item.value|string }}"
         state: present
+        mode: 0644
         backup: yes
       retries: "{{ retries_count }}"
       delay: "{{ delay_time }}"
@@ -621,6 +640,7 @@
         option: domain-name
         value: alocal
         no_extra_spaces: yes
+        mode: 0644
       any_errors_fatal: false
       ignore_errors: true
       register: r_set_avahi_config

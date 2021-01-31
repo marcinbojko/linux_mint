@@ -1,7 +1,7 @@
-# Ansible playbook for your DevOps/Super-Admin Linux Mint 19.x/20.x based workstation
+# Ansible playbook for your DevOps/SysOps Linux Mint 19.x/20.x based workstation
 <!-- TOC -->
 
-- [Ansible playbook for your DevOps/Super-Admin Linux Mint 19.x/20.x based workstation](#ansible-playbook-for-your-devopssuper-admin-linux-mint-19x20x-based-workstation)
+- [Ansible playbook for your DevOps/SysOps Linux Mint 19.x/20.x based workstation](#ansible-playbook-for-your-devopssysops-linux-mint-19x20x-based-workstation)
   - [Prerequisites](#prerequisites)
   - [Assumptions](#assumptions)
   - [In-place upgraded OS warning](#in-place-upgraded-os-warning)
@@ -31,7 +31,7 @@
 
 ## Prerequisites
 
-- installed `Linux Mint` 19, 19.1, 19.2, 19.3, 20.0 - all 64-bit, standard options with extra codecs (available as selection during install)
+- installed `Linux Mint` 19, 19.1, 19.2, 19.3, 20.0 20.1 - all 64-bit, standard options with extra codecs (available as selection during install)
 - access to Internet
 - `openssh-server` installed and running
 - `ansible` in version 2.9 or higher
@@ -137,10 +137,10 @@ Most variables are stored in `mint19|20.yaml` file. If you need extra settings, 
 
 ## Custom variables, custom variable files
 
-If you don't want to track changes or change main variable file content with every pull, create your own custom variable files. By default playbook will look for files: `mint[ansible_distribution_major_version]*.yaml`.
-This means - if your distro is Linux Mint 19, place a file in a playbook folder witha name: mint19_custom.yaml
-If your distro is Linux Mint 20, place a file in a playbook folder with a name: mint20_custom.yaml.
-These filters are added to .gitignore to not override your changes.
+If you don't want to track changes or change main variable file content with every pull, create your own custom variable files. By default playbook will look for files: `mint[ansible_distribution_major_version]*.yaml`
+This means - if your distro is `Linux Mint 19`, place a file in a playbook folder witha name: `mint19_custom.yaml`
+If your distro is `Linux Mint 20`, place a file in a playbook folder with a name: `mint20_custom.yaml`
+These filters are added to .gitignore to not override your changes
 Be careful not to add multiple matching files with corresponding names
 
 ### Custom file content
@@ -240,7 +240,8 @@ custom_packages:
 | Google Kubectl/Kubeadm | Kubernetes Manager| [https://kubernetes.io/docs/reference/kubectl/overview/](https://kubernetes.io/docs/reference/kubectl/overview/)|
 | Hadolint| Docker linter|[https://github.com/hadolint/hadolint](https://github.com/hadolint/hadolint)|
 | Helm | Package manager for Kubernetes |[https://helm.sh/](https://helm.sh/)|
-| k3s |Lightweight Kubernetes. 5 less than k8s.|[https://k3s.io/](https://k3s.io/)|
+| k3s |Lightweight Kubernetes 5 less than k8s|[https://k3s.io/](https://k3s.io/)|
+| k3d |k3d creates containerized k3s clusters|[https://k3d.io/](https://k3d.io/)|
 | Keepass | Password Manager| [https://keepass.info/](https://keepass.info/)|
 | Kubernetes| Production-Grade Container Orchestration|[https://kubernetes.io/](https://kubernetes.io/)|
 | Kubeval| Kubernetes config validator|[https://github.com/instrumenta/kubeval](https://github.com/instrumenta/kubeval)|

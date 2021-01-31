@@ -298,19 +298,20 @@ packages_optional:
 - hashcat
 - y-ppa-manager
 deb:
-- https://github.com/angryip/ipscan/releases/download/3.7.3/ipscan_3.7.3_amd64.deb
+- https://github.com/angryip/ipscan/releases/download/3.7.4/ipscan_3.7.4_amd64.deb
 - https://release.axocdn.com/linux/gitkraken-amd64.deb
 - https://releases.hashicorp.com/vagrant/2.2.14/vagrant_2.2.14_x86_64.deb
 - https://launchpad.net/ubuntu/+archive/primary/+files/libgoo-canvas-perl_0.06-2ubuntu3_amd64.deb
 - https://github.com/BoostIO/boost-releases/releases/download/v0.16.1/boostnote_0.16.1_amd64.deb
-- https://github.com/Eugeny/terminus/releases/download/v1.0.127/terminus-1.0.127-linux.deb
+- https://github.com/Eugeny/terminus/releases/download/v1.0.130/terminus-1.0.130-linux.deb
 - https://github.com/TheGoddessInari/hamsket/releases/download/0.6.2/hamsket_0.6.2_amd64.deb
-- https://github.com/kubernetes/minikube/releases/download/v1.16.0/minikube_1.16.0-1_amd64.deb
+- https://github.com/kubernetes/minikube/releases/download/v1.17.1/minikube_1.17.1-0_amd64.deb
 - https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/9719/wps-office_11.1.0.9719.XA_amd64.deb
 - https://github.com/wagoodman/dive/releases/download/v0.9.2/dive_0.9.2_linux_amd64.deb
-- https://github.com/balena-io/etcher/releases/download/v1.5.114/balena-etcher-electron_1.5.114_amd64.deb
+- https://github.com/balena-io/etcher/releases/download/v1.5.115/balena-etcher-electron_1.5.115_amd64.deb
 - https://github.com/goodwithtech/dockle/releases/download/v0.3.1/dockle_0.3.1_Linux-64bit.deb
 - https://github.com/kaikramer/keystore-explorer/releases/download/v5.4.3/kse-5.4.3.deb
+- https://downloads.raspberrypi.org/imager/imager_1.5_amd64.deb
 flatpak:
 - name: https://flathub.org/repo/appstream/com.getpostman.Postman.flatpakref
 pip_executable: pip
@@ -327,12 +328,12 @@ pip:
 - jsonlint
 - gittyleaks
 unpack:
-- url: https://get.helm.sh/helm-v3.5.0-linux-amd64.tar.gz
+- url: https://get.helm.sh/helm-v3.5.1-linux-amd64.tar.gz
   destination: helm
   source: helm
   destination_file: helm3.tar.gz
   folder: linux-amd64
-- url: https://github.com/OWASP/Amass/releases/download/v3.10.5/amass_linux_amd64.zip
+- url: https://github.com/OWASP/Amass/releases/download/v3.11.2/amass_linux_amd64.zip
   destination: amass
   source: amass
   folder: amass_linux_amd64
@@ -346,36 +347,38 @@ downloads:
 - url: https://releases.hashicorp.com/packer/1.6.6/packer_1.6.6_linux_amd64.zip
   destination: packer
   skip_tree: false
-- url: https://releases.hashicorp.com/terraform/0.14.4/terraform_0.14.4_linux_amd64.zip
+- url: https://releases.hashicorp.com/terraform/0.14.5/terraform_0.14.5_linux_amd64.zip
   destination: terraform
   skip_tree: false
-- url: https://releases.hashicorp.com/vault/1.6.1/vault_1.6.1_linux_amd64.zip
+- url: https://releases.hashicorp.com/vault/1.6.2/vault_1.6.2_linux_amd64.zip
   destination: vault
   skip_tree: false
-- url: https://github.com/terraform-linters/tflint/releases/download/v0.23.1/tflint_linux_amd64.zip
+- url: https://github.com/terraform-linters/tflint/releases/download/v0.24.0/tflint_linux_amd64.zip
   destination: tflint
   skip_tree: false
 - url: https://github.com/ffuf/ffuf/releases/download/v1.0.2/ffuf_1.0.2_linux_amd64.tar.gz
   destination: ffluf
   skip_tree: false
-- url: https://github.com/FairwindsOps/polaris/releases/download/3.0.0/polaris_3.0.0_linux_amd64.tar.gz
+- url: https://github.com/FairwindsOps/polaris/releases/download/3.0.3/polaris_3.0.3_linux_amd64.tar.gz
   destination: polaris
   skip_tree: false
 files:
-- url: https://github.com/docker/compose/releases/download/1.27.4/docker-compose-Linux-x86_64
+- url: https://github.com/docker/compose/releases/download/1.28.2/docker-compose-Linux-x86_64
   destination: docker-compose
 - url: https://github.com/bcicen/ctop/releases/download/v0.7.5/ctop-0.7.5-linux-amd64
   destination: ctop
-- url: https://github.com/rancher/rke/releases/download/v1.2.4/rke_linux-amd64
+- url: https://github.com/rancher/rke/releases/download/v1.2.5/rke_linux-amd64
   destination: rke
 - url: https://github.com/dannagle/PacketSender/releases/download/v7.0.5/PacketSender_v7.0.5.AppImage
   destination: packetsender
   desktop_file: ./files/apps/packetsender/packetsender.desktop
-- url: https://github.com/rancher/k3s/releases/download/v1.19.5%2Bk3s1/k3s
+- url: https://github.com/k3s-io/k3s/releases/download/v1.19.7%2Bk3s1/k3s
   destination: k3s
-- url: https://github.com/hadolint/hadolint/releases/download/v1.19.0/hadolint-Linux-x86_64
+- url: https://github.com/rancher/k3d/releases/download/v4.0.0/k3d-linux-amd64
+  destination: k3d
+- url: https://github.com/hadolint/hadolint/releases/download/v1.21.0/hadolint-Linux-x86_64
   destination: hadolint
-- url: https://github.com/lensapp/lens/releases/download/v4.0.6/Lens-4.0.6.AppImage
+- url: https://github.com/lensapp/lens/releases/download/v4.0.8/Lens-4.0.8.AppImage
   destination: lens
   desktop_file: ./files/apps/lens/lens.desktop
 #mitogen:

@@ -1,5 +1,25 @@
 # Changelog "linux_mint"
 
+## Version 2.1.5 [2021-01-31]
+
+* [APPLICATION] added `k3d` in version 4.0.0 - [https://k3d.io/](https://k3d.io/)
+* [APPLICATION] added `raspberry pi imager` in version 1.5 [https://www.raspberrypi.org/software/](https://www.raspberrypi.org/software/)
+* [APPLICATION] upgraded `k3s` to version 1.19.7
+* [APPLICATION] upgraded `etcher` to version 1.5.115
+* [APPLICATION] upgraded `amass` to version 3.11.2
+* [APPLICATION] upgraded `docker-compose` to version 1.28.2
+* [APPLICATION] upgraded `helm` to version 3.5.1
+* [APPLICATION] upgraded `lens` to version 4.0.8
+* [APPLICATION] upgraded `minikube` to version 1.17.1
+* [APPLICATION] upgraded `polaris` to version 3.0.3
+* [APPLICATION] upgraded `rke` to version 1.2.5
+* [APPLICATION] upgraded `angryip` to version 3.7.4
+* [APPLICATION] upgraded `hadolint` to version 1.21.0
+* [APPLICATION] upgraded `terminus-alfa` to version 1.0.130
+* [APPLICATION] upgraded `terraform` to version 0.14.5
+* [APPLICATION] upgraded `tflint` to version 0.24.0
+* [APPLICATION] upgraded `vault` to version 1.6.2
+
 ## Version 2.1.4 [2021-01-15]
 
 * [BREAKING_CHANGE] - since version 2.2.0, planned in February support for Linux Mint 19.x will be removed
