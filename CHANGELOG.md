@@ -1,5 +1,14 @@
 # Changelog "linux_mint"
 
+## Version 2.2.0 [2021-02-20]
+
+* This version shares application config from 2.1.6 version but:
+  * [BREAKING_CHANGE] drops support for `Linux Mint 19`
+  * [BREAKING_CHANGE] introduces support for Ansible 2.10 as mandatory
+* Galaxy modules
+  * ansible-galaxy collection install ansible.posix
+  * ansible-galaxy collection install community.general
+
 ## Version 2.1.6 [2021-02-20]
 
 * [BREAKING_CHANGE] remove `kubeval` as obsolete

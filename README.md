@@ -3,6 +3,7 @@
 
 - [Ansible playbook for your DevOps/SysOps Linux Mint 19.x/20.x based workstation](#ansible-playbook-for-your-devopssysops-linux-mint-19x20x-based-workstation)
   - [Prerequisites](#prerequisites)
+    - [Ansible 2.10 and higher reminder](#ansible-210-and-higher-reminder)
   - [Assumptions](#assumptions)
   - [In-place upgraded OS warning](#in-place-upgraded-os-warning)
     - [Python2 removal](#python2-removal)
@@ -31,16 +32,24 @@
 
 ## Prerequisites
 
-- installed `Linux Mint` 19, 19.1, 19.2, 19.3, 20.0 20.1 - all 64-bit, standard options with extra codecs (available as selection during install)
+- installed `Linux Mint` 20.0 20.1 - all 64-bit, standard options with extra codecs (available as selection during install)
+- for previous versions of Mint - last release supporting `Linux Mint 19` was 2.1.6
 - access to Internet
 - `openssh-server` installed and running
-- `ansible` in version 2.9 or higher
+- `ansible` in version 2.10 or higher
+- `ansible-galaxy collection install ansible.posix`
+- `ansible-galaxy collection install community.general`
 
   ```bash
   sudo apt install openssh-server;sudo systemctl enable ssh && sudo systemctl start ssh
   ```
 
 - PermitRootLogin in `/etc/ssh/sshd_config` if you're using root account
+
+### Ansible 2.10 and higher reminder
+
+- `ansible-galaxy collection install ansible.posix`
+- `ansible-galaxy collection install community.general`
 
 ## Assumptions
 

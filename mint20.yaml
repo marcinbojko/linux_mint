@@ -32,6 +32,8 @@ repositories:
   filename: remmina-next
 - repo: ppa:linuxuprising/shutter
   filename: shutter
+- repo: ppa:ansible/ansible
+  filename: ansible
 #  codename: focal
 - repo: ppa:ubuntu-mozilla-security/ppa
   filename: ubuntu-mozilla-security
@@ -109,8 +111,6 @@ repositories_remove:
 - repo: deb [arch=amd64] http://repo.fortinet.com/repo/ubuntu/ /focal multiverse
   filename: forticlient
   codename: focal
-- repo: ppa:ansible/ansible
-  filename: ansible
 - repo: deb https://packagecloud.io/github/git-lfs/linuxmint/ ulyana main
   filename: github_git-lfs
 - repo: ppa:ubuntuhandbook1/shutter
@@ -141,7 +141,6 @@ keys_keyserver:
   id: ACCAF35C
 keys_remove:
 - 5E54716D
-- 8719FCE4
 packages_essential:
 - apt-transport-https
 - mc
@@ -533,9 +532,6 @@ sysctl:
   state: present
 - name: vm.dirty_background_ratio
   value: 5
-  state: present
-- name: vm.dirty_expire_centisecs
-  value: 1200
   state: present
 # better network settings
 - name: net.core.netdev_max_backlog

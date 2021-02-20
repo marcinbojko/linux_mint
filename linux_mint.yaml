@@ -26,9 +26,9 @@
   # ansible version
   - name: verify_ansible_meets_version_requirements
     assert:
-      that: "ansible_version.full is version_compare('2.9', '>=')"
+      that: "ansible_version.full is version_compare('2.10', '>=')"
       msg: >
-        "You must update Ansible to at least 2.9 to use this version of playbook"
+        "You must update Ansible to at least 2.10 to use this version of playbook"
     tags:
     - assert
   # setup module - we need these facts
@@ -87,6 +87,7 @@
       - "Bin Path to put files into   : {{ bin_path }}"
       - "Active user                  : {{ active_user|string }}"
       - "Linux Mint major version     : {{ ansible_distribution_major_version }}"
+      - "Ansible version              : {{ ansible_version.full }}"
   - name: wait_15_seconds
     pause:
       seconds: 15
@@ -360,21 +361,7 @@
     when: install_deb
     tags:
     - packages
-  - name: remove_ansible_from_pip
-    pip:
-      name: ansible
-      state: absent
-    retries: "{{ retries_count }}"
-    delay: "{{ delay_time }}"
-    register: r_pip_ansible
-    until: r_pip_ansible is success
-    any_errors_fatal: false
-    ignore_errors: true
-    when: pip_executable is defined
-    tags:
-    - packages
-    - base
-    - python
+    - deb
   - name: install_and_upgrade_pip_packages
     pip:
       name: "{{ item }}"
@@ -393,7 +380,7 @@
     - base
     - python
   - name: install_flatpak_apps
-    flatpak:
+    community.general.flatpak:
       name: "{{ item.name|string }}"
       state: present
       method: system
@@ -696,7 +683,7 @@
         enabled: true
       when: r_create_fstrim_override.changed
     - name: sysctl_changes
-      sysctl:
+      ansible.posix.sysctl:
         name: "{{ item.name|string }}"
         value: "{{ item.value|string }}"
         state: "{{ item.state|string }}"
