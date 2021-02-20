@@ -1,11 +1,13 @@
 language: python
+dist: bionic
+os: linux
 install:
   - python -m pip install --upgrade pip
-  - pip install --upgrade ansible-lint yamllint
+  - pip install --upgrade ansible-lint yamllint ansible
   - yamllint --version
   - ansible-lint --version
 script:
   - yamllint -c ./.yamllint ./tasks/*.yml
   - yamllint -c ./.yamllint *.yaml
   - ansible-lint ./tasks/*.yml
-  - ansible-lint .
+  - ansible-lint linux_mint.yaml

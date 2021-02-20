@@ -1,9 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Name=Lens
-Comment=Lens
-Exec=/usr/local/bin/lens --force-device-scale-factor=1.75
-Terminal=false
-Type=Application
-Icon=packetsender
-Categories=System;Management

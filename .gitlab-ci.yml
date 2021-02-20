@@ -7,14 +7,14 @@ ansible-lint:
     - docker:20.10-dind
   before_script:
   - /usr/local/bin/python -m pip install --upgrade pip
-  - pip install --upgrade ansible-lint yamllint
+  - pip install --upgrade ansible-lint yamllint ansible
   - yamllint --version
   - ansible-lint --version
   script:
     - yamllint -c ./.yamllint ./tasks/*.yml
     - yamllint -c ./.yamllint *.yaml
     - ansible-lint ./tasks/*.yml
-    - ansible-lint .
+    - ansible-lint linux_mint.yaml
   tags:
     - docker
     - shared

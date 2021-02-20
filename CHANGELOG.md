@@ -1,5 +1,25 @@
 # Changelog "linux_mint"
 
+## Version 2.1.6 [2021-02-20]
+
+* [BREAKING_CHANGE] remove `kubeval` as obsolete
+* [APPLICATION] added `kubeconform` [https://github.com/yannh/kubeconform](https://github.com/yannh/kubeconform)
+* [APPLICATION] upgraded `amass` to version 3.11.5
+* [APPLICATION] upgraded `angryip` to version 3.7.6
+* [APPLICATION] upgraded `docker-compose` to version 1.28.4
+* [APPLICATION] upgraded `etcher` to version 1.5.116
+* [APPLICATION] upgraded `hadolint` to version 1.22.1
+* [APPLICATION] upgraded `helm` to version 3.5.2
+* [APPLICATION] upgraded `k3d` in version 4.2.0
+* [APPLICATION] upgraded `lens` to version 4.1.2 as DEB from AppImage
+* [APPLICATION] upgraded `packer` to version 1.7.0
+* [APPLICATION] upgraded `polaris` to version 3.1.3
+* [APPLICATION] upgraded `terminus-alfa` to version 1.0.134
+* [APPLICATION] upgraded `terraform` to version 0.14.7
+* [APPLICATION] upgraded `tflint` to version 0.24.1
+* [APPLICATION] upgraded `wpsoffice` to version 11.1.0.10161
+* Prepared for `ansible-lint` in version 5.x
+
 ## Version 2.1.5 [2021-01-31]
 
 * [APPLICATION] added `k3d` in version 4.0.0 - [https://k3d.io/](https://k3d.io/)

@@ -1,5 +1,7 @@
 skip_list:
-  - 305
-  - 503
-  - 106
-  - 401
+  - no-handler
+  - command-instead-of-shell
+  - git-latest
+exclude_paths:
+  - .github/
+
