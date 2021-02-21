@@ -1,7 +1,11 @@
-# Ansible playbook for your DevOps/SysOps Linux Mint 19.x/20.x based workstation
+# Ansible playbook for your DevOps/SysOps Linux Mint 20.x based workstation
+
+[![Build Status](https://travis-ci.org/marcinbojko/linux_mint.svg?branch=master)](https://travis-ci.org/marcinbojko/linux_mint)
+[![Super-Linter](https://github.com/marcinbojko/linux_mint/actions/workflows/01_lint_me.yml/badge.svg)](https://github.com/marcinbojko/linux_mint/actions/workflows/01_lint_me.yml)
+[![Ansible Lint](https://github.com/marcinbojko/linux_mint/actions/workflows/02_ansible_lint.yml/badge.svg)](https://github.com/marcinbojko/linux_mint/actions/workflows/02_ansible_lint.yml)
 <!-- TOC -->
 
-- [Ansible playbook for your DevOps/SysOps Linux Mint 19.x/20.x based workstation](#ansible-playbook-for-your-devopssysops-linux-mint-19x20x-based-workstation)
+- [Ansible playbook for your DevOps/SysOps Linux Mint 20.x based workstation](#ansible-playbook-for-your-devopssysops-linux-mint-20x-based-workstation)
   - [Prerequisites](#prerequisites)
     - [Ansible 2.10 and higher reminder](#ansible-210-and-higher-reminder)
   - [Assumptions](#assumptions)
@@ -20,6 +24,7 @@
     - [Packages: Basic not complete list](#packages-basic-not-complete-list)
     - [Packages: Optional not complete list](#packages-optional-not-complete-list)
     - [Packages: Flatpak](#packages-flatpak)
+    - [Packages: npm](#packages-npm)
   - [Startup applications](#startup-applications)
     - [OS Tweaks](#os-tweaks)
   - [Q&A](#qa)
@@ -28,11 +33,9 @@
 
 <!-- /TOC -->
 
-[![Build Status](https://travis-ci.org/marcinbojko/linux_mint.svg?branch=master)](https://travis-ci.org/marcinbojko/linux_mint)
-
 ## Prerequisites
 
-- installed `Linux Mint` 20.0 20.1 - all 64-bit, standard options with extra codecs (available as selection during install)
+- installed `Linux Mint` 20.0/20.1 - all 64-bit, standard options with extra codecs (available as selection during install)
 - for previous versions of Mint - last release supporting `Linux Mint 19` was 2.1.6
 - access to Internet
 - `openssh-server` installed and running
@@ -130,7 +133,8 @@ Most variables are stored in `mint19|20.yaml` file. If you need extra settings, 
 |--------|-------|-----------|
 |install_optional|true|should optional packages be installed|
 |install_deb|true|should extra deb packages should be installed|
-|install_flatpak|true|should flatpak packages be installed
+|install_flatpak|true|should flatpak packages be installed|
+|install_npm|true|should npm packages be installed|
 |install_vscode_extensions|true|should we install extra vscode extensions|
 |install_zsh|false|should we install oh-my-zsh and p10k theme|
 |install_state|latest|if set to latest, every pass of playbook will also update packages|
@@ -143,6 +147,7 @@ Most variables are stored in `mint19|20.yaml` file. If you need extra settings, 
 |bin_path|/usr/local/bin|Where to put all downloaded execs|
 |reboot_required|false|force reboot even if apt upgrade won't change anything|
 |unpack_folder|/tmp/linux_mint|Which folder to use when downloading and unarchiving|
+|||
 
 ## Custom variables, custom variable files
 
@@ -276,6 +281,7 @@ custom_packages:
 | Visual Studio Code|Code editor|[https://code.visualstudio.com/](https://code.visualstudio.com/)|
 | WPS Office for Linux | Productivity Tools | [https://www.wps.com/wps-office-for-linux/](https://www.wps.com/wps-office-for-linux/)
 | XCA | Certificate Manager|[https://hohnstaedt.de/xca/](https://hohnstaedt.de/xca/)|
+|||
 
 ### Packages: Optional (not complete list)
 
@@ -299,12 +305,21 @@ custom_packages:
 | Veeam Agent for Linux | Backup tool| [https://www.veeam.com](https://www.veeam.com)|
 | Veracrypt | Source disk encryption | [https://www.veracrypt.fr/en/Home.html](https://www.veracrypt.fr/en/Home.html)|
 | WoeUSB | USB Image writer | [https://github.com/slacka/WoeUSB](https://github.com/slacka/WoeUSB)|
+|||
 
 ### Packages: Flatpak
 
 |Software|Type|Link|
 |------------------|--------|---------------------|
 |Postman|The Collaboration Platform for API Development|[https://www.getpostman.com/](https://www.getpostman.com/)|
+|||
+
+### Packages: npm
+
+|Software|Type|Link|
+|------------------|--------|---------------------|
+|Dockerfilelint|Dockerfile linter|[https://github.com/replicatedhq/dockerfilelint](https://github.com/replicatedhq/dockerfilelint)|
+|||
 
 ## Startup applications
 

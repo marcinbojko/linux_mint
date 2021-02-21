@@ -7,8 +7,9 @@
   vars:
     install_optional: true                    # should optional packages be installed?
     install_deb: true                         # should extra deb packages should be installed
-    install_flatpak: true
+    install_flatpak: true                     # should we install flatpak software
     install_vscode_extensions: true           # should we install extra vscode extensions
+    install_npm: true                         # should we install npm packages
     install_zsh: false                        # install and configure oh-my-zhs and power10k
     install_state: latest                     # if set to latest, every pass of playbook will also update packages
     config_ansible: true                      # do changes in change ansible.cfg
@@ -79,6 +80,7 @@
       - "Install optional packages    : {{ install_optional|bool }}"
       - "Install deb packages         : {{ install_deb|bool }}"
       - "Install_flatpak packages     : {{ install_flatpak|bool }}"
+      - "Install_npm packages     :     {{ install_npm|bool }}"
       - "Install vscode extensions    : {{ install_vscode_extensions|bool }} "
       - "Install zsh                  : {{ install_zsh|bool }}"
       - "Config for Ansible           : {{ config_ansible }}"
@@ -394,6 +396,21 @@
     tags:
     - packages
     - flatpak
+  - name: install_npm_packages
+    community.general.npm:
+      name: "{{ item.name|string }}"
+      state: "{{ item.state|string }}"
+      global: yes
+    loop: "{{ npm }}"
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
+    register: r_install_npm
+    until: r_install_npm is success
+    any_errors_fatal: false
+    when: install_npm
+    tags:
+    - packages
+    - npm
     # Download 3-rd party software and unarchive it to `bin_path` setting +x
   - name: check_if_bin_path_exists
     file:

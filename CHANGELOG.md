@@ -1,5 +1,11 @@
 # Changelog "linux_mint"
 
+## Version 2.2.1 [2021-02-21]
+
+* [APPLICATION] upgrade `dockle` to version 0.3.9
+* added `install_npm` variable
+* added `npm` packages in `npm` section of values file
+
 ## Version 2.2.0 [2021-02-20]
 
 * This version shares application config from 2.1.6 version but:

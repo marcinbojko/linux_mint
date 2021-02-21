@@ -314,7 +314,7 @@ deb:
 - https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/10161/wps-office_11.1.0.10161.XA_amd64.deb
 - https://github.com/wagoodman/dive/releases/download/v0.9.2/dive_0.9.2_linux_amd64.deb
 - https://github.com/balena-io/etcher/releases/download/v1.5.116/balena-etcher-electron_1.5.116_amd64.deb
-- https://github.com/goodwithtech/dockle/releases/download/v0.3.1/dockle_0.3.1_Linux-64bit.deb
+- https://github.com/goodwithtech/dockle/releases/download/v0.3.9/dockle_0.3.9_Linux-64bit.deb
 - http://archive.ubuntu.com/ubuntu/pool/universe/p/pygtk/python-gtk2_2.24.0-5.1ubuntu2_amd64.deb
 - https://github.com/kaikramer/keystore-explorer/releases/download/v5.4.4/kse_5.4.4_all.deb
 - http://archive.ubuntu.com/ubuntu/pool/universe/n/nmap/zenmap_7.60-1ubuntu5_all.deb
@@ -322,6 +322,11 @@ deb:
 - https://github.com/lensapp/lens/releases/download/v4.1.2/Lens-4.1.2.amd64.deb
 flatpak:
 - name: https://flathub.org/repo/appstream/com.getpostman.Postman.flatpakref
+npm:
+- name: npm
+  state: latest
+- name: dockerfilelint
+  state: latest
 pip_executable: pip3
 pip:
 - pip
@@ -346,11 +351,6 @@ unpack:
   source: amass
   folder: amass_linux_amd64
   destination_file: amass.zip
-- url: https://github.com/instrumenta/kubeval/releases/download/0.15.0/kubeval-linux-amd64.tar.gz
-  destination: kubeval
-  source: kubeval
-  folder:
-  destination_file: kubeval-linux-amd64.tar.gz
 - url: https://github.com/yannh/kubeconform/releases/download/v0.4.3/kubeconform-linux-amd64.tar.gz
   destination: kubeconform
   source: kubeconform
