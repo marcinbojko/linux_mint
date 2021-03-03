@@ -154,7 +154,7 @@ packages_essential:
 - xz-utils
 packages:
 - synaptic
-- ansible
+- ansible-base
 - azure-cli
 - google-cloud-sdk
 - gcsfuse
