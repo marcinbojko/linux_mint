@@ -1,10 +1,34 @@
 # Changelog "linux_mint"
 
+## Version 2.2.2 [2021-03-05]
+
+* added section `packages_remove` to be removed as step 1 as obsolete packages.
+* [PIP] added `kube-hunter` [https://github.com/aquasecurity/kube-hunter](https://github.com/aquasecurity/kube-hunter)
+* [APPLICATION] added `kube-bench` [https://github.com/aquasecurity/kube-bench](https://github.com/aquasecurity/kube-bench)
+* [APPLICATION] upgraded `docker-compose` to version 1.28.5
+* [APPLICATION] upgraded `k3s` to version 1.19.8
+* [APPLICATION] upgraded `lens` to version 4.1.4
+* [APPLICATION] upgraded `minikube` to version 1.18.1
+* [APPLICATION] upgraded `polaris` to version 3.1.5
+* [APPLICATION] upgraded `amass` to version 3.11.8
+* [APPLICATION] upgraded `dockle` to version 0.3.11
+* [APPLICATION] upgraded `hadolint` to version 1.23.0
+* [APPLICATION] upgraded `rke` to version 1.2.6
+* [APPLICATION] upgraded `vault` to version 1.6.3
+* [VSCODE] added `eriklynd.json-tools` extension
+* [VSCODE] added `formulahendry.docker-explorer` extension
+* [VSCODE] added `nhoizey.gremlins` extension
+* [VSCODE] added `wholroyd.HCL` extension
+* [VSCODE] added `piotrpalarz.vscode-gitignore-generator` extension
+* [VSCODE] remove `joffreykern.markdown-toc` extension
+* [VSCODE] remove `jansenfuller.crayon-vscode` extension
+
 ## Version 2.2.1 [2021-02-21]
 
-* [APPLICATION] upgrade `dockle` to version 0.3.9
+* [APPLICATION] upgraded `dockle` to version 0.3.9
 * added `install_npm` variable
 * added `npm` packages in `npm` section of values file
+* [NPM] added `dockerfilelint`
 
 ## Version 2.2.0 [2021-02-20]
 
