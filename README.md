@@ -40,7 +40,7 @@
 - access to Internet
 - `openssh-server` installed and running
 - `ansible` in version 2.10 or higher
-- `ansible-galaxy collection install -r requirements.yml`
+- `ansible-galaxy install -r requirements.yml`
 
   ```bash
   sudo apt install openssh-server;sudo systemctl enable ssh && sudo systemctl start ssh
@@ -50,7 +50,7 @@
 
 ### Ansible 2.10 and higher reminder
 
-- `ansible-galaxy collection install -r requirements.yml`
+- `ansible-galaxy install -r requirements.yml`
 
 ## Assumptions
 
