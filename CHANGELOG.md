@@ -1,5 +1,17 @@
 # Changelog "linux_mint"
 
+## Version 2.2.3 [2021-03-21]
+
+* [APPLICATION] upgraded `dive` to version 0.10.0
+* [APPLICATION] upgraded `k3d` to version 4.3.0
+* [APPLICATION] upgraded `polaris` to version 3.2.0
+* [APPLICATION] upgraded `amass` to version 3.11.10
+* [APPLICATION] upgraded `rbpi-imager` to version 1.6.0
+* [APPLICATION] upgraded `terminus alpha` to version 1.0.135
+* [APPLICATION] upgraded `tflint` to version 0.25.0
+* [APPLICATION] upgraded `helm` to version 3.5.3
+* [APPLICATION] upgraded `kubeconform` to version 4.6.0
+
 ## Version 2.2.2 [2021-03-05]
 
 * added section `packages_remove` to be removed as step 1 as obsolete packages.
@@ -62,7 +74,7 @@
 ## Version 2.1.5 [2021-01-31]
 
 * [APPLICATION] added `k3d` in version 4.0.0 - [https://k3d.io/](https://k3d.io/)
-* [APPLICATION] added `raspberry pi imager` in version 1.5 [https://www.raspberrypi.org/software/](https://www.raspberrypi.org/software/)
+* [APPLICATION] added `rbpi-imager` in version 1.5 [https://www.raspberrypi.org/software/](https://www.raspberrypi.org/software/)
 * [APPLICATION] upgraded `k3s` to version 1.19.7
 * [APPLICATION] upgraded `etcher` to version 1.5.115
 * [APPLICATION] upgraded `amass` to version 3.11.2
