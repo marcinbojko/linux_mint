@@ -3,3 +3,4 @@
 *.html
 *_custom.yaml
 *_custom.yml
+.cache
