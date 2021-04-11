@@ -40,7 +40,7 @@
 - access to Internet
 - `openssh-server` installed and running
 - `ansible` in version 2.10 or higher
-- `ansible-galaxy install -r requirements.yml`
+- `sudo ansible-galaxy install -r requirements.yml`
 
   ```bash
   sudo apt install openssh-server;sudo systemctl enable ssh && sudo systemctl start ssh
@@ -50,7 +50,7 @@
 
 ### Ansible 2.10 and higher reminder
 
-- `ansible-galaxy install -r requirements.yml`
+- `sudo ansible-galaxy install -r requirements.yml  --roles-path /etc/ansible/roles`
 
 ## Assumptions
 
@@ -250,10 +250,11 @@ custom_packages:
 | Google Chrome |Browser | [https://www.google.com/intl/pl_ALL/chrome/](https://www.google.com/intl/pl_ALL/chrome/)|
 | Google Cloud SDK|Command-line tools for GCP|[https://cloud.google.com/sdk](https://cloud.google.com/sdk)|
 | Google Kubectl/Kubeadm | Kubernetes Manager| [https://kubernetes.io/docs/reference/kubectl/overview/](https://kubernetes.io/docs/reference/kubectl/overview/)|
+| Gping|Ping with a graph|[https://github.com/orf/gping](https://github.com/orf/gping)|
 | Hadolint| Docker linter|[https://github.com/hadolint/hadolint](https://github.com/hadolint/hadolint)|
 | Helm | Package manager for Kubernetes |[https://helm.sh/](https://helm.sh/)|
-| k3s |Lightweight Kubernetes 5 less than k8s|[https://k3s.io/](https://k3s.io/)|
 | k3d |k3d creates containerized k3s clusters|[https://k3d.io/](https://k3d.io/)|
+| k3s |Lightweight Kubernetes 5 less than k8s|[https://k3s.io/](https://k3s.io/)|
 | Keepass | Password Manager| [https://keepass.info/](https://keepass.info/)|
 | Kubernetes| Production-Grade Container Orchestration|[https://kubernetes.io/](https://kubernetes.io/)|
 | Kubeval| Kubernetes config validator|[https://github.com/instrumenta/kubeval](https://github.com/instrumenta/kubeval)|

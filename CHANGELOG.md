@@ -1,5 +1,25 @@
 # Changelog "linux_mint"
 
+## Version 2.2.4 [2021-04-11]
+
+* [APPLICATION] upgraded `docker-compose` to version 1.29.0
+* [APPLICATION] upgraded `k3d` to version 4.1.1
+* [APPLICATION] upgraded `k3s` to version 1.19.9
+* [APPLICATION] upgraded `lens` to version 4.2.1
+* [APPLICATION] upgraded `minikube` to version 1.19.0
+* [APPLICATION] upgraded `polaris` to version 3.2.1
+* [APPLICATION] upgraded `rke` to version 1.2.7
+* [APPLICATION] upgraded `amass` to version 3.11.13
+* [APPLICATION] upgraded `balena-etcher` to version 1.5.117
+* [APPLICATION] upgraded `hadolint` to version 2.1.0
+* [APPLICATION] upgraded `packer` to version 1.7.2
+* [APPLICATION] upgraded `rbpi-imager` to version 1.6.1
+* [APPLICATION] upgraded `terraform` to version 0.14.10
+* [APPLICATION] upgraded `tflint` to version 0.26.0
+* [APPLICATION] upgraded `vagrant` to version 2.2.15
+* [APPLICATION] upgraded `vault` to version 1.7.0
+* [APPLICATION] added `gping` - [https://github.com/orf/gping](https://github.com/orf/gping)
+
 ## Version 2.2.3 [2021-03-21]
 
 * [APPLICATION] upgraded `dive` to version 0.10.0
