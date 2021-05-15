@@ -308,20 +308,20 @@ packages_optional:
 deb:
 - https://github.com/angryip/ipscan/releases/download/3.7.6/ipscan_3.7.6_amd64.deb
 - https://release.axocdn.com/linux/gitkraken-amd64.deb
-- https://releases.hashicorp.com/vagrant/2.2.15/vagrant_2.2.15_x86_64.deb
+- https://releases.hashicorp.com/vagrant/2.2.16/vagrant_2.2.16_x86_64.deb
 - https://github.com/BoostIO/boost-releases/releases/download/v0.16.1/boostnote_0.16.1_amd64.deb
-- https://github.com/Eugeny/terminus/releases/download/v1.0.135/terminus-1.0.135-linux.deb
+- https://github.com/Eugeny/terminus/releases/download/v1.0.139/terminus-1.0.139-linux.deb
 - https://github.com/TheGoddessInari/hamsket/releases/download/0.6.2/hamsket_0.6.2_amd64.deb
-- https://github.com/kubernetes/minikube/releases/download/v1.19.0/minikube_1.19.0-0_amd64.deb
+- https://github.com/kubernetes/minikube/releases/download/v1.20.0/minikube_1.20.0-0_amd64.deb
 - https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/10161/wps-office_11.1.0.10161.XA_amd64.deb
 - https://github.com/wagoodman/dive/releases/download/v0.10.0/dive_0.10.0_linux_amd64.deb
-- https://github.com/balena-io/etcher/releases/download/v1.5.117/balena-etcher-electron_1.5.117_amd64.deb
-- https://github.com/goodwithtech/dockle/releases/download/v0.3.11/dockle_0.3.11_Linux-64bit.deb
+- https://github.com/balena-io/etcher/releases/download/v1.5.120/balena-etcher-electron_1.5.120_amd64.deb
+- https://github.com/goodwithtech/dockle/releases/download/v0.3.13/dockle_0.3.13_Linux-64bit.deb
 - http://archive.ubuntu.com/ubuntu/pool/universe/p/pygtk/python-gtk2_2.24.0-5.1ubuntu2_amd64.deb
 - https://github.com/kaikramer/keystore-explorer/releases/download/v5.4.4/kse_5.4.4_all.deb
 - http://archive.ubuntu.com/ubuntu/pool/universe/n/nmap/zenmap_7.60-1ubuntu5_all.deb
 - https://downloads.raspberrypi.org/imager/imager_1.6.1_amd64.deb
-- https://github.com/lensapp/lens/releases/download/v4.2.1/Lens-4.2.1.amd64.deb
+- https://github.com/lensapp/lens/releases/download/v4.2.4/Lens-4.2.4.amd64.deb
 - https://github.com/aquasecurity/kube-bench/releases/download/v0.5.0/kube-bench_0.5.0_linux_amd64.deb
 flatpak:
 - name: https://flathub.org/repo/appstream/com.getpostman.Postman.flatpakref
@@ -351,17 +351,17 @@ pip:
 - kube-hunter
 - pipdeptree
 unpack:
-- url: https://get.helm.sh/helm-v3.5.3-linux-amd64.tar.gz
+- url: https://get.helm.sh/helm-v3.5.4-linux-amd64.tar.gz
   destination: helm
   source: helm
   destination_file: helm3.tar.gz
   folder: linux-amd64
-- url: https://github.com/OWASP/Amass/releases/download/v3.11.13/amass_linux_amd64.zip
+- url: https://github.com/OWASP/Amass/releases/download/v3.12.3/amass_linux_amd64.zip
   destination: amass
   source: amass
   folder: amass_linux_amd64
   destination_file: amass.zip
-- url: https://github.com/yannh/kubeconform/releases/download/v0.4.6/kubeconform-linux-amd64.tar.gz
+- url: https://github.com/yannh/kubeconform/releases/download/v0.4.7/kubeconform-linux-amd64.tar.gz
   destination: kubeconform
   source: kubeconform
   folder:
@@ -370,13 +370,13 @@ downloads:
 - url: https://releases.hashicorp.com/packer/1.7.2/packer_1.7.2_linux_amd64.zip
   destination: packer
   skip_tree: false
-- url: https://releases.hashicorp.com/terraform/0.14.10/terraform_0.14.10_linux_amd64.zip
+- url: https://releases.hashicorp.com/terraform/0.15.3/terraform_0.15.3_linux_amd64.zip
   destination: terraform
   skip_tree: false
-- url: https://releases.hashicorp.com/vault/1.7.0/vault_1.7.0_linux_amd64.zip
+- url: https://releases.hashicorp.com/vault/1.7.1/vault_1.7.1_linux_amd64.zip
   destination: vault
   skip_tree: false
-- url: https://github.com/terraform-linters/tflint/releases/download/v0.26.0/tflint_linux_amd64.zip
+- url: https://github.com/terraform-linters/tflint/releases/download/v0.28.1/tflint_linux_amd64.zip
   destination: tflint
   skip_tree: false
 - url: https://github.com/ffuf/ffuf/releases/download/v1.0.2/ffuf_1.0.2_linux_amd64.tar.gz
@@ -389,20 +389,20 @@ downloads:
   destination: gping
   skip_tree: false
 files:
-- url: https://github.com/docker/compose/releases/download/1.29.0/docker-compose-Linux-x86_64
+- url: https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64
   destination: docker-compose
 - url: https://github.com/bcicen/ctop/releases/download/v0.7.5/ctop-0.7.5-linux-amd64
   destination: ctop
-- url: https://github.com/rancher/rke/releases/download/v1.2.7/rke_linux-amd64
+- url: https://github.com/rancher/rke/releases/download/v1.2.8/rke_linux-amd64
   destination: rke
 - url: https://github.com/dannagle/PacketSender/releases/download/v7.0.5/PacketSender_v7.0.5.AppImage
   destination: packetsender
   desktop_file: ./files/apps/packetsender/packetsender.desktop
-- url: https://github.com/k3s-io/k3s/releases/download/v1.19.9%2Bk3s1/k3s
+- url: https://github.com/k3s-io/k3s/releases/download/v1.19.10%2Bk3s1/k3s
   destination: k3s
-- url: https://github.com/rancher/k3d/releases/download/v4.4.1/k3d-linux-amd64
+- url: https://github.com/rancher/k3d/releases/download/v4.4.3/k3d-linux-amd64
   destination: k3d
-- url: https://github.com/hadolint/hadolint/releases/download/v2.1.0/hadolint-Linux-x86_64
+- url: https://github.com/hadolint/hadolint/releases/download/v2.4.0/hadolint-Linux-x86_64
   destination: hadolint
 ansible:
   cfg: /etc/ansible/ansible.cfg
@@ -466,6 +466,7 @@ timezone: Europe/Warsaw
 vscode_obsolete:
 - ms-vscode.go
 - hypnoes.word-count
+- vscoss.vscode-ansible
 vscode:
 - alefragnani.project-manager
 - DavidAnson.vscode-markdownlint
@@ -493,7 +494,6 @@ vscode:
 - ms-vscode-remote.vscode-remote-extensionpack
 - ms-vscode.azure-account
 - ms-vscode.azurecli
-- ms-vscode.cpptools
 - ms-vscode.powershell
 - ms-vscode.wordcount
 - ms-vsliveshare.vsliveshare
@@ -503,14 +503,12 @@ vscode:
 - nhoizey.gremlins
 - PascalReitermann93.vscode-yaml-sort
 - piotrpalarz.vscode-gitignore-generator
-- pgourlain.erlang
 - puppet.puppet-vscode
 - rebornix.ruby
 - redhat.vscode-yaml
 - shardulm94.trailing-spaces
 - tht13.html-preview-vscode
 - timonwong.shellcheck
-- vscoss.vscode-ansible
 - wholroyd.HCL
 - wholroyd.jinja
 - yzane.markdown-pdf

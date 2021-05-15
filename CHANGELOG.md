@@ -1,9 +1,31 @@
 # Changelog "linux_mint"
 
+## Version 2.2.5 [2021-05-15]
+
+* [APPLICATION] upgraded `docker-compose` to version 1.29.2
+* [APPLICATION] upgraded `helm` to version 3.5.4
+* [APPLICATION] upgraded `k3d` to version 4.4.3
+* [APPLICATION] upgraded `k3s` to version 1.19.10
+* [APPLICATION] upgraded `kubeconform` to version 0.4.7
+* [APPLICATION] upgraded `lens` to version 4.2.4
+* [APPLICATION] upgraded `minikube` to version 1.20.0
+* [APPLICATION] upgraded `rke` to version 1.2.8
+* [APPLICATION] upgraded `amass` to version 3.12.3
+* [APPLICATION] upgraded `dockle` to version 0.3.13
+* [APPLICATION] upgraded `balena-etcher` to version 1.5.120
+* [APPLICATION] upgraded `hadolint` to version 2.4.0
+* [APPLICATION] upgraded `terminus-alpha` to version 1.0.139
+* [APPLICATION] upgraded `terraform` to version 0.15.3
+* [APPLICATION] upgraded `tflint` to version 0.28.1
+* [APPLICATION] upgraded `vagrant` to version 2.2.16
+* [APPLICATION] upgraded `vault` to version 1.7.1
+* [VSCODE] removed `pgourlain.erlang`
+* [VSCODE] removed `ms-vscode.cpptools`
+
 ## Version 2.2.4 [2021-04-11]
 
 * [APPLICATION] upgraded `docker-compose` to version 1.29.0
-* [APPLICATION] upgraded `k3d` to version 4.1.1
+* [APPLICATION] upgraded `k3d` to version 4.4.1
 * [APPLICATION] upgraded `k3s` to version 1.19.9
 * [APPLICATION] upgraded `lens` to version 4.2.1
 * [APPLICATION] upgraded `minikube` to version 1.19.0
