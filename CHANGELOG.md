@@ -1,5 +1,29 @@
 # Changelog "linux_mint"
 
+## Version 2.2.6 [2021-07-04]
+
+* [APPLICATION] added `terragrunt` [https://terragrunt.gruntwork.io/](https://terragrunt.gruntwork.io/)
+* [APPLICATION] `terminus-alpha` renamed to `Tabby`
+* [APPLICATION] upgraded `helm` to version 3.6.2
+* [APPLICATION] upgraded `k3d` to version 4.4.6
+* [APPLICATION] upgraded `kube-bench` to version 0.6.3
+* [APPLICATION] upgraded `kubeconform` to version 0.4.8
+* [APPLICATION] upgraded `k3s` to version 1.20.8
+* [APPLICATION] upgraded `lens` to version 5.0.0
+* [APPLICATION] upgraded `minikube` to version 1.21.0
+* [APPLICATION] upgraded `polaris` to version 4.0.4
+* [APPLICATION] upgraded `rke` to version 1.2.9
+* [APPLICATION] upgraded `amass` to version 3.13.2
+* [APPLICATION] upgraded `ctop` to version 0.7.6
+* [APPLICATION] upgraded `dockle` to version 0.3.15
+* [APPLICATION] upgraded `hadolint` to version 2.6.0
+* [APPLICATION] upgraded `packer` to version 1.7.3
+* [APPLICATION] upgraded `rbpi-imager` to version 1.6.2
+* [APPLICATION] upgraded `tabby` aka `terminus-alpha` to version 1.0.144
+* [APPLICATION] upgraded `terraform` to version 1.0.1
+* [APPLICATION] upgraded `tflint` to version 0.30.0
+* [APPLICATION] upgraded `vault` to version 1.7.3
+
 ## Version 2.2.5 [2021-05-15]
 
 * [APPLICATION] upgraded `docker-compose` to version 1.29.2

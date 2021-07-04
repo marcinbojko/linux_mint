@@ -2,6 +2,7 @@ skip_list:
   - no-handler
   - command-instead-of-shell
   - git-latest
+  - experimental
 exclude_paths:
   - .github/
 
