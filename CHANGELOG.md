@@ -1,5 +1,30 @@
 # Changelog "linux_mint"
 
+## Version 2.2.7 [2021-08-17]
+
+* Support of `Linux Mint` in version 20.2, codename `Uma`
+* [APPLICATION] upgraded `helm` to version 3.6.3
+* [APPLICATION] upgraded `k3d` to version 4.4.7
+* [APPLICATION] upgraded `k3s` to version 1.20.9
+* [APPLICATION] upgraded `lens` to version 5.1.3
+* [APPLICATION] upgraded `minikube` to version 1.22.0
+* [APPLICATION] upgraded `polaris` to version 4.0.7
+* [APPLICATION] upgraded `rke` to version 1.2.11
+* [APPLICATION] upgraded `amass` to version 3.13.4
+* [APPLICATION] upgraded `balena-etcher` to version 1.5.121
+* [APPLICATION] upgraded `gping` to version 1.2.3
+* [APPLICATION] upgraded `hadolint` to version 2.6.1
+* [APPLICATION] upgraded `packer` to version 1.7.4
+* [APPLICATION] upgraded `hamsket` to version 0.6.3-nightly
+* [APPLICATION] upgraded `tabby` aka to version 1.0.152
+* [APPLICATION] upgraded `terraform` to version 1.0.4
+* [APPLICATION] upgraded `terragrunt` to version 0.31.4
+* [APPLICATION] upgraded `tflint` to version 0.31.0
+* [APPLICATION] upgraded `vagrant` to vesion 2.2.18
+* [APPLICATION] upgraded `vault` to version 1.8.1
+* [APPLICATION] upgraded `wpsoffice` to version 11.1.0.10702
+* [APPLICATION] added `ngrok` - in version 2.3.40 [https://ngrok.com/](https://ngrok.com/)
+
 ## Version 2.2.6 [2021-07-04]
 
 * [APPLICATION] added `terragrunt` [https://terragrunt.gruntwork.io/](https://terragrunt.gruntwork.io/)

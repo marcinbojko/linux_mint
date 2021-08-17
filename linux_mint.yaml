@@ -96,6 +96,7 @@
       - "Bin Path to put files into   : {{ bin_path }}"
       - "Active user                  : {{ active_user|string }}"
       - "Linux Mint major version     : {{ ansible_distribution_major_version }}"
+      - "Linux Mint release           : {{ ansible_distribution_release }}"
       - "Ansible version              : {{ ansible_version.full }}"
   - name: wait_15_seconds
     pause:
@@ -417,6 +418,18 @@
     register: r_install_flatpak
     until: r_install_flatpak is success
     any_errors_fatal: false
+    when: install_flatpak
+    tags:
+    - packages
+    - flatpak
+  - name: upgrade_flatpak_apps
+    ansible.builtin.command: flatpak update -y
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
+    register: r_update_flatpak
+    until: r_update_flatpak is success
+    any_errors_fatal: false
+    ignore_errors: true
     when: install_flatpak
     tags:
     - packages
