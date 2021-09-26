@@ -389,7 +389,7 @@ unpack:
   source: amass
   folder: amass_linux_amd64
   destination_file: amass.zip
-- url: https://github.com/yannh/kubeconform/releases/download/v0.4.10/kubeconform-linux-amd64.tar.gz
+- url: https://github.com/yannh/kubeconform/releases/download/v0.4.11/kubeconform-linux-amd64.tar.gz
   destination: kubeconform
   source: kubeconform
   folder:

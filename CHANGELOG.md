@@ -1,6 +1,10 @@
 # Changelog "linux_mint"
 
-## Version  2.2.8 [2021-09-26]
+## Version 2.2.9 [2021-09-26]
+
+* [APPLICATION] upgraded `kubeconform` to version 0.4.11
+
+## Version 2.2.8 [2021-09-26]
 
 * [APPLICATION] upgraded `helm` to version 3.7.0
 * [APPLICATION] upgraded `k3d` to version 4.4.8
