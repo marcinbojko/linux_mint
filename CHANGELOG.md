@@ -1,5 +1,34 @@
 # Changelog "linux_mint"
 
+## Version  2.2.8 [2021-09-26]
+
+* [APPLICATION] upgraded `helm` to version 3.7.0
+* [APPLICATION] upgraded `k3d` to version 4.4.8
+* [APPLICATION] upgraded `kubeconform` to version 0.4.10
+* [APPLICATION] upgraded `k3s` to version 1.21.5
+* [APPLICATION] upgraded `lens` to version 5.2.4
+* [APPLICATION] upgraded `minikube` to version 1.23.2
+* [APPLICATION] upgraded `polaris` to version 4.1.0
+* [APPLICATION] upgraded `rke` to version 1.3.1
+* [APPLICATION] upgraded `dockle` to version 0.4.2
+* [APPLICATION] upgraded `balena-etcher` to version 1.6.0
+* [APPLICATION] upgraded `gping` to version 1.2.5
+* [APPLICATION] upgraded `hadolint` to version 2.7.0
+* [APPLICATION] upgraded `packer` to version 1.7.5
+* [APPLICATION] upgraded `tabby` to version 1.0.158
+* [APPLICATION] upgraded `terraform` to version 1.0.7
+* [APPLICATION] upgraded `terragrunt` to version 0.32.4
+* [APPLICATION] upgraded `tflint` to version 0.32.1
+* [APPLICATION] upgraded `vault` to version 1.8.2
+* [APPLICATION] added `k6` - [https://k6.io/](https://k6.io/) as repository and optional package
+* [APPLICATION] removed `skypeforlinux`
+* [REPOSITORY] removed old `shutter` repository - `ppa:linuxuprising/shutter`
+* [REPOSITORY] added new supported `shutter` repository `ppa:shutter/ppa`
+* [REPOSITORY] removed puppet5 respository
+* [REPOSITORY] added puppet6 repository
+* [REPOSITORY] removed `skype` respository as it's obsolete and not used by most people
+* Addedd section `files_removed` to get rid of old and obsolete files bot removed by other means
+
 ## Version 2.2.7 [2021-08-17]
 
 * Support of `Linux Mint` in version 20.2, codename `Uma`

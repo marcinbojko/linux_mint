@@ -140,14 +140,31 @@
     apt_repository:
       repo: "{{ item.repo }}"
       state: absent
+      update_cache: false
     loop: "{{ repositories_remove }}"
     retries: "{{ retries_count }}"
-    delay: 3
+    delay: "{{ delay_time }}"
     register: r_repositories_remove
     until: r_repositories_remove  is success
     any_errors_fatal: false
     tags:
     - repositories
+    - base
+    - obsolete
+# remove obsolete files
+  - name: remove_obsolete_files_from_variables_file
+    ansible.builtin.file:
+      path: "{{ item.path }}"
+      state: absent
+    loop: "{{ files_remove }}"
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
+    register: r_files_remove
+    until: r_files_remove  is success
+    any_errors_fatal: false
+    ignore_errors: true
+    tags:
+    - files
     - base
     - obsolete
 # remove obsolete keys

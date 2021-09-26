@@ -30,8 +30,8 @@ repositories:
   filename: palemoon
 - repo: ppa:remmina-ppa-team/remmina-next
   filename: remmina-next
-- repo: ppa:linuxuprising/shutter
-  filename: shutter
+- repo: ppa:shutter/ppa
+  filename: shutter-next
 - repo: ppa:ansible/ansible
   filename: ansible
 #  codename: focal
@@ -68,12 +68,9 @@ repositories_optional:
 - repo: ppa:noobslab/themes
   filename: noobslab-themes
   codename: xenial
-- repo: deb http://apt.puppetlabs.com bionic puppet5
-  filename: puppet5
+- repo: deb http://apt.puppetlabs.com bionic puppet6
+  filename: puppet6
   codename: bionic
-- repo: deb [arch=amd64] https://repo.skype.com/deb stable main
-  codename: stable
-  filename: skype-stable
 - repo: deb http://repository.spotify.com stable non-free
   codename: stable
   filename: spotify
@@ -101,6 +98,9 @@ repositories_optional:
 - repo: deb http://apt.insync.io/mint uma non-free contrib
   filename: insync
   codename: ulyana
+- repo: deb https://dl.k6.io/deb stable main
+  filename: k6
+  codename: stable
 repositories_remove:
 - repo: ppa:alexx2000/doublecmd
   filename: alexx2000-doublecmd
@@ -117,6 +117,16 @@ repositories_remove:
   filename: shutter
 - repo: ppa:synapse-core/testing
   filename: synapse-core
+- repo: ppa:linuxuprising/shutter
+  filename: shutter
+- repo: deb http://apt.puppetlabs.com bionic puppet5
+  filename: puppet5
+  codename: bionic
+- repo: deb [arch=amd64] https://repo.skype.com/deb stable main
+  codename: stable
+  filename: skype-stable
+files_remove:
+- path: /etc/apt/sources.list.d/shutter.list
 keys:
 - https://download.opensuse.org/repositories/home:/stevenpusser/xUbuntu_20.04/Release.key
 - https://download.opensuse.org/repositories/home:/Alexx2000/xUbuntu_20.04/Release.key
@@ -128,7 +138,6 @@ keys:
 - https://download.sublimetext.com/sublimehq-pub.gpg
 - https://download.docker.com/linux/ubuntu/gpg
 - http://repository.veeam.com/keys/veeam.gpg
-- https://repo.skype.com/data/SKYPE-GPG-KEY
 - https://packagecloud.io/github/git-lfs/gpgkey
 - https://apt.puppetlabs.com/pubkey.gpg
 - https://packagecloud.io/asbru-cm/asbru-cm/gpgkey
@@ -139,11 +148,27 @@ keys:
 keys_keyserver:
 - keyserver: keyserver.ubuntu.com
   id: ACCAF35C
+  # k6 repo
+- keyserver: keyserver.ubuntu.com
+  id: C5AD17C747E3415A3642D57D77C6C491D6AC1D69
+  # forticlient
+- keyserver: keyserver.ubuntu.com
+  id: 18AC26395E54716D
 keys_remove:
 - 5E54716D
 packages_remove:
 - ansible
 - kontena-lens
+- skypeforlinux
+- openjdk-8-jdk
+- openjdk-8-jre
+- openjdk-8-headless
+- openjdk-11-jdk
+- openjdk-11-jre
+- openjdk-11-headless
+- openjdk-13-jdk
+- openjdk-13-jre
+- openjdk-13-headless
 packages_essential:
 - apt-transport-https
 - mc
@@ -223,7 +248,9 @@ packages:
 - keepass2
 - smartmontools
 - libqt5multimedia5-plugins
-- openjdk-11-jre
+- openjdk-16-jre
+- openjdk-16-jdk
+- openjdk-16-jre-headless
 - gsmartcontrol
 - nmon
 - sysstat
@@ -292,7 +319,6 @@ packages_optional:
 - geoipupdate
 - thunderbird
 - neofetch
-- skypeforlinux
 - veeam
 - veeamsnap
 - pinta
@@ -306,23 +332,24 @@ packages_optional:
 - hashcat
 - y-ppa-manager
 - insync
+- k6
 deb:
 - https://github.com/angryip/ipscan/releases/download/3.7.6/ipscan_3.7.6_amd64.deb
 - https://release.axocdn.com/linux/gitkraken-amd64.deb
 - https://releases.hashicorp.com/vagrant/2.2.18/vagrant_2.2.18_x86_64.deb
 - https://github.com/BoostIO/boost-releases/releases/download/v0.16.1/boostnote_0.16.1_amd64.deb
-- https://github.com/Eugeny/tabby/releases/download/v1.0.152/tabby-1.0.152-linux.deb
+- https://github.com/Eugeny/tabby/releases/download/v1.0.158/tabby-1.0.158-linux.deb
 - https://github.com/TheGoddessInari/hamsket/releases/download/nightly/hamsket_0.6.3_amd64.deb
-- https://github.com/kubernetes/minikube/releases/download/v1.22.0/minikube_1.22.0-0_amd64.deb
+- https://github.com/kubernetes/minikube/releases/download/v1.23.2/minikube_1.23.2-0_amd64.deb
 - https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/10702/wps-office_11.1.0.10702.XA_amd64.deb
 - https://github.com/wagoodman/dive/releases/download/v0.10.0/dive_0.10.0_linux_amd64.deb
-- https://github.com/balena-io/etcher/releases/download/v1.5.121/balena-etcher-electron_1.5.121_amd64.deb
-- https://github.com/goodwithtech/dockle/releases/download/v0.3.15/dockle_0.3.15_Linux-64bit.deb
+- https://github.com/balena-io/etcher/releases/download/v1.6.0/balena-etcher-electron_1.6.0_amd64.deb
+- https://github.com/goodwithtech/dockle/releases/download/v0.4.2/dockle_0.4.2_Linux-64bit.deb
 - http://archive.ubuntu.com/ubuntu/pool/universe/p/pygtk/python-gtk2_2.24.0-5.1ubuntu2_amd64.deb
 - https://github.com/kaikramer/keystore-explorer/releases/download/v5.4.4/kse_5.4.4_all.deb
 - http://archive.ubuntu.com/ubuntu/pool/universe/n/nmap/zenmap_7.60-1ubuntu5_all.deb
 - https://downloads.raspberrypi.org/imager/imager_1.6.2_amd64.deb
-- https://lens-binaries.s3-eu-west-1.amazonaws.com/ide/Lens-5.1.3-latest.20210722.1.amd64.deb
+- https://lens-binaries.s3-eu-west-1.amazonaws.com/ide/Lens-5.2.4-latest.20210923.1.amd64.deb
 - https://github.com/aquasecurity/kube-bench/releases/download/v0.6.3/kube-bench_0.6.3_linux_amd64.deb
 flatpak:
 - name: https://flathub.org/repo/appstream/com.getpostman.Postman.flatpakref
@@ -352,7 +379,7 @@ pip:
 - kube-hunter
 - pipdeptree
 unpack:
-- url: https://get.helm.sh/helm-v3.6.3-linux-amd64.tar.gz
+- url: https://get.helm.sh/helm-v3.7.0-linux-amd64.tar.gz
   destination: helm
   source: helm
   destination_file: helm3.tar.gz
@@ -362,27 +389,27 @@ unpack:
   source: amass
   folder: amass_linux_amd64
   destination_file: amass.zip
-- url: https://github.com/yannh/kubeconform/releases/download/v0.4.8/kubeconform-linux-amd64.tar.gz
+- url: https://github.com/yannh/kubeconform/releases/download/v0.4.10/kubeconform-linux-amd64.tar.gz
   destination: kubeconform
   source: kubeconform
   folder:
   destination_file: kubeconform-linux-amd64.tar.gz
-- url: https://releases.hashicorp.com/packer/1.7.4/packer_1.7.4_linux_amd64.zip
+- url: https://releases.hashicorp.com/packer/1.7.5/packer_1.7.5_linux_amd64.zip
   destination: packer
   source: packer
   destination_file: packer.zip
   folder:
-- url: https://releases.hashicorp.com/terraform/1.0.4/terraform_1.0.4_linux_amd64.zip
+- url: https://releases.hashicorp.com/terraform/1.0.7/terraform_1.0.7_linux_amd64.zip
   destination: terraform
   source: terraform
   destination_file: terraform.zip
   folder:
-- url: https://releases.hashicorp.com/vault/1.8.1/vault_1.8.1_linux_amd64.zip
+- url: https://releases.hashicorp.com/vault/1.8.2/vault_1.8.2_linux_amd64.zip
   destination: vault
   source: vault
   destination_file: vault.zip
   folder:
-- url: https://github.com/terraform-linters/tflint/releases/download/v0.31.0/tflint_linux_amd64.zip
+- url: https://github.com/terraform-linters/tflint/releases/download/v0.32.1/tflint_linux_amd64.zip
   destination: tflint
   source: tflint
   destination_file: tflint.zip
@@ -396,10 +423,10 @@ downloads:
 - url: https://github.com/ffuf/ffuf/releases/download/v1.0.2/ffuf_1.0.2_linux_amd64.tar.gz
   destination: ffluf
   skip_tree: false
-- url: https://github.com/FairwindsOps/polaris/releases/download/4.0.7/polaris_linux_amd64.tar.gz
+- url: https://github.com/FairwindsOps/polaris/releases/download/4.1.0/polaris_linux_amd64.tar.gz
   destination: polaris
   skip_tree: false
-- url: https://github.com/orf/gping/releases/download/gping-v1.2.3/gping-Linux-x86_64.tar.gz
+- url: https://github.com/orf/gping/releases/download/gping-v1.2.5/gping-Linux-x86_64.tar.gz
   destination: gping
   skip_tree: false
 files:
@@ -407,18 +434,18 @@ files:
   destination: docker-compose
 - url: https://github.com/bcicen/ctop/releases/download/0.7.6/ctop-0.7.6-linux-amd64
   destination: ctop
-- url: https://github.com/rancher/rke/releases/download/v1.2.11/rke_linux-amd64
+- url: https://github.com/rancher/rke/releases/download/v1.3.1/rke_linux-amd64
   destination: rke
 - url: https://github.com/dannagle/PacketSender/releases/download/v7.0.5/PacketSender_v7.0.5.AppImage
   destination: packetsender
   desktop_file: ./files/apps/packetsender/packetsender.desktop
-- url: https://github.com/k3s-io/k3s/releases/download/v1.20.9%2Bk3s1/k3s
+- url: https://github.com/k3s-io/k3s/releases/download/v1.21.5%2Bk3s1/k3s
   destination: k3s
-- url: https://github.com/rancher/k3d/releases/download/v4.4.7/k3d-linux-amd64
+- url: https://github.com/rancher/k3d/releases/download/v4.4.8/k3d-linux-amd64
   destination: k3d
-- url: https://github.com/hadolint/hadolint/releases/download/v2.6.1/hadolint-Linux-x86_64
+- url: https://github.com/hadolint/hadolint/releases/download/v2.7.0/hadolint-Linux-x86_64
   destination: hadolint
-- url: https://github.com/gruntwork-io/terragrunt/releases/download/v0.31.4/terragrunt_linux_amd64
+- url: https://github.com/gruntwork-io/terragrunt/releases/download/v0.32.4/terragrunt_linux_amd64
   destination: terragrunt
 ansible:
   cfg: /etc/ansible/ansible.cfg
