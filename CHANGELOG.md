@@ -1,5 +1,40 @@
 # Changelog "linux_mint"
 
+## Version 2.3.0 [2021-12-04]
+
+* [APPLICATION] upgraded `helm` to version 3.7.1
+* [APPLICATION] upgraded `k3d` to version 5.2.0
+* [APPLICATION] upgraded `k3s` to version 1.21.7
+* [APPLICATION] upgraded `kube-bench` to version 0.6.5
+* [APPLICATION] upgraded `lens` to version 5.3.2
+* [APPLICATION] upgraded `minikube` to version 1.24.0
+* [APPLICATION] upgraded `polaris` to version 4.2.0
+* [APPLICATION] upgraded `rke` to vesion 1.3.2
+* [APPLICATION] upgraded `amass` to version 3.15.2
+* [APPLICATION] upgraded `dockle` to version 0.4.3
+* [APPLICATION] upgraded `balena-etcher` to version 1.7.1
+* [APPLICATION] upgraded `gping` to version 1.2.6
+* [APPLICATION] upgraded `hadolint` to version 2.8.0
+* [APPLICATION] upgraded `packer` to version 1.7.8
+* [APPLICATION] upgraded `tabby` to version 1.0.164
+* [APPLICATION] upgraded `terraform` to version 1.0.11
+* [APPLICATION] upgraded `terragrunt` to version 0.35.13
+* [APPLICATION] upgraded `tflint` to version 0.33.1
+* [APPLICATION] upgraded `vagrant` to version 2.2.19
+* [APPLICATION] upgraded `vault` to version 1.9.0
+* [APPLICATION] added `bicep` for Azure
+* [VSCODE] added `trivy-vulnerability-scanner` extension
+* [VSCODE] added `donjayamanne.githistory` extension
+* [VSCODE] added `eamodio.gitlens` extension
+* [VSCODE] added `rogalmic.bash-debug` extension
+* [VSCODE] added `redhat.vscode-commons` extension
+* [VSCODE] removed `jpogran.puppet-vscode` extension
+* [VSCODE] added `puppet.puppet-vscode` extension
+* [VSCODE] added `ms-azuretools.vscode-bicep` extension
+* [KEYS] added new `spotify` key `5E3C45D7B312C643`
+* [KEYS] added new `nodesource` key
+* [REPOSITORY] added nodejs 16.x repo - [https://deb.nodesource.com/node_16.x](https://deb.nodesource.com/node_16.x)
+
 ## Version 2.2.9 [2021-09-26]
 
 * [APPLICATION] upgraded `kubeconform` to version 0.4.11

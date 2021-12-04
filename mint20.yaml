@@ -45,6 +45,8 @@ repositories:
   filename: y-ppa-manager
 - repo: ppa:libreoffice/ppa
   filename: libreoffice
+- repo: deb https://deb.nodesource.com/node_16.x impish main
+  filename: nodesource
 repositories_optional:
  # brave browser
 - repo: deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main
@@ -143,8 +145,9 @@ keys:
 - https://packagecloud.io/asbru-cm/asbru-cm/gpgkey
 - https://aquasecurity.github.io/trivy-repo/deb/public.key
 - https://brave-browser-apt-release.s3.brave.com/brave-core.asc
-- https://download.spotify.com/debian/pubkey_0D811D58.gpg
+- https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg
 - https://d2t3ff60b2tol4.cloudfront.net/repomd.xml.key
+- https://deb.nodesource.com/gpgkey/nodesource.gpg.key
 keys_keyserver:
 - keyserver: keyserver.ubuntu.com
   id: ACCAF35C
@@ -157,7 +160,7 @@ keys_keyserver:
 keys_remove:
 - 5E54716D
 packages_remove:
-- ansible
+- ansible-base
 - kontena-lens
 - skypeforlinux
 - openjdk-8-jdk
@@ -182,7 +185,8 @@ packages_essential:
 - xz-utils
 packages:
 - synaptic
-- ansible-base
+- ansible
+- ansible-core
 - azure-cli
 - google-cloud-sdk
 - gcsfuse
@@ -256,6 +260,7 @@ packages:
 - sysstat
 - stress
 - npm
+- nodejs
 - unzip
 - docker-ce
 - shutter
@@ -336,21 +341,21 @@ packages_optional:
 deb:
 - https://github.com/angryip/ipscan/releases/download/3.7.6/ipscan_3.7.6_amd64.deb
 - https://release.axocdn.com/linux/gitkraken-amd64.deb
-- https://releases.hashicorp.com/vagrant/2.2.18/vagrant_2.2.18_x86_64.deb
+- https://releases.hashicorp.com/vagrant/2.2.19/vagrant_2.2.19_x86_64.deb
 - https://github.com/BoostIO/boost-releases/releases/download/v0.16.1/boostnote_0.16.1_amd64.deb
-- https://github.com/Eugeny/tabby/releases/download/v1.0.158/tabby-1.0.158-linux.deb
+- https://github.com/Eugeny/tabby/releases/download/v1.0.164/tabby-1.0.164-linux.deb
 - https://github.com/TheGoddessInari/hamsket/releases/download/nightly/hamsket_0.6.3_amd64.deb
-- https://github.com/kubernetes/minikube/releases/download/v1.23.2/minikube_1.23.2-0_amd64.deb
+- https://github.com/kubernetes/minikube/releases/download/v1.24.0/minikube_1.24.0-0_amd64.deb
 - https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/10702/wps-office_11.1.0.10702.XA_amd64.deb
 - https://github.com/wagoodman/dive/releases/download/v0.10.0/dive_0.10.0_linux_amd64.deb
-- https://github.com/balena-io/etcher/releases/download/v1.6.0/balena-etcher-electron_1.6.0_amd64.deb
-- https://github.com/goodwithtech/dockle/releases/download/v0.4.2/dockle_0.4.2_Linux-64bit.deb
+- https://github.com/balena-io/etcher/releases/download/v1.7.1/balena-etcher-electron_1.7.1_amd64.deb
+- https://github.com/goodwithtech/dockle/releases/download/v0.4.3/dockle_0.4.3_Linux-64bit.deb
 - http://archive.ubuntu.com/ubuntu/pool/universe/p/pygtk/python-gtk2_2.24.0-5.1ubuntu2_amd64.deb
 - https://github.com/kaikramer/keystore-explorer/releases/download/v5.4.4/kse_5.4.4_all.deb
 - http://archive.ubuntu.com/ubuntu/pool/universe/n/nmap/zenmap_7.60-1ubuntu5_all.deb
 - https://downloads.raspberrypi.org/imager/imager_1.6.2_amd64.deb
-- https://lens-binaries.s3-eu-west-1.amazonaws.com/ide/Lens-5.2.4-latest.20210923.1.amd64.deb
-- https://github.com/aquasecurity/kube-bench/releases/download/v0.6.3/kube-bench_0.6.3_linux_amd64.deb
+- https://lens-binaries.s3-eu-west-1.amazonaws.com/ide/Lens-5.3.2-latest.20211201.1.amd64.deb
+- https://github.com/aquasecurity/kube-bench/releases/download/v0.6.5/kube-bench_0.6.5_linux_amd64.deb
 flatpak:
 - name: https://flathub.org/repo/appstream/com.getpostman.Postman.flatpakref
 npm:
@@ -379,12 +384,12 @@ pip:
 - kube-hunter
 - pipdeptree
 unpack:
-- url: https://get.helm.sh/helm-v3.7.0-linux-amd64.tar.gz
+- url: https://get.helm.sh/helm-v3.7.1-linux-amd64.tar.gz
   destination: helm
   source: helm
   destination_file: helm3.tar.gz
   folder: linux-amd64
-- url: https://github.com/OWASP/Amass/releases/download/v3.13.4/amass_linux_amd64.zip
+- url: https://github.com/OWASP/Amass/releases/download/v3.15.2/amass_linux_amd64.zip
   destination: amass
   source: amass
   folder: amass_linux_amd64
@@ -394,22 +399,22 @@ unpack:
   source: kubeconform
   folder:
   destination_file: kubeconform-linux-amd64.tar.gz
-- url: https://releases.hashicorp.com/packer/1.7.5/packer_1.7.5_linux_amd64.zip
+- url: https://releases.hashicorp.com/packer/1.7.8/packer_1.7.8_linux_amd64.zip
   destination: packer
   source: packer
   destination_file: packer.zip
   folder:
-- url: https://releases.hashicorp.com/terraform/1.0.7/terraform_1.0.7_linux_amd64.zip
+- url: https://releases.hashicorp.com/terraform/1.0.11/terraform_1.0.11_linux_amd64.zip
   destination: terraform
   source: terraform
   destination_file: terraform.zip
   folder:
-- url: https://releases.hashicorp.com/vault/1.8.2/vault_1.8.2_linux_amd64.zip
+- url: https://releases.hashicorp.com/vault/1.9.0/vault_1.9.0_linux_amd64.zip
   destination: vault
   source: vault
   destination_file: vault.zip
   folder:
-- url: https://github.com/terraform-linters/tflint/releases/download/v0.32.1/tflint_linux_amd64.zip
+- url: https://github.com/terraform-linters/tflint/releases/download/v0.33.1/tflint_linux_amd64.zip
   destination: tflint
   source: tflint
   destination_file: tflint.zip
@@ -423,10 +428,10 @@ downloads:
 - url: https://github.com/ffuf/ffuf/releases/download/v1.0.2/ffuf_1.0.2_linux_amd64.tar.gz
   destination: ffluf
   skip_tree: false
-- url: https://github.com/FairwindsOps/polaris/releases/download/4.1.0/polaris_linux_amd64.tar.gz
+- url: https://github.com/FairwindsOps/polaris/releases/download/4.2.0/polaris_linux_amd64.tar.gz
   destination: polaris
   skip_tree: false
-- url: https://github.com/orf/gping/releases/download/gping-v1.2.5/gping-Linux-x86_64.tar.gz
+- url: https://github.com/orf/gping/releases/download/gping-v1.2.6/gping-Linux-x86_64.tar.gz
   destination: gping
   skip_tree: false
 files:
@@ -434,19 +439,21 @@ files:
   destination: docker-compose
 - url: https://github.com/bcicen/ctop/releases/download/0.7.6/ctop-0.7.6-linux-amd64
   destination: ctop
-- url: https://github.com/rancher/rke/releases/download/v1.3.1/rke_linux-amd64
+- url: https://github.com/rancher/rke/releases/download/v1.3.2/rke_linux-amd64
   destination: rke
 - url: https://github.com/dannagle/PacketSender/releases/download/v7.0.5/PacketSender_v7.0.5.AppImage
   destination: packetsender
   desktop_file: ./files/apps/packetsender/packetsender.desktop
-- url: https://github.com/k3s-io/k3s/releases/download/v1.21.5%2Bk3s1/k3s
+- url: https://github.com/k3s-io/k3s/releases/download/v1.21.7%2Bk3s1/k3s
   destination: k3s
-- url: https://github.com/rancher/k3d/releases/download/v4.4.8/k3d-linux-amd64
+- url: https://github.com/rancher/k3d/releases/download/v5.2.0/k3d-linux-amd64
   destination: k3d
-- url: https://github.com/hadolint/hadolint/releases/download/v2.7.0/hadolint-Linux-x86_64
+- url: https://github.com/hadolint/hadolint/releases/download/v2.8.0/hadolint-Linux-x86_64
   destination: hadolint
-- url: https://github.com/gruntwork-io/terragrunt/releases/download/v0.32.4/terragrunt_linux_amd64
+- url: https://github.com/gruntwork-io/terragrunt/releases/download/v0.35.13/terragrunt_linux_amd64
   destination: terragrunt
+- url: https://github.com/Azure/bicep/releases/latest/download/bicep-linux-x64
+  destination: bicep
 ansible:
   cfg: /etc/ansible/ansible.cfg
   config:
@@ -512,8 +519,11 @@ vscode_obsolete:
 - vscoss.vscode-ansible
 vscode:
 - alefragnani.project-manager
+- AquaSecurityOfficial.trivy-vulnerability-scanner
 - DavidAnson.vscode-markdownlint
+- donjayamanne.githistory
 - DotJoshJohnson.xml
+- eamodio.gitlens
 - emmanuelbeziat.vscode-great-icons
 - eriklynd.json-tools
 - exiasr.hadolint
@@ -528,6 +538,7 @@ vscode:
 - mohsen1.prettify-json
 - ms-azuretools.vscode-azureterraform
 - ms-azuretools.vscode-docker
+- ms-azuretools.vscode-bicep
 - ms-kubernetes-tools.vscode-kubernetes-tools
 - ms-python.python
 - ms-vscode-remote.remote-containers
@@ -548,7 +559,9 @@ vscode:
 - piotrpalarz.vscode-gitignore-generator
 - puppet.puppet-vscode
 - rebornix.ruby
+- redhat.vscode-commons
 - redhat.vscode-yaml
+- rogalmic.bash-debug
 - shardulm94.trailing-spaces
 - tht13.html-preview-vscode
 - timonwong.shellcheck
