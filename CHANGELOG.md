@@ -1,5 +1,54 @@
 # Changelog "linux_mint"
 
+## Version 2.4.0 [2021-12-24] - Christmas Edition
+
+           *             ,
+                       _/^\_
+                      <     >
+     *                 /.-.\         *
+              *        `/&\`                   *
+                      ,@.*;@,
+                     /_o.I %_\    *
+        *           (`'--:o(_@;
+                   /`;--.,__ `')             *
+                  ;@`o % O,*`'`&\
+            *    (`'--)_@ ;o %'()\      *
+                 /`;--._`''--._O'@;
+                /&*,()~o`;-.,_ `""`)
+     *          /`,@ ;+& () o*`;-';\
+               (`""--.,_0 +% @' &()\
+               /-.,_    ``''--....-'`)  *
+          *    /@%;o`:;'--,.__   __.'\
+              ;*,&(); @ % &^;~`"`o;@();         *
+              /(); o^~; & ().o@*&`;&%O\
+        jgs   `"="==""==,,,.,="=="==="`
+           __.----.(\-''#####---...___...-----._
+         '`         \)_`"""""`
+                 .--' ')
+               o(  )_-\
+                 `"""` `
+
+------------------------------------------------
+
+This ASCII pic can be found at [https://asciiart.website/index.php?art=holiday/christmas/trees](https://asciiart.website/index.php?art=holiday/christmas/trees)
+
+* [APPLICATION] upgraded `helm` to version 3.7.2
+* [APPLICATION] upgraded `k3d` to version 5.2.2
+* [APPLICATION] upgraded `k3s` to version 1.21.8
+* [APPLICATION] upgraded `lens` to version 5.3.3
+* [APPLICATION] upgraded `rke` to vesion 1.3.3
+* [APPLICATION] upgraded `balena-etcher` to version 1.7.2
+* [APPLICATION] upgraded `kse` to version 5.5.0
+* [APPLICATION] upgraded `tabby` to version 1.0.169
+* [APPLICATION] upgraded `terraform` to version 1.1.2
+* [APPLICATION] upgraded `tflint` to version 0.34.0
+* [APPLICATION] upgraded `vault` to version 1.9.2
+* [APPLICATION] upgraded `terragrunt` to version 0.35.16
+* [APPLICATION] upgraded `packetsender` to version 7.2.4
+* [APPLICATION] added `syft` in version 0.34.0 [https://github.com/anchore/syft](https://github.com/anchore/syft)
+* [APPLICATION] added `obsidian` in version 0.12.15 [https://obsidian.md/](https://obsidian.md/)
+* [APPLICATION] removed `boostnote` as being obsoleted. Since `Boostnote-next.local` and `Boostnote-next` development is not in a good shape, I recommend switching to `obsidian` or `joplin`
+
 ## Version 2.3.0 [2021-12-04]
 
 * [APPLICATION] upgraded `helm` to version 3.7.1

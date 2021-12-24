@@ -630,7 +630,7 @@
         section: "{{ item.section }}"
         option: "{{ item.option }}"
         value: "{{ item.value|string }}"
-        state: present
+        state: "{{ item.state|string }}"
         mode: 0644
         backup: yes
       retries: "{{ retries_count }}"
