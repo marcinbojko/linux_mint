@@ -1,5 +1,17 @@
 # Changelog "linux_mint"
 
+## Version 2.4.1 [2022-01-04] - Birthday Edition
+
+* [IMAGE] Image by `Pexels` from `Pixabay`
+
+![Birthday](./images/birthday-1835443_640.jpg)
+
+* [APPLICATION] added `zoom` as `deb` package in version 5.9.1 (1380)
+* [KEYS] added `zoom` key - [https://zoom.us/linux/download/pubkey](https://zoom.us/linux/download/pubkey)
+* [APPLICATION] upgrade `etcher` to version 1.7.3
+* [APPLICATION] upgrade `tflint` to version 0.34.1
+* [PIP] added `oci-cli` for `Oracle Cloud Infrastructure`
+
 ## Version 2.4.0 [2021-12-24] - Christmas Edition
 
            *             ,
@@ -946,7 +958,6 @@ This ASCII pic can be found at [https://asciiart.website/index.php?art=holiday/c
 
 ## Version 1.0.5 - 2018-12-23 Christmas Edition
 
-```txt
              *
            _/ \_
           \     /
@@ -962,7 +973,6 @@ This ASCII pic can be found at [https://asciiart.website/index.php?art=holiday/c
     *------------------*
          [_______]
           \_____/
-```
 
 * [REPOSITORY] - added `ppa:mozillateam/ppa`
 * [APPLICATION] - upgrade `Franz` to version 5.0.0-beta22

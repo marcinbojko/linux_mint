@@ -148,6 +148,7 @@ keys:
 - https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg
 - https://d2t3ff60b2tol4.cloudfront.net/repomd.xml.key
 - https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+- https://zoom.us/linux/download/pubkey
 keys_keyserver:
 - keyserver: keyserver.ubuntu.com
   id: ACCAF35C
@@ -346,7 +347,7 @@ deb:
 - https://github.com/kubernetes/minikube/releases/download/v1.24.0/minikube_1.24.0-0_amd64.deb
 - https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/10702/wps-office_11.1.0.10702.XA_amd64.deb
 - https://github.com/wagoodman/dive/releases/download/v0.10.0/dive_0.10.0_linux_amd64.deb
-- https://github.com/balena-io/etcher/releases/download/v1.7.2/balena-etcher-electron_1.7.2_amd64.deb
+- https://github.com/balena-io/etcher/releases/download/v1.7.3/balena-etcher-electron_1.7.3_amd64.deb
 - https://github.com/goodwithtech/dockle/releases/download/v0.4.3/dockle_0.4.3_Linux-64bit.deb
 - http://archive.ubuntu.com/ubuntu/pool/universe/p/pygtk/python-gtk2_2.24.0-5.1ubuntu2_amd64.deb
 - https://github.com/kaikramer/keystore-explorer/releases/download/v5.5.0/kse_5.5.0_all.deb
@@ -356,6 +357,7 @@ deb:
 - https://github.com/aquasecurity/kube-bench/releases/download/v0.6.5/kube-bench_0.6.5_linux_amd64.deb
 - https://github.com/anchore/syft/releases/download/v0.34.0/syft_0.34.0_linux_amd64.deb
 - https://github.com/obsidianmd/obsidian-releases/releases/download/v0.12.15/obsidian_0.12.15_amd64.deb
+- https://cdn.zoom.us/prod/5.9.1.1380/zoom_amd64.deb
 flatpak:
 - name: https://flathub.org/repo/appstream/com.getpostman.Postman.flatpakref
 npm:
@@ -383,6 +385,7 @@ pip:
 - gittyleaks
 - kube-hunter
 - pipdeptree
+- oci-cli
 unpack:
 - url: https://get.helm.sh/helm-v3.7.2-linux-amd64.tar.gz
   destination: helm
@@ -414,7 +417,7 @@ unpack:
   source: vault
   destination_file: vault.zip
   folder:
-- url: https://github.com/terraform-linters/tflint/releases/download/v0.34.0/tflint_linux_amd64.zip
+- url: https://github.com/terraform-linters/tflint/releases/download/v0.34.1/tflint_linux_amd64.zip
   destination: tflint
   source: tflint
   destination_file: tflint.zip
