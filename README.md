@@ -12,6 +12,7 @@
     - [Python2 removal](#python2-removal)
   - [Usage](#usage)
   - [Variables](#variables)
+    - [variables for tasks](#variables-for-tasks)
   - [Custom variables, custom variable files](#custom-variables-custom-variable-files)
     - [Custom file content](#custom-file-content)
     - [Custom file example](#custom-file-example)
@@ -22,9 +23,9 @@
     - [Packages: Essential](#packages-essential)
     - [Packages: Basic not complete list](#packages-basic-not-complete-list)
     - [Packages: Optional not complete list](#packages-optional-not-complete-list)
-    - [Tasks](#tasks)
     - [Packages: Flatpak](#packages-flatpak)
     - [Packages: npm](#packages-npm)
+  - [Tasks](#tasks)
   - [Startup applications](#startup-applications)
     - [OS Tweaks](#os-tweaks)
   - [Q&A](#qa)
@@ -135,6 +136,7 @@ Most variables are stored in `mint19|20.yaml` file. If you need extra settings, 
 |install_npm|true|should npm packages be installed|
 |install_vscode_extensions|true|should we install extra vscode extensions|
 |install_zsh|false|should we install oh-my-zsh and p10k theme|
+|install_yubico|false|should we install yubico software|
 |install_state|latest|if set to latest, every pass of playbook will also update packages|
 |config_ansible|true|change ansible settings in ansible.cfg|
 |config_dconf|true|change dconf settings|
@@ -146,6 +148,10 @@ Most variables are stored in `mint19|20.yaml` file. If you need extra settings, 
 |reboot_required|false|force reboot even if apt upgrade won't change anything|
 |unpack_folder|/tmp/linux_mint|Which folder to use when downloading and unarchiving|
 |||
+
+### variables for tasks
+
+Are stored in `mint20_tasks.yaml`
 
 ## Custom variables, custom variable files
 
@@ -305,14 +311,6 @@ custom_packages:
 | WoeUSB | USB Image writer | [https://github.com/slacka/WoeUSB](https://github.com/slacka/WoeUSB)|
 |||
 
-### Tasks
-
-|Task|Description|Link|
-|----|-----------|----|
-|install_yubico_software|Install keys, repositories, packages and dekstop files for Yubico infrastructure|[https://yubico.com](https://yubico.com)|
-|configure_zsh|Installs files required by zsh, `oh-my-zsh` and `powerlevel10k`|[https://github.com/ohmyzsh/ohmyzsh](https://github.com/ohmyzsh/ohmyzsh) [https://github.com/romkatv/powerlevel10k](https://github.com/romkatv/powerlevel10k)|
-|||
-
 ### Packages: Flatpak
 
 |Software|Type|Link|
@@ -325,6 +323,14 @@ custom_packages:
 |Software|Type|Link|
 |------------------|--------|---------------------|
 |Dockerfilelint|Dockerfile linter|[https://github.com/replicatedhq/dockerfilelint](https://github.com/replicatedhq/dockerfilelint)|
+|||
+
+## Tasks
+
+|Task|Description|Link|
+|----|-----------|----|
+|install_yubico_software|Install keys, repositories, packages and dekstop files for Yubico infrastructure|[https://yubico.com](https://yubico.com)|
+|configure_zsh|Installs files required by zsh, `oh-my-zsh` and `powerlevel10k`|[https://github.com/ohmyzsh/ohmyzsh](https://github.com/ohmyzsh/ohmyzsh) [https://github.com/romkatv/powerlevel10k](https://github.com/romkatv/powerlevel10k)|
 |||
 
 ## Startup applications

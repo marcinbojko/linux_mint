@@ -11,7 +11,7 @@
     install_vscode_extensions: true           # should we install extra vscode extensions
     install_npm: true                         # should we install npm packages
     install_zsh: false                        # install and configure oh-my-zhs and power10k
-    install_yubico: true                     # install yubico related software
+    install_yubico: false                     # install yubico related software
     install_state: latest                     # if set to latest, every pass of playbook will also update packages
     config_ansible: true                      # do changes in change ansible.cfg
     config_dconf: true                        # do changes in dconf editor

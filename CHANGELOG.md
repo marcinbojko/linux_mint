@@ -1,5 +1,10 @@
 # Changelog "linux_mint"
 
+## Version 2.4.3 [2022-01-14]
+
+* [VARIABLE] `install_yubico` set to false on default
+* Updated documentation
+
 ## Version 2.4.2 [2022-01-14]
 
 * **BREAKING_CHANGE**
