@@ -20,8 +20,11 @@ jobs:
       # Runs the Super-Linter action
       - name: Run Super-Linter
         # workaround for superlinter issues
-        uses: github/super-linter@v3.17.0
+        uses: github/super-linter@latest
         env:
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_ANSIBLE: false
+          VALIDATE_NATURAL_LANGUAGE: false
+          VALIDATE_DOCKERFILE_HADOLINT: false
+

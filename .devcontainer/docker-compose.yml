@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  mint-uma:
+    container_name: mint-uma
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ../tasks:/mnt/tasks:z
+      - ../linux_mint.yaml:/mnt/linux_mint.yaml:z
+      - ../mint20.yaml:/mnt/mint20.yaml:z
+      - ../mint20_tasks.yaml:/mnt/mint20_tasks.yaml:z
+    entrypoint: sleep 7200
+

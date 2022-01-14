@@ -11,6 +11,7 @@
     install_vscode_extensions: true           # should we install extra vscode extensions
     install_npm: true                         # should we install npm packages
     install_zsh: false                        # install and configure oh-my-zhs and power10k
+    install_yubico: true                     # install yubico related software
     install_state: latest                     # if set to latest, every pass of playbook will also update packages
     config_ansible: true                      # do changes in change ansible.cfg
     config_dconf: true                        # do changes in dconf editor
@@ -26,7 +27,7 @@
   pre_tasks:
   # ansible version
   - name: verify_ansible_meets_version_requirements
-    assert:
+    ansible.builtin.assert:
       that: "ansible_version.full is version('2.10', '>=')"
       msg: >
         "You must update Ansible to at least 2.10 to use this version of playbook"
@@ -34,7 +35,7 @@
     - assert
   # setup module - we need these facts
   - name: run_initial_setup_instead_of_gather_facts
-    setup:
+    ansible.builtin.setup:
       gather_timeout: 30
     retries: "{{ retries_count }}"
     delay: "{{ delay_time }}"
@@ -44,7 +45,7 @@
     - assert
   # free space for stuff
   - name: assert_root_partition_is_15_GB_of_free_space
-    assert: { that: item.size_available > 13622320128 } # 20 GB free
+    ansible.builtin.assert: { that: item.size_available > 13622320128 } # 20 GB free
     loop: '{{ ansible_mounts }}'
     ignore_errors: no
     when: item.mount == '/'
@@ -52,21 +53,21 @@
     - assert
   # check that ansible_ssh_user have been defined
   - name: assert_active_user_have_been_defined_and_has_value
-    assert:
+    ansible.builtin.assert:
       that: active_user is defined and active_user | length >0
       msg: >
         "Specify user in group_vars or passed in variable active_user"
     tags:
     - assert
   - name: assert_supported distribution
-    assert:
+    ansible.builtin.assert:
       that: ansible_distribution_major_version is version('20', '>=')
       msg: >
         "Not supported distrubution found: {{ ansible_distribution_major_version }}"
     tags:
     - assert
-  # load variables
-  - name: load_vars_depending_on_distribution
+  # load playbook variables
+  - name: load_playbook_vars_depending_on_distribution
     include_vars:
       dir: .
       files_matching: "mint{{ ansible_distribution_major_version }}.*.yaml"
@@ -90,6 +91,7 @@
       - "Install_npm packages         : {{ install_npm|bool }}"
       - "Install vscode extensions    : {{ install_vscode_extensions|bool }} "
       - "Install zsh                  : {{ install_zsh|bool }}"
+      - "Install Yubico               : {{ install_yubico|bool }}"
       - "Config for Ansible           : {{ config_ansible }}"
       - "Config dconf                 : {{ config_dconf }}"
       - "Config sysctl                : {{ config_sysctl }}"
@@ -99,7 +101,7 @@
       - "Linux Mint release           : {{ ansible_distribution_release }}"
       - "Ansible version              : {{ ansible_version.full }}"
   - name: wait_15_seconds
-    pause:
+    ansible.builtin.pause:
       seconds: 15
       prompt: "Check variables - last chance to abort in 15 seconds"
   # we need proper time to refresh repositories
@@ -252,8 +254,8 @@
     loop: "{{ repositories }}"
     retries: "{{ retries_count }}"
     delay: 3
-    register: repositories
-    until: repositories  is success
+    register: r_repositories
+    until: r_repositories  is success
     any_errors_fatal: false
     tags:
     - repositories
@@ -268,8 +270,8 @@
     loop: "{{ custom_repositories }}"
     retries: "{{ retries_count }}"
     delay: 3
-    register: custom_repositories
-    until: custom_repositories  is success
+    register: r_custom_repositories
+    until: r_custom_repositories  is success
     when: custom_repositories is defined and custom_repositories|length >0
     any_errors_fatal: false
     tags:
@@ -546,6 +548,15 @@
     - base
     - downloads
     - apps
+  - name: refresh_desktop_database
+    ansible.builtin.shell: update-desktop-database
+    any_errors_fatal: false
+    ignore_errors: true
+    changed_when:
+    tags:
+    - base
+    - downloads
+    - apps
 # Start user-related modification block
   - name: user_modifications_block
     block:
@@ -608,9 +619,21 @@
     - name: configure_zsh
       include_tasks: ./tasks/configure_zsh.yml
       when: install_zsh is defined and install_zsh
+      tags:
+      - base
+      - user
+      - zsh
+    - name: install_yubico
+      include_tasks: ./tasks/install_yubico_software.yml
+      when: install_yubico is defined and install_yubico
+      tags:
+      - base
+      - user
+      - yubico
     tags:
     - base
     - user
+    - zsh
   # start ansible block
   - block:
     - name: check_if_ansible_cfg_exists

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Name=Yubico Authenticator
+Comment=YubicoAuthenticator
+Exec=/usr/local/bin/yubioath
+Terminal=false
+Type=Application
+Categories=System

@@ -1,6 +1,5 @@
 # Ansible playbook for your DevOps/SysOps Linux Mint 20.x based workstation
 
-[![Build Status](https://travis-ci.org/marcinbojko/linux_mint.svg?branch=master)](https://travis-ci.org/marcinbojko/linux_mint)
 [![Super-Linter](https://github.com/marcinbojko/linux_mint/actions/workflows/01_lint_me.yml/badge.svg)](https://github.com/marcinbojko/linux_mint/actions/workflows/01_lint_me.yml)
 [![Ansible Lint](https://github.com/marcinbojko/linux_mint/actions/workflows/02_ansible_lint.yml/badge.svg)](https://github.com/marcinbojko/linux_mint/actions/workflows/02_ansible_lint.yml)
 <!-- TOC -->
@@ -23,6 +22,7 @@
     - [Packages: Essential](#packages-essential)
     - [Packages: Basic not complete list](#packages-basic-not-complete-list)
     - [Packages: Optional not complete list](#packages-optional-not-complete-list)
+    - [Tasks](#tasks)
     - [Packages: Flatpak](#packages-flatpak)
     - [Packages: npm](#packages-npm)
   - [Startup applications](#startup-applications)
@@ -37,7 +37,7 @@
 
 - installed `Linux Mint` 20.0/20.1/20.2 - all 64-bit, standard options with extra codecs (available as selection during install)
 - for previous versions of Mint - last release supporting `Linux Mint 19` was 2.1.6
-- access to Internet
+- access to internet
 - `openssh-server` installed and running
 - `ansible` in version 2.10 or higher
 - `sudo ansible-galaxy install -r requirements.yml`
@@ -183,7 +183,6 @@ custom_packages:
 
 - `alexx2000` - Double Commander
 - `ansible` - Ansible - **removed in Linux Mint 20**
-- `asbru-cm` - Asbru Connection Manager
 - `azure-cli` - Azure CLI SDK
 - `docker` - Docker-CE
 - `gcsfuse` - Google Storage gcsfuse - Mount a GCS bucket locally`
@@ -304,6 +303,14 @@ custom_packages:
 | Veeam Agent for Linux | Backup tool| [https://www.veeam.com](https://www.veeam.com)|
 | Veracrypt | Source disk encryption | [https://www.veracrypt.fr/en/Home.html](https://www.veracrypt.fr/en/Home.html)|
 | WoeUSB | USB Image writer | [https://github.com/slacka/WoeUSB](https://github.com/slacka/WoeUSB)|
+|||
+
+### Tasks
+
+|Task|Description|Link|
+|----|-----------|----|
+|install_yubico_software|Install keys, repositories, packages and dekstop files for Yubico infrastructure|[https://yubico.com](https://yubico.com)|
+|configure_zsh|Installs files required by zsh, `oh-my-zsh` and `powerlevel10k`|[https://github.com/ohmyzsh/ohmyzsh](https://github.com/ohmyzsh/ohmyzsh) [https://github.com/romkatv/powerlevel10k](https://github.com/romkatv/powerlevel10k)|
 |||
 
 ### Packages: Flatpak

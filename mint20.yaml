@@ -6,8 +6,6 @@ codename: focal
 repositories:
 - repo: deb http://download.opensuse.org/repositories/home:/Alexx2000/xUbuntu_20.04/ /
   filename: alexx2000
-- repo: deb https://packagecloud.io/asbru-cm/asbru-cm/ubuntu/ focal main
-  filename: asbru-cm
 - repo: deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ focal main
   filename: azure-cli
 - repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
@@ -142,7 +140,6 @@ keys:
 - http://repository.veeam.com/keys/veeam.gpg
 - https://packagecloud.io/github/git-lfs/gpgkey
 - https://apt.puppetlabs.com/pubkey.gpg
-- https://packagecloud.io/asbru-cm/asbru-cm/gpgkey
 - https://aquasecurity.github.io/trivy-repo/deb/public.key
 - https://brave-browser-apt-release.s3.brave.com/brave-core.asc
 - https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg
@@ -274,7 +271,6 @@ packages:
 - network-manager-vpnc
 - network-manager-openconnect
 - redshift-gtk
-- asbru-cm
 - iperf3
 - traceroute
 - nfs-common
@@ -354,8 +350,8 @@ deb:
 - http://archive.ubuntu.com/ubuntu/pool/universe/n/nmap/zenmap_7.60-1ubuntu5_all.deb
 - https://downloads.raspberrypi.org/imager/imager_1.6.2_amd64.deb
 - https://lens-binaries.s3-eu-west-1.amazonaws.com/ide/Lens-5.3.3-latest.20211223.1.amd64.deb
-- https://github.com/aquasecurity/kube-bench/releases/download/v0.6.5/kube-bench_0.6.5_linux_amd64.deb
-- https://github.com/anchore/syft/releases/download/v0.34.0/syft_0.34.0_linux_amd64.deb
+- https://github.com/aquasecurity/kube-bench/releases/download/v0.6.6/kube-bench_0.6.6_linux_amd64.deb
+- https://github.com/anchore/syft/releases/download/v0.35.1/syft_0.35.1_linux_amd64.deb
 - https://github.com/obsidianmd/obsidian-releases/releases/download/v0.12.15/obsidian_0.12.15_amd64.deb
 - https://cdn.zoom.us/prod/5.9.1.1380/zoom_amd64.deb
 flatpak:
@@ -407,7 +403,7 @@ unpack:
   source: packer
   destination_file: packer.zip
   folder:
-- url: https://releases.hashicorp.com/terraform/1.1.2/terraform_1.1.2_linux_amd64.zip
+- url: https://releases.hashicorp.com/terraform/1.1.3/terraform_1.1.3_linux_amd64.zip
   destination: terraform
   source: terraform
   destination_file: terraform.zip
@@ -442,7 +438,7 @@ files:
   destination: docker-compose
 - url: https://github.com/bcicen/ctop/releases/download/0.7.6/ctop-0.7.6-linux-amd64
   destination: ctop
-- url: https://github.com/rancher/rke/releases/download/v1.3.3/rke_linux-amd64
+- url: https://github.com/rancher/rke/releases/download/v1.3.4/rke_linux-amd64
   destination: rke
 - url: https://github.com/dannagle/PacketSender/releases/download/v7.2.3/Packet_Sender-v7.2.4.AppImage
   destination: packetsender
@@ -453,7 +449,7 @@ files:
   destination: k3d
 - url: https://github.com/hadolint/hadolint/releases/download/v2.8.0/hadolint-Linux-x86_64
   destination: hadolint
-- url: https://github.com/gruntwork-io/terragrunt/releases/download/v0.35.16/terragrunt_linux_amd64
+- url: https://github.com/gruntwork-io/terragrunt/releases/download/v0.35.19/terragrunt_linux_amd64
   destination: terragrunt
 - url: https://github.com/Azure/bicep/releases/latest/download/bicep-linux-x64
   destination: bicep
@@ -540,6 +536,7 @@ vscode:
 - florianloch.text-transform
 - formulahendry.docker-explorer
 - gep13.chocolatey-vscode
+- GitLab.gitlab-workflow
 - golang.go
 - hashicorp.terraform
 - huntertran.auto-markdown-toc

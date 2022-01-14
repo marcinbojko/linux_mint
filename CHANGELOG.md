@@ -1,5 +1,24 @@
 # Changelog "linux_mint"
 
+## Version 2.4.2 [2022-01-14]
+
+* **BREAKING_CHANGE**
+  * [REPOSITORY] removed `asbru-cm` repository
+  * [KEYS] removed `asbru-cm` key
+  * [PACKAGES] removed `asbru-cm` package
+* [VSCODE] added `GitLab.gitlab-workflow` extension
+* [TASKS] added `install_yubico_software` task for Yubico
+  * [KEYS] added `32CBA1A9` for [https://support.yubico.com/](https://support.yubico.com/)
+  * [REPOSITORY] added `ppa:yubico/stable`
+  * [PACKAGES] added `yubikey-manager`,`yubikey-personalization-gui`,`libpam-yubico`,`libpam-u2f`
+  * [PACKAGES] added `yubioath` as AppImage
+  * [PACKAGES] added `yubikey-manager` as AppImage
+* [APPLICATION] upgraded `kube-bench` to version 0.6.6
+* [APPLICATION] upgraded `rke` to version 1.3.4
+* [APPLICATION] upgraded `syft` to version 0.35.1
+* [APPLICATION] upgraded `terraform` to version 1.1.3
+* [APPLICATION] upgraded `terragrunt` to version 0.35.19
+
 ## Version 2.4.1 [2022-01-04] - Birthday Edition
 
 * [IMAGE] Image by `Pexels` from `Pixabay`
@@ -94,7 +113,7 @@ This ASCII pic can be found at [https://asciiart.website/index.php?art=holiday/c
 * [VSCODE] added `ms-azuretools.vscode-bicep` extension
 * [KEYS] added new `spotify` key `5E3C45D7B312C643`
 * [KEYS] added new `nodesource` key
-* [REPOSITORY] added nodejs 16.x repo - [https://deb.nodesource.com/node_16.x](https://deb.nodesource.com/node_16.x)
+* [REPOSITORY] added Node.js 16.x repository - [https://deb.nodesource.com/node_16.x](https://deb.nodesource.com/node_16.x)
 
 ## Version 2.2.9 [2021-09-26]
 
@@ -784,7 +803,7 @@ This ASCII pic can be found at [https://asciiart.website/index.php?art=holiday/c
 
 ## Version 1.1.9 2019-07-26
 
-```txt
+```text
  _____             ___      _           _       _      ______
 /  ___|           / _ \    | |         (_)     ( )     |  _  \
 \ `--. _   _ ___ / /_\ \ __| |_ __ ___  _ _ __ |/ ___  | | | |__ _ _   _
