@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=EasyEffects
+Comment=EasyEffects Service
+Exec=/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=easyeffects com.github.wwmm.easyeffects --gapplication-service
+Icon=easyeffects
+StartupNotify=false
+Terminal=false
+Type=Application

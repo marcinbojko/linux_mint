@@ -273,6 +273,7 @@ custom_packages:
 | Redshift | Monitor temperature changer| [http://jonls.dk/redshift/](http://jonls.dk/redshift/)|
 | Remmina | Remote Connection Manager |[https://remmina.org/](https://remmina.org/)
 | RKE| Rancher Kubernetes Engine | [https://github.com/rancher/rke](https://github.com/rancher/rke) |
+| Rancher Desktop|Rancher Desktop runs Kubernetes and container management on your desktop| [https://rancherdesktop.io/](https://rancherdesktop.io/)|
 | Shutter | Screenshot Manipulation| [http://shutter-project.org/](http://shutter-project.org/)|
 | Synapse | Symantic Launcher|[https://launchpad.net/synapse-project](https://launchpad.net/synapse-project)|
 | Team Viewer | Remote desktop | [https://www.teamviewer.com](https://www.teamviewer.com) |

@@ -1,5 +1,29 @@
 # Changelog "linux_mint"
 
+## Version 2.4.4 [2022-02-01]
+
+* [APPLICATION] added `skaffold` [https://skaffold.dev/](https://skaffold.dev/)
+* [REPOSITORY] added repository for `Rancher Desktop` [https://docs.rancherdesktop.io/installation/#linux](https://docs.rancherdesktop.io/installation/#linux)
+* [KEY] added key for `Rancher Desktop` repository [https://docs.rancherdesktop.io/installation/#linux](https://docs.rancherdesktop.io/installation/#linux)
+* [APPLICATION] upgraded `k3s` to version 1.21.9
+* [APPLICATION] upgraded `lens` to version 5.3.4
+* [APPLICATION] upgraded `minikube` to version 1.25.1
+* [APPLICATION] upgraded `polaris` to version 5.0.0
+* [APPLICATION] upgraded `rke` to version 1.3.6
+* [APPLICATION] upgraded `amass` to version 3.16.0
+* [APPLICATION] upgraded `angryip` to version 3.8.2
+* [APPLICATION] upgraded `gping` to version 1.2.7
+* [APPLICATION] upgraded `kse` to version 5.5.1
+* [APPLICATION] upgraded `packer` to version 1.7.9
+* [APPLICATION] upgraded `terraform` to version 1.1.4
+* [APPLICATION] upgraded `vault` to version 1.9.3
+* [APPLICATION] upgraded `wpsoffice` to version 11.1.0.10920
+* [APPLICATION] upgraded `syft` to version 0.36.0
+* [APPLICATION] upgraded `terragrunt` to version 0.36.1
+* [APPLICATION] upgraded `tabby` to version 1.0.170
+* [APPLICATION] added `tfsec` from Aquasecurity: [https://github.com/aquasecurity/tfsec](https://github.com/aquasecurity/tfsec)
+* [FLATPAK] added `easyeffects` - [https://flathub.org/apps/details/com.github.wwmm.easyeffects](https://flathub.org/apps/details/com.github.wwmm.easyeffects)
+
 ## Version 2.4.3 [2022-01-14]
 
 * [VARIABLE] `install_yubico` set to false on default
@@ -7,10 +31,11 @@
 
 ## Version 2.4.2 [2022-01-14]
 
-* **BREAKING_CHANGE**
+* **BREAKING_CHANGES**
   * [REPOSITORY] removed `asbru-cm` repository
   * [KEYS] removed `asbru-cm` key
   * [PACKAGES] removed `asbru-cm` package
+  * [PACKAGES] removed obsidian in .deb form
 * [VSCODE] added `GitLab.gitlab-workflow` extension
 * [TASKS] added `install_yubico_software` task for Yubico
   * [KEYS] added `32CBA1A9` for [https://support.yubico.com/](https://support.yubico.com/)
@@ -23,6 +48,7 @@
 * [APPLICATION] upgraded `syft` to version 0.35.1
 * [APPLICATION] upgraded `terraform` to version 1.1.3
 * [APPLICATION] upgraded `terragrunt` to version 0.35.19
+* [FLATPAK] added `obsidian` package in a form of flatpak
 
 ## Version 2.4.1 [2022-01-04] - Birthday Edition
 
