@@ -1,5 +1,29 @@
 # Changelog "linux_mint"
 
+## Version 2.4.5 [2022-03-13] test
+
+* [APPLICATION] added `kubestr` - Kubernetes storage evaluator [https://github.com/kastenhq/kubestr](https://github.com/kastenhq/kubestr)
+* [APPLICATION] upgraded `packer` to version 1.8.0
+* [APPLICATION] upgraded `helm` to version 3.8.1
+* [APPLICATION] upgraded `k3d` to version 5.3.0
+* [APPLICATION] upgraded `k3s` to version 1.21.10+k3s1
+* [APPLICATION] upgraded `kubeconform` to version 0.4.13
+* [APPLICATION] upgraded `lens` to version 5.4.1
+* [APPLICATION] upgraded `minikube` to version 1.25.2
+* [APPLICATION] upgraded `polaris` to version 5.0.1
+* [APPLICATION] upgraded `rke` to version 1.3.7
+* [APPLICATION] upgraded `amass` to version 3.17.1
+* [APPLICATION] upgraded `dockle` to version 0.4.5
+* [APPLICATION] upgraded `balena-etcher` to version 1.7.7
+* [APPLICATION] upgraded `gping` to version 1.3.0
+* [APPLICATION] upgraded `rbpi-imager` to version 1.7.1
+* [APPLICATION] upgraded `syft` to version 0.41.4
+* [APPLICATION] upgraded `tabby` to version 1.0.173
+* [APPLICATION] upgraded `terraform` to version 1.1.7
+* [APPLICATION] upgraded `terragrunt` to version 0.36.3
+* [APPLICATION] upgraded `tfsec` to version 1.8.0
+* [APPLICATION] upgraded `vault` to version 1.9.4
+
 ## Version 2.4.4 [2022-02-01]
 
 * [APPLICATION] added `skaffold` [https://skaffold.dev/](https://skaffold.dev/)

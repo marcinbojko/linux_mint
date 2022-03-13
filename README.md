@@ -262,7 +262,7 @@ custom_packages:
 | k3s |Lightweight Kubernetes 5 less than k8s|[https://k3s.io/](https://k3s.io/)|
 | Keepass | Password Manager| [https://keepass.info/](https://keepass.info/)|
 | Kubernetes| Production-Grade Container Orchestration|[https://kubernetes.io/](https://kubernetes.io/)|
-| Kubeval| Kubernetes config validator|[https://github.com/instrumenta/kubeval](https://github.com/instrumenta/kubeval)|
+| Kubeconform| Kubernetes config validator|[https://github.com/yannh/kubeconform](https://github.com/yannh/kubeconform)|
 | Lens| Kubernetes IDE| [https://k8slens.dev/](https://k8slens.dev/)|
 | Minikube | Run Kubernetes locally |[https://github.com/kubernetes/minikube](https://github.com/kubernetes/minikube)|
 | Packer | Image creator |[https://www.packer.io/](https://www.packer.io/)|
