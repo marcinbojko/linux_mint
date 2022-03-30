@@ -1,7 +1,7 @@
 # Task to download oh-my-zsh and power10k theme
 # you need manually configure both
 - name: create_folder_for_fonts
-  file:
+  ansible.builtin.file:
     path: /usr/local/share/fonts/power10k
     state: directory
     mode: "0644"
@@ -16,7 +16,7 @@
   any_errors_fatal: false
   ignore_errors: true
 - name: download_fonts_for_power10k
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ item }}"
     dest: /usr/local/share/fonts/power10k
   retries: "{{ retries_count }}"
@@ -36,7 +36,7 @@
     - power10k
     - fonts
 - name: update_font_cache
-  shell: fc-cache
+  ansible.builtin.shell: fc-cache
   any_errors_fatal: false
   ignore_errors: true
   tags:
@@ -45,10 +45,10 @@
     - fonts
   changed_when: false
 - name: display_user_name
-  debug:
+  ansible.builtin.debug:
     var: active_user
 - name: make_sure_zsh_is_installed
-  apt:
+  ansible.builtin.apt:
     name: zsh
     state: present
     update_cache: yes
@@ -59,7 +59,7 @@
   any_errors_fatal: true
   ignore_errors: false
 - name: create_or_check_users_groups_for_zsh
-  user:
+  ansible.builtin.user:
     name: "{{ active_user }}"
     state: present
   any_errors_fatal: false
@@ -69,22 +69,22 @@
     - base
     - user
 - name: fact_for_user_home_dir_zsh
-  set_fact:
+  ansible.builtin.set_fact:
     active_user_homedir: "{{ r_active_user_account.home }}"
   tags:
     - zsh
   any_errors_fatal: true
   ignore_errors: false
 - name: check_if_oh_my_zsh_exists
-  stat:
+  ansible.builtin.stat:
     path: "{{ active_user_homedir }}/.oh-my-zsh"
   register: r_stat_check_if_oh_my_zsh
 - name: check_if_power10k_exists
-  stat:
+  ansible.builtin.stat:
     path: "{{ active_user_homedir }}/.oh-my-zsh/custom/themes/powerlevel10k"
   register: r_stat_check_if_power10k
 - name: clone_oh-my-zsh
-  git:
+  ansible.builtin.git:
     repo: https://github.com/robbyrussell/oh-my-zsh
     dest: "{{ active_user_homedir }}/.oh-my-zsh"
   when: (active_user_homedir is defined and active_user_homedir|length >0) and (not r_stat_check_if_oh_my_zsh.stat.exists)
@@ -93,7 +93,7 @@
   register: r_clone_oh_my_zsh
   until: r_clone_oh_my_zsh is success
 - name: clone_power10k
-  git:
+  ansible.builtin.git:
     repo: https://github.com/romkatv/powerlevel10k.git
     dest: "{{ active_user_homedir }}/.oh-my-zsh/custom/themes/powerlevel10k"
     depth: "1"

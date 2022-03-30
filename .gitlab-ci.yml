@@ -6,11 +6,11 @@ ansible-lint:
   services:
     - docker:20.10-dind
   before_script:
-  - /usr/local/bin/python -m pip install --upgrade pip
-  - pip install --upgrade ansible-lint yamllint ansible
-  - ansible-galaxy install -r requirements.yml
-  - yamllint --version
-  - ansible-lint --version
+    - /usr/local/bin/python -m pip install --upgrade pip
+    - pip install --upgrade ansible-lint yamllint ansible
+    - ansible-galaxy install -r requirements.yml
+    - yamllint --version
+    - ansible-lint --version
   script:
     - yamllint -c ./.yamllint ./tasks/*.yml
     - yamllint -c ./.yamllint *.yaml
@@ -19,4 +19,3 @@ ansible-lint:
   tags:
     - docker
     - shared
-

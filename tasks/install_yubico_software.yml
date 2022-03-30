@@ -1,5 +1,5 @@
 - name: add_yubico_repo_key
-  apt_key:
+  ansible.builtin.apt_key:
     keyserver: "{{ item.keyserver }}"
     state: present
     id: "{{ item.id }}"
@@ -14,7 +14,7 @@
   - task
   - yubico
 - name: add_yubico_repositories
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: "{{ item.repo }}"
     state: present
     codename: "{{ codename }}"
@@ -32,7 +32,7 @@
   - task
   - yubico
 - name: install_yubico_packages
-  apt:
+  ansible.builtin.apt:
     name: "{{ item }}"
     state: "{{ install_state }}"
     update_cache: no
@@ -49,7 +49,7 @@
   - yubico
 # appimages
 - name: download_yubico_files
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ item.url }}"
     dest: "{{ bin_path }}/{{ item.destination }}"
     mode: 0755
@@ -65,7 +65,7 @@
   - apps
   - yubico
 - name: put_desktop_files_for_yubico
-  copy:
+  ansible.builtin.copy:
     dest: /usr/share/applications
     src: "{{ item.desktop_file }}"
     owner: root

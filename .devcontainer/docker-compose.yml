@@ -11,4 +11,3 @@ services:
       - ../mint20.yaml:/mnt/mint20.yaml:z
       - ../mint20_tasks.yaml:/mnt/mint20_tasks.yaml:z
     entrypoint: sleep 7200
-

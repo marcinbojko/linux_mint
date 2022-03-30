@@ -36,7 +36,7 @@
 
 ## Prerequisites
 
-- installed `Linux Mint` 20.0/20.1/20.2 - all 64-bit, standard options with extra codecs (available as selection during install)
+- installed `Linux Mint` 20.0/20.1/20.2/20.3 - all 64-bit, standard options with extra codecs (available as selection during install)
 - for previous versions of Mint - last release supporting `Linux Mint 19` was 2.1.6
 - access to internet
 - `openssh-server` installed and running
@@ -386,6 +386,7 @@ Some applications are copied to `autostart` folder
 - add Vagrant plugins
 - manual handle 3rd party deb files - pre-download and re-usage on demand
 - configure neofetch
+- add cloud-tools section, for people to choose cloud they are using
 - ~~better archive handle~~
 - ~~services handling part (by default in Ubuntu/Debian, installed service is set to `enabled/started`)~~
 - ~~more idempotency~~

@@ -1,6 +1,28 @@
 # Changelog "linux_mint"
 
-## Version 2.4.5 [2022-03-13] test
+## Version 2.4.6 [2022-03-30]
+
+* [APPLICATION] added `krew` [https://github.com/kubernetes-sigs/krew](https://github.com/kubernetes-sigs/krew)
+* [APPLICATION] added `k3sup` [https://github.com/alexellis/k3sup](https://github.com/alexellis/k3sup)
+* [APPLICATION] added `nerdctl` [https://github.com/containerd/nerdctl](https://github.com/containerd/nerdctl). remember to at least have [https://github.com/containernetworking/plugins](https://github.com/containernetworking/plugins)
+* [APPLICATION] upgraded `k3d` to version 5.4.1
+* [APPLICATION] upgraded `lens` to version 5.4.4
+* [APPLICATION] upgraded `polaris` to version 5.1.0
+* [APPLICATION] upgraded `rke` to version 1.3.8
+* [APPLICATION] upgraded `amass` to version 3.19.0
+* [APPLICATION] upgraded `ctop` to version 0.7.7
+* [APPLICATION] upgraded `balena-etcher` to version 1.7.8
+* [APPLICATION] upgraded `gping` to version 1.3.1
+* [APPLICATION] upgraded `hadolint` to version 2.9.3
+* [APPLICATION] upgraded `rbpi-imager` to version 1.7.2
+* [APPLICATION] upgraded `syft` to version 0.42.4
+* [APPLICATION] upgraded `tabby` to version 1.0.174
+* [APPLICATION] upgraded `terragrunt` to version 0.36.6
+* [APPLICATION] upgraded `tflint` to version 0.35.0
+* [APPLICATION] upgraded `tfsec` to version 0.15.1
+* [APPLICATION] upgraded `vault` to version 1.10.0
+
+## Version 2.4.5 [2022-03-13]
 
 * [APPLICATION] added `kubestr` - Kubernetes storage evaluator [https://github.com/kastenhq/kubestr](https://github.com/kastenhq/kubestr)
 * [APPLICATION] upgraded `packer` to version 1.8.0
