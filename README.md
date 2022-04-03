@@ -263,6 +263,7 @@ custom_packages:
 | Keepass | Password Manager| [https://keepass.info/](https://keepass.info/)|
 | Kubernetes| Production-Grade Container Orchestration|[https://kubernetes.io/](https://kubernetes.io/)|
 | Kubeconform| Kubernetes config validator|[https://github.com/yannh/kubeconform](https://github.com/yannh/kubeconform)|
+| Kustomize|Kubernetes customiser |[https://github.com/kubernetes-sigs/kustomize](https://github.com/kubernetes-sigs/kustomize)|
 | Lens| Kubernetes IDE| [https://k8slens.dev/](https://k8slens.dev/)|
 | Minikube | Run Kubernetes locally |[https://github.com/kubernetes/minikube](https://github.com/kubernetes/minikube)|
 | Packer | Image creator |[https://www.packer.io/](https://www.packer.io/)|
@@ -317,6 +318,7 @@ custom_packages:
 |Software|Type|Link|
 |------------------|--------|---------------------|
 |Postman|The Collaboration Platform for API Development|[https://www.getpostman.com/](https://www.getpostman.com/)|
+|Obsidian|Knowledge base and note seystem|[https://obsidian.md/](https://obsidian.md/)|
 |||
 
 ### Packages: npm

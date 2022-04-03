@@ -68,7 +68,7 @@
     - assert
   # load playbook variables
   - name: load_playbook_vars_depending_on_distribution
-    include_vars:
+    ansible.builtin.include_vars:
       dir: .
       files_matching: "mint{{ ansible_distribution_major_version }}.*.yaml"
     any_errors_fatal: true
@@ -83,7 +83,7 @@
     - assert
   tasks:
   - name: display_basic_information
-    debug:
+    ansible.builtin.debug:
       msg:
       - "Install optional packages    : {{ install_optional|bool }}"
       - "Install deb packages         : {{ install_deb|bool }}"
@@ -106,7 +106,7 @@
       prompt: "Check variables - last chance to abort in 15 seconds"
   # we need proper time to refresh repositories
   - name: make_sure_timesyncd_is_installed
-    apt:
+    ansible.builtin.apt:
       name: systemd-timesyncd
       state: present
       update_cache: no
@@ -121,7 +121,7 @@
     - packages
     - base
   - name: start_timesyncd_service
-    systemd:
+    ansible.builtin.systemd:
       name: systemd-timesyncd
       state: started
       enabled: true
@@ -133,13 +133,13 @@
     tags:
     - base
   - name: start_timedatectl_set_ntp
-    shell: timedatectl set-ntp on
+    ansible.builtin.shell: timedatectl set-ntp on
     tags:
     - base
     changed_when: false
 # remove obsolete repositories
   - name: remove_obsolete_repositories_from_variables_file
-    apt_repository:
+    ansible.builtin.apt_repository:
       repo: "{{ item.repo }}"
       state: absent
       update_cache: false
@@ -171,7 +171,7 @@
     - obsolete
 # remove obsolete keys
   - name: remove_obsolete_apt_keys
-    apt_key:
+    ansible.builtin.apt_key:
       id: "{{ item }}"
       state: absent
     loop: "{{ keys_remove }}"
@@ -186,7 +186,7 @@
     - obsolete
 # remove obsolete packages
   - name: remove_obsolete_apt_packages
-    apt:
+    ansible.builtin.apt:
       name: "{{ item }}"
       state: absent
     loop: "{{ packages_remove }}"
@@ -202,7 +202,7 @@
     - obsolete
 # Install apt pgp keys (files)
   - name: install_apt_keys
-    apt_key:
+    ansible.builtin.apt_key:
       url: "{{ item }}"
       state: present
     loop: "{{ keys }}"
@@ -215,7 +215,7 @@
     - keys
     - base
   - name: install_apt_keys_keyserver
-    apt_key:
+    ansible.builtin.apt_key:
       keyserver: "{{ item.keyserver }}"
       state: present
       id: "{{ item.id }}"
@@ -229,7 +229,7 @@
     - keys
     - base
   - name: install_custom_apt_keys
-    apt_key:
+    ansible.builtin.apt_key:
       url: "{{ item }}"
       state: present
     loop: "{{ custom_keys | default([]) }}"
@@ -245,7 +245,7 @@
     - custom
 # Add basic repositories
   - name: add_basic_repositories_from_variables_file
-    apt_repository:
+    ansible.builtin.apt_repository:
       repo: "{{ item.repo }}"
       state: present
       codename: "{{ codename }}"
@@ -261,7 +261,7 @@
     - repositories
     - base
   - name: add_custom_basic_repositories_from_variables_file
-    apt_repository:
+    ansible.builtin.apt_repository:
       repo: "{{ item.repo }}"
       state: present
       codename: "{{ codename }}"
@@ -280,7 +280,7 @@
     - custom
 # Add optional repositories
   - name: add_optional_repositories_from_variables_file
-    apt_repository:
+    ansible.builtin.apt_repository:
       repo: "{{ item.repo }}"
       state: present
       codename: "{{ item.codename }}"
@@ -296,7 +296,7 @@
     - repositories
     - base
   - name: apt_initial_refresh
-    apt:
+    ansible.builtin.apt:
       update_cache: yes
       force: true
     ignore_errors: true
@@ -311,7 +311,7 @@
     - base
 # make sure all dpkg are already configured
   - name: reconfigure_all_waiting_packages
-    shell: dpkg --configure -a
+    ansible.builtin.shell: dpkg --configure -a
     any_errors_fatal: false
     ignore_errors: true
     changed_when: false
@@ -320,7 +320,7 @@
     - base
 # clean cache in case of initial apt failure
   - name: apt_clean
-    shell: apt clean all -y
+    ansible.builtin.shell: apt clean all -y
     any_errors_fatal: false
     register: r_apt_clean
     retries: "{{ retries_count }}"
@@ -332,7 +332,7 @@
     - base
 # Install essentials - packages needed for repos or other packages. Mostly OS-related
   - name: install_essential_packages
-    apt:
+    ansible.builtin.apt:
       name: "{{ item }}"
       state: "{{ install_state }}"
       update_cache: no
@@ -347,7 +347,7 @@
     - base
 # Install basic packages
   - name: install_packages
-    apt:
+    ansible.builtin.apt:
       name: "{{ item }}"
       state: "{{ install_state }}"
       update_cache: no
@@ -361,7 +361,7 @@
     - packages
     - base
   - name: install_custom_packages
-    apt:
+    ansible.builtin.apt:
       name: "{{ item }}"
       state: "{{ install_state }}"
       update_cache: no
@@ -377,7 +377,7 @@
     - custom
 # Install optional packages - if variable `install_optional` is set to true
   - name: install_optional_packages
-    apt:
+    ansible.builtin.apt:
       name: "{{ item }}"
       state: "{{ install_state }}"
       update_cache: no
@@ -393,7 +393,7 @@
     - optional
 # Install 3-rd party software not available in repos
   - name: install_extra_deb_packages_from_variables_file
-    apt:
+    ansible.builtin.apt:
       deb: "{{ item }}"
       state: present
       update_cache: no
@@ -410,7 +410,7 @@
     - packages
     - deb
   - name: install_and_upgrade_pip_packages
-    pip:
+    ansible.builtin.pip:
       name: "{{ item }}"
       extra_args: --upgrade --upgrade-strategy=only-if-needed --ignore-installed
       executable: "{{ pip_executable }}"
@@ -470,7 +470,7 @@
     - npm
     # Download 3-rd party software and unarchive it to `bin_path` setting +x
   - name: check_if_bin_path_exists
-    file:
+    ansible.builtin.file:
       path: "{{ bin_path }}"
       state: directory
       mode: 0755
@@ -481,7 +481,7 @@
     - downloads
     - apps
   - name: download_and_unarchive
-    unarchive:
+    ansible.builtin.unarchive:
       src: "{{ item.url }}"
       dest: "{{ bin_path }}"
       keep_newer: true
@@ -504,7 +504,7 @@
     - apps
 # Download 3-rd party software and unarchive  it (flatten archive folder tree) to `bin_path` setting +x
   - name: download_unarchive_flatten
-    include_tasks: ./tasks/download_files.yml
+    ansible.builtin.include_tasks: ./tasks/download_files.yml
     loop: "{{ unpack }}"
     args:
       apply:
@@ -516,7 +516,7 @@
     - always
 # Download 3-rd party software to `bin_path` setting +x
   - name: download_regular_files
-    get_url:
+    ansible.builtin.get_url:
       url: "{{ item.url }}"
       dest: "{{ bin_path }}/{{ item.destination }}"
       mode: 0755
@@ -531,7 +531,7 @@
     - downloads
     - apps
   - name: put_desktop_files_for_applications
-    copy:
+    ansible.builtin.copy:
       dest: /usr/share/applications
       src: "{{ item.desktop_file }}"
       owner: root
@@ -561,7 +561,7 @@
   - name: user_modifications_block
     block:
     - name: create_or_check_users_groups
-      user:
+      ansible.builtin.user:
         name: "{{ active_user }}"
         groups:
         - root
@@ -582,13 +582,13 @@
       - base
       - user
     - name: fact_for_user_home_dir
-      set_fact:
+      ansible.builtin.set_fact:
         "active_user_homedir": "{{ r_active_user_account.home }}"
       tags:
       - base
       - user
     - name: make_sure_autostart_folder_exists
-      file:
+      ansible.builtin.file:
         path: "{{ active_user_homedir }}/.config/autostart"
         state: directory
         owner: "{{ active_user }}"
@@ -603,7 +603,7 @@
       - base
       - user
     - name: create_startup_applications
-      copy:
+      ansible.builtin.copy:
         dest: "{{ active_user_homedir }}/.config/autostart/{{ item.filename }}"
         src: "{{ item.source }}"
         owner: "{{ active_user }}"
@@ -617,14 +617,14 @@
       delay: "{{ delay_time }}"
       until: r_create_startup_applications is success
     - name: configure_zsh
-      include_tasks: ./tasks/configure_zsh.yml
+      ansible.builtin.include_tasks: ./tasks/configure_zsh.yml
       when: install_zsh is defined and install_zsh
       tags:
       - base
       - user
       - zsh
     - name: install_yubico
-      include_tasks: ./tasks/install_yubico_software.yml
+      ansible.builtin.include_tasks: ./tasks/install_yubico_software.yml
       when: install_yubico is defined and install_yubico
       tags:
       - base
@@ -637,18 +637,18 @@
   # start ansible block
   - block:
     - name: check_if_ansible_cfg_exists
-      stat:
+      ansible.builtin.stat:
         path: "{{ ansible.cfg }}"
       register: r_check_if_ansible_cfg_exists
       retries: "{{ retries_count }}"
       delay: "{{ delay_time }}"
       until: r_check_if_ansible_cfg_exists is success
     - name: fact_if_ansible_cfg_exists
-      set_fact:
+      ansible.builtin.set_fact:
         ansible_exists: "{{ r_check_if_ansible_cfg_exists.stat.exists }}"
       when: r_check_if_ansible_cfg_exists is success
     - name: change_ansible_options
-      ini_file:
+      ansible.builtin.ini_file:
         path: /etc/ansible/ansible.cfg
         section: "{{ item.section }}"
         option: "{{ item.option }}"
@@ -669,7 +669,7 @@
   - name: install_vscode_extensions
     block:
     - name: remove_obsolete_extensions
-      shell: "code --uninstall-extension {{ item }}|true"
+      ansible.builtin.shell: "code --uninstall-extension {{ item }}|true"
       any_errors_fatal: false
       ignore_errors: true
       loop: "{{ vscode_obsolete }}"
@@ -678,7 +678,7 @@
       register: r_remove_obsolete_extensions
       changed_when: "'was successfully uninstalled!' in r_remove_obsolete_extensions.stdout"
     - name: run_dpkg_query_for_installed_extensions
-      shell: dpkg-query -s code | grep 'install ok installed'
+      ansible.builtin.shell: dpkg-query -s code | grep 'install ok installed'
       register: r_dpkg_query_vscode
       any_errors_fatal: false
       ignore_errors: true
@@ -686,7 +686,7 @@
       become: yes
       become_user: "{{ active_user }}"
     - name: install_missing_extensions
-      shell: if [ ! $(code --list-extensions|grep {{ item }}) ]; then code --install-extension {{ item }} --force; fi
+      ansible.builtin.shell: if [ ! $(code --list-extensions|grep {{ item }}) ]; then code --install-extension {{ item }} --force; fi
       loop: "{{ vscode }}"
       register: r_install_extension
       retries: "{{ retries_count }}"
@@ -708,16 +708,16 @@
     block:
     # OS related tweaks and finetuning
     - name: set_timezone
-      timezone:
+      ansible.builtin.timezone:
         name: "{{ timezone }}"
       any_errors_fatal: false
     - name: add_neofetch_to_bashrc_globals
-      lineinfile:
+      ansible.builtin.lineinfile:
         path: /etc/bash.bashrc
         line: neofetch
       any_errors_fatal: false
     - name: set_avahi_config
-      ini_file:
+      ansible.builtin.ini_file:
         path: /etc/avahi/avahi-daemon.conf
         section: server
         option: domain-name
@@ -728,7 +728,7 @@
       ignore_errors: true
       register: r_set_avahi_config
     - name: nsswitch_config
-      lineinfile:
+      ansible.builtin.lineinfile:
         dest: /etc/nsswitch.conf
         regexp: '^hosts:'
         line: 'hosts:          files dns'
@@ -736,18 +736,18 @@
       any_errors_fatal: false
       ignore_errors: true
     - name: restart_avahi_after_changes
-      systemd:
+      ansible.builtin.systemd:
         name: avahi-daemon
         state: restarted
         enabled: true
       when: r_set_avahi_config is changed and r_set_avahi_config is defined
     - name: enable_timeshift_in_rsync_mode
-      shell: timeshift --rsync --yes
+      ansible.builtin.shell: timeshift --rsync --yes
       args:
         creates: /etc/timeshift.json
       any_errors_fatal: false
     - name: add_user_to_sudoers
-      copy:
+      ansible.builtin.copy:
         dest: "/etc/sudoers.d/{{ active_user }}"
         owner: root
         group: root
@@ -757,12 +757,12 @@
       any_errors_fatal: false
       retries: "{{ retries_count }}"
     - name: create_fstrim_folder_for_systemd_override
-      file:
+      ansible.builtin.file:
         path: /etc/systemd/system/fstrim.timer.d
         state: directory
         mode: 0644
     - name: create_fstrim_override_for_systemd
-      copy:
+      ansible.builtin.copy:
         dest: /etc/systemd/system/fstrim.timer.d/override.conf
         content: |
           [Timer]
@@ -771,7 +771,7 @@
         mode: 0755
       register: r_create_fstrim_override
     - name: start_fstrim.timer
-      systemd:
+      ansible.builtin.systemd:
         daemon_reload: true
         name: fstrim.timer
         state: restarted
@@ -790,7 +790,7 @@
       until: r_sysctl_changes is success
       when: config_sysctl
     - name: change_alternatives
-      alternatives:
+      ansible.builtin.alternatives:
         name: "{{ item.name }}"
         path: "{{ item.path }}"
       loop: "{{ alternatives }}"
@@ -799,7 +799,7 @@
       delay: "{{ delay_time }}"
       until: r_alternatives is success
     - name: set_EDITOR_variable
-      lineinfile:
+      ansible.builtin.lineinfile:
         dest: "/etc/environment"
         state: present
         regexp: "^{{ item.name }}"
@@ -810,7 +810,7 @@
       delay: "{{ delay_time }}"
       until: r_environment is success
     - name: reset_dconf_values
-      dconf:
+      community.general.dconf:
         key: "{{ item.key }}"
         state: "{{ item.state }}"
       loop: "{{ dconf }}"
@@ -824,7 +824,7 @@
       tags:
       - dconf
     - name: set_dconf_values
-      dconf:
+      community.general.dconf:
         key: "{{ item.key }}"
         state: "{{ item.state }}"
         value: "{{ item.value|string }}"
@@ -843,7 +843,7 @@
     - user
     - base
   - name: update_all_packages
-    apt:
+    ansible.builtin.apt:
       upgrade: "yes"
       update_cache: yes
       autoclean: yes
@@ -857,7 +857,7 @@
     ignore_errors: true
     any_errors_fatal: false
   - name: reboot_after_changes
-    reboot:
+    ansible.builtin.reboot:
       pre_reboot_delay: 15
       post_reboot_delay: 15
       msg: "Initial reboot"
@@ -871,7 +871,7 @@
     - base
     - os
   - name: clean_apt_cache
-    shell: apt clean all -y
+    ansible.builtin.shell: apt clean all -y
     any_errors_fatal: false
     register: r_clean_apt_cache
     retries: "{{ retries_count }}"

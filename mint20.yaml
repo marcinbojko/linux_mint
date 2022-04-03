@@ -358,8 +358,8 @@ deb:
 - https://downloads.raspberrypi.org/imager/imager_1.7.2_amd64.deb
 - https://lens-binaries.s3-eu-west-1.amazonaws.com/ide/Lens-5.4.4-latest.20220325.1.amd64.deb
 - https://github.com/aquasecurity/kube-bench/releases/download/v0.6.6/kube-bench_0.6.6_linux_amd64.deb
-- https://github.com/anchore/syft/releases/download/v0.42.4/syft_0.42.4_linux_amd64.deb
-- https://cdn.zoom.us/prod/5.9.1.1380/zoom_amd64.deb
+- https://github.com/anchore/syft/releases/download/v0.43.0/syft_0.43.0_linux_amd64.deb
+- https://cdn.zoom.us/prod/5.10.0.2450/zoom_amd64.deb
 flatpak:
 - name: https://flathub.org/repo/appstream/com.getpostman.Postman.flatpakref
 - name: https://dl.flathub.org/repo/appstream/md.obsidian.Obsidian.flatpakref
@@ -396,7 +396,7 @@ unpack:
   source: helm
   destination_file: helm3.tar.gz
   folder: linux-amd64
-- url: https://github.com/OWASP/Amass/releases/download/v3.19.0/amass_linux_amd64.zip
+- url: https://github.com/OWASP/Amass/releases/download/v3.19.1/amass_linux_amd64.zip
   destination: amass
   source: amass
   folder: amass_linux_amd64
@@ -446,6 +446,11 @@ unpack:
   source: nerdctl
   destination_file: nerdctl-linux-amd64.tar.gz
   folder:
+- url: https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv4.5.4/kustomize_v4.5.4_linux_amd64.tar.gz
+  destination: kustomize
+  source: kustomize
+  destination_file: kustomize.tar.gz
+  folder:
 downloads:
 - url: https://github.com/ffuf/ffuf/releases/download/v1.0.2/ffuf_1.0.2_linux_amd64.tar.gz
   destination: ffluf
@@ -470,13 +475,13 @@ files:
   destination: k3s
 - url: https://github.com/k3d-io/k3d/releases/download/v5.4.1/k3d-linux-amd64
   destination: k3d
-- url: https://github.com/hadolint/hadolint/releases/download/v2.9.3/hadolint-Linux-x86_64
+- url: https://github.com/hadolint/hadolint/releases/download/v2.10.0/hadolint-Linux-x86_64
   destination: hadolint
 - url: https://github.com/gruntwork-io/terragrunt/releases/download/v0.36.6/terragrunt_linux_amd64
   destination: terragrunt
 - url: https://github.com/Azure/bicep/releases/latest/download/bicep-linux-x64
   destination: bicep
-- url: https://github.com/aquasecurity/tfsec/releases/download/v1.15.1/tfsec-linux-amd64
+- url: https://github.com/aquasecurity/tfsec/releases/download/v1.15.4/tfsec-linux-amd64
   destination: tfsec
 - url: https://github.com/alexellis/k3sup/releases/download/0.11.3/k3sup
   destination: k3sup

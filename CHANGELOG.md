@@ -1,5 +1,14 @@
 # Changelog "linux_mint"
 
+## Version 2.4.7 [2022-04-03]
+
+* [APPLICATION] upgraded `syft` to version 0.43.0
+* [APPLICATION] upgraded `zoom` to version 5.10.0.2450
+* [APPLICATION] upgraded `amass` to version 3.19.1
+* [APPLICATION] upgraded `hadolint` to version 2.10.0
+* [APPLICATION] upgraded `tfsec` to version 1.15.4
+* [APPLICATION] added `kustomize` [https://github.com/kubernetes-sigs/kustomize](https://github.com/kubernetes-sigs/kustomize)
+
 ## Version 2.4.6 [2022-03-30]
 
 * [APPLICATION] added `krew` [https://github.com/kubernetes-sigs/krew](https://github.com/kubernetes-sigs/krew)

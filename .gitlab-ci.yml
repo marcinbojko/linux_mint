@@ -2,20 +2,17 @@ stages:
   - ansible-lint
 ansible-lint:
   stage: ansible-lint
-  image: python:3-slim
+  image: marcinbojko/pipetools-ansible
   services:
     - docker:20.10-dind
   before_script:
-    - /usr/local/bin/python -m pip install --upgrade pip
-    - pip install --upgrade ansible-lint yamllint ansible
-    - ansible-galaxy install -r requirements.yml
     - yamllint --version
     - ansible-lint --version
   script:
     - yamllint -c ./.yamllint ./tasks/*.yml
     - yamllint -c ./.yamllint *.yaml
-    - ansible-lint ./tasks/*.yml
-    - ansible-lint linux_mint.yaml
+    - ansible-lint -v ./tasks/*.yml
+    - ansible-lint -v linux_mint.yaml
   tags:
     - docker
-    - shared
+    - ansible
