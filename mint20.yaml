@@ -130,6 +130,7 @@ repositories_remove:
   filename: skype-stable
 files_remove:
 - path: /etc/apt/sources.list.d/shutter.list
+- path: /etc/apt/sources.list.d/yubico-stable-foca.list
 keys:
 - https://download.opensuse.org/repositories/home:/stevenpusser/xUbuntu_20.04/Release.key
 - https://download.opensuse.org/repositories/home:/Alexx2000/xUbuntu_20.04/Release.key
@@ -174,6 +175,7 @@ packages_remove:
 - openjdk-13-jdk
 - openjdk-13-jre
 - openjdk-13-headless
+- zenmap
 packages_essential:
 - apt-transport-https
 - build-essential
@@ -345,25 +347,26 @@ deb:
 - https://github.com/angryip/ipscan/releases/download/3.8.2/ipscan_3.8.2_amd64.deb
 - https://release.axocdn.com/linux/gitkraken-amd64.deb
 - https://releases.hashicorp.com/vagrant/2.2.19/vagrant_2.2.19_x86_64.deb
-- https://github.com/Eugeny/tabby/releases/download/v1.0.174/tabby-1.0.174-linux.deb
+- https://github.com/Eugeny/tabby/releases/download/v1.0.176/tabby-1.0.176-linux-x64.deb
 - https://github.com/TheGoddessInari/hamsket/releases/download/0.6.3/hamsket_0.6.3_amd64.deb
-- https://github.com/kubernetes/minikube/releases/download/v1.25.1/minikube_1.25.1-0_amd64.deb
+- https://github.com/kubernetes/minikube/releases/download/v1.25.2/minikube_1.25.2-0_amd64.deb
 - https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/10920/wps-office_11.1.0.10920.XA_amd64.deb
 - https://github.com/wagoodman/dive/releases/download/v0.10.0/dive_0.10.0_linux_amd64.deb
-- https://github.com/balena-io/etcher/releases/download/v1.7.8/balena-etcher-electron_1.7.8_amd64.deb
+- https://github.com/balena-io/etcher/releases/download/v1.7.9/balena-etcher-electron_1.7.9_amd64.deb
 - https://github.com/goodwithtech/dockle/releases/download/v0.4.5/dockle_0.4.5_Linux-64bit.deb
-- http://archive.ubuntu.com/ubuntu/pool/universe/p/pygtk/python-gtk2_2.24.0-5.1ubuntu2_amd64.deb
+# - http://archive.ubuntu.com/ubuntu/pool/universe/p/pygtk/python-gtk2_2.24.0-5.1ubuntu2_amd64.deb
 - https://github.com/kaikramer/keystore-explorer/releases/download/v5.5.1/kse_5.5.1_all.deb
-- http://archive.ubuntu.com/ubuntu/pool/universe/n/nmap/zenmap_7.60-1ubuntu5_all.deb
+#- http://archive.ubuntu.com/ubuntu/pool/universe/n/nmap/zenmap_7.60-1ubuntu5_all.deb
 - https://downloads.raspberrypi.org/imager/imager_1.7.2_amd64.deb
-- https://lens-binaries.s3-eu-west-1.amazonaws.com/ide/Lens-5.4.4-latest.20220325.1.amd64.deb
-- https://github.com/aquasecurity/kube-bench/releases/download/v0.6.6/kube-bench_0.6.6_linux_amd64.deb
-- https://github.com/anchore/syft/releases/download/v0.43.0/syft_0.43.0_linux_amd64.deb
-- https://cdn.zoom.us/prod/5.10.0.2450/zoom_amd64.deb
+- https://lens-binaries.s3-eu-west-1.amazonaws.com/ide/Lens-5.4.6-latest.20220421.1.amd64.deb
+- https://github.com/aquasecurity/kube-bench/releases/download/v0.6.7/kube-bench_0.6.7_linux_amd64.deb
+- https://github.com/anchore/syft/releases/download/v0.44.1/syft_0.44.1_linux_amd64.deb
+- https://cdn.zoom.us/prod/5.10.3.2778/zoom_amd64.deb
 flatpak:
 - name: https://flathub.org/repo/appstream/com.getpostman.Postman.flatpakref
 - name: https://dl.flathub.org/repo/appstream/md.obsidian.Obsidian.flatpakref
 - name: https://dl.flathub.org/repo/appstream/com.github.wwmm.easyeffects.flatpakref
+- name: zenmap
 npm:
 - name: agentkeepalive
   state: latest
@@ -391,12 +394,12 @@ pip:
 - pipdeptree
 - oci-cli
 unpack:
-- url: https://get.helm.sh/helm-v3.8.1-linux-amd64.tar.gz
+- url: https://get.helm.sh/helm-v3.8.2-linux-amd64.tar.gz
   destination: helm
   source: helm
   destination_file: helm3.tar.gz
   folder: linux-amd64
-- url: https://github.com/OWASP/Amass/releases/download/v3.19.1/amass_linux_amd64.zip
+- url: https://github.com/OWASP/Amass/releases/download/v3.19.2/amass_linux_amd64.zip
   destination: amass
   source: amass
   folder: amass_linux_amd64
@@ -411,12 +414,12 @@ unpack:
   source: packer
   destination_file: packer.zip
   folder:
-- url: https://releases.hashicorp.com/terraform/1.1.7/terraform_1.1.7_linux_amd64.zip
+- url: https://releases.hashicorp.com/terraform/1.1.9/terraform_1.1.9_linux_amd64.zip
   destination: terraform
   source: terraform
   destination_file: terraform.zip
   folder:
-- url: https://releases.hashicorp.com/vault/1.10.0/vault_1.10.0_linux_amd64.zip
+- url: https://releases.hashicorp.com/vault/1.10.1/vault_1.10.1_linux_amd64.zip
   destination: vault
   source: vault
   destination_file: vault.zip
@@ -441,7 +444,7 @@ unpack:
   source: krew-linux_amd64
   destination_file: krew-linux_amd64.tar.gz
   folder:
-- url: https://github.com/containerd/nerdctl/releases/download/v0.18.0/nerdctl-0.18.0-linux-amd64.tar.gz
+- url: https://github.com/containerd/nerdctl/releases/download/v0.19.0/nerdctl-0.19.0-linux-amd64.tar.gz
   destination: nerdctl
   source: nerdctl
   destination_file: nerdctl-linux-amd64.tar.gz
@@ -455,7 +458,7 @@ downloads:
 - url: https://github.com/ffuf/ffuf/releases/download/v1.0.2/ffuf_1.0.2_linux_amd64.tar.gz
   destination: ffluf
   skip_tree: false
-- url: https://github.com/FairwindsOps/polaris/releases/download/5.1.0/polaris_linux_amd64.tar.gz
+- url: https://github.com/FairwindsOps/polaris/releases/download/5.2.0/polaris_linux_amd64.tar.gz
   destination: polaris
   skip_tree: false
 - url: https://github.com/orf/gping/releases/download/gping-v1.3.1/gping-Linux-x86_64.tar.gz
@@ -466,12 +469,12 @@ files:
   destination: docker-compose
 - url: https://github.com/bcicen/ctop/releases/download/v0.7.7/ctop-0.7.7-linux-amd64
   destination: ctop
-- url: https://github.com/rancher/rke/releases/download/v1.3.8/rke_linux-amd64
+- url: https://github.com/rancher/rke/releases/download/v1.3.9/rke_linux-amd64
   destination: rke
 - url: https://github.com/dannagle/PacketSender/releases/download/v7.2.3/Packet_Sender-v7.2.4.AppImage
   destination: packetsender
   desktop_file: ./files/apps/packetsender/packetsender.desktop
-- url: https://github.com/k3s-io/k3s/releases/download/v1.21.10%2Bk3s1/k3s
+- url: https://github.com/k3s-io/k3s/releases/download/v1.21.11%2Bk3s1/k3s
   destination: k3s
 - url: https://github.com/k3d-io/k3d/releases/download/v5.4.1/k3d-linux-amd64
   destination: k3d
@@ -481,10 +484,12 @@ files:
   destination: terragrunt
 - url: https://github.com/Azure/bicep/releases/latest/download/bicep-linux-x64
   destination: bicep
-- url: https://github.com/aquasecurity/tfsec/releases/download/v1.15.4/tfsec-linux-amd64
+- url: https://github.com/aquasecurity/tfsec/releases/download/v1.18.0/tfsec-linux-amd64
   destination: tfsec
 - url: https://github.com/alexellis/k3sup/releases/download/0.11.3/k3sup
   destination: k3sup
+- url: https://github.com/argoproj/argo-cd/releases/download/v2.3.3/argocd-linux-amd64
+  destination: argocd
 ansible:
   cfg: /etc/ansible/ansible.cfg
   config:

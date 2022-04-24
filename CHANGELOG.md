@@ -1,5 +1,29 @@
 # Changelog "linux_mint"
 
+## Version 2.4.8 [2022-04-24]
+
+* [APPLICATION] upgraded `nerdctl` to version 0.19.0
+* [APPLICATION] upgraded `helm` to version 3.8.2
+* [APPLICATION] upgraded `k3s` to version 1.21.11
+* [APPLICATION] upgraded `kube-bench` to version 0.6.7
+* [APPLICATION] upgraded `lens` to version 5.4.6
+* [APPLICATION] upgraded `polaris` to version 5.2.
+* [APPLICATION] upgraded `rke` to version 1.3.9
+* [APPLICATION] upgraded `amass` to version 3.19.2
+* [APPLICATION] upgraded `balena-etcher` to version 1.7.9
+* [APPLICATION] upgraded `syft` to version 0.44.1
+* [APPLICATION] upgraded `zoom` to version 5.10.3.2778
+* [APPLICATION] upgraded `tabby` to version 1.0.176
+* [APPLICATION] upgraded `terraform` to version 1.1.9
+* [APPLICATION] upgraded `tfsec` 1.18.0
+* [APPLICATION] upgraded `vault` to version 1.10.1
+* [APPLICATION] upgraded `minikube` to version 1.25.2
+* [APPLICATION] added `argocd` [https://github.com/argoproj/argo-cd](https://github.com/argoproj/argo-cd)
+* [APPLICATION] remove `zenmap` as deb package
+* [APPLICATION] remove `python-gtk2` as needed dependency for `zenmap` deb package
+* [FLATPAK] added `zenmap` as flatpak
+* fixed `yubico-stable-focal.list` being misnamed as `yubico-stable-foca.list`
+
 ## Version 2.4.7 [2022-04-03]
 
 * [APPLICATION] upgraded `syft` to version 0.43.0

@@ -4,7 +4,7 @@ yubico_repo_key:
     id: 32CBA1A9
 yubico_repositories:
   - repo: ppa:yubico/stable
-    filename: yubico-stable-foca
+    filename: yubico-stable-focal
 yubico_packages:
   - yubikey-manager
   - yubikey-personalization-gui
