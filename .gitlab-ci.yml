@@ -2,13 +2,14 @@ stages:
   - ansible-lint
 ansible-lint:
   stage: ansible-lint
-  image: marcinbojko/pipetools-ansible
+  image: $PIPELINE_IMAGE:$PIPELINE_IMAGE_TAG
   services:
     - docker:20.10-dind
   before_script:
     - yamllint --version
     - ansible-lint --version
   script:
+    - echo "Running on $PIPELINE_IMAGE:$PIPELINE_IMAGE_TAG"
     - yamllint -c ./.yamllint ./tasks/*.yml
     - yamllint -c ./.yamllint *.yaml
     - ansible-lint -v ./tasks/*.yml

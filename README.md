@@ -260,6 +260,7 @@ custom_packages:
 | Helm | Package manager for Kubernetes |[https://helm.sh/](https://helm.sh/)|
 | k3d |k3d creates containerized k3s clusters|[https://k3d.io/](https://k3d.io/)|
 | k3s |Lightweight Kubernetes 5 less than k8s|[https://k3s.io/](https://k3s.io/)|
+| k9s |Kubernetes CLI Manager|[https://github.com/derailed/k9s](https://github.com/derailed/k9s)|
 | Keepass | Password Manager| [https://keepass.info/](https://keepass.info/)|
 | Kubernetes| Production-Grade Container Orchestration|[https://kubernetes.io/](https://kubernetes.io/)|
 | Kubeconform| Kubernetes config validator|[https://github.com/yannh/kubeconform](https://github.com/yannh/kubeconform)|

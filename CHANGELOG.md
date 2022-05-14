@@ -1,5 +1,21 @@
 # Changelog "linux_mint"
 
+## Version 2.4.9 [2022-05-14]
+
+* [PIP] added `terraform-compliance` [https://terraform-compliance.com/pages/installation/pip.html](https://terraform-compliance.com/pages/installation/pip.html)
+* [APPLICATION] added `k9s` [https://github.com/derailed/k9s](https://github.com/derailed/k9s)
+* [APPLICATION] upgraded `k3s` to version 1.21.12
+* [APPLICATION] upgraded `kube-bench` to version 0.6.8
+* [APPLICATION] upgraded `polaris` to version 6.0.0
+* [APPLICATION] upgraded `rke` to version 1.3.11
+* [APPLICATION] upgraded `syft` to version 0.46.0
+* [APPLICATION] upgraded `terragrunt` to version 0.36.12
+* [APPLICATION] upgraded `tflint` to version 0.36.2
+* [APPLICATION] upgraded `tfsec` to version 1.21.0
+* [APPLICATION] upgraded `vault` to version 1.10.3
+* [APPLICATION] upgraded `wps-office` to version 11.1.0.10976
+* [APPLICATION] upgraded `zoom` to version 5.10.4.2845
+
 ## Version 2.4.8 [2022-04-24]
 
 * [APPLICATION] upgraded `nerdctl` to version 0.19.0

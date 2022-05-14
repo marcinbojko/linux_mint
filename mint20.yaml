@@ -347,21 +347,19 @@ deb:
 - https://github.com/angryip/ipscan/releases/download/3.8.2/ipscan_3.8.2_amd64.deb
 - https://release.axocdn.com/linux/gitkraken-amd64.deb
 - https://releases.hashicorp.com/vagrant/2.2.19/vagrant_2.2.19_x86_64.deb
-- https://github.com/Eugeny/tabby/releases/download/v1.0.176/tabby-1.0.176-linux-x64.deb
+- https://github.com/Eugeny/tabby/releases/download/v1.0.177/tabby-1.0.177-linux-x64.deb
 - https://github.com/TheGoddessInari/hamsket/releases/download/0.6.3/hamsket_0.6.3_amd64.deb
 - https://github.com/kubernetes/minikube/releases/download/v1.25.2/minikube_1.25.2-0_amd64.deb
-- https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/10920/wps-office_11.1.0.10920.XA_amd64.deb
+- https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/10976/wps-office_11.1.0.10976.XA_amd64.deb
 - https://github.com/wagoodman/dive/releases/download/v0.10.0/dive_0.10.0_linux_amd64.deb
 - https://github.com/balena-io/etcher/releases/download/v1.7.9/balena-etcher-electron_1.7.9_amd64.deb
 - https://github.com/goodwithtech/dockle/releases/download/v0.4.5/dockle_0.4.5_Linux-64bit.deb
-# - http://archive.ubuntu.com/ubuntu/pool/universe/p/pygtk/python-gtk2_2.24.0-5.1ubuntu2_amd64.deb
 - https://github.com/kaikramer/keystore-explorer/releases/download/v5.5.1/kse_5.5.1_all.deb
-#- http://archive.ubuntu.com/ubuntu/pool/universe/n/nmap/zenmap_7.60-1ubuntu5_all.deb
 - https://downloads.raspberrypi.org/imager/imager_1.7.2_amd64.deb
 - https://lens-binaries.s3-eu-west-1.amazonaws.com/ide/Lens-5.4.6-latest.20220421.1.amd64.deb
-- https://github.com/aquasecurity/kube-bench/releases/download/v0.6.7/kube-bench_0.6.7_linux_amd64.deb
-- https://github.com/anchore/syft/releases/download/v0.44.1/syft_0.44.1_linux_amd64.deb
-- https://cdn.zoom.us/prod/5.10.3.2778/zoom_amd64.deb
+- https://github.com/aquasecurity/kube-bench/releases/download/v0.6.8/kube-bench_0.6.8_linux_amd64.deb
+- https://github.com/anchore/syft/releases/download/v0.46.0/syft_0.46.0_linux_amd64.deb
+- https://cdn.zoom.us/prod/5.10.4.2845/zoom_amd64.deb
 flatpak:
 - name: https://flathub.org/repo/appstream/com.getpostman.Postman.flatpakref
 - name: https://dl.flathub.org/repo/appstream/md.obsidian.Obsidian.flatpakref
@@ -393,6 +391,7 @@ pip:
 - kube-hunter
 - pipdeptree
 - oci-cli
+- terraform-compliance
 unpack:
 - url: https://get.helm.sh/helm-v3.8.2-linux-amd64.tar.gz
   destination: helm
@@ -419,12 +418,12 @@ unpack:
   source: terraform
   destination_file: terraform.zip
   folder:
-- url: https://releases.hashicorp.com/vault/1.10.1/vault_1.10.1_linux_amd64.zip
+- url: https://releases.hashicorp.com/vault/1.10.3/vault_1.10.3_linux_amd64.zip
   destination: vault
   source: vault
   destination_file: vault.zip
   folder:
-- url: https://github.com/terraform-linters/tflint/releases/download/v0.35.0/tflint_linux_amd64.zip
+- url: https://github.com/terraform-linters/tflint/releases/download/v0.36.2/tflint_linux_amd64.zip
   destination: tflint
   source: tflint
   destination_file: tflint.zip
@@ -454,11 +453,16 @@ unpack:
   source: kustomize
   destination_file: kustomize.tar.gz
   folder:
+- url: https://github.com/derailed/k9s/releases/download/v0.25.18/k9s_Linux_x86_64.tar.gz
+  destination: k9s
+  source: k9s
+  destination_file: k9s.tar.gz
+  folder:
 downloads:
 - url: https://github.com/ffuf/ffuf/releases/download/v1.0.2/ffuf_1.0.2_linux_amd64.tar.gz
   destination: ffluf
   skip_tree: false
-- url: https://github.com/FairwindsOps/polaris/releases/download/5.2.0/polaris_linux_amd64.tar.gz
+- url: https://github.com/FairwindsOps/polaris/releases/download/6.0.0/polaris_linux_amd64.tar.gz
   destination: polaris
   skip_tree: false
 - url: https://github.com/orf/gping/releases/download/gping-v1.3.1/gping-Linux-x86_64.tar.gz
@@ -469,22 +473,22 @@ files:
   destination: docker-compose
 - url: https://github.com/bcicen/ctop/releases/download/v0.7.7/ctop-0.7.7-linux-amd64
   destination: ctop
-- url: https://github.com/rancher/rke/releases/download/v1.3.9/rke_linux-amd64
+- url: https://github.com/rancher/rke/releases/download/v1.3.11/rke_linux-amd64
   destination: rke
 - url: https://github.com/dannagle/PacketSender/releases/download/v7.2.3/Packet_Sender-v7.2.4.AppImage
   destination: packetsender
   desktop_file: ./files/apps/packetsender/packetsender.desktop
-- url: https://github.com/k3s-io/k3s/releases/download/v1.21.11%2Bk3s1/k3s
+- url: https://github.com/k3s-io/k3s/releases/download/v1.21.12%2Bk3s1/k3s
   destination: k3s
 - url: https://github.com/k3d-io/k3d/releases/download/v5.4.1/k3d-linux-amd64
   destination: k3d
 - url: https://github.com/hadolint/hadolint/releases/download/v2.10.0/hadolint-Linux-x86_64
   destination: hadolint
-- url: https://github.com/gruntwork-io/terragrunt/releases/download/v0.36.6/terragrunt_linux_amd64
+- url: https://github.com/gruntwork-io/terragrunt/releases/download/v0.36.12/terragrunt_linux_amd64
   destination: terragrunt
 - url: https://github.com/Azure/bicep/releases/latest/download/bicep-linux-x64
   destination: bicep
-- url: https://github.com/aquasecurity/tfsec/releases/download/v1.18.0/tfsec-linux-amd64
+- url: https://github.com/aquasecurity/tfsec/releases/download/v1.21.0/tfsec-linux-amd64
   destination: tfsec
 - url: https://github.com/alexellis/k3sup/releases/download/0.11.3/k3sup
   destination: k3sup
