@@ -1,5 +1,15 @@
 # Changelog "linux_mint"
 
+## Version 2.4.10 [2022-05-22]
+
+* [APPLICATION] upgraded `nerdctl` to version 0.20.0
+* [APPLICATION] upgraded `helm` to version 3.9.0
+* [APPLICATION] upgraded `kustomize` to version 4.5.5
+* [APPLICATION] upgraded `syft` to version 0.46.1
+* [APPLICATION] upgraded `terraform` to version 1.2.0
+* [APPLICATION] upgraded `tfsec` to version 1.21.2
+* [APPLICATION] upgraded `argocd` to version 3.3.4
+
 ## Version 2.4.9 [2022-05-14]
 
 * [PIP] added `terraform-compliance` [https://terraform-compliance.com/pages/installation/pip.html](https://terraform-compliance.com/pages/installation/pip.html)

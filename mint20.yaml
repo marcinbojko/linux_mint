@@ -358,7 +358,7 @@ deb:
 - https://downloads.raspberrypi.org/imager/imager_1.7.2_amd64.deb
 - https://lens-binaries.s3-eu-west-1.amazonaws.com/ide/Lens-5.4.6-latest.20220421.1.amd64.deb
 - https://github.com/aquasecurity/kube-bench/releases/download/v0.6.8/kube-bench_0.6.8_linux_amd64.deb
-- https://github.com/anchore/syft/releases/download/v0.46.0/syft_0.46.0_linux_amd64.deb
+- https://github.com/anchore/syft/releases/download/v0.46.1/syft_0.46.1_linux_amd64.deb
 - https://cdn.zoom.us/prod/5.10.4.2845/zoom_amd64.deb
 flatpak:
 - name: https://flathub.org/repo/appstream/com.getpostman.Postman.flatpakref
@@ -393,7 +393,7 @@ pip:
 - oci-cli
 - terraform-compliance
 unpack:
-- url: https://get.helm.sh/helm-v3.8.2-linux-amd64.tar.gz
+- url: https://get.helm.sh/helm-v3.9.0-linux-amd64.tar.gz
   destination: helm
   source: helm
   destination_file: helm3.tar.gz
@@ -413,7 +413,7 @@ unpack:
   source: packer
   destination_file: packer.zip
   folder:
-- url: https://releases.hashicorp.com/terraform/1.1.9/terraform_1.1.9_linux_amd64.zip
+- url: https://releases.hashicorp.com/terraform/1.2.0/terraform_1.2.0_linux_amd64.zip
   destination: terraform
   source: terraform
   destination_file: terraform.zip
@@ -443,12 +443,12 @@ unpack:
   source: krew-linux_amd64
   destination_file: krew-linux_amd64.tar.gz
   folder:
-- url: https://github.com/containerd/nerdctl/releases/download/v0.19.0/nerdctl-0.19.0-linux-amd64.tar.gz
+- url: https://github.com/containerd/nerdctl/releases/download/v0.20.0/nerdctl-0.20.0-linux-amd64.tar.gz
   destination: nerdctl
   source: nerdctl
   destination_file: nerdctl-linux-amd64.tar.gz
   folder:
-- url: https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv4.5.4/kustomize_v4.5.4_linux_amd64.tar.gz
+- url: https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv4.5.5/kustomize_v4.5.5_linux_amd64.tar.gz
   destination: kustomize
   source: kustomize
   destination_file: kustomize.tar.gz
@@ -488,11 +488,11 @@ files:
   destination: terragrunt
 - url: https://github.com/Azure/bicep/releases/latest/download/bicep-linux-x64
   destination: bicep
-- url: https://github.com/aquasecurity/tfsec/releases/download/v1.21.0/tfsec-linux-amd64
+- url: https://github.com/aquasecurity/tfsec/releases/download/v1.21.2/tfsec-linux-amd64
   destination: tfsec
 - url: https://github.com/alexellis/k3sup/releases/download/0.11.3/k3sup
   destination: k3sup
-- url: https://github.com/argoproj/argo-cd/releases/download/v2.3.3/argocd-linux-amd64
+- url: https://github.com/argoproj/argo-cd/releases/download/v2.3.4/argocd-linux-amd64
   destination: argocd
 ansible:
   cfg: /etc/ansible/ansible.cfg

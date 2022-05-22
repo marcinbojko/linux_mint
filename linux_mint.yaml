@@ -636,7 +636,8 @@
     - user
     - zsh
   # start ansible block
-  - block:
+  - name: start ansible block
+    block:
     - name: check_if_ansible_cfg_exists
       ansible.builtin.stat:
         path: "{{ ansible.cfg }}"
