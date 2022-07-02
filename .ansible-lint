@@ -3,6 +3,7 @@ skip_list:
   - command-instead-of-shell
   - git-latest
   - experimental
-#  - fqcn-builtins
+  - yaml
+  - fqcn-builtins
 exclude_paths:
   - .github/

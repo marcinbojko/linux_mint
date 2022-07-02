@@ -1,5 +1,30 @@
 # Changelog "linux_mint"
 
+## Version 2.5.0 [2022-07-02]
+
+* [APPLICATION] upgraded `nerdctl` to version 0.21.0
+* [APPLICATION] upgraded `k3d` to version 5.4.3
+* [APPLICATION] upgraded `k3s` to version 1.23.8
+* [APPLICATION] upgraded `k3sup` to version 0.12.0
+* [APPLICATION] upgraded `k9s` to version 0.25.21
+* [APPLICATION] upgraded `kubeconform` to version 0.4.13
+* [APPLICATION] added `kubent` [https://github.com/doitintl/kube-no-trouble](https://github.com/doitintl/kube-no-trouble)
+* [APPLICATION] upgraded `kubestr` to version 0.4.33
+* [APPLICATION] upgraded `lens` to version 5.5.4
+* [APPLICATION] upgraded `minikube` to version 1.26.0
+* [APPLICATION] upgraded `rke` to version 1.3.12
+* [APPLICATION] upgraded `amass` to version 3.19.3
+* [APPLICATION] upgraded `gping` to version 1.3.2
+* [APPLICATION] upgraded `packer` to version 1.8.2
+* [APPLICATION] upgraded `syft` to version 0.49.0
+* [APPLICATION] upgraded `tabby` to version 1.0.181
+* [APPLICATION] upgraded `terraform` to version 1.2.4
+* [APPLICATION] upgraded `tflint` to version 0.38.1
+* [APPLICATION] upgraded `tfsec` to version 1.26.0
+* [APPLICATION] upgraded `vault` to version 1.11.0
+* [APPLICATION] added `datree` [https://github.com/datreeio/datree](https://github.com/datreeio/datree)
+* [APPLICATION] upgraded `zoom` to version 5.11.1.3595
+
 ## Version 2.4.10 [2022-05-22]
 
 * [APPLICATION] upgraded `nerdctl` to version 0.20.0
