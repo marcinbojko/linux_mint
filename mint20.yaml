@@ -350,7 +350,7 @@ deb:
 - https://github.com/Eugeny/tabby/releases/download/v1.0.181/tabby-1.0.181-linux-x64.deb
 - https://github.com/TheGoddessInari/hamsket/releases/download/0.6.3/hamsket_0.6.3_amd64.deb
 - https://github.com/kubernetes/minikube/releases/download/v1.26.0/minikube_1.26.0-0_amd64.deb
-- https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/10976/wps-office_11.1.0.10976.XA_amd64.deb
+- https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/11664/wps-office_11.1.0.11664.XA_amd64.deb
 - https://github.com/wagoodman/dive/releases/download/v0.10.0/dive_0.10.0_linux_amd64.deb
 - https://github.com/balena-io/etcher/releases/download/v1.7.9/balena-etcher-electron_1.7.9_amd64.deb
 - https://github.com/goodwithtech/dockle/releases/download/v0.4.5/dockle_0.4.5_Linux-64bit.deb
@@ -358,8 +358,9 @@ deb:
 - https://downloads.raspberrypi.org/imager/imager_1.7.2_amd64.deb
 - https://downloads.k8slens.dev/ide/Lens-5.5.4-latest.20220609.2.amd64.deb
 - https://github.com/aquasecurity/kube-bench/releases/download/v0.6.8/kube-bench_0.6.8_linux_amd64.deb
-- https://github.com/anchore/syft/releases/download/v0.49.0/syft_0.49.0_linux_amd64.deb
+- https://github.com/anchore/syft/releases/download/v0.49.0/syft_0.51.0_linux_amd64.deb
 - https://cdn.zoom.us/prod/5.11.1.3595/zoom_amd64.deb
+
 flatpak:
 - name: https://flathub.org/repo/appstream/com.getpostman.Postman.flatpakref
 - name: https://dl.flathub.org/repo/appstream/md.obsidian.Obsidian.flatpakref
@@ -393,7 +394,7 @@ pip:
 - oci-cli
 - terraform-compliance
 unpack:
-- url: https://get.helm.sh/helm-v3.9.0-linux-amd64.tar.gz
+- url: https://get.helm.sh/helm-v3.9.1-linux-amd64.tar.gz
   destination: helm
   source: helm
   destination_file: helm3.tar.gz
@@ -403,7 +404,7 @@ unpack:
   source: amass
   folder: amass_linux_amd64
   destination_file: amass.zip
-- url: https://github.com/yannh/kubeconform/releases/download/v0.4.13/kubeconform-linux-amd64.tar.gz
+- url: https://github.com/yannh/kubeconform/releases/download/v0.4.14/kubeconform-linux-amd64.tar.gz
   destination: kubeconform
   source: kubeconform
   folder:
@@ -413,7 +414,7 @@ unpack:
   source: packer
   destination_file: packer.zip
   folder:
-- url: https://releases.hashicorp.com/terraform/1.2.4/terraform_1.2.4_linux_amd64.zip
+- url: https://releases.hashicorp.com/terraform/1.2.5/terraform_1.2.5_linux_amd64.zip
   destination: terraform
   source: terraform
   destination_file: terraform.zip
@@ -433,7 +434,7 @@ unpack:
   source: ngrok
   destination_file: ngrok-stable-linux-amd64.zip
   folder:
-- url: https://github.com/kastenhq/kubestr/releases/download/v0.4.33/kubestr_0.4.33_Linux_amd64.tar.gz
+- url: https://github.com/kastenhq/kubestr/releases/download/v0.4.34/kubestr_0.4.34_Linux_amd64.tar.gz
   destination: kubestr
   source: kubestr
   destination_file: kubestr.tar.gz
@@ -443,7 +444,7 @@ unpack:
   source: krew-linux_amd64
   destination_file: krew-linux_amd64.tar.gz
   folder:
-- url: https://github.com/containerd/nerdctl/releases/download/v0.21.0/nerdctl-0.21.0-linux-amd64.tar.gz
+- url: https://github.com/containerd/nerdctl/releases/download/v0.22.0/nerdctl-0.22.0-linux-amd64.tar.gz
   destination: nerdctl
   source: nerdctl
   destination_file: nerdctl-linux-amd64.tar.gz
@@ -463,7 +464,7 @@ unpack:
   source: kubent
   destination_file: kubent.tar.gz
   folder:
-- url: https://github.com/datreeio/datree/releases/download/1.5.20/datree-cli_1.5.20_Linux_x86_64.zip
+- url: https://github.com/datreeio/datree/releases/download/1.5.30/datree-cli_1.5.30_Linux_x86_64.zip
   destination: datree
   source: datree
   destination_file: datree.zip
@@ -472,7 +473,7 @@ downloads:
 - url: https://github.com/ffuf/ffuf/releases/download/v1.0.2/ffuf_1.0.2_linux_amd64.tar.gz
   destination: ffluf
   skip_tree: false
-- url: https://github.com/FairwindsOps/polaris/releases/download/6.0.0/polaris_linux_amd64.tar.gz
+- url: https://github.com/FairwindsOps/polaris/releases/download/7.0.1/polaris_linux_amd64.tar.gz
   destination: polaris
   skip_tree: false
 - url: https://github.com/orf/gping/releases/download/gping-v1.3.2/gping-Linux-x86_64.tar.gz
@@ -490,7 +491,7 @@ files:
   desktop_file: ./files/apps/packetsender/packetsender.desktop
 - url: https://github.com/k3s-io/k3s/releases/download/v1.23.8%2Bk3s1/k3s
   destination: k3s
-- url: https://github.com/k3d-io/k3d/releases/download/v5.4.3/k3d-linux-amd64
+- url: https://github.com/k3d-io/k3d/releases/download/v5.4.4/k3d-linux-amd64
   destination: k3d
 - url: https://github.com/hadolint/hadolint/releases/download/v2.10.0/hadolint-Linux-x86_64
   destination: hadolint
@@ -498,7 +499,7 @@ files:
   destination: terragrunt
 - url: https://github.com/Azure/bicep/releases/latest/download/bicep-linux-x64
   destination: bicep
-- url: https://github.com/aquasecurity/tfsec/releases/download/v1.26.0/tfsec-linux-amd64
+- url: https://github.com/aquasecurity/tfsec/releases/download/v1.26.3/tfsec-linux-amd64
   destination: tfsec
 - url: https://github.com/alexellis/k3sup/releases/download/0.12.0/k3sup
   destination: k3sup

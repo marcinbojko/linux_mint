@@ -1,5 +1,20 @@
 # Changelog "linux_mint"
 
+## Version 2.5.1 [2022-07-17]
+
+* [APPLICATION] upgraded `nerdctl` to version 0.22.0
+* [APPLICATION] upgraded `datree` to version 1.5.30
+* [APPLICATION] upgraded `helm`  to version 3.9.1
+* [APPLICATION] upgraded `k3d` to version 5.4.4
+* [APPLICATION] upgraded `kubeconform` to version 0.4.14
+* [APPLICATION] upgraded `kubent` to version `nightly-0.5.1-23-g73fb3a7`
+* [APPLICATION] upgraded `kubestr` to version 0.4.34
+* [APPLICATION] upgraded `polaris` to version 7.0.1
+* [APPLICATION] upgraded `syft` to version 0.51.0
+* [APPLICATION] upgraded `terraform` to version 1.2.5
+* [APPLICATION] upgraded `tfsec` to version 1.26.3
+* [APPLICATION] upgraded `wps-office` to version 11.1.0.11664
+
 ## Version 2.5.0 [2022-07-02]
 
 * [APPLICATION] upgraded `nerdctl` to version 0.21.0
@@ -147,7 +162,7 @@
 * [APPLICATION] upgraded `packer` to version 1.7.9
 * [APPLICATION] upgraded `terraform` to version 1.1.4
 * [APPLICATION] upgraded `vault` to version 1.9.3
-* [APPLICATION] upgraded `wpsoffice` to version 11.1.0.10920
+* [APPLICATION] upgraded `wps-office` to version 11.1.0.10920
 * [APPLICATION] upgraded `syft` to version 0.36.0
 * [APPLICATION] upgraded `terragrunt` to version 0.36.1
 * [APPLICATION] upgraded `tabby` to version 1.0.170
@@ -331,7 +346,7 @@ This ASCII pic can be found at [https://asciiart.website/index.php?art=holiday/c
 * [APPLICATION] upgraded `tflint` to version 0.31.0
 * [APPLICATION] upgraded `vagrant` to vesion 2.2.18
 * [APPLICATION] upgraded `vault` to version 1.8.1
-* [APPLICATION] upgraded `wpsoffice` to version 11.1.0.10702
+* [APPLICATION] upgraded `wps-office` to version 11.1.0.10702
 * [APPLICATION] added `ngrok` - in version 2.3.40 [https://ngrok.com/](https://ngrok.com/)
 
 ## Version 2.2.6 [2021-07-04]
@@ -468,7 +483,7 @@ This ASCII pic can be found at [https://asciiart.website/index.php?art=holiday/c
 * [APPLICATION] upgraded `terminus-alfa` to version 1.0.134
 * [APPLICATION] upgraded `terraform` to version 0.14.7
 * [APPLICATION] upgraded `tflint` to version 0.24.1
-* [APPLICATION] upgraded `wpsoffice` to version 11.1.0.10161
+* [APPLICATION] upgraded `wps-office` to version 11.1.0.10161
 * Prepared for `ansible-lint` in version 5.x
 
 ## Version 2.1.5 [2021-01-31]
@@ -550,7 +565,7 @@ This ASCII pic can be found at [https://asciiart.website/index.php?art=holiday/c
 * [APPLICATION] upgraded `terraform` to version 1.13.5
 * [APPLICATION] upgraded `tflint` to version 0.20.3
 * [APPLICATION] upgraded `vault` to version 1.5.5
-* [APPLICATION] upgraded `wpsoffice` to version 11.1.0.9719
+* [APPLICATION] upgraded `wps-office` to version 11.1.0.9719
 * [APPLICATION] upgraded `ctop` to version 0.7.4
 
 ## Version 2.0.9 [2020-10-18]
@@ -928,7 +943,7 @@ This ASCII pic can be found at [https://asciiart.website/index.php?art=holiday/c
 * [APPLICATION] added `packetsender` in version 6.2.3 [https://packetsender.com/](https://packetsender.com/)
 * [APPLICATION] upgraded `minikube` to version 1.4.0
 * [APPLICATION] added `whois`
-* [APPLICATION] upgraded `wps Office` to version 11.1.0.8865
+* [APPLICATION] upgraded `wps-office` to version 11.1.0.8865
 * [APPLICATION] upgraded `franz` to version 5.3.3
 
 ## Version 1.2.1 2019-08-24
@@ -982,7 +997,7 @@ This ASCII pic can be found at [https://asciiart.website/index.php?art=holiday/c
 ```
 
 * [REPOSITORY] added `trivy` repository and key [https://github.com/knqyf263/trivy#debianubuntu](https://github.com/knqyf263/trivy#debianubuntu)
-* [APPLICATION] upgraded `WPS Office for Linux` to version 11.1.0.8722
+* [APPLICATION] upgraded `wps-office` to version 11.1.0.8722
 * [APPLICATION] upgraded `helm` to version 2.14.2
 * [APPLICATION] upgraded `terraform` to version 0.12.5
 * [GLOBAL_ENV] added section in variables.yml for adding global environments in /etc/environment
@@ -1046,7 +1061,7 @@ This ASCII pic can be found at [https://asciiart.website/index.php?art=holiday/c
 ## Version 1.1.3 2019-04-30
 
 * [APPLICATION] upgraded `terminus alpha` to version 1.0.76
-* [APPLICATION] upgraded `WPS office` to version 11.1.0.8392
+* [APPLICATION] upgraded `wps-office` to version 11.1.0.8392
 * [APPLICATION] upgraded `Franz` to version 5.0.1
 * [APPLICATION] upgraded `minikube` to version 1.0.1
 * [APPLICATION] downgrade `rke` to version 0.1.18 as 0.2.x branch is too unstable
@@ -1057,7 +1072,7 @@ This ASCII pic can be found at [https://asciiart.website/index.php?art=holiday/c
 ## Version 1.1.2 2019-03-27
 
 * [APPLICATION] upgraded `terraform` to version 0.11.13
-* [APPLICATION] upgraded `WPS Ofice` to version 10.1.0.6758
+* [APPLICATION] upgraded `wps-office` to version 10.1.0.6758
 * [APPLICATION] upgraded `helm` to version 2.13.1
 * [APPLICATION] upgraded `vault` to version 1.1.0
 * [APPLICATION] upgraded `rancher` to version 2.2.0
@@ -1209,7 +1224,7 @@ This ASCII pic can be found at [https://asciiart.website/index.php?art=holiday/c
 ## Version 0.8.5 - 2018-11-21
 
 * [APPLICATION] added `Team Viewer` to external applications
-* [APPLICATION] added `WPS Office` to external applications
+* [APPLICATION] added `wps-office` to external applications
 * added packages:
   * network-manager-fortisslvpn
   * openfortivpn
