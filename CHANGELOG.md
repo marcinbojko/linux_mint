@@ -1,5 +1,34 @@
 # Changelog "linux_mint"
 
+## Version 2.5.2 [2022-08-19]
+
+* [APPLICATION] added `steampipe` [https://github.com/turbot/steampipe](https://github.com/turbot/steampipe)
+* [TASKS] added task `steampipe_plugins` for extra `steampipe` plugins install
+* [APPLICATION] upgraded `argocd` to version 2.4.9
+* [APPLICATION] upgraded `datree` to version 1.6.6
+* [APPLICATION] upgraded `dockle` to version 0.4.6
+* [APPLICATION] upgraded `helm`  to version 3.9.3
+* [APPLICATION] upgraded `k3s` to version 1.23.9
+* [APPLICATION] upgraded `k9s` to version 0.26.3
+* [APPLICATION] upgraded `kube-bench` to version 0.6.9
+* [APPLICATION] upgraded `kustomize` to version 4.5.7
+* [APPLICATION] upgraded `lens` to version 6.0.1
+* [APPLICATION] upgraded `minikube` to version 1.26.1
+* [APPLICATION] upgraded `nerdctl` to version 0.22.2
+* [APPLICATION] upgraded `rambox-os` to version 0.6.5-nightly
+* [APPLICATION] upgraded `rke` to version 1.3.13
+* [APPLICATION] upgraded `syft` to version 0.54.0
+* [APPLICATION] upgraded `tabby` to version 1.0.183
+* [APPLICATION] upgraded `terraform` to version 1.2.7
+* [APPLICATION] upgraded `terragrunt` to version 0.38.7
+* [APPLICATION] upgraded `tflint` to version 0.39.3
+* [APPLICATION] upgraded `tfsec` to version 1.27.1
+* [APPLICATION] upgraded `vagrant` to version 2.3.0
+* [APPLICATION] upgraded `vault` to version 1.11.2
+* [VSCODE] changed renamed extension `wholroyd.hcl` to `hashicorp.hcl`
+* [VSCODE] added extension `bierner.markdown-mermaid`
+* [VSCODE] added extension `Kelvin.vscode-sshfs`
+
 ## Version 2.5.1 [2022-07-17]
 
 * [APPLICATION] upgraded `nerdctl` to version 0.22.0

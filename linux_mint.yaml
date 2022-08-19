@@ -9,6 +9,7 @@
     install_deb: true                         # should extra deb packages should be installed
     install_flatpak: true                     # should we install flatpak software
     install_vscode_extensions: true           # should we install extra vscode extensions
+    install_steampipe_plugins: true           # install steampipe plugins (steampipe must be installed)
     install_npm: true                         # should we install npm packages
     install_zsh: false                        # install and configure oh-my-zhs and power10k
     install_yubico: false                     # install yubico related software
@@ -85,18 +86,18 @@
   - name: display_basic_information
     ansible.builtin.debug:
       msg:
-      - "Install optional packages    : {{ install_optional|bool }}"
-      - "Install deb packages         : {{ install_deb|bool }}"
-      - "Install_flatpak packages     : {{ install_flatpak|bool }}"
-      - "Install_npm packages         : {{ install_npm|bool }}"
-      - "Install vscode extensions    : {{ install_vscode_extensions|bool }} "
-      - "Install zsh                  : {{ install_zsh|bool }}"
-      - "Install Yubico               : {{ install_yubico|bool }}"
+      - "Install optional packages    : {{ install_optional | bool }}"
+      - "Install deb packages         : {{ install_deb | bool }}"
+      - "Install_flatpak packages     : {{ install_flatpak | bool }}"
+      - "Install_npm packages         : {{ install_npm | bool }}"
+      - "Install vscode extensions    : {{ install_vscode_extensions | bool }} "
+      - "Install zsh                  : {{ install_zsh | bool }}"
+      - "Install Yubico               : {{ install_yubico | bool }}"
       - "Config for Ansible           : {{ config_ansible }}"
       - "Config dconf                 : {{ config_dconf }}"
       - "Config sysctl                : {{ config_sysctl }}"
       - "Bin Path to put files into   : {{ bin_path }}"
-      - "Active user                  : {{ active_user|string }}"
+      - "Active user                  : {{ active_user | string }}"
       - "Linux Mint major version     : {{ ansible_distribution_major_version }}"
       - "Linux Mint version           : {{ ansible_distribution_version }}"
       - "Linux Mint release codename  : {{ ansible_distribution_release }}"
@@ -429,7 +430,7 @@
     - python
   - name: install_flatpak_apps
     community.general.flatpak:
-      name: "{{ item.name|string }}"
+      name: "{{ item.name | string }}"
       state: present
       method: system
     loop: "{{ flatpak }}"
@@ -456,8 +457,8 @@
     - flatpak
   - name: install_npm_packages
     community.general.npm:
-      name: "{{ item.name|string }}"
-      state: "{{ item.state|string }}"
+      name: "{{ item.name | string }}"
+      state: "{{ item.state | string }}"
       global: yes
     loop: "{{ npm }}"
     retries: "{{ retries_count }}"
@@ -654,8 +655,8 @@
         path: /etc/ansible/ansible.cfg
         section: "{{ item.section }}"
         option: "{{ item.option }}"
-        value: "{{ item.value|string }}"
-        state: "{{ item.state|string }}"
+        value: "{{ item.value | string }}"
+        state: "{{ item.state | string }}"
         mode: 0644
         backup: yes
       retries: "{{ retries_count }}"
@@ -667,11 +668,37 @@
     when: config_ansible
     tags:
     - ansible
+  # start steampipe plugins block
+  - name: install_steampipe_plugins_block
+    block:
+    - name: check_if_steampipe_exists
+      ansible.builtin.package_facts:
+         manager: auto
+         strategy: all
+      register: r_check_if_steampipe_exists
+      retries: "{{ retries_count }}"
+      delay: "{{ delay_time }}"
+      until: r_check_if_steampipe_exists is success
+      any_errors_fatal: true
+      ignore_errors: false
+    - name: install_steampipe_plugins
+      ansible.builtin.include_tasks: ./tasks/steampipe_plugins.yml
+      loop: "{{ steampipe.plugins }}"
+      when: "'steampipe' in ansible_facts.packages and install_steampipe_plugins"
+      args:
+        apply:
+          tags:
+          - steampipe
+          - plugins
+          - apps
+          - tasks
+      tags:
+      - always
   # start vscode extensions block
   - name: install_vscode_extensions
     block:
     - name: remove_obsolete_extensions
-      ansible.builtin.shell: "code --uninstall-extension {{ item }}|true"
+      ansible.builtin.shell: "code --uninstall-extension {{ item }} | true"
       any_errors_fatal: false
       ignore_errors: true
       loop: "{{ vscode_obsolete }}"
@@ -688,7 +715,7 @@
       become: yes
       become_user: "{{ active_user }}"
     - name: install_missing_extensions
-      ansible.builtin.shell: if [ ! $(code --list-extensions|grep {{ item }}) ]; then code --install-extension {{ item }} --force; fi
+      ansible.builtin.shell: if [ ! $(code --list-extensions | grep {{ item }}) ]; then code --install-extension {{ item }} --force; fi
       loop: "{{ vscode }}"
       register: r_install_extension
       retries: "{{ retries_count }}"
@@ -781,9 +808,9 @@
       when: r_create_fstrim_override.changed
     - name: sysctl_changes
       ansible.posix.sysctl:
-        name: "{{ item.name|string }}"
-        value: "{{ item.value|string }}"
-        state: "{{ item.state|string }}"
+        name: "{{ item.name | string }}"
+        value: "{{ item.value | string }}"
+        state: "{{ item.state | string }}"
         reload: yes
       loop: "{{ sysctl }}"
       register: r_sysctl_changes
@@ -829,7 +856,7 @@
       community.general.dconf:
         key: "{{ item.key }}"
         state: "{{ item.state }}"
-        value: "{{ item.value|string }}"
+        value: "{{ item.value | string }}"
       loop: "{{ dconf }}"
       register: r_dconf_values
       retries: "{{ retries_count }}"

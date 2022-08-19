@@ -135,6 +135,7 @@ Most variables are stored in `mint19|20.yaml` file. If you need extra settings, 
 |install_flatpak|true|should flatpak packages be installed|
 |install_npm|true|should npm packages be installed|
 |install_vscode_extensions|true|should we install extra vscode extensions|
+|install_steampipe_plugins|true|should we install extra steampipe plugins|
 |install_zsh|false|should we install oh-my-zsh and p10k theme|
 |install_yubico|false|should we install yubico software|
 |install_state|latest|if set to latest, every pass of playbook will also update packages|
@@ -263,9 +264,9 @@ custom_packages:
 | k3s |Lightweight Kubernetes 5 less than k8s|[https://k3s.io/](https://k3s.io/)|
 | k9s |Kubernetes CLI Manager|[https://github.com/derailed/k9s](https://github.com/derailed/k9s)|
 | Keepass | Password Manager| [https://keepass.info/](https://keepass.info/)|
-| Kubernetes| Production-Grade Container Orchestration|[https://kubernetes.io/](https://kubernetes.io/)|
 | Kubeconform| Kubernetes config validator|[https://github.com/yannh/kubeconform](https://github.com/yannh/kubeconform)|
 | Kubent| Kubernetes-no-trouble|[https://github.com/doitintl/kube-no-trouble](https://github.com/doitintl/kube-no-trouble)|
+| Kubernetes| Production-Grade Container Orchestration|[https://kubernetes.io/](https://kubernetes.io/)|
 | Kustomize|Kubernetes customiser |[https://github.com/kubernetes-sigs/kustomize](https://github.com/kubernetes-sigs/kustomize)|
 | Lens| Kubernetes IDE| [https://k8slens.dev/](https://k8slens.dev/)|
 | Minikube | Run Kubernetes locally |[https://github.com/kubernetes/minikube](https://github.com/kubernetes/minikube)|
@@ -274,10 +275,10 @@ custom_packages:
 | Palemoon | Browser alternative (Java_+Flash)| [https://www.palemoon.org/](https://www.palemoon.org/)
 | Polaris|Validation of best practices in your Kubernetes clusters|[https://www.fairwinds.com/polaris](https://www.fairwinds.com/polaris)|
 | RamboxOS |Multi IM|[https://github.com/TheGoddessInari/hamsket](https://github.com/TheGoddessInari/hamsket)|
+| Rancher Desktop|Rancher Desktop runs Kubernetes and container management on your desktop| [https://rancherdesktop.io/](https://rancherdesktop.io/)|
 | Redshift | Monitor temperature changer| [http://jonls.dk/redshift/](http://jonls.dk/redshift/)|
 | Remmina | Remote Connection Manager |[https://remmina.org/](https://remmina.org/)
 | RKE| Rancher Kubernetes Engine | [https://github.com/rancher/rke](https://github.com/rancher/rke) |
-| Rancher Desktop|Rancher Desktop runs Kubernetes and container management on your desktop| [https://rancherdesktop.io/](https://rancherdesktop.io/)|
 | Shutter | Screenshot Manipulation| [http://shutter-project.org/](http://shutter-project.org/)|
 | Synapse | Symantic Launcher|[https://launchpad.net/synapse-project](https://launchpad.net/synapse-project)|
 | Team Viewer | Remote desktop | [https://www.teamviewer.com](https://www.teamviewer.com) |
@@ -308,6 +309,7 @@ custom_packages:
 | Pinta | Drawing/Image Editing| [https://pinta-project.com/pintaproject/pinta/](https://pinta-project.com/pintaproject/pinta/)|
 | Skype for Linux | Communicator | [https://www.skype.com](https://www.skype.com)|
 | Spotify | Music Player| [https://www.spotify.com/pl/download/linux/](https://www.spotify.com/pl/download/linux/)|
+| Steampipe| select * from cloud| [https://steampipe.io/](https://steampipe.io/)|
 | Sublime Text 3 | Text Editor | [https://www.sublimetext.com/3](https://www.sublimetext.com/3)
 | Thunderbird | Email client | [https://www.thunderbird.net](https://www.thunderbird.net)|
 | Trivy |A Simple and Comprehensive Vulnerability Scanner for Containers, Suitable for CI|[https://github.com/aquasecurity/trivy](https://github.com/aquasecurity/trivy)
@@ -337,6 +339,7 @@ custom_packages:
 |----|-----------|----|
 |install_yubico_software|Install keys, repositories, packages and dekstop files for Yubico infrastructure|[https://yubico.com](https://yubico.com)|
 |configure_zsh|Installs files required by zsh, `oh-my-zsh` and `powerlevel10k`|[https://github.com/ohmyzsh/ohmyzsh](https://github.com/ohmyzsh/ohmyzsh) [https://github.com/romkatv/powerlevel10k](https://github.com/romkatv/powerlevel10k)|
+|steampipe_plugins.yaml|Install steampipe plugins | [https://steampipe.io/](https://steampipe.io/)|
 |||
 
 ## Startup applications
