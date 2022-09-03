@@ -348,7 +348,6 @@ deb:
 - https://release.axocdn.com/linux/gitkraken-amd64.deb
 - https://releases.hashicorp.com/vagrant/2.3.0/vagrant_2.3.0-1_i686.deb
 - https://github.com/Eugeny/tabby/releases/download/v1.0.183/tabby-1.0.183-linux-x64.deb
-- https://github.com/TheGoddessInari/hamsket/releases/download/nightly/hamsket_0.6.5_amd64.deb
 - https://github.com/kubernetes/minikube/releases/download/v1.26.1/minikube_1.26.1-0_amd64.deb
 - https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/11664/wps-office_11.1.0.11664.XA_amd64.deb
 - https://github.com/wagoodman/dive/releases/download/v0.10.0/dive_0.10.0_linux_amd64.deb
@@ -358,9 +357,10 @@ deb:
 - https://downloads.raspberrypi.org/imager/imager_1.7.2_amd64.deb
 - https://downloads.k8slens.dev/ide/Lens-6.0.1-latest.20220810.2.amd64.deb
 - https://github.com/aquasecurity/kube-bench/releases/download/v0.6.9/kube-bench_0.6.9_linux_amd64.deb
-- https://github.com/anchore/syft/releases/download/v0.54.0/syft_0.54.0_linux_amd64.deb
-- https://cdn.zoom.us/prod/5.11.1.3595/zoom_amd64.deb
-- https://github.com/turbot/steampipe/releases/download/v0.15.4/steampipe_linux_amd64.deb
+- https://github.com/anchore/syft/releases/download/v0.55.0/syft_0.55.0_linux_amd64.deb
+- https://cdn.zoom.us/prod/5.11.10.4400/zoom_amd64.deb
+- https://github.com/turbot/steampipe/releases/download/v0.16.1/steampipe_linux_amd64.deb
+
 flatpak:
 - name: https://flathub.org/repo/appstream/com.getpostman.Postman.flatpakref
 - name: https://dl.flathub.org/repo/appstream/md.obsidian.Obsidian.flatpakref
@@ -394,7 +394,7 @@ pip:
 - oci-cli
 - terraform-compliance
 unpack:
-- url: https://get.helm.sh/helm-v3.9.3-linux-amd64.tar.gz
+- url: https://get.helm.sh/helm-v3.9.4-linux-amd64.tar.gz
   destination: helm
   source: helm
   destination_file: helm3.tar.gz
@@ -414,12 +414,12 @@ unpack:
   source: packer
   destination_file: packer.zip
   folder:
-- url: https://releases.hashicorp.com/terraform/1.2.7/terraform_1.2.7_linux_amd64.zip
+- url: https://releases.hashicorp.com/terraform/1.2.8/terraform_1.2.8_linux_amd64.zip
   destination: terraform
   source: terraform
   destination_file: terraform.zip
   folder:
-- url: https://releases.hashicorp.com/vault/1.11.2/vault_1.11.2_linux_amd64.zip
+- url: https://releases.hashicorp.com/vault/1.11.3/vault_1.11.3_linux_amd64.zip
   destination: vault
   source: vault
   destination_file: vault.zip
@@ -434,7 +434,7 @@ unpack:
   source: ngrok
   destination_file: ngrok-stable-linux-amd64.zip
   folder:
-- url: https://github.com/kastenhq/kubestr/releases/download/v0.4.34/kubestr_0.4.34_Linux_amd64.tar.gz
+- url: https://github.com/kastenhq/kubestr/releases/download/v0.4.35/kubestr_0.4.35_Linux_amd64.tar.gz
   destination: kubestr
   source: kubestr
   destination_file: kubestr.tar.gz
@@ -459,12 +459,12 @@ unpack:
   source: k9s
   destination_file: k9s.tar.gz
   folder:
-- url: https://github.com/doitintl/kube-no-trouble/releases/download/nightly-0.5.1-23-g73fb3a7/kubent-nightly-0.5.1-23-g73fb3a7-linux-amd64.tar.gz
+- url: https://github.com/doitintl/kube-no-trouble/releases/download/nightly-0.5.1-42-ga65f727/kubent-nightly-0.5.1-42-ga65f727-linux-amd64.tar.gz
   destination: kubent
   source: kubent
   destination_file: kubent.tar.gz
   folder:
-- url: https://github.com/datreeio/datree/releases/download/1.6.6/datree-cli_1.6.6_Linux_x86_64.zip
+- url: https://github.com/datreeio/datree/releases/download/1.6.13/datree-cli_1.6.13_Linux_x86_64.zip
   destination: datree
   source: datree
   destination_file: datree.zip
@@ -473,37 +473,37 @@ downloads:
 - url: https://github.com/ffuf/ffuf/releases/download/v1.0.2/ffuf_1.0.2_linux_amd64.tar.gz
   destination: ffluf
   skip_tree: false
-- url: https://github.com/FairwindsOps/polaris/releases/download/7.0.1/polaris_linux_amd64.tar.gz
+- url: https://github.com/FairwindsOps/polaris/releases/download/7.0.2/polaris_linux_amd64.tar.gz
   destination: polaris
   skip_tree: false
 - url: https://github.com/orf/gping/releases/download/gping-v1.3.2/gping-Linux-x86_64.tar.gz
   destination: gping
   skip_tree: false
 files:
-- url: https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64
+- url: https://github.com/docker/compose/releases/download/v2.10.2/docker-compose-linux-x86_64
   destination: docker-compose
 - url: https://github.com/bcicen/ctop/releases/download/v0.7.7/ctop-0.7.7-linux-amd64
   destination: ctop
-- url: https://github.com/rancher/rke/releases/download/v1.3.13/rke_linux-amd64
+- url: https://github.com/rancher/rke/releases/download/v1.3.14/rke_linux-amd64
   destination: rke
 - url: https://github.com/dannagle/PacketSender/releases/download/v7.2.3/Packet_Sender-v7.2.4.AppImage
   destination: packetsender
   desktop_file: ./files/apps/packetsender/packetsender.desktop
-- url: https://github.com/k3s-io/k3s/releases/download/v1.23.9%2Bk3s1/k3s
+- url: https://github.com/k3s-io/k3s/releases/download/v1.23.10%2Bk3s1/k3s
   destination: k3s
-- url: https://github.com/k3d-io/k3d/releases/download/v5.4.4/k3d-linux-amd64
+- url: https://github.com/k3d-io/k3d/releases/download/v5.4.6/k3d-linux-amd64
   destination: k3d
 - url: https://github.com/hadolint/hadolint/releases/download/v2.10.0/hadolint-Linux-x86_64
   destination: hadolint
-- url: https://github.com/gruntwork-io/terragrunt/releases/download/v0.38.7/terragrunt_linux_amd64
+- url: https://github.com/gruntwork-io/terragrunt/releases/download/v0.38.8/terragrunt_linux_amd64
   destination: terragrunt
 - url: https://github.com/Azure/bicep/releases/latest/download/bicep-linux-x64
   destination: bicep
-- url: https://github.com/aquasecurity/tfsec/releases/download/v1.27.1/tfsec-linux-amd64
+- url: https://github.com/aquasecurity/tfsec/releases/download/v1.27.6/tfsec-linux-amd64
   destination: tfsec
-- url: https://github.com/alexellis/k3sup/releases/download/0.12.0/k3sup
+- url: https://github.com/alexellis/k3sup/releases/download/0.12.3/k3sup
   destination: k3sup
-- url: https://github.com/argoproj/argo-cd/releases/download/v2.4.9/argocd-linux-amd64
+- url: https://github.com/argoproj/argo-cd/releases/download/v2.4.11/argocd-linux-amd64
   destination: argocd
 ansible:
   cfg: /etc/ansible/ansible.cfg

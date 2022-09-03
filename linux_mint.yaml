@@ -91,6 +91,7 @@
       - "Install_flatpak packages     : {{ install_flatpak | bool }}"
       - "Install_npm packages         : {{ install_npm | bool }}"
       - "Install vscode extensions    : {{ install_vscode_extensions | bool }} "
+      - "Install steampipe plugins    : {{ install_steampipe_plugins | bool }} "
       - "Install zsh                  : {{ install_zsh | bool }}"
       - "Install Yubico               : {{ install_yubico | bool }}"
       - "Config for Ansible           : {{ config_ansible }}"
@@ -673,8 +674,8 @@
     block:
     - name: check_if_steampipe_exists
       ansible.builtin.package_facts:
-         manager: auto
-         strategy: all
+        manager: auto
+        strategy: all
       register: r_check_if_steampipe_exists
       retries: "{{ retries_count }}"
       delay: "{{ delay_time }}"

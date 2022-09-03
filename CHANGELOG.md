@@ -1,5 +1,28 @@
 # Changelog "linux_mint"
 
+## Version 2.5.3 [2022-09-03]
+
+* [BREAKING_CHANGE] removal of `hamsket` package
+* [BREAKING_CHANGE] upgraded `docker-compose` binary from v1 to v2 branch, version 2.10.2
+* [APPLICATION] upgraded `argocd` to version 2.4.11
+* [APPLICATION] upgraded `datree` to version 1.6.13
+* [APPLICATION] upgraded `helm`  to version 3.9.4
+* [APPLICATION] upgraded `k3d` to version 5.4.6
+* [APPLICATION] upgraded `k3s` to version 1.23.10
+* [APPLICATION] upgraded `k3sup` to version 0.12.3
+* [APPLICATION] upgraded `kubent` to version nightly-0.5.1-42-ga65f727
+* [APPLICATION] upgraded `kubestr` to version 0.4.35
+* [APPLICATION] upgraded `polaris` to version 7.0.2
+* [APPLICATION] upgraded `rke` to version 1.3.14
+* [APPLICATION] upgraded `steampipe` to version 0.16.1
+* [APPLICATION] upgraded `syft` to version 0.55.0
+* [APPLICATION] upgraded `terraform` to version 1.2.8
+* [APPLICATION] upgraded `terragrunt` to version 0.38.9
+* [APPLICATION] upgraded `tfsec` to version 1.27.6
+* [APPLICATION] upgraded `vault` to version 1.11.3
+* [APPLICATION] upgraded `zoom` to version 5.11.10.4400
+* [APPLICATION] added `rambox` in version 2.0.6
+
 ## Version 2.5.2 [2022-08-19]
 
 * [APPLICATION] added `steampipe` [https://github.com/turbot/steampipe](https://github.com/turbot/steampipe)
