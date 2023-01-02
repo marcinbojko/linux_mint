@@ -19,6 +19,7 @@
   ansible.builtin.get_url:
     url: "{{ item }}"
     dest: /usr/local/share/fonts/power10k
+    mode: "0644"
   retries: "{{ retries_count }}"
   delay: "{{ delay_time }}"
   register: r_download_fonts

@@ -1,0 +1,58 @@
+# install_yubico_software_variables
+yubico_repo_key:
+  - keyserver: keyserver.ubuntu.com
+    id: 32CBA1A9
+yubico_repositories:
+  - repo: ppa:yubico/stable
+    filename: yubico-stable-jammy
+yubico_packages:
+  - yubikey-manager
+  - yubikey-personalization-gui
+  - libpam-yubico
+  - libpam-u2f
+yubico_appimage:
+  - url: https://developers.yubico.com/yubioath-desktop/Releases/yubioath-desktop-latest-linux.AppImage
+    destination: yubioath
+    desktop_file: ./files/apps/yubico/yubioath.desktop
+  - url: https://developers.yubico.com/yubikey-manager-qt/Releases/yubikey-manager-qt-latest-linux.AppImage
+    destination: yubikey-manager
+    desktop_file: ./files/apps/yubico/yubikey-manager.desktop
+steampipe:
+  update_plugins: true
+  plugins:
+    - name: oci
+      version: latest
+    - name: cloudflare
+      version: latest
+    - name: steampipe
+      version: latest
+    - name: github
+      version: latest
+    - name: kubernetes
+      version: latest
+    - name: net
+      version: latest
+    - name: azure
+      version: latest
+    - name: aws
+      version: latest
+    - name: gcloud
+      version: latest
+    - name: trivy
+      version: latest
+    - name: config
+      version: latest
+    - name: crt
+      version: latest
+    - name: csv
+      version: latest
+    - name: docker
+      version: latest
+    - name: gcp
+      version: latest
+    - name: gitlab
+      version: latest
+    - name: vault
+      version: latest
+    - name: ldap
+      version: latest

@@ -1,9 +1,10 @@
 skip_list:
   - no-handler
   - command-instead-of-shell
+  - package-latest
   - git-latest
   - experimental
   - yaml
-  - fqcn-builtins
+  - name[casing]
 exclude_paths:
   - .github/

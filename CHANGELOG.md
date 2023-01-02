@@ -1,5 +1,71 @@
 # Changelog "linux_mint"
 
+## Version 2.6.0 [pre-release]
+
+* [MINT] Support for Linux Mint 21.0 `Veronica` and 21.1 `Vera`
+
+## Version 2.5.4 [2023-01-02]
+
+* [BREAKING_CHANGE] - switch some repositories from http to https in `/etc/apt/sources.list.d`
+
+  from (example)
+
+  ```ini
+  deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
+  ```
+
+  to
+
+  ```ini
+  deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main
+  ```
+
+  Please, be aware that you have to clean doubles manually, as this playbook will probably fail when doubles are found.
+* [BREAKING_CHANGE] - switch packages: dotnet-sdk and dotnet-runtime to version 7
+
+  ```yaml
+  - dotnet-runtime-7.0
+  - dotnet-sdk-7.0
+  ```
+
+* [APPLICATION] upgraded `argocd` to version 2.5.5
+* [APPLICATION] upgraded `datree` to version 1.8.12
+* [APPLICATION] upgraded `docker-compose` to version 2.14.2
+* [APPLICATION] upgraded `helm` to version 3.10.3
+* [APPLICATION] upgraded `k3s` to version 1.23.15
+* [APPLICATION] upgraded `k3sup` to version 0.12.12
+* [APPLICATION] upgraded `k9s` to version 0.26.7
+* [APPLICATION] upgraded `kube-bench` to version 0.6.10
+* [APPLICATION] upgraded `kubent` to version nightly-0.7.0-2-g00f8453
+* [APPLICATION] upgraded `kubestr` to version 0.4.36
+* [APPLICATION] upgraded `lens` to version 6.3.0
+* [APPLICATION] upgraded `minikube` to version 1.28.0
+* [APPLICATION] upgraded `nerdctl` to version 1.1.0
+* [APPLICATION] upgraded `polaris` to version 7.2.0
+* [APPLICATION] upgraded `rke` to version 1.4.1
+* [APPLICATION] upgraded `vagrant` to version 2.3.3
+* [APPLICATION] upgraded `amass` to version 3.21.2
+* [APPLICATION] upgraded `angryip` to version 3.9.0
+* [APPLICATION] upgraded `dockle` to version 0.4.9
+* [APPLICATION] upgraded `balena-etcher` to version 1.12.7
+* [APPLICATION] upgraded `gping` to version 1.6.3
+* [APPLICATION] upgraded `hadolint` to version 2.12.0
+* [APPLICATION] upgraded `packer` to version 1.8.5
+* [APPLICATION] upgraded `rambox` to version 2.0.9
+* [APPLICATION] upgraded `rbpi-imager` to version 1.7.3
+* [APPLICATION] upgraded `steampipe` to version 0.17.4
+* [APPLICATION] upgraded `syft` to version 0.64.0
+* [APPLICATION] upgraded `tabby` to version 1.0.187
+* [APPLICATION] upgraded `terraform` to version 1.3.6
+* [APPLICATION] upgraded `terragrunt` to version 0.42.5
+* [APPLICATION] upgraded `tflint` to version 0.44.1
+* [APPLICATION] upgraded `tfsec` to version 1.28.1
+* [APPLICATION] upgraded `vagrant` to version 2.3.4
+* [APPLICATION] upgraded `vault` to version 1.12.2
+* [APPLICATION] upgraded `zoom` to version 5.13.3.651
+* [APPLICATION] removal of `k6`
+* [REPOSITORY] removal of `k6`
+
 ## Version 2.5.3 [2022-09-03]
 
 * [BREAKING_CHANGE] removal of `hamsket` package

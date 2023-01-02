@@ -18,8 +18,8 @@
     config_dconf: true                        # do changes in dconf editor
     config_sysctl: true                       # do changes in sysctl
     active_user: "{{ ansible_ssh_user }}"     # user for which you're setting folders. By default taken from group_vars
-    retries_count: 4                          # how many retries
-    delay_time: 15                            # delay time in seconds between retries
+    retries_count: 3                          # how many retries
+    delay_time: 3                            # delay time in seconds between retries
     bin_path: /usr/local/bin                  # Where to put all downloaded execs.
     reboot_required: false                    # force reboot even if apt upgrade won't change anything
     unpack_folder: /tmp/linux_mint            # folder to which we're going to unpack and download files
@@ -118,7 +118,7 @@
     delay: "{{ delay_time }}"
     register: r_systemd_timesyncd
     until: r_systemd_timesyncd is success
-    when: ansible_distribution_major_version|int > 19
+    when: ansible_distribution_major_version | int > 19
     any_errors_fatal: true
     tags:
     - packages
@@ -150,7 +150,7 @@
     retries: "{{ retries_count }}"
     delay: "{{ delay_time }}"
     register: r_repositories_remove
-    until: r_repositories_remove  is success
+    until: r_repositories_remove is success
     any_errors_fatal: false
     tags:
     - repositories
@@ -165,7 +165,7 @@
     retries: "{{ retries_count }}"
     delay: "{{ delay_time }}"
     register: r_files_remove
-    until: r_files_remove  is success
+    until: r_files_remove is success
     any_errors_fatal: false
     ignore_errors: true
     tags:
@@ -203,6 +203,36 @@
     - packages
     - base
     - obsolete
+# apt initial refresh
+  - name: apt_initial_refresh
+    ansible.builtin.apt:
+      update_cache: yes
+      force: true
+    ignore_errors: true
+    any_errors_fatal: false
+    changed_when: false
+    register: r_apt_initial_refresh
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
+    until: r_apt_initial_refresh is success
+    tags:
+    - packages
+    - base
+# install base apt files in case of clean system
+  - name: install_packages_in_case_of_clean_system
+    ansible.builtin.apt:
+      name: "{{ item }}"
+      state: latest
+    loop: "{{ packages_clean_system }}"
+    register: r_clean_system_packages
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
+    until: r_clean_system_packages is success
+    any_errors_fatal: false
+    tags:
+    - packages
+    - base
+    - clean_system
 # Install apt pgp keys (files)
   - name: install_apt_keys
     ansible.builtin.apt_key:
@@ -254,11 +284,12 @@
       codename: "{{ codename }}"
       filename: "{{ item.filename }}"
       mode: "0644"
+      update_cache: false
     loop: "{{ repositories }}"
     retries: "{{ retries_count }}"
     delay: 3
     register: r_repositories
-    until: r_repositories  is success
+    until: r_repositories is success
     any_errors_fatal: false
     tags:
     - repositories
@@ -270,12 +301,13 @@
       codename: "{{ codename }}"
       filename: "{{ item.filename }}"
       mode: "0644"
+      update_cache: false
     loop: "{{ custom_repositories }}"
     retries: "{{ retries_count }}"
     delay: 3
     register: r_custom_repositories
-    until: r_custom_repositories  is success
-    when: custom_repositories is defined and custom_repositories|length >0
+    until: r_custom_repositories is success
+    when: custom_repositories is defined and custom_repositories | length > 0
     any_errors_fatal: false
     tags:
     - repositories
@@ -289,26 +321,28 @@
       codename: "{{ item.codename }}"
       filename: "{{ item.filename }}"
       mode: "0644"
+      update_cache: false
     loop: "{{ repositories_optional }}"
     retries: "{{ retries_count }}"
     delay: "{{ delay_time }}"
     register: repositories
-    until: repositories  is success
+    until: repositories is success
     any_errors_fatal: false
     tags:
     - repositories
     - base
-  - name: apt_initial_refresh
+# restart apt cache
+  - name: apt_after_repos_refresh
     ansible.builtin.apt:
       update_cache: yes
       force: true
     ignore_errors: true
     any_errors_fatal: false
     changed_when: false
-    register: r_apt_initial_refresh
+    register: r_apt_after_repos_refresh
     retries: "{{ retries_count }}"
-    delay: 3
-    until: r_apt_initial_refresh is success
+    delay: "{{ delay_time }}"
+    until: r_apt_after_repos_refresh is success
     tags:
     - packages
     - base
@@ -368,7 +402,7 @@
       name: "{{ item }}"
       state: "{{ install_state }}"
       update_cache: no
-    loop: "{{ custom_packages | default ([]) }}"
+    loop: "{{ custom_packages | default([]) }}"
     retries: "{{ retries_count }}"
     delay: "{{ delay_time }}"
     register: r_custom_packages
@@ -499,7 +533,7 @@
     delay: "{{ delay_time }}"
     register: r_unarchive
     until: r_unarchive is success
-    failed_when: r_unarchive.files is not defined or r_unarchive.files|reject("equalto", "")|list|length==0
+    failed_when: r_unarchive.files is not defined or r_unarchive.files | reject("equalto", "") | list | length == 0
     loop: "{{ downloads }}"
     tags:
     - base
@@ -541,7 +575,7 @@
       group: root
       mode: 0644
     loop: "{{ files }}"
-    when: item.desktop_file is defined and item.desktop_file | length >0
+    when: item.desktop_file is defined and item.desktop_file | length > 0
     any_errors_fatal: false
     register: r_put_desktop_files
     retries: "{{ retries_count }}"
@@ -652,7 +686,7 @@
         ansible_exists: "{{ r_check_if_ansible_cfg_exists.stat.exists }}"
       when: r_check_if_ansible_cfg_exists is success
     - name: change_ansible_options
-      ansible.builtin.ini_file:
+      community.general.ini_file:
         path: /etc/ansible/ansible.cfg
         section: "{{ item.section }}"
         option: "{{ item.option }}"
@@ -738,7 +772,7 @@
     block:
     # OS related tweaks and finetuning
     - name: set_timezone
-      ansible.builtin.timezone:
+      community.general.timezone:
         name: "{{ timezone }}"
       any_errors_fatal: false
     - name: add_neofetch_to_bashrc_globals
@@ -747,7 +781,7 @@
         line: neofetch
       any_errors_fatal: false
     - name: set_avahi_config
-      ansible.builtin.ini_file:
+      community.general.ini_file:
         path: /etc/avahi/avahi-daemon.conf
         section: server
         option: domain-name
@@ -820,7 +854,7 @@
       until: r_sysctl_changes is success
       when: config_sysctl
     - name: change_alternatives
-      ansible.builtin.alternatives:
+      community.general.alternatives:
         name: "{{ item.name }}"
         path: "{{ item.path }}"
       loop: "{{ alternatives }}"
@@ -849,6 +883,8 @@
       delay: "{{ delay_time }}"
       until: r_dconf_values is success
       when: config_dconf and "absent" in item.state
+      any_errors_fatal: false
+      ignore_errors: true
       become: yes
       become_user: "{{ active_user }}"
       tags:

@@ -1,45 +1,43 @@
-# Mint 20 variables file
+# Mint 21 variables file
 ---
 ansible_python_interpreter: /usr/bin/python3
-codename: focal
+codename: jammy
 # repositories we'd like to add - mandatory
 repositories:
-- repo: deb http://download.opensuse.org/repositories/home:/Alexx2000/xUbuntu_20.04/ /
+- repo: deb http://download.opensuse.org/repositories/home:/Alexx2000/xUbuntu_22.04/ /
   filename: alexx2000
-- repo: deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ focal main
+- repo: deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ jammy main
   filename: azure-cli
-- repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+- repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu jammy stable
   filename: docker-stable
-- repo: deb http://packages.cloud.google.com/apt gcsfuse-focal main
+- repo: deb https://packages.cloud.google.com/apt gcsfuse-jammy main
   filename: gcsfuse
-- repo: ppa:gezakovacs/ppa
-  filename: gezakovacs
 - repo: deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main
   filename: google-chrome
 - repo: deb https://packages.cloud.google.com/apt cloud-sdk main
   filename: google-cloud-sdk
 - repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
   filename: kubernetes-stable
-- repo: deb [arch=amd64] https://packages.microsoft.com/ubuntu/20.04/prod focal main
+- repo: deb [arch=amd64] https://packages.microsoft.com/ubuntu/22.04/prod jammy main
   filename: microsoft-prod-deb
 - repo: ppa:mozillateam/ppa
   filename: mozillateam
-- repo: deb http://download.opensuse.org/repositories/home:/stevenpusser/xUbuntu_20.04 /
+- repo: deb http://download.opensuse.org/repositories/home:/stevenpusser/xUbuntu_22.04 /
   filename: palemoon
 - repo: ppa:remmina-ppa-team/remmina-next
   filename: remmina-next
-- repo: ppa:shutter/ppa
+- repo: deb https://ppa.launchpadcontent.net/shutter/ppa/ubuntu impish main
   filename: shutter-next
 - repo: ppa:ansible/ansible
   filename: ansible
-#  codename: focal
+#  codename: jammy
 - repo: ppa:ubuntu-mozilla-security/ppa
   filename: ubuntu-mozilla-security
-- repo: deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian focal contrib
+- repo: deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian jammy contrib
   filename: virtualbox
 - repo: deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main
   filename: vscode
-- repo: ppa:webupd8team/y-ppa-manager
+- repo: deb https://ppa.launchpadcontent.net/webupd8team/y-ppa-manager/ubuntu impish main
   filename: y-ppa-manager
 - repo: ppa:libreoffice/ppa
   filename: libreoffice
@@ -48,16 +46,16 @@ repositories:
 repositories_optional:
  # brave browser
 - repo: deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main
-  filename: brave-browser-release-focal
+  filename: brave-browser-release-jammy
   codename: stable
 - repo: ppa:xuzhen666/dockbarx
-  codename: focal
+  codename: jammy
   filename: dockbarx
 - repo: deb http://repo.sinew.in/ stable main
   codename: stable
   filename: enpass
 - repo: ppa:danielrichter2007/grub-customizer
-  codename: xenial
+  codename: jammy
   filename: grub-customizer
 - repo: ppa:noobslab/icons
   filename: noobslab-icons
@@ -65,57 +63,53 @@ repositories_optional:
 - repo: ppa:noobslab/themes
   filename: noobslab-themes
   codename: xenial
-- repo: deb http://apt.puppetlabs.com bionic puppet7
+- repo: deb http://apt.puppetlabs.com jammy puppet7
   filename: puppet7
-  codename: focal
+  codename: jammy
 - repo: deb http://repository.spotify.com stable non-free
   codename: stable
   filename: spotify
 - repo: deb https://download.sublimetext.com/ apt/stable/
   codename: stable
   filename: sublime-text
-- repo: deb https://aquasecurity.github.io/trivy-repo/deb focal main
+- repo: deb https://aquasecurity.github.io/trivy-repo/deb jammy main
   filename: trivy
-  codename: focal
+  codename: jammy
 - repo: deb [arch=amd64] https://repository.veeam.com/backup/linux/agent/dpkg/debian/public stable veeam
   codename: stable
   filename: veeam-agent
 - repo: ppa:unit193/encryption
   filename: veracrypt
-  codename: focal
-- repo: ppa:nilarimogard/webupd8
+  codename: jammy
+- repo: deb https://ppa.launchpadcontent.net/nilarimogard/webupd8/ubuntu hirsute main
   filename: webupdt
-  codename: focal
-- repo: ppa:linuxuprising/apps
+  codename: jammy
+- repo: deb https://ppa.launchpadcontent.net/linuxuprising/apps/ubuntu impish main
   filename: linuxuprising
-  codename: focal
+  codename: impish
 - repo: deb [arch=amd64] https://packages.microsoft.com/repos/ms-teams stable main
   filename: teams
-  codename: focal
-- repo: deb https://apt.insync.io/mint uma non-free contrib
+  codename: jammy
+- repo: deb https://apt.insync.io/mint vanessa non-free contrib
   filename: insync
-  codename: ulyana
+  codename: vanessa
 - repo: deb https://download.opensuse.org/repositories/isv:/Rancher:/stable/deb/ ./
   filename: rancher-desktop
   codename: stable
 repositories_remove:
 - repo: ppa:alexx2000/doublecmd
   filename: alexx2000-doublecmd
-- repo: deb https://knqyf263.github.io/trivy-repo/deb focal main
+- repo: deb https://knqyf263.github.io/trivy-repo/deb jammy main
   filename: trivy
 - repo: ppa:ehoover/compholio
   filename: compholio
-- repo: deb [arch=amd64] http://repo.fortinet.com/repo/ubuntu/ /focal multiverse
+- repo: deb [arch=amd64] http://repo.fortinet.com/repo/ubuntu/ /xenial multiverse
   filename: forticlient
-  codename: focal
+  codename: xenial
 - repo: deb https://packagecloud.io/github/git-lfs/linuxmint/ ulyana main
-  filename: github_git-lfs,
-- repo: ppa:ubuntuhandbook1/shutter
-  filename: shutter
+  filename: github_git-lfs
 - repo: ppa:synapse-core/testing
   filename: synapse-core
-- repo: ppa:linuxuprising/shutter
-  filename: shutter
 - repo: deb http://apt.puppetlabs.com bionic puppet5
   filename: puppet5
   codename: bionic
@@ -123,7 +117,7 @@ repositories_remove:
   codename: stable
   filename: skype-stable
 - repo: ppa:dawidd0811/neofetch
-  codename: focal
+  codename: jammy
   filename: neofetch
 - repo: deb https://dl.k6.io/deb stable main
   filename: k6
@@ -137,8 +131,8 @@ files_remove:
 - path: /etc/apt/sources.list.d/neofetch.list
 - path: /etc/apt/sources.list.d/yubico-stable-foca.list
 keys:
-- https://download.opensuse.org/repositories/home:/stevenpusser/xUbuntu_20.04/Release.key
-- https://download.opensuse.org/repositories/home:/Alexx2000/xUbuntu_20.04/Release.key
+- https://download.opensuse.org/repositories/home:/stevenpusser/xUbuntu_22.04/Release.key
+- https://download.opensuse.org/repositories/home:/Alexx2000/xUbuntu_22.04/Release.key
 - https://packages.microsoft.com/keys/microsoft.asc
 - https://dl-ssl.google.com/linux/linux_signing_key.pub
 - https://packages.cloud.google.com/apt/doc/apt-key.gpg
@@ -165,6 +159,18 @@ keys_keyserver:
   # forticlient
 - keyserver: keyserver.ubuntu.com
   id: 18AC26395E54716D
+  # linux uprising
+- keyserver: keyserver.ubuntu.com
+  id: EA8CACC073C3DB2A
+  # Shutter PPA
+- keyserver: keyserver.ubuntu.com
+  id: FC6D7D9D009ED615
+  # Webupdt8 PPA
+- keyserver: keyserver.ubuntu.com
+  id: 531EE72F4C9D234C
+  # Webupdt8 y-ppa-manager
+- keyserver: keyserver.ubuntu.com
+  id: C2518248EEA14886
 keys_remove:
 - 5E54716D
 packages_remove:
@@ -180,6 +186,12 @@ packages_remove:
 - openjdk-13-jdk
 - openjdk-13-jre
 - openjdk-13-headless
+- openjdk-17-jdk
+- openjdk-17-jre
+- openjdk-17-headless
+- openjdk-18-jdk
+- openjdk-18-jre
+- openjdk-18-headless
 - zenmap
 - balena-etcher-electron
 packages_clean_system:
@@ -223,9 +235,6 @@ packages:
 - python3-wheel
 - python3-gpg
 - python3-psutil
-- python-dbus
-- python-dev
-- python-cairo
 - diodon
 - doublecmd-gtk
 - htop
@@ -246,7 +255,6 @@ packages:
 - ndiff
 - extlinux
 - syslinux
-- unetbootin-translations
 - va-driver-all
 - p7zip-rar
 - chromium-codecs-ffmpeg-extra
@@ -264,9 +272,9 @@ packages:
 - keepass2
 - smartmontools
 - libqt5multimedia5-plugins
-- openjdk-16-jre
-- openjdk-16-jdk
-- openjdk-16-jre-headless
+- openjdk-19-jre
+- openjdk-19-jdk
+- openjdk-19-jre-headless
 - gsmartcontrol
 - nmon
 - sysstat
@@ -316,14 +324,14 @@ packages:
 - moreutils
 packages_optional:
 - enpass
-- pdk
+# missing 2023-01
+#- pdk
 - puppet-agent
 - kodi
 - dockbarx
 - grub-customizer
-- unetbootin
-- adobe-flashplugin
-- adobe-flash-properties-gtk
+#- adobe-flashplugin
+#- adobe-flash-properties-gtk
 - gimp
 - vlc
 - kazam

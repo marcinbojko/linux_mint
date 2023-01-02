@@ -3,6 +3,7 @@ stages:
 ansible-lint:
   stage: ansible-lint
   image: $PIPELINE_IMAGE:$PIPELINE_IMAGE_TAG
+  retry: 2
   services:
     - docker:20.10-dind
   before_script:

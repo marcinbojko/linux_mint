@@ -53,3 +53,4 @@
 *_custom.yml
 */.cache*
 .cache*
+.vscode/

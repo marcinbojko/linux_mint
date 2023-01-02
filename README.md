@@ -419,3 +419,11 @@ Some applications are copied to `autostart` folder
 
 - Playbook exits with a message `Could not import python modules: apt, apt_pkg. Please install python3-apt package`
   - Resolution: set `ansible_python_interpreter=/usr/bin/python3`
+
+- Older distros have problem with some repositories, using PKI part that wasn't part of a ca-certificates.
+  - Resolution: Before continuing you're encouraged to install/upgrade `ca-certificates` package. Playbook is doing that as one of first steps, but this doesn't always works properly.
+- Step `apt_initial_refresh` can fail due to several reasons:
+  - problems with ca-certificates written above
+  - duplicate entries found in `/etc/apt/sources.list.d` files
+  - expired keys/certificates for repositories
+- Step `reset_dconf_values` can fail in Linux Mint 20.x due to python-psutil package being too new.
