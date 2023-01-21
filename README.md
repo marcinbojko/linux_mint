@@ -1,10 +1,10 @@
-# Ansible playbook for your DevOps/SysOps Linux Mint 20.x based workstation
+# Ansible playbook for your DevOps/SysOps Linux Mint 20.x/21.x based workstation
 
 [![Super-Linter](https://github.com/marcinbojko/linux_mint/actions/workflows/01_lint_me.yml/badge.svg)](https://github.com/marcinbojko/linux_mint/actions/workflows/01_lint_me.yml)
 [![Ansible Lint](https://github.com/marcinbojko/linux_mint/actions/workflows/02_ansible_lint.yml/badge.svg)](https://github.com/marcinbojko/linux_mint/actions/workflows/02_ansible_lint.yml)
 <!-- TOC -->
 
-- [Ansible playbook for your DevOps/SysOps Linux Mint 20.x based workstation](#ansible-playbook-for-your-devopssysops-linux-mint-20x-based-workstation)
+- [Ansible playbook for your DevOps/SysOps Linux Mint 20.x/21.x based workstation](#ansible-playbook-for-your-devopssysops-linux-mint-20x21x-based-workstation)
   - [Prerequisites](#prerequisites)
     - [Ansible 2.10 and higher reminder](#ansible-210-and-higher-reminder)
   - [Assumptions](#assumptions)
@@ -36,7 +36,7 @@
 
 ## Prerequisites
 
-- installed `Linux Mint` 20.0/20.1/20.2/20.3 - all 64-bit, standard options with extra codecs (available as selection during install)
+- installed `Linux Mint` 20.0/20.1/20.2/20.3/21.0/21.1 - all 64-bit, standard options with extra codecs (available as selection during install)
 - for previous versions of Mint - last release supporting `Linux Mint 19` was 2.1.6
 - access to internet
 - `openssh-server` installed and running
@@ -427,3 +427,6 @@ Some applications are copied to `autostart` folder
   - duplicate entries found in `/etc/apt/sources.list.d` files
   - expired keys/certificates for repositories
 - Step `reset_dconf_values` can fail in Linux Mint 20.x due to python-psutil package being too new.
+- `Insync` package strange behavior.
+  Installing packages can fail as `Insync` ignores entries in it's own insync.list file and adds new ones. This can lead to mutliple sources being added, thus apt is doomed to fail. In rare cases Insync also tries to add new repos codenames before they exist on their side. Currently there is no workaround for this.
+

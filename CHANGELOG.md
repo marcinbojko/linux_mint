@@ -1,8 +1,28 @@
 # Changelog "linux_mint"
 
-## Version 2.6.0 [pre-release]
+## Version 2.6.0 [2023-01-21]
 
 * [MINT] Support for Linux Mint 21.0 `Veronica` and 21.1 `Vera`
+* [APPLICATION] lens is now in `packages_optional` section
+* [APPLICATION] upgraded `argocd` to version 2.5.6
+* [APPLICATION] upgraded `balena-etcher` to version 1.14.3
+* [APPLICATION] upgraded `datree` to version 1.8.14
+* [APPLICATION] upgraded `docker-compose` to version 2.15.1
+* [APPLICATION] upgraded `dockle` to version 0.4.10
+* [APPLICATION] upgraded `gping` to version 1.7.0
+* [APPLICATION] upgraded `helm` to version 3.11.0
+* [APPLICATION] upgraded `kubent` to version nightly-0.7.0-9
+* [APPLICATION] upgraded `lens` to release 2023.1.110749
+* [APPLICATION] upgraded `polaris` to version 7.3.0
+* [APPLICATION] upgraded `steampipe` to version 1.18.1
+* [APPLICATION] upgraded `syft` to version 0.68.0
+* [APPLICATION] upgraded `tabby` to version 1.0.188
+* [FLATPAK] added `com.bitwarden.desktop` - Bitwarden's client
+* [KEYS] added `lens` key
+* [KEYS] changed `spotify` key to 7A3A762FAFD4A51F
+* [KEYS] removed `spotify` obsoleted key 5E3C45D7B312C643
+* [REPOSITORY] added `lens` repository
+* [VSCODE] removed obsoleted extension `ms-vsliveshare.vsliveshare-pack` - [https://marketplace.visualstudio.com/itemdetails?itemName=MS-vsliveshare.vsliveshare-pack](https://marketplace.visualstudio.com/itemdetails?itemName=MS-vsliveshare.vsliveshare-pack)
 
 ## Version 2.5.4 [2023-01-02]
 

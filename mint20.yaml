@@ -98,6 +98,9 @@ repositories_optional:
 - repo: deb https://download.opensuse.org/repositories/isv:/Rancher:/stable/deb/ ./
   filename: rancher-desktop
   codename: stable
+- repo: deb [arch=amd64] https://downloads.k8slens.dev/apt/debian stable main
+  filename: lens
+  codename: stable
 repositories_remove:
 - repo: ppa:alexx2000/doublecmd
   filename: alexx2000-doublecmd
@@ -151,11 +154,12 @@ keys:
 - https://apt.puppetlabs.com/pubkey.gpg
 - https://aquasecurity.github.io/trivy-repo/deb/public.key
 - https://brave-browser-apt-release.s3.brave.com/brave-core.asc
-- https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg
+- https://download.spotify.com/debian/pubkey_7A3A762FAFD4A51F.gpg
 - https://d2t3ff60b2tol4.cloudfront.net/repomd.xml.key
 - https://deb.nodesource.com/gpgkey/nodesource.gpg.key
 - https://zoom.us/linux/download/pubkey
 - https://download.opensuse.org/repositories/isv:/Rancher:/stable/deb/Release.key
+- https://downloads.k8slens.dev/keys/gpg
 keys_keyserver:
 - keyserver: keyserver.ubuntu.com
   id: ACCAF35C
@@ -165,8 +169,12 @@ keys_keyserver:
   # forticlient
 - keyserver: keyserver.ubuntu.com
   id: 18AC26395E54716D
+  # lens
+- keyserver: keyserver.ubuntu.com
+  id: 666A7D882011D3CE
 keys_remove:
 - 5E54716D
+- 5E3C45D7B312C643
 packages_remove:
 - ansible-base
 - kontena-lens
@@ -349,23 +357,23 @@ packages_optional:
 - insync
 - google-cloud-sdk-skaffold
 - rancher-desktop
+- lens
 deb:
 - https://github.com/angryip/ipscan/releases/download/3.9.0/ipscan_3.9.0_amd64.deb
 - https://release.axocdn.com/linux/gitkraken-amd64.deb
 - https://releases.hashicorp.com/vagrant/2.3.4/vagrant_2.3.4-1_i686.deb
-- https://github.com/Eugeny/tabby/releases/download/v1.0.187/tabby-1.0.187-linux-x64.deb
+- https://github.com/Eugeny/tabby/releases/download/v1.0.188/tabby-1.0.188-linux-x64.deb
 - https://github.com/kubernetes/minikube/releases/download/v1.28.0/minikube_1.28.0-0_amd64.deb
 - https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/11664/wps-office_11.1.0.11664.XA_amd64.deb
 - https://github.com/wagoodman/dive/releases/download/v0.10.0/dive_0.10.0_linux_amd64.deb
-- https://github.com/balena-io/etcher/releases/download/v1.13.0/balena-etcher_1.13.0_amd64.deb
-- https://github.com/goodwithtech/dockle/releases/download/v0.4.9/dockle_0.4.9_Linux-64bit.deb
+- https://github.com/balena-io/etcher/releases/download/v1.14.3/balena-etcher_1.14.3_amd64.deb
+- https://github.com/goodwithtech/dockle/releases/download/v0.4.10/dockle_0.4.10_Linux-64bit.deb
 - https://github.com/kaikramer/keystore-explorer/releases/download/v5.5.1/kse_5.5.1_all.deb
 - https://downloads.raspberrypi.org/imager/imager_1.7.3_amd64.deb
-- https://downloads.k8slens.dev/ide/Lens-2022.12.221341-latest.amd64.deb
 - https://github.com/aquasecurity/kube-bench/releases/download/v0.6.10/kube-bench_0.6.10_linux_amd64.deb
-- https://github.com/anchore/syft/releases/download/v0.64.0/syft_0.64.0_linux_amd64.deb
+- https://github.com/anchore/syft/releases/download/v0.68.0/syft_0.68.0_linux_amd64.deb
 - https://cdn.zoom.us/prod/5.13.3.651/zoom_amd64.deb
-- https://github.com/turbot/steampipe/releases/download/v0.17.4/steampipe_linux_amd64.deb
+- https://github.com/turbot/steampipe/releases/download/v0.18.1/steampipe_linux_amd64.deb
 - https://github.com/ramboxapp/download/releases/download/v2.0.9/Rambox-2.0.9-linux-x64.deb
 
 flatpak:
@@ -373,6 +381,7 @@ flatpak:
 - name: https://dl.flathub.org/repo/appstream/md.obsidian.Obsidian.flatpakref
 - name: https://dl.flathub.org/repo/appstream/com.github.wwmm.easyeffects.flatpakref
 - name: zenmap
+- name: com.bitwarden.desktop
 npm:
 - name: agentkeepalive
   state: latest
@@ -401,7 +410,7 @@ pip:
 - oci-cli
 - terraform-compliance
 unpack:
-- url: https://get.helm.sh/helm-v3.10.3-linux-amd64.tar.gz
+- url: https://get.helm.sh/helm-v3.11.0-linux-amd64.tar.gz
   destination: helm
   source: helm
   destination_file: helm3.tar.gz
@@ -421,7 +430,7 @@ unpack:
   source: packer
   destination_file: packer.zip
   folder:
-- url: https://releases.hashicorp.com/terraform/1.3.6/terraform_1.3.6_linux_amd64.zip
+- url: https://releases.hashicorp.com/terraform/1.3.7/terraform_1.3.7_linux_amd64.zip
   destination: terraform
   source: terraform
   destination_file: terraform.zip
@@ -466,12 +475,12 @@ unpack:
   source: k9s
   destination_file: k9s.tar.gz
   folder:
-- url: https://github.com/doitintl/kube-no-trouble/releases/download/nightly-0.7.0-2-g00f8453/kubent-nightly-0.7.0-2-g00f8453-linux-amd64.tar.gz
+- url: https://github.com/doitintl/kube-no-trouble/releases/download/nightly-0.7.0-9-g34bff74/kubent-nightly-0.7.0-9-g34bff74-linux-amd64.tar.gz
   destination: kubent
   source: kubent
   destination_file: kubent.tar.gz
   folder:
-- url: https://github.com/datreeio/datree/releases/download/1.8.12/datree-cli_1.8.12_Linux_x86_64.zip
+- url: https://github.com/datreeio/datree/releases/download/1.8.14/datree-cli_1.8.14_Linux_x86_64.zip
   destination: datree
   source: datree
   destination_file: datree.zip
@@ -480,14 +489,14 @@ downloads:
 - url: https://github.com/ffuf/ffuf/releases/download/v1.0.2/ffuf_1.0.2_linux_amd64.tar.gz
   destination: ffluf
   skip_tree: false
-- url: https://github.com/FairwindsOps/polaris/releases/download/7.2.0/polaris_linux_amd64.tar.gz
+- url: https://github.com/FairwindsOps/polaris/releases/download/7.3.0/polaris_linux_amd64.tar.gz
   destination: polaris
   skip_tree: false
-- url: https://github.com/orf/gping/releases/download/gping-v1.6.3/gping-Linux-x86_64.tar.gz
+- url: https://github.com/orf/gping/releases/download/gping-v1.7.0/gping-Linux-x86_64.tar.gz
   destination: gping
   skip_tree: false
 files:
-- url: https://github.com/docker/compose/releases/download/v2.14.2/docker-compose-linux-x86_64
+- url: https://github.com/docker/compose/releases/download/v2.15.1/docker-compose-linux-x86_64
   destination: docker-compose
 - url: https://github.com/bcicen/ctop/releases/download/v0.7.7/ctop-0.7.7-linux-amd64
   destination: ctop
@@ -510,7 +519,7 @@ files:
   destination: tfsec
 - url: https://github.com/alexellis/k3sup/releases/download/0.12.12/k3sup
   destination: k3sup
-- url: https://github.com/argoproj/argo-cd/releases/download/v2.5.5/argocd-linux-amd64
+- url: https://github.com/argoproj/argo-cd/releases/download/v2.5.6/argocd-linux-amd64
   destination: argocd
 ansible:
   cfg: /etc/ansible/ansible.cfg
@@ -583,6 +592,7 @@ dconf:
 timezone: Europe/Warsaw
 vscode_obsolete:
 - ms-vscode.go
+- ms-vsliveshare.vsliveshare-pack
 - hypnoes.word-count
 - vscoss.vscode-ansible
 - wholroyd.HCL
@@ -625,7 +635,6 @@ vscode:
 - ms-vscode.wordcount
 - ms-vsliveshare.vsliveshare
 - ms-vsliveshare.vsliveshare-audio
-- ms-vsliveshare.vsliveshare-pack
 - nhoizey.gremlins
 - p1c2u.docker-compose
 - PascalReitermann93.vscode-yaml-sort
