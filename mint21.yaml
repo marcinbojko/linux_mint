@@ -363,7 +363,6 @@ packages_optional:
 - hashcat
 - y-ppa-manager
 - insync
-- google-cloud-sdk-skaffold
 - rancher-desktop
 - lens
 deb:
@@ -371,19 +370,18 @@ deb:
 - https://release.axocdn.com/linux/gitkraken-amd64.deb
 - https://releases.hashicorp.com/vagrant/2.3.4/vagrant_2.3.4-1_i686.deb
 - https://github.com/Eugeny/tabby/releases/download/v1.0.188/tabby-1.0.188-linux-x64.deb
-- https://github.com/kubernetes/minikube/releases/download/v1.28.0/minikube_1.28.0-0_amd64.deb
+- https://github.com/kubernetes/minikube/releases/download/v1.29.0/minikube_1.29.0-0_amd64.deb
 - https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/11664/wps-office_11.1.0.11664.XA_amd64.deb
 - https://github.com/wagoodman/dive/releases/download/v0.10.0/dive_0.10.0_linux_amd64.deb
 - https://github.com/balena-io/etcher/releases/download/v1.14.3/balena-etcher_1.14.3_amd64.deb
 - https://github.com/goodwithtech/dockle/releases/download/v0.4.10/dockle_0.4.10_Linux-64bit.deb
-- https://github.com/kaikramer/keystore-explorer/releases/download/v5.5.1/kse_5.5.1_all.deb
+- https://github.com/kaikramer/keystore-explorer/releases/download/v5.5.2/kse_5.5.2_all.deb
 - https://downloads.raspberrypi.org/imager/imager_1.7.3_amd64.deb
 - https://github.com/aquasecurity/kube-bench/releases/download/v0.6.10/kube-bench_0.6.10_linux_amd64.deb
-- https://github.com/anchore/syft/releases/download/v0.68.0/syft_0.68.0_linux_amd64.deb
-- https://cdn.zoom.us/prod/5.13.3.651/zoom_amd64.deb
-- https://github.com/turbot/steampipe/releases/download/v0.18.1/steampipe_linux_amd64.deb
-- https://github.com/ramboxapp/download/releases/download/v2.0.9/Rambox-2.0.9-linux-x64.deb
-
+- https://github.com/anchore/syft/releases/download/v0.70.0/syft_0.70.0_linux_amd64.deb
+- https://cdn.zoom.us/prod/5.13.5.431/zoom_amd64.deb
+- https://github.com/turbot/steampipe/releases/download/v0.18.4/steampipe_linux_amd64.deb
+- https://github.com/ramboxapp/download/releases/download/v2.0.10/Rambox-2.0.10-linux-x64.deb
 flatpak:
 - name: https://flathub.org/repo/appstream/com.getpostman.Postman.flatpakref
 - name: https://dl.flathub.org/repo/appstream/md.obsidian.Obsidian.flatpakref
@@ -468,17 +466,17 @@ unpack:
   source: krew-linux_amd64
   destination_file: krew-linux_amd64.tar.gz
   folder:
-- url: https://github.com/containerd/nerdctl/releases/download/v1.1.0/nerdctl-1.1.0-linux-amd64.tar.gz
+- url: https://github.com/containerd/nerdctl/releases/download/v1.2.0/nerdctl-1.2.0-linux-amd64.tar.gz
   destination: nerdctl
   source: nerdctl
   destination_file: nerdctl-linux-amd64.tar.gz
   folder:
-- url: https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv4.5.7/kustomize_v4.5.7_linux_amd64.tar.gz
+- url: https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv5.0.0/kustomize_v5.0.0_linux_amd64.tar.gz
   destination: kustomize
   source: kustomize
   destination_file: kustomize.tar.gz
   folder:
-- url: https://github.com/derailed/k9s/releases/download/v0.26.7/k9s_Linux_x86_64.tar.gz
+- url: https://github.com/derailed/k9s/releases/download/v0.27.2/k9s_Linux_amd64.tar.gz
   destination: k9s
   source: k9s
   destination_file: k9s.tar.gz
@@ -488,7 +486,7 @@ unpack:
   source: kubent
   destination_file: kubent.tar.gz
   folder:
-- url: https://github.com/datreeio/datree/releases/download/1.8.14/datree-cli_1.8.14_Linux_x86_64.zip
+- url: https://github.com/datreeio/datree/releases/download/1.8.21/datree-cli_1.8.21_Linux_x86_64.zip
   destination: datree
   source: datree
   destination_file: datree.zip
@@ -500,7 +498,7 @@ downloads:
 - url: https://github.com/FairwindsOps/polaris/releases/download/7.3.0/polaris_linux_amd64.tar.gz
   destination: polaris
   skip_tree: false
-- url: https://github.com/orf/gping/releases/download/gping-v1.7.0/gping-Linux-x86_64.tar.gz
+- url: https://github.com/orf/gping/releases/download/gping-v1.8.0/gping-Linux-x86_64.tar.gz
   destination: gping
   skip_tree: false
 files:
@@ -508,14 +506,14 @@ files:
   destination: docker-compose
 - url: https://github.com/bcicen/ctop/releases/download/v0.7.7/ctop-0.7.7-linux-amd64
   destination: ctop
-- url: https://github.com/rancher/rke/releases/download/v1.4.1/rke_linux-amd64
+- url: https://github.com/rancher/rke/releases/download/v1.4.2/rke_linux-amd64
   destination: rke
 - url: https://github.com/dannagle/PacketSender/releases/download/v7.2.3/Packet_Sender-v7.2.4.AppImage
   destination: packetsender
   desktop_file: ./files/apps/packetsender/packetsender.desktop
-- url: https://github.com/k3s-io/k3s/releases/download/v1.23.15%2Bk3s1/k3s
+- url: https://github.com/k3s-io/k3s/releases/download/v1.23.16%2Bk3s1/k3s
   destination: k3s
-- url: https://github.com/k3d-io/k3d/releases/download/v5.4.6/k3d-linux-amd64
+- url: https://github.com/k3d-io/k3d/releases/download/v5.4.7/k3d-linux-amd64
   destination: k3d
 - url: https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64
   destination: hadolint
@@ -527,7 +525,7 @@ files:
   destination: tfsec
 - url: https://github.com/alexellis/k3sup/releases/download/0.12.12/k3sup
   destination: k3sup
-- url: https://github.com/argoproj/argo-cd/releases/download/v2.5.6/argocd-linux-amd64
+- url: https://github.com/argoproj/argo-cd/releases/download/v2.5.10/argocd-linux-amd64
   destination: argocd
 ansible:
   cfg: /etc/ansible/ansible.cfg
@@ -601,6 +599,7 @@ timezone: Europe/Warsaw
 vscode_obsolete:
 - ms-vscode.go
 - ms-vsliveshare.vsliveshare-pack
+- ms-vsliveshare.vsliveshare-audio
 - hypnoes.word-count
 - vscoss.vscode-ansible
 - wholroyd.HCL
@@ -642,7 +641,7 @@ vscode:
 - ms-vscode.powershell
 - ms-vscode.wordcount
 - ms-vsliveshare.vsliveshare
-- ms-vsliveshare.vsliveshare-audio
+
 - nhoizey.gremlins
 - p1c2u.docker-compose
 - PascalReitermann93.vscode-yaml-sort

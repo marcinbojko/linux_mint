@@ -1,5 +1,24 @@
 # Changelog "linux_mint"
 
+## Version 2.6.1 [2023-02-05]
+
+* [VSCODE] removed obsoleted extensions `ms-vsliveshare.vsliveshare-audio` - [https://github.com/MicrosoftDocs/live-share/issues/4826](https://github.com/MicrosoftDocs/live-share/issues/4826)
+* [APPLICATION] removed `google-cloud-sdk-skaffold`
+* [APPLICATION] upgraded `datree` to version 1.8.21
+* [APPLICATION] upgraded `gping` to version 1.8.0
+* [APPLICATION] upgraded `k3d` to version 5.4.7
+* [APPLICATION] upgraded `k3s` to version 1.23.16
+* [APPLICATION] upgraded `k9s` to version 0.27.2
+* [APPLICATION] upgraded `kse` to version 5.5.2
+* [APPLICATION] upgraded `kustomize` to version 5.0.0
+* [APPLICATION] upgraded `minikube` to version 1.29.0
+* [APPLICATION] upgraded `nerdctl` to version 1.2.0
+* [APPLICATION] upgraded `rke` to version 1.4.2
+* [APPLICATION] upgraded `steampipe` to version 0.18.4
+* [APPLICATION] upgraded `syft` to version 0.70.0
+* [APPLICATION] upgraded `zoom` to version 5.13.5.431
+* [APPLICATION] upgraded `argocd` to version 2.5.10
+
 ## Version 2.6.0 [2023-01-21]
 
 * [MINT] Support for Linux Mint 21.0 `Veronica` and 21.1 `Vera`
