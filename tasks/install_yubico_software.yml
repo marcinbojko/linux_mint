@@ -86,8 +86,9 @@
 - name: refresh_desktop_database
   ansible.builtin.shell: update-desktop-database
   any_errors_fatal: false
-  ignore_errors: true
-  changed_when:
+  register: r_refresh_desktop_database
+  failed_when: r_refresh_desktop_database.rc != 0 and r_refresh_desktop_database.stderr != ""
+  changed_when: false
   tags:
   - task
   - downloads

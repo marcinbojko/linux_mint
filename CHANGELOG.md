@@ -1,5 +1,55 @@
 # Changelog "linux_mint"
 
+## Version 2.7.0 [2023-07-09]
+
+* [BREAKING_CHANGE] - removal of Linux Mint 20.x support - last version supporting it will be 2.6.1
+* [BREAKING_CHANGE] - Forticlient Ubuntu repo's key expired - temporarily commented out
+* [APPLICATION] removal `teams` package
+* [REPOSITORY]  removal `ms-teams` repository
+* [APPLICATION] upgraded `amass` to version 3.23.3
+* [APPLICATION] upgraded `angryip` to version 3.9.1
+* [APPLICATION] upgraded `argocd` to version 2.7.7
+* [APPLICATION] upgraded `balena-etcher` to version 1.18.8
+* [APPLICATION] upgraded `datree` to version 1.9.10
+* [APPlICATION] upgraded `dive` to version 0.11.0
+* [APPLICATION] upgraded `docker-compose` to version 2.19.1
+* [APPLICATION] upgraded `dockle` to version 0.4.11
+* [APPLICATION] upgraded `gping` to version 1.13.1
+* [APPLICATION] upgraded `helm` to version 3.12.1
+* [APPLICATION] upgraded `imager` to version 1.7.5
+* [APPLICATION] upgraded `k3d` to version 5.5.1
+* [APPLICATION] upgraded `k3s` to version 1.25.11
+* [APPLICATION] upgraded `k3sup` to version 0.12.13
+* [APPLICATION] upgraded `k9s` to version 0.27.4
+* [APPLICATION] upgraded `kube-bench` to version 0.6.15
+* [APPLICATION] upgraded `kubeconform` to version 0.6.2
+* [APPLICATION] upgraded `kubent` to version nightly-0.7.0-14-gb3e2b3f
+* [APPLICATION] upgraded `kubestr` to version 0.4.37
+* [APPLICATION] upgraded `kustomize` to version 5.1.0
+* [APPLICATION] upgraded `minikube` to version 1.30.1
+* [APPLICATION] upgraded `nerdctl` to version 1.4.0
+* [APPLICATION] upgraded `packer` to version 1.9.1
+* [APPLICATION] upgraded `polaris` to version 8.3.0
+* [APPLICATION] upgraded `rambox` to version 2.1.4
+* [APPLICATION] upgraded `rke` to version 1.4.7
+* [APPLICATION] upgraded `steampipe` to version 0.20.8
+* [APPLICATION] upgraded `syft` to version 0.84.1
+* [APPLICATION] upgraded `tabby` to version 1.0.197
+* [APPLICATION] upgraded `terraform` to version 1.5.2
+* [APPLICATION] upgraded `tflint` to version 0.47.0
+* [APPLICATION] upgraded `vagrant` to version 2.3.8
+* [APPLICATION] upgraded `vault` to version 1.14.0
+* [APPLICATION] upgraded `zoom` to version 5.15.2.4260
+* [VSCODE] added `ecmel.vscode-html-css`
+* [VSCODE] added `github.vscode-github-actions`
+* [VSCODE] added `ms-dotnettools.vscode-dotnet-runtime`
+* [VSCODE] added `ms-python.isort`
+* [VSCODE] added `ms-python.vscode-pylance`
+* [VSCODE] added `ms-vscode-remote.remote-server`
+* [VSCODE] added `ms-vscode.remote-explorer`
+* [VSCODE] added `redhat.java`
+* [VSCODE] added `Tim-Koehler.helm-intellisense`
+
 ## Version 2.6.1 [2023-02-05]
 
 * [VSCODE] removed obsoleted extensions `ms-vsliveshare.vsliveshare-audio` - [https://github.com/MicrosoftDocs/live-share/issues/4826](https://github.com/MicrosoftDocs/live-share/issues/4826)

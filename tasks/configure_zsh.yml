@@ -38,13 +38,14 @@
     - fonts
 - name: update_font_cache
   ansible.builtin.shell: fc-cache
+  register: r_update_font_cache
   any_errors_fatal: false
-  ignore_errors: true
   tags:
     - zsh
     - power10k
     - fonts
   changed_when: false
+  failed_when: r_update_font_cache.rc != 0 and r_update_font_cache.stderr != ""
 - name: display_user_name
   ansible.builtin.debug:
     var: active_user

@@ -2,16 +2,16 @@
 - name: inform_about_plugin_name
   ansible.builtin.debug:
     msg: "Installing plugin: {{ item.name }}"
+  failed_when: false
   any_errors_fatal: false
-  ignore_errors: true
   when: "'steampipe' in ansible_facts.packages"
 - name: install_steampipe_plugins
   ansible.builtin.shell:
     cmd: "steampipe plugin install {{ item.name }}@{{ item.version }}"
   register: r_install_steampipe_plugins
   become_user: "{{ active_user }}"
-  any_errors_fatal: true
-  ignore_errors: true
+  failed_when: r_install_steampipe_plugins.rc != 0 and r_install_steampipe_plugins.stderr != ""
+  changed_when: false
   when: "'steampipe' in ansible_facts.packages"
 - name: update_steampipe_plugins
   ansible.builtin.shell:
@@ -19,5 +19,6 @@
   register: r_install_steampipe_plugins
   become_user: "{{ active_user }}"
   any_errors_fatal: true
-  ignore_errors: true
+  failed_when: r_install_steampipe_plugins.rc != 0 and r_install_steampipe_plugins.stderr != ""
+  changed_when: false
   when: "steampipe.update_plugins"

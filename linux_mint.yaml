@@ -1,7 +1,7 @@
 # Prepares LinuxMint19/20 desktop.
 # start from preparing ssh:
 # sudo apt install openssh-server ntp;systemctl enable ssh && systemctl start ssh
-#
+# kind: playbook
 - name: prepare_mint_desktop
   hosts: all
   vars:
@@ -24,7 +24,7 @@
     reboot_required: false                    # force reboot even if apt upgrade won't change anything
     unpack_folder: /tmp/linux_mint            # folder to which we're going to unpack and download files
   become: true
-  gather_facts: no
+  gather_facts: false
   pre_tasks:
   # ansible version
   - name: verify_ansible_meets_version_requirements
@@ -48,7 +48,7 @@
   - name: assert_root_partition_is_15_GB_of_free_space
     ansible.builtin.assert: { that: item.size_available > 13622320128 } # 20 GB free
     loop: '{{ ansible_mounts }}'
-    ignore_errors: no
+    ignore_errors: false
     when: item.mount == '/'
     tags:
     - assert
@@ -187,6 +187,7 @@
     - keys
     - base
     - obsolete
+    become: true
 # remove obsolete packages
   - name: remove_obsolete_apt_packages
     ansible.builtin.apt:
@@ -350,7 +351,11 @@
   - name: reconfigure_all_waiting_packages
     ansible.builtin.shell: dpkg --configure -a
     any_errors_fatal: false
-    ignore_errors: true
+    register: r_reconfigure_all_waiting_packages
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
+    until: r_reconfigure_all_waiting_packages is success
+    failed_when: false
     changed_when: false
     tags:
     - packages
@@ -364,6 +369,7 @@
     delay: "{{ delay_time }}"
     until: r_apt_clean is success
     when: r_apt_initial_refresh.failed
+    changed_when: r_apt_clean.rc != 0
     tags:
     - packages
     - base
@@ -484,7 +490,7 @@
     delay: "{{ delay_time }}"
     register: r_update_flatpak
     until: r_update_flatpak is success
-    any_errors_fatal: false
+    changed_when: r_update_flatpak.rc != 0
     ignore_errors: true
     when: install_flatpak
     tags:
@@ -587,15 +593,23 @@
     - apps
   - name: refresh_desktop_database
     ansible.builtin.shell: update-desktop-database
-    any_errors_fatal: false
+    register: r_refresh_desktop_database
+    until: r_refresh_desktop_database is success
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
+    failed_when: r_refresh_desktop_database.rc != 0
     ignore_errors: true
-    changed_when:
+    changed_when: false
     tags:
     - base
     - downloads
     - apps
 # Start user-related modification block
   - name: user_modifications_block
+    tags:
+    - base
+    - user
+    - zsh
     block:
     - name: create_or_check_users_groups
       ansible.builtin.user:
@@ -667,12 +681,11 @@
       - base
       - user
       - yubico
-    tags:
-    - base
-    - user
-    - zsh
-  # start ansible block
+    # start ansible block
   - name: start ansible block
+    tags:
+    - ansible
+    when: config_ansible
     block:
     - name: check_if_ansible_cfg_exists
       ansible.builtin.stat:
@@ -700,9 +713,6 @@
       register: r_change_ansible_options
       until: r_change_ansible_options is success
       when: ansible_exists
-    when: config_ansible
-    tags:
-    - ansible
   # start steampipe plugins block
   - name: install_steampipe_plugins_block
     block:
@@ -731,13 +741,19 @@
       - always
   # start vscode extensions block
   - name: install_vscode_extensions
+    tags:
+    - optional
+    - user
+    - vscode
+    - eztensions
+    when: install_vscode_extensions
     block:
     - name: remove_obsolete_extensions
       ansible.builtin.shell: "code --uninstall-extension {{ item }} | true"
       any_errors_fatal: false
       ignore_errors: true
       loop: "{{ vscode_obsolete }}"
-      become: yes
+      become: true
       become_user: "{{ active_user }}"
       register: r_remove_obsolete_extensions
       changed_when: "'was successfully uninstalled!' in r_remove_obsolete_extensions.stdout"
@@ -747,7 +763,7 @@
       any_errors_fatal: false
       ignore_errors: true
       changed_when: "r_dpkg_query_vscode.stdout != 'Status: install ok installed'"
-      become: yes
+      become: true
       become_user: "{{ active_user }}"
     - name: install_missing_extensions
       ansible.builtin.shell: if [ ! $(code --list-extensions | grep {{ item }}) ]; then code --install-extension {{ item }} --force; fi
@@ -756,19 +772,17 @@
       retries: "{{ retries_count }}"
       delay: "{{ delay_time }}"
       until: r_install_extension is success
-      become: yes
+      become: true
       become_user: "{{ active_user }}"
       changed_when: r_install_extension.stdout | length > 0
       when: r_dpkg_query_vscode.rc == 0
       any_errors_fatal: false
       ignore_errors: true
-    tags:
-    - optional
-    - user
-    - vscode
-    when: install_vscode_extensions
   # Start OS related block
   - name: start_os_tweaks
+    tags:
+    - user
+    - base
     block:
     # OS related tweaks and finetuning
     - name: set_timezone
@@ -798,7 +812,10 @@
         line: 'hosts:          files dns'
         backrefs: yes
       any_errors_fatal: false
-      ignore_errors: true
+      register: r_nsswitch_config
+      retries: "{{ retries_count }}"
+      delay: "{{ delay_time }}"
+      until: r_nsswitch_config is success
     - name: restart_avahi_after_changes
       ansible.builtin.systemd:
         name: avahi-daemon
@@ -885,7 +902,7 @@
       when: config_dconf and "absent" in item.state
       any_errors_fatal: false
       ignore_errors: true
-      become: yes
+      become: true
       become_user: "{{ active_user }}"
       tags:
       - dconf
@@ -900,14 +917,10 @@
       delay: "{{ delay_time }}"
       until: r_dconf_values is success
       when: config_dconf and "present" in item.state
-      become: yes
+      become: true
       become_user: "{{ active_user }}"
       tags:
       - dconf
-    # Reboot
-    tags:
-    - user
-    - base
   - name: update_all_packages
     ansible.builtin.apt:
       upgrade: "yes"

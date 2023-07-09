@@ -1,10 +1,10 @@
-# Ansible playbook for your DevOps/SysOps Linux Mint 20.x/21.x based workstation
+# Ansible playbook for your DevOps/SysOps Linux Mint 21.x based workstation
 
 [![Super-Linter](https://github.com/marcinbojko/linux_mint/actions/workflows/01_lint_me.yml/badge.svg)](https://github.com/marcinbojko/linux_mint/actions/workflows/01_lint_me.yml)
 [![Ansible Lint](https://github.com/marcinbojko/linux_mint/actions/workflows/02_ansible_lint.yml/badge.svg)](https://github.com/marcinbojko/linux_mint/actions/workflows/02_ansible_lint.yml)
 <!-- TOC -->
 
-- [Ansible playbook for your DevOps/SysOps Linux Mint 20.x/21.x based workstation](#ansible-playbook-for-your-devopssysops-linux-mint-20x21x-based-workstation)
+- [Ansible playbook for your DevOps/SysOps Linux Mint 21.x based workstation](#ansible-playbook-for-your-devopssysops-linux-mint-21x-based-workstation)
   - [Prerequisites](#prerequisites)
     - [Ansible 2.10 and higher reminder](#ansible-210-and-higher-reminder)
   - [Assumptions](#assumptions)
@@ -36,8 +36,8 @@
 
 ## Prerequisites
 
-- installed `Linux Mint` 20.0/20.1/20.2/20.3/21.0/21.1 - all 64-bit, standard options with extra codecs (available as selection during install)
-- for previous versions of Mint - last release supporting `Linux Mint 19` was 2.1.6
+- installed `Linux Mint` 21.0/21.1 - all 64-bit, standard options with extra codecs (available as selection during install)
+- for previous versions of Mint (20.x) - last release supporting `Linux Mint 20` was 2.6.1
 - access to internet
 - `openssh-server` installed and running
 - `ansible` in version 2.10 or higher
@@ -224,7 +224,6 @@ custom_packages:
 - `skype` - Microsoft's communicator
 - `spotify` - Music streaming service
 - `sublime text 3` - Alternative text editor
-- `teams` - Microsoft Teams Linux Client
 - `trivy` - Container security scanner
 - `veeam` - Veeam Agent for Linux
 - `veracrypt` - Device encryption utility
@@ -303,7 +302,6 @@ custom_packages:
 | GIMP | GNU Image Manipulation Program | [https://www.gimp.org/](https://www.gimp.org/)|
 | Insync|Googledrive & Onedrive linux client|[https://www.insynchq.com/](https://www.insynchq.com/)|
 | Kodi | Open Source Home Theater| [https://kodi.tv/](https://kodi.tv/)|
-| Microsoft Teams | IM |[https://www.microsoft.com/en/microsoft-365?omkt=en-US&rtc=1](https://www.microsoft.com/en/microsoft-365?omkt=en-US&rtc=1)|
 | Neofetch |A command-line system information tool written in bash 3.2+| [https://github.com/dylanaraps/neofetch](https://github.com/dylanaraps/neofetch)|
 | PDK/Puppet Agent | Puppet Development Kit | [https://puppet.com/docs/pdk/1.x/pdk.html](https://puppet.com/docs/pdk/1.x/pdk.html)|
 | Pinta | Drawing/Image Editing| [https://pinta-project.com/pintaproject/pinta/](https://pinta-project.com/pintaproject/pinta/)|
