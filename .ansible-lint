@@ -3,8 +3,6 @@ skip_list:
   - command-instead-of-shell
   - package-latest
   - git-latest
-  - experimental
-  - yaml
   - name[casing]
 exclude_paths:
   - .github/

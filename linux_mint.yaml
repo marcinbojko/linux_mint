@@ -18,8 +18,8 @@
     config_dconf: true                        # do changes in dconf editor
     config_sysctl: true                       # do changes in sysctl
     active_user: "{{ ansible_ssh_user }}"     # user for which you're setting folders. By default taken from group_vars
-    retries_count: 3                          # how many retries
-    delay_time: 3                            # delay time in seconds between retries
+    retries_count: 1                          # how many retries
+    delay_time: 1                             # delay time in seconds between retries
     bin_path: /usr/local/bin                  # Where to put all downloaded execs.
     reboot_required: false                    # force reboot even if apt upgrade won't change anything
     unpack_folder: /tmp/linux_mint            # folder to which we're going to unpack and download files
@@ -37,7 +37,7 @@
   # setup module - we need these facts
   - name: run_initial_setup_instead_of_gather_facts
     ansible.builtin.setup:
-      gather_timeout: 30
+      gather_timeout: 60
     retries: "{{ retries_count }}"
     delay: "{{ delay_time }}"
     register: r_setup_status
@@ -45,8 +45,8 @@
     tags:
     - assert
   # free space for stuff
-  - name: assert_root_partition_is_15_GB_of_free_space
-    ansible.builtin.assert: { that: item.size_available > 13622320128 } # 20 GB free
+  - name: assert_root_partition_is_10_GB_of_free_space
+    ansible.builtin.assert: { that: item.size_available > 10737418240 } # 10 GB free
     loop: '{{ ansible_mounts }}'
     ignore_errors: false
     when: item.mount == '/'
@@ -86,27 +86,28 @@
   - name: display_basic_information
     ansible.builtin.debug:
       msg:
-      - "Install optional packages    : {{ install_optional | bool }}"
-      - "Install deb packages         : {{ install_deb | bool }}"
-      - "Install_flatpak packages     : {{ install_flatpak | bool }}"
-      - "Install_npm packages         : {{ install_npm | bool }}"
-      - "Install vscode extensions    : {{ install_vscode_extensions | bool }} "
-      - "Install steampipe plugins    : {{ install_steampipe_plugins | bool }} "
-      - "Install zsh                  : {{ install_zsh | bool }}"
-      - "Install Yubico               : {{ install_yubico | bool }}"
+      - "Linux Mint major version     : {{ ansible_distribution_major_version }}"
+      - "Linux Mint version           : {{ ansible_distribution_version }}"
+      - "Linux Mint release codename  : {{ ansible_distribution_release }}"
+      - "Ansible version              : {{ ansible_version.full }}"
+      - "Install optional packages    : {{ install_optional | bool | lower }}"
+      - "Install deb packages         : {{ install_deb | bool | lower }}"
+      - "Install_flatpak packages     : {{ install_flatpak | bool | lower }}"
+      - "Install_npm packages         : {{ install_npm | bool | lower }}"
+      - "Install vscode extensions    : {{ install_vscode_extensions | bool | lower }} "
+      - "Install steampipe plugins    : {{ install_steampipe_plugins | bool | lower }} "
+      - "Install zsh                  : {{ install_zsh | bool | lower }}"
+      - "Install Yubico               : {{ install_yubico | bool | lower }}"
       - "Config for Ansible           : {{ config_ansible }}"
       - "Config dconf                 : {{ config_dconf }}"
       - "Config sysctl                : {{ config_sysctl }}"
       - "Bin Path to put files into   : {{ bin_path }}"
       - "Active user                  : {{ active_user | string }}"
-      - "Linux Mint major version     : {{ ansible_distribution_major_version }}"
-      - "Linux Mint version           : {{ ansible_distribution_version }}"
-      - "Linux Mint release codename  : {{ ansible_distribution_release }}"
-      - "Ansible version              : {{ ansible_version.full }}"
-  - name: wait_15_seconds
+  - name: wait_10_seconds
     ansible.builtin.pause:
-      seconds: 15
+      seconds: 10
       prompt: "Check variables - last chance to abort in 15 seconds"
+
   # we need proper time to refresh repositories
   - name: make_sure_timesyncd_is_installed
     ansible.builtin.apt:
@@ -172,6 +173,23 @@
     - files
     - base
     - obsolete
+# remove obsolete files from 'bin_path'
+  - name: Remove_obsolete_files_bin_path_from_variables_file
+    ansible.builtin.file:
+      path: "{{ bin_path }}/{{ item.name }}"
+      state: absent
+    loop: "{{ files_remove_bin_path }}"
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
+    register: r_files_remove_bin_path
+    until: r_files_remove_bin_path is success
+    any_errors_fatal: false
+    ignore_errors: true
+    tags:
+    - files
+    - base
+    - obsolete
+    - bin_path
 # remove obsolete keys
   - name: remove_obsolete_apt_keys
     ansible.builtin.apt_key:
@@ -200,6 +218,7 @@
     until: r_remove_packages is success
     when: packages_remove is defined
     any_errors_fatal: false
+    ignore_errors: true
     tags:
     - packages
     - base
@@ -219,7 +238,7 @@
     tags:
     - packages
     - base
-# install base apt files in case of clean system
+  # install base apt files in case of clean system
   - name: install_packages_in_case_of_clean_system
     ansible.builtin.apt:
       name: "{{ item }}"
@@ -234,7 +253,7 @@
     - packages
     - base
     - clean_system
-# Install apt pgp keys (files)
+  # Install apt pgp keys (files)
   - name: install_apt_keys
     ansible.builtin.apt_key:
       url: "{{ item }}"
@@ -248,6 +267,7 @@
     tags:
     - keys
     - base
+  # Install apt pgp keys (keyserver)
   - name: install_apt_keys_keyserver
     ansible.builtin.apt_key:
       keyserver: "{{ item.keyserver }}"
@@ -277,61 +297,65 @@
     - keys
     - base
     - custom
-# Add basic repositories
-  - name: add_basic_repositories_from_variables_file
-    ansible.builtin.apt_repository:
-      repo: "{{ item.repo }}"
-      state: present
-      codename: "{{ codename }}"
-      filename: "{{ item.filename }}"
-      mode: "0644"
-      update_cache: false
-    loop: "{{ repositories }}"
-    retries: "{{ retries_count }}"
-    delay: 3
+  # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/deb822_repository_module.html
+  - name: Add_basic_repositories_as_deb822_repository
+    ansible.builtin.deb822_repository:
+      name: "{{ item.name }}"
+      types: "{{ item.types | default('deb') }}"
+      suites: "{{ item.suites | default('/') }}"
+      components: "{{ item.components | default(' ') }}"
+      uris: "{{ item.uris }}"
+      enabled: "{{ item.enabled | default('true') }}"
+      signed_by: "{{ item.signed_by | default('null') }}"
+      architectures: "{{ item.architectures | default('') }}"
+    loop: "{{ deb822_repositories }}"
     register: r_repositories
     until: r_repositories is success
-    any_errors_fatal: false
-    tags:
-    - repositories
-    - base
-  - name: add_custom_basic_repositories_from_variables_file
-    ansible.builtin.apt_repository:
-      repo: "{{ item.repo }}"
-      state: present
-      codename: "{{ codename }}"
-      filename: "{{ item.filename }}"
-      mode: "0644"
-      update_cache: false
-    loop: "{{ custom_repositories }}"
-    retries: "{{ retries_count }}"
-    delay: 3
-    register: r_custom_repositories
-    until: r_custom_repositories is success
-    when: custom_repositories is defined and custom_repositories | length > 0
-    any_errors_fatal: false
-    tags:
-    - repositories
-    - base
-    - custom
-# Add optional repositories
-  - name: add_optional_repositories_from_variables_file
-    ansible.builtin.apt_repository:
-      repo: "{{ item.repo }}"
-      state: present
-      codename: "{{ item.codename }}"
-      filename: "{{ item.filename }}"
-      mode: "0644"
-      update_cache: false
-    loop: "{{ repositories_optional }}"
     retries: "{{ retries_count }}"
     delay: "{{ delay_time }}"
-    register: repositories
-    until: repositories is success
-    any_errors_fatal: false
     tags:
     - repositories
     - base
+    - deb822
+  - name: Add_custom_repositories_as_deb822_repository
+    ansible.builtin.deb822_repository:
+      name: "{{ item.name }}"
+      types: "{{ item.types | default('deb') }}"
+      suites: "{{ item.suites | default('/') }}"
+      components: "{{ item.components | default(' ') }}"
+      uris: "{{ item.uris }}"
+      enabled: "{{ item.enabled | default('true') }}"
+      signed_by: "{{ item.signed_by | default('null') }}"
+      architectures: "{{ item.architectures | default('') }}"
+    register: r_custom_repositories
+    until: r_custom_repositories is success
+    loop: "{{ custom_repositories }}"
+    when: custom_repositories is defined and custom_repositories | length > 0
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
+    tags:
+    - repositories
+    - base
+    - deb822
+    - custom
+  - name: Add_optional_repositories_as_deb822_repository
+    ansible.builtin.deb822_repository:
+      name: "{{ item.name }}"
+      types: "{{ item.types | default('deb') }}"
+      suites: "{{ item.suites | default('/') }}"
+      components: "{{ item.components | default(' ') }}"
+      uris: "{{ item.uris }}"
+      enabled: "{{ item.enabled | default('true') }}"
+      signed_by: "{{ item.signed_by | default('null') }}"
+      architectures: "{{ item.architectures | default('') }}"
+    loop: "{{ deb822_repositories_optional }}"
+    register: r_optional_repositories
+    until: r_optional_repositories is success
+    when: deb822_repositories_optional is defined and deb822_repositories_optional | length > 0
+    tags:
+    - repositories
+    - base
+    - deb822
 # restart apt cache
   - name: apt_after_repos_refresh
     ansible.builtin.apt:
@@ -418,6 +442,35 @@
     - packages
     - base
     - custom
+# Install flatpak packages
+  - name: install_flatpak_apps
+    community.general.flatpak:
+      name: "{{ item.name | string }}"
+      state: present
+      method: system
+    loop: "{{ flatpak }}"
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
+    register: r_install_flatpak
+    until: r_install_flatpak is success
+    any_errors_fatal: false
+    when: install_flatpak is defined and install_flatpak
+    tags:
+    - packages
+    - flatpak
+# Upgrade flatpak apps
+  - name: upgrade_flatpak_apps
+    ansible.builtin.command: flatpak update -y
+    retries: "{{ retries_count }}"
+    delay: "{{ delay_time }}"
+    register: r_update_flatpak
+    until: r_update_flatpak is success
+    changed_when: r_update_flatpak.rc != 0
+    ignore_errors: true
+    when: install_flatpak is defined and install_flatpak
+    tags:
+    - packages
+    - flatpak
 # Install optional packages - if variable `install_optional` is set to true
   - name: install_optional_packages
     ansible.builtin.apt:
@@ -469,33 +522,7 @@
     - packages
     - base
     - python
-  - name: install_flatpak_apps
-    community.general.flatpak:
-      name: "{{ item.name | string }}"
-      state: present
-      method: system
-    loop: "{{ flatpak }}"
-    retries: "{{ retries_count }}"
-    delay: "{{ delay_time }}"
-    register: r_install_flatpak
-    until: r_install_flatpak is success
-    any_errors_fatal: false
-    when: install_flatpak
-    tags:
-    - packages
-    - flatpak
-  - name: upgrade_flatpak_apps
-    ansible.builtin.command: flatpak update -y
-    retries: "{{ retries_count }}"
-    delay: "{{ delay_time }}"
-    register: r_update_flatpak
-    until: r_update_flatpak is success
-    changed_when: r_update_flatpak.rc != 0
-    ignore_errors: true
-    when: install_flatpak
-    tags:
-    - packages
-    - flatpak
+
   - name: install_npm_packages
     community.general.npm:
       name: "{{ item.name | string }}"
@@ -681,7 +708,6 @@
       - base
       - user
       - yubico
-    # start ansible block
   - name: start ansible block
     tags:
     - ansible
@@ -739,6 +765,17 @@
           - tasks
       tags:
       - always
+    - name: update_steampipe_plugins
+      ansible.builtin.shell:
+        cmd: "set -o pipefail|steampipe plugin update --all"
+      register: r_install_steampipe_plugins
+      become: true
+      become_user: "{{ active_user }}"
+      any_errors_fatal: true
+      failed_when: r_install_steampipe_plugins.rc != 0 and r_install_steampipe_plugins.stderr != ""
+      changed_when: false
+      when: "steampipe.update_plugins"
+
   # start vscode extensions block
   - name: install_vscode_extensions
     tags:
@@ -794,34 +831,6 @@
         path: /etc/bash.bashrc
         line: neofetch
       any_errors_fatal: false
-    - name: set_avahi_config
-      community.general.ini_file:
-        path: /etc/avahi/avahi-daemon.conf
-        section: server
-        option: domain-name
-        value: alocal
-        no_extra_spaces: yes
-        mode: 0644
-      any_errors_fatal: false
-      ignore_errors: true
-      register: r_set_avahi_config
-    - name: nsswitch_config
-      ansible.builtin.lineinfile:
-        dest: /etc/nsswitch.conf
-        regexp: '^hosts:'
-        line: 'hosts:          files dns'
-        backrefs: yes
-      any_errors_fatal: false
-      register: r_nsswitch_config
-      retries: "{{ retries_count }}"
-      delay: "{{ delay_time }}"
-      until: r_nsswitch_config is success
-    - name: restart_avahi_after_changes
-      ansible.builtin.systemd:
-        name: avahi-daemon
-        state: restarted
-        enabled: true
-      when: r_set_avahi_config is changed and r_set_avahi_config is defined
     - name: enable_timeshift_in_rsync_mode
       ansible.builtin.shell: timeshift --rsync --yes
       args:

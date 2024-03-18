@@ -1,24 +1,20 @@
 # add steampipe plugins
-- name: inform_about_plugin_name
-  ansible.builtin.debug:
-    msg: "Installing plugin: {{ item.name }}"
-  failed_when: false
-  any_errors_fatal: false
-  when: "'steampipe' in ansible_facts.packages"
-- name: install_steampipe_plugins
-  ansible.builtin.shell:
-    cmd: "steampipe plugin install {{ item.name }}@{{ item.version }}"
-  register: r_install_steampipe_plugins
-  become_user: "{{ active_user }}"
-  failed_when: r_install_steampipe_plugins.rc != 0 and r_install_steampipe_plugins.stderr != ""
-  changed_when: false
-  when: "'steampipe' in ansible_facts.packages"
-- name: update_steampipe_plugins
-  ansible.builtin.shell:
-    cmd: "steampipe plugin update --all"
-  register: r_install_steampipe_plugins
-  become_user: "{{ active_user }}"
-  any_errors_fatal: true
-  failed_when: r_install_steampipe_plugins.rc != 0 and r_install_steampipe_plugins.stderr != ""
-  changed_when: false
-  when: "steampipe.update_plugins"
+- name: Install steampipe plugins
+#  when: steampipe.plugins is defined and 'steampipe' in ansible_facts.packages
+  block:
+  - name: inform_about_plugin_name
+    ansible.builtin.debug:
+      msg: "Installing plugin: {{ item.name }}"
+    failed_when: false
+    any_errors_fatal: false
+  #  when: "'steampipe' in ansible_facts.packages"
+  - name: install_steampipe_plugins
+    ansible.builtin.shell:
+      cmd: "set -o pipefail|steampipe plugin install {{ item.name }}@{{ item.version | default('latest') }}"
+    register: r_install_steampipe_plugins
+    become: true
+    become_user: "{{ active_user }}"
+    failed_when: r_install_steampipe_plugins.rc != 0 and r_install_steampipe_plugins.stderr != ""
+    changed_when: false
+    any_errors_fatal: false
+    when: "'steampipe' in ansible_facts.packages"

@@ -1,36 +1,54 @@
-- name: add_yubico_repo_key
-  ansible.builtin.apt_key:
-    keyserver: "{{ item.keyserver }}"
-    state: present
-    id: "{{ item.id }}"
-  loop: "{{ yubico_repo_key }}"
-  register: r_keys_yubico_repo_key
-  retries: "{{ retries_count }}"
-  delay: "{{ delay_time }}"
-  until: r_keys_yubico_repo_key is success
-  any_errors_fatal: true
-  tags:
-  - keys
-  - task
-  - yubico
-- name: add_yubico_repositories
+- name: remove old repository
   ansible.builtin.apt_repository:
     repo: "{{ item.repo }}"
-    state: present
-    codename: "{{ codename }}"
-    filename: "{{ item.filename }}"
-    mode: "0644"
+    state: absent
+    update_cache: false
   loop: "{{ yubico_repositories }}"
   retries: "{{ retries_count }}"
-  delay: 3
-  register: r_yubico_repositories
-  until: r_yubico_repositories is success
-  when: r_keys_yubico_repo_key is success
+  delay: "{{ delay_time }}"
+  register: r_remove_yubico_repositories
+  until: r_remove_yubico_repositories is success
   any_errors_fatal: false
   tags:
-  - repositories
-  - task
-  - yubico
+    - repositories
+    - task
+    - yubico
+    - obsoleted
+- name: Remove repository file if exists
+  ansible.builtin.file:
+    path: "/etc/apt/sources.list.d/{{ item.filename }}.list"
+    state: absent
+  loop: "{{ yubico_repositories }}"
+  retries: "{{ retries_count }}"
+  delay: "{{ delay_time }}"
+  register: r_remove_yubico_repository_files
+  until: r_remove_yubico_repository_files is success
+  any_errors_fatal: false
+  tags:
+    - repositories
+    - task
+    - yubico
+    - obsoleted
+- name: Add Yubico repository in deb822 format
+  ansible.builtin.deb822_repository:
+    name: "{{ item.name }}"
+    types: "{{ item.types | default('deb') }}"
+    suites: "{{ item.suites | default('/') }}"
+    components: "{{ item.components | default(' ') }}"
+    uris: "{{ item.uris }}"
+    enabled: "{{ item.enabled | default('true') }}"
+    signed_by: "{{ item.signed_by | default('null') }}"
+    architectures: "{{ item.architectures | default('') }}"
+  loop: "{{ yubico_repositories }}"
+  retries: "{{ retries_count }}"
+  delay: "{{ delay_time }}"
+  register: r_yubico_repositories
+  until: r_yubico_repositories is success
+  any_errors_fatal: false
+  tags:
+    - repositories
+    - task
+    - yubico
 - name: install_yubico_packages
   ansible.builtin.apt:
     name: "{{ item }}"
@@ -44,53 +62,21 @@
   when: r_yubico_repositories is success
   any_errors_fatal: false
   tags:
-  - packages
-  - task
-  - yubico
-# appimages
-- name: download_yubico_files
-  ansible.builtin.get_url:
-    url: "{{ item.url }}"
-    dest: "{{ bin_path }}/{{ item.destination }}"
-    mode: 0755
-    force: yes
-  loop: "{{ yubico_appimage }}"
+    - packages
+    - task
+    - yubico
+- name: Install Yubico Authenticator as Flatpak
+  community.general.flatpak:
+    name: "{{ item.name }}"
+    state: "{{ item.ref }}"
+  loop: "{{ yubico_flatpak }}"
   retries: "{{ retries_count }}"
   delay: "{{ delay_time }}"
-  register: r_download_yubico_files
-  until: r_download_yubico_files is success
-  tags:
-  - task
-  - downloads
-  - apps
-  - yubico
-- name: put_desktop_files_for_yubico
-  ansible.builtin.copy:
-    dest: /usr/share/applications
-    src: "{{ item.desktop_file }}"
-    owner: root
-    group: root
-    mode: 0644
-  loop: "{{ yubico_appimage }}"
-  when: item.desktop_file is defined and item.desktop_file | length >0
+  register: r_yubico_flatpak
+  until: r_yubico_flatpak is success
+  when: r_yubico_repositories is success
   any_errors_fatal: false
-  register: r_put_yubico_desktop_files
-  retries: "{{ retries_count }}"
-  delay: "{{ delay_time }}"
-  until: r_put_yubico_desktop_files is success
   tags:
-  - task
-  - downloads
-  - apps
-  - yubico
-- name: refresh_desktop_database
-  ansible.builtin.shell: update-desktop-database
-  any_errors_fatal: false
-  register: r_refresh_desktop_database
-  failed_when: r_refresh_desktop_database.rc != 0 and r_refresh_desktop_database.stderr != ""
-  changed_when: false
-  tags:
-  - task
-  - downloads
-  - apps
-  - yubico
+    - flatpak
+    - task
+    - yubico

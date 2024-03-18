@@ -1,5 +1,184 @@
 # Changelog "linux_mint"
 
+## Version 2.8.0 [2024-03-18]
+
+* **BREAKING CHANGES**
+This release tries to resolve long term problems with apt repositories and legacy GPG keys. For a long time ansible module `apt_repository` was used to manage repositories and a separate module `apt_key` to manage keys.
+This approach was not perfect and caused problems with newer Linux Mint releases. This release introduces new approach to add repositories and keys. It uses `deb822` ansible module to add both: repositories and keys. However, this change is breaking and requires manual intervention. Please, read the documentation and follow the instructions to update your system.
+You can expect removal of old repositories from `/etc/apt/sources.list.d\*.list` and replace them with *.sources in deb822 format. As this playbook's role is not to manage outside repositories, you still can have apt refresh failing with a warning - you have to clean these manually (or add them as your own repositories in `deb822` format)
+
+For `custom_repositories` variable now it accepts only deb822 format as in the example below
+
+```yaml
+  - name: google-cloud-sdk
+    types: deb
+    suites: cloud-sdk
+    components: main
+    uris:
+      - "https://packages.cloud.google.com/apt"
+    enabled: true
+    architectures: amd64
+    signed_by: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+```
+
+* **BREAKING_CHANGES**
+With all possible packages available in FLATPAK, this release will try to remove all packages from `packages_optional` and `packages` and moves them to `flatpak`. This change is breaking and requires manual intervention. Please, read the documentation and follow the instructions to update your system.
+You can expect in some cases, config for your application is missing (for example Remmina package). Do not panic, these files are already there, mostly in `~.config` or `~.local/share` directories. You can copy them manually to the new location (`~/.var/app/...`)
+In future releases, I'll try to move all packages to FLATPAK and remove them `per repository` from the playbook.
+This move also forces to remove classic 'repositories` which are no longer required.
+Also, in future releases I'll separate FLATPAK packages to `mandatory` and `optional` to make it easier to manage.
+
+* [REPOSITORY] removal of nodesource16 repository
+* [REPOSITORY] added nodesource20 repository
+* [REPOSITORY] removal `brave-browser` repository (in favor of FLATPAK)
+* [APPLICATION] removal `brave-browser` package in favor of FLATPAK
+* [FLATPAK] added `brave` package
+* [REPOSITORY] delete `kubernetes-stable` repository
+* [REPOSITORY] added `kubernetes` repository with versioned packages
+* [REPOSITORY] removed `remmina-next` repository in favor of FLATPAK
+* [APPLICATION] removed `remmina-next` package in favor of FLATPAK
+* [FLATPAK] added `remmina` package
+* [PIP] added `sslyze` package
+* [APPLICATION] removed `y-ppa-manager`
+* [REPOSITORY] removed `y-ppa-manager` repository
+* [REPOSITORY] removed `libreoffice` repository
+* [APPLICATION] removed `libreoffice` package in favor of FLATPAK
+* [FLATPAK] added `libreoffice` package
+* [REPOSITORY] removed `enpass` repository
+* [APPLICATION] removed `enpass` package in favor of FLATPAK
+* [FLATPAK] added `enpass` package
+* [REPOSITORY] removed `spotify` repository
+* [APPLICATION] removed `spotify` package in favor of FLATPAK
+* [FLATPAK] added `spotify` package
+* [REPOSITORY] removed `sublime-text` repository
+* [APPLICATION] removed `sublime-text` package in favor of FLATPAK
+* [FLATPAK] added `sublime-text` package
+* [REPOSITORY] removed `webupd8` repository [obsoleted]
+* [REPOSITORY] removed `webupd8team` repository [obsoleted]
+* [REPOSITORY] removed `linuxuprising` repository [obsoleted]
+* [REPOSITORY] added `hashicorp` repository
+* [PACKAGES] added `consul`, `nomad`, `packer`, `terraform`, `vagrant`, `vault` from `hashicorp` repository
+* [APPLICATION] removed `thunderbird` package in favor `betterbird` from FLATPAK
+* [FLATPAK] added `betterbird` package
+* [FLATPAK] added `flatseal` package
+* [FLATPAK] added `bleachbit` package
+* [FLATPAK] added `krita` package
+* [FLATPAK] added `firefox` package
+* [FLATPAK] added `vivaldi` package
+* [FLATPAK] added `kdenlive` package
+* [FLATPAK] added `boxes` package
+* [FLATPAK] added `freefilesync` package
+* [FLATPAK] added `pinta` package
+* [FLATPAK] added `freefilesync` package
+* [APPLICATION] removed 'pinta` package in favor of FLATPAK
+* [FLATPAK] added `tlpui` package
+* [APPLICATION] removed `tlpui` package in favor of FLATPAK
+* [APPLICATION] removed `vlc` package in favor of FLATPAK
+* [FLATPAK] added `vlc` package
+* [FLATPAK] added `hashes` package
+* [APPLICATION] removed `kodi` package in favor of FLATPAK
+* [FLATPAK] added `kodi` package
+* [APPLICATION] removed 'wireshark` package in favor of FLATPAK
+* [FLATPAK] added `wireshark` package
+* [FLATPAK] added `missioncenter` package
+* [PACKAGES] removal of 'gitkraken' in favor of FLATPAK
+* [FLATPAK] added `gitkraken` package
+* [PACKAGES] removed `wps-office` in favor of FLATPAK
+* [FLATPAK] added `wps-office` package
+* [PACKAGES] removed `rpi-imager` in favor of FLATPAK
+* [FLATPAK] added `rpi-imager` package
+* [PACKAGES] removed `zoom` package in favor of FLATPAK
+* [APPLICATION] added `btop` package
+* [PACKAGES] removed `bicep` package in favor of `azure-cli` internal actions (bicep is now part of azure-cli)
+* [PACKAGES] upgraded `tabby` to version 1.0.207
+* [PACKAGES] upgraded `minikube` to version 1.32.0
+* [PACKAGES] upgraded `dive` to version 1.20.0
+* [PACKAGES] upgraded `etcher` to version 1.19.5
+* [PACKAGES] upgraded `dockle` to version 0.4.11
+* [PACKAGES] upgraded `keystore-explorer` to version 5.5.3
+* [PACKAGES] upgraded `kube-bench` to version 0.7.2
+* [PACKAGES] upgraded `syft` to version 1.0.1
+* [PACKAGES] upgraded `steampipe` to version 0.22.1
+* [PACKAGES] upgraded `rambox` to version 2.3.1
+* [APPLICATION] removed `gimp` package in favor of FLATPAK
+* [FLATPAK] added `gimp` package
+* [PACKAGES] removed `helm` package in favor of respository version
+* [REPOSITORY] added `helm` repository
+* [APPLICATION] add `helm` package
+* [PACKAGES] upgraded `kubeconform` to version 0.6.4
+* [PACKAGES] upgraded `tflint` to version 0.50.3
+* [PACKAGES] upgraded `kubent` to version 0.7.2
+* [PACKAGES] upgraded `kubestr` to version 0.4.41
+* [PACKAGES] upgraded `krew` to version 0.4.4
+* [PACKAGES] upgraded `nerdctl` to version 1.7.5
+* [PACKAGES] upgraded `kustomize` to version 5.3.0
+* [PACKAGES] upgraded `k9s` to version 0.32.3 and moved to [APPLICATION] section as .deb package become available
+* [PACKAGES] removed `datree` as it's no longer maintained
+* [PACKAGES] removed `docker-compose` as its functionality is now part of `docker` package
+* [PACKAGES] upgraded `ffuf` to version 2.1.0
+* [PACKAGES] upgrade `polaris` to version 9.0.1
+* [PACKAGES] upgraded `packetsender` to version 8.6.5
+* [PACKAGES] upgraded `k3s` to version 1.28.7
+* [PACKAGES] upgraded `k3d` to version 5.6.0
+* [PACKAGES] removed `tfsec` to version as it's now part of `trivy` package
+* [PACKAGES] upgraded `k3sup` to version 0.13.5
+* [PACKAGES] upgraded `argocd` to version 2.10.3
+* [FLATPAK] added `torbrowser` package
+* [FLATPAK] added `peazip` package
+* [FLATPAK] added `calibre` package
+* [APPLICATION] added `fio` package
+* [VSCODE] removed or renamed extensions `AquaSecurityOfficial.trivy-vulnerability-scanner`
+* [VSCODE] removed or renamed extensions `ms-azuretools.vscode-azureterraform`
+* [VSCODE] removed or renamed extensions `ms-azuretools.vscode-bicep`
+* [VSCODE] removed or renamed extensions `ms-azuretools.vscode-docker`
+* [VSCODE] removed or renamed extensions `ms-dotnettools.vscode-dotnet-runtime`
+* [VSCODE] removed or renamed extensions `ms-kubernetes-tools.vscode-kubernetes-tools`
+* [VSCODE] removed or renamed extensions `ms-python.isort`
+* [VSCODE] removed or renamed extensions `ms-python.python`
+* [VSCODE] removed or renamed extensions `ms-python.vscode-pylance`
+* [VSCODE] removed or renamed extensions `ms-vscode-remote.remote-containers`
+* [VSCODE] removed or renamed extensions `ms-vscode-remote.remote-ssh`
+* [VSCODE] removed or renamed extensions `ms-vscode.remote-server`
+* [VSCODE] removed or renamed extensions `ms-vscode-remote.remote-ssh-edit`
+* [VSCODE] removed or renamed extensions `ms-vscode-remote.remote-wsl`
+* [VSCODE] removed or renamed extensions `ms-vscode-remote.vscode-remote-extensionpack`
+* [VSCODE] removed or renamed extensions `ms-vscode.azure-account`
+* [VSCODE] removed or renamed extensions `ms-vscode.azurecli`
+* [VSCODE] removed or renamed extensions `ms-vscode.powershell`
+* [VSCODE] removed or renamed extensions `ms-vscode.remote-explorer`
+* [VSCODE] removed or renamed extensions `ms-vscode.wordcount`
+* [VSCODE] removed or renamed extensions `ms-vsliveshare.vsliveshare`
+* [VSCODE] added extension `aquasecurityofficial.trivy-vulnerability-scanner`
+* [VSCODE] added extension `danielsanmedium.dscodegpt`
+* [VSCODE] added extension `davidanson.vscode-markdownlint`
+* [VSCODE] added extension `dogukanakkaya.chatgpt-code`
+* [VSCODE] added extension `github.codespaces`
+* [VSCODE] added extension `github.copilot`
+* [VSCODE] added extension `github.copilot-chat`
+* [VSCODE] added extension `henriiik.docker-linter`
+* [VSCODE] added extension `humao.rest-client`
+* [VSCODE] added extension `infracost.infracost`
+* [VSCODE] added extension `ms-python.debugpy`
+* [VSCODE] added extension `ms-toolsai.jupyter-keymap`
+* [VSCODE] added extension `ms-vscode-remote.remote-wsl-recommender`
+* [VSCODE] added extension `owenfarrell.vscode-vault`
+* [VSCODE] added extension `pharndt.vscode-markdown-table`
+* [VSCODE] added extension `pycom.pymakr`
+* [VSCODE] added extension `redhat.vscode-xml`
+* [VSCODE] added extension `rust-lang.rust-analyzer`
+* [VSCODE] added extension `shopify.ruby-lsp`
+* [VSCODE] added extension `slevesque.vscode-zipexplorer`
+* [VSCODE] added extension `tfsec.tfsec`
+* [VSCODE] added extension `visualstudioexptteam.intellicode-api-usage-examples`
+* [VSCODE] added extension `visualstudioexptteam.vscodeintellicode`
+* [VSCODE] added extension `vscjava.vscode-java-debug`
+* [VSCODE] added extension `vscjava.vscode-java-dependency`
+* [VSCODE] added extension `vscjava.vscode-java-pack`
+* [VSCODE] added extension `vscjava.vscode-maven`
+* [VSCODE] added extension `wakatime.vscode-wakatime`
+* [VSCODE] added extension `xyz.plsql-language`
+* [VSCODE] added extension `znck.grammarly`
+
 ## Version 2.7.0 [2023-07-09]
 
 * [BREAKING_CHANGE] - removal of Linux Mint 20.x support - last version supporting it will be 2.6.1

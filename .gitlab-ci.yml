@@ -5,16 +5,20 @@ ansible-lint:
   image: $PIPELINE_IMAGE:$PIPELINE_IMAGE_TAG
   retry: 2
   services:
-    - docker:20.10-dind
+    - docker:25-dind
   before_script:
     - yamllint --version
     - ansible-lint --version
   script:
     - echo "Running on $PIPELINE_IMAGE:$PIPELINE_IMAGE_TAG"
+    - pip install --upgrade ansible-lint pip
     - yamllint -c ./.yamllint ./tasks/*.yml
     - yamllint -c ./.yamllint *.yaml
-    - ansible-lint -v ./tasks/*.yml
-    - ansible-lint -v linux_mint.yaml
+    - ansible-lint ./tasks/*.yml
+    - ansible-lint linux_mint.yaml
+    - echo "Run for ansible-lint production"
+    - ansible-lint --profile production ./tasks/*.yml
+    - ansible-lint --profile production linux_mint.yaml
   tags:
     - docker
     - ansible

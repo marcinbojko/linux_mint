@@ -2,6 +2,7 @@
 
 [![Super-Linter](https://github.com/marcinbojko/linux_mint/actions/workflows/01_lint_me.yml/badge.svg)](https://github.com/marcinbojko/linux_mint/actions/workflows/01_lint_me.yml)
 [![Ansible Lint](https://github.com/marcinbojko/linux_mint/actions/workflows/02_ansible_lint.yml/badge.svg)](https://github.com/marcinbojko/linux_mint/actions/workflows/02_ansible_lint.yml)
+[![wakatime](https://wakatime.com/badge/github/marcinbojko/linux_mint.svg)](https://wakatime.com/badge/github/marcinbojko/linux_mint)
 <!-- TOC -->
 
 - [Ansible playbook for your DevOps/SysOps Linux Mint 21.x based workstation](#ansible-playbook-for-your-devopssysops-linux-mint-21x-based-workstation)
@@ -36,7 +37,7 @@
 
 ## Prerequisites
 
-- installed `Linux Mint` 21.0/21.1 - all 64-bit, standard options with extra codecs (available as selection during install)
+- installed `Linux Mint` 21.0/21.1/21.2/21.3 - all 64-bit, standard options with extra codecs (available as selection during install)
 - for previous versions of Mint (20.x) - last release supporting `Linux Mint 20` was 2.6.1
 - access to internet
 - `openssh-server` installed and running
@@ -55,7 +56,7 @@
 
 ## Assumptions
 
-- 20 GB free space on OS drive
+- 10 GB free space on OS drive (recommended 20-30 due to Flatpak)
 - ssh private key or password method
 - user specified in `group_vars` or passed in variable `ansible_ssh_user`
 - by default, extra binaries (outside packages) will be installed in `/usr/local/bin` (adjustable by `bin_path` variable) If you prefer to keep them in cloud (sync between computers), down below I'll attach info how to replace binaries with proper -ymlinks (work in progress)
@@ -148,17 +149,17 @@ Most variables are stored in `mint19|20.yaml` file. If you need extra settings, 
 |bin_path|/usr/local/bin|Where to put all downloaded execs|
 |reboot_required|false|force reboot even if apt upgrade won't change anything|
 |unpack_folder|/tmp/linux_mint|Which folder to use when downloading and unarchiving|
-|||
+||||
 
 ### variables for tasks
 
-Are stored in `mint20_tasks.yaml`
+Are stored in `mint21_tasks.yaml`
 
 ## Custom variables, custom variable files
 
 If you don't want to track changes or change main variable file content with every pull, create your own custom variable files. By default playbook will look for files: `mint[ansible_distribution_major_version]*.yaml`
-This means - if your distro is `Linux Mint 19`, place a file in a playbook folder witha name: `mint19_custom.yaml`
-If your distro is `Linux Mint 20`, place a file in a playbook folder with a name: `mint20_custom.yaml`
+This means - if your distro is `Linux Mint 20`, place a file in a playbook folder witha name: `mint20_custom.yaml`
+If your distro is `Linux Mint 21`, place a file in a playbook folder with a name: `mint21_custom.yaml`
 These filters are added to .gitignore to not override your changes
 Be careful not to add multiple matching files with corresponding names
 
@@ -176,8 +177,16 @@ custom_packages: []
 
 ```yaml
 custom_repositories:
-- repo: ppa:videolan/master-daily
-  filename: videolan
+  # Example
+  # - name: google-cloud-sdk
+  #   types: deb
+  #   suites: cloud-sdk
+  #   components: main
+  #   uris:
+  #     - "https://packages.cloud.google.com/apt"
+  #   enabled: true
+  #   architectures: amd64
+  #   signed_by: https://packages.cloud.google.com/apt/doc/apt-key.gpg
 custom_keys:
 - https://somekeyfile/key.pgp
 custom_packages:
@@ -189,45 +198,35 @@ custom_packages:
 ### Repositories: Basic
 
 - `alexx2000` - Double Commander
-- `ansible` - Ansible - **removed in Linux Mint 20**
+- `ansible` - Ansible
 - `azure-cli` - Azure CLI SDK
-- `docker` - Docker-CE
+- `docker-stable` - Docker-CE
 - `gcsfuse` - Google Storage gcsfuse - Mount a GCS bucket locally`
-- `gezakovacs` - UNetbootin
-- `git-lfs` - Git Large File System - **removed in Linux Mint 20**
-- `googlechrome` - Google Chrome Browser
 - `google-cloud-sdk` - Google Cloud Tools SDK
-- `kubernetes` - Google Kubernetes kubeadm & kubectl
-- `microsoft-prod` - Microsoft .Net Core
+- `googlechrome` - Google Chrome Browser
+- `hashicorp` - Hashicorp tools
+- `helm-stable-debian` - Helm for Kubernetes
+- `kubernetes-129` - Google Kubernetes kubeadm & kubectl for 1.29
+- `microsoft-prod-deb` - Microsoft .Net Core
 - `mozilla-team` - Stable Firefox and Mozilla Software
+- `nodesource20` -  Node.js LTS
 - `palemoon` - Chromium based Java+Flash browser
-- `remmina` - Connection manager - RDP/SSH/VNC
-- `shutter` - screenshoot, manipulate, publish
-- `synapse-core` - Synaptic Launcher
 - `ubuntu-mozilla-security` - Firefox and Thunderbird Security
 - `virtualbox` - Virtualization Software
 - `vscode` - Microsoft Visual Studio Code
-- `y-ppa-manager` - Manage your PPA as human being
 
 ### Repositories: Optional
 
-- `brave browser` - Chromium-based secure browsing alternative
 - `dockbarx` - DockBarX is a lightweight taskbar
-- `enpass` - Password Manager
 - `grub-customizer` - customize black screen to something useful
+- `noobslab-icons` - Noobslab icons
 - `insync` - Googledrive & Onedrive Linux Client
-- `linuxuprising` - Extra Ubuntu / Linux Mint Applications
-- `neofetch` - A command-line system information tool written in bash 3.2+
-- `noobslab/icons` - Extra icons pack
-- `noobslab/themes` - Extra themes pack
-- `puppet5` - Puppet5 and PDK for easy module writing
-- `skype` - Microsoft's communicator
-- `spotify` - Music streaming service
-- `sublime text 3` - Alternative text editor
 - `trivy` - Container security scanner
-- `veeam` - Veeam Agent for Linux
+- `veeam-agent` - Veeam Agent for Linux
 - `veracrypt` - Device encryption utility
-- `wepupd8` - packages from webupd8 team
+- `rancher-desktop` - Rancher Desktop
+- `lens` - Kubernetes IDE
+- `ngrok` - Secure tunnels to localhost
 
 ## Packages
 
@@ -239,15 +238,11 @@ custom_packages:
 |------------------|--------|---------------------|
 | Amass| In-depth Attack Surface Mapping and Asset Discovery|[https://github.com/OWASP/Amass](https://github.com/OWASP/Amass)|
 | AngryIP Scanner |Network Scanner |[https://angryip.org/](https://angryip.org/)|
-| Asbru Manager |Connection Manager|[https://www.asbru-cm.net/](https://www.asbru-cm.net/)|
 | Azure CLI |Command-line tools for Azure|[https://github.com/Azure/azure-cli](https://github.com/Azure/azure-cli)|
 | Balena-etcher |Image Writer| [https://www.balena.io/etcher/](https://www.balena.io/etcher/)|
-| Boostnote | Notes for developers |[https://boostnote.io](https://boostnote.io)|
 | Ctop| Container process monitor | [https://github.com/bcicen/ctop](https://github.com/bcicen/ctop)|
-| Datree|Kubernetes validator |[https://github.com/datreeio/datree](https://github.com/datreeio/datree)|
 | Diodon | Clipboard Manager | [https://launchpad.net/diodon](https://launchpad.net/diodon)|
 | Dive| Docker image explorer | [https://github.com/wagoodman/dive](https://github.com/wagoodman/dive)|
-| Docker/Docker Compose |Docker manager | [https://docs.docker.com/compose/](https://docs.docker.com/compose/)
 | Dockle|Container Image Linter for Security|[https://github.com/goodwithtech/dockle](https://github.com/goodwithtech/dockle)|
 | Double Commander|File Manager|[https://doublecmd.sourceforge.io/](https://doublecmd.sourceforge.io/)|
 | Dropbox/Nemo Integration | Tool | [https://github.com/linuxmint/nemo-extensions/tree/master/nemo-dropbox](https://github.com/linuxmint/nemo-extensions/tree/master/nemo-dropbox)|
@@ -271,26 +266,24 @@ custom_packages:
 | Minikube | Run Kubernetes locally |[https://github.com/kubernetes/minikube](https://github.com/kubernetes/minikube)|
 | Packer | Image creator |[https://www.packer.io/](https://www.packer.io/)|
 | Packetsender|Packet Sender can send and receive UDP, TCP, and SSL on the ports of your choosing|[https://packetsender.com/](https://packetsender.com/)|
-| Palemoon | Browser alternative (Java_+Flash)| [https://www.palemoon.org/](https://www.palemoon.org/)
+| Palemoon | Browser alternative (Java_+Flash)| [https://www.palemoon.org/](https://www.palemoon.org/)|
 | Polaris|Validation of best practices in your Kubernetes clusters|[https://www.fairwinds.com/polaris](https://www.fairwinds.com/polaris)|
 | RamboxOS |Multi IM|[https://github.com/TheGoddessInari/hamsket](https://github.com/TheGoddessInari/hamsket)|
 | Rancher Desktop|Rancher Desktop runs Kubernetes and container management on your desktop| [https://rancherdesktop.io/](https://rancherdesktop.io/)|
 | Redshift | Monitor temperature changer| [http://jonls.dk/redshift/](http://jonls.dk/redshift/)|
-| Remmina | Remote Connection Manager |[https://remmina.org/](https://remmina.org/)
+| Remmina | Remote Connection Manager |[https://remmina.org/](https://remmina.org/)|
 | RKE| Rancher Kubernetes Engine | [https://github.com/rancher/rke](https://github.com/rancher/rke) |
 | Shutter | Screenshot Manipulation| [http://shutter-project.org/](http://shutter-project.org/)|
 | Synapse | Symantic Launcher|[https://launchpad.net/synapse-project](https://launchpad.net/synapse-project)|
-| Team Viewer | Remote desktop | [https://www.teamviewer.com](https://www.teamviewer.com) |
-| Terminus Alpha | Modern Terminal|[https://github.com/Eugeny/terminus](https://github.com/Eugeny/terminus)|
+| Tabby | Modern Terminal|[https://github.com/Eugeny/terminus](https://github.com/Eugeny/terminus)|
 | Terraform|Infrastructure as Code|[https://www.terraform.io/](https://www.terraform.io/)|
-| Tflint|TFLint is a Terraform linter focused on possible errors, best practices, etc|[https://github.com/terraform-linters/tflint](https://github.com/terraform-linters/tflint)|
-| Vagrant | Unified Workflow|[https://www.vagrantup.com/](https://www.vagrantup.com/)
-| Vault | Secrets Manager |[https://www.vaultproject.io/](https://www.vaultproject.io/)
+| Vagrant | Unified Workflow|[https://www.vagrantup.com/](https://www.vagrantup.com/)|
+| Vault | Secrets Manager |[https://www.vaultproject.io/](https://www.vaultproject.io/)|
 | VirtualBox|Virtualization|[https://www.virtualbox.org/](https://www.virtualbox.org/)|
 | Visual Studio Code|Code editor|[https://code.visualstudio.com/](https://code.visualstudio.com/)|
-| WPS Office for Linux | Productivity Tools | [https://www.wps.com/wps-office-for-linux/](https://www.wps.com/wps-office-for-linux/)
+| WPS Office for Linux | Productivity Tools | [https://www.wps.com/wps-office-for-linux/](https://www.wps.com/wps-office-for-linux/)|
 | XCA | Certificate Manager|[https://hohnstaedt.de/xca/](https://hohnstaedt.de/xca/)|
-|||
+||||
 
 ### Packages: Optional (not complete list)
 
@@ -303,33 +296,55 @@ custom_packages:
 | Insync|Googledrive & Onedrive linux client|[https://www.insynchq.com/](https://www.insynchq.com/)|
 | Kodi | Open Source Home Theater| [https://kodi.tv/](https://kodi.tv/)|
 | Neofetch |A command-line system information tool written in bash 3.2+| [https://github.com/dylanaraps/neofetch](https://github.com/dylanaraps/neofetch)|
-| PDK/Puppet Agent | Puppet Development Kit | [https://puppet.com/docs/pdk/1.x/pdk.html](https://puppet.com/docs/pdk/1.x/pdk.html)|
 | Pinta | Drawing/Image Editing| [https://pinta-project.com/pintaproject/pinta/](https://pinta-project.com/pintaproject/pinta/)|
-| Skype for Linux | Communicator | [https://www.skype.com](https://www.skype.com)|
 | Spotify | Music Player| [https://www.spotify.com/pl/download/linux/](https://www.spotify.com/pl/download/linux/)|
 | Steampipe| select * from cloud| [https://steampipe.io/](https://steampipe.io/)|
-| Sublime Text 3 | Text Editor | [https://www.sublimetext.com/3](https://www.sublimetext.com/3)
-| Thunderbird | Email client | [https://www.thunderbird.net](https://www.thunderbird.net)|
-| Trivy |A Simple and Comprehensive Vulnerability Scanner for Containers, Suitable for CI|[https://github.com/aquasecurity/trivy](https://github.com/aquasecurity/trivy)
+| Sublime Text 3 | Text Editor | [https://www.sublimetext.com/3](https://www.sublimetext.com/3)|
+| Betterbird | Email client | [https://www.betterbird.eu/](https://www.betterbird.eu/)|
+| Trivy |A Simple and Comprehensive Vulnerability Scanner for Containers, Suitable for CI|[https://github.com/aquasecurity/trivy](https://github.com/aquasecurity/trivy)|
 | Veeam Agent for Linux | Backup tool| [https://www.veeam.com](https://www.veeam.com)|
 | Veracrypt | Source disk encryption | [https://www.veracrypt.fr/en/Home.html](https://www.veracrypt.fr/en/Home.html)|
-| WoeUSB | USB Image writer | [https://github.com/slacka/WoeUSB](https://github.com/slacka/WoeUSB)|
-|||
+
+||||
 
 ### Packages: Flatpak
 
 |Software|Type|Link|
-|------------------|--------|---------------------|
-|Postman|The Collaboration Platform for API Development|[https://www.getpostman.com/](https://www.getpostman.com/)|
-|Obsidian|Knowledge base and note seystem|[https://obsidian.md/](https://obsidian.md/)|
-|||
+|---|---|---|
+|Bitwarden|Password Manager|[Bitwarden](https://bitwarden.com/%29)|
+|Boxes|Virtualization|[Boxes](https://wiki.gnome.org/Apps/Boxes%29)|
+|Brave|Web Browser|[Brave](https://brave.com/%29)|
+|EasyEffects|Audio Effects Tool|[EasyEffects](https://github.com/wwmm/easyeffects%29)|
+|Enpass|Password Manager|[Enpass](https://www.enpass.io/%29)|
+|Firefox|Web Browser|[Firefox](https://www.mozilla.org/en-US/firefox/new/%29)|
+|Flatseal|Permissions Manager|[Flatseal](https://flathub.org/apps/details/com.github.tchx84.Flatseal%29)|
+|FreeFileSync|File Synchronization|[FreeFileSync](https://freefilesync.org/%29)|
+|GIMP|Image Editor|GIMP|
+|GitKraken|Git Client|GitKraken|
+|Headlamp|Kubernetes Dashboard|[Headlamp](https://kinvolk.io/headlamp/%29)|
+|Kdenlive|Video Editor|[Kdenlive](https://kdenlive.org/%29)|
+|Kodi|Media Center|[Kodi](https://kodi.tv/%29)|
+|Krita|Digital Painting|[Krita](https://krita.org/%29)|
+|LibreOffice|Office Suite|[LibreOffice](https://www.libreoffice.org/%29)|
+|MissionCenter|Project Management|[MissionCenter](https://missioncenter.io/%29)|
+|Obsidian|Note-taking App|[Obsidian](https://obsidian.md/%29)|
+|Pinta|Image Editor|[Pinta](https://pinta-project.com/%29)|
+|Raspberry Pi Imager|Raspberry Pi Image Writer|[Raspberry Pi Imager](https://www.raspberrypi.org/software/%29)|
+|Remmina|Remote Desktop Client|[Remmina](https://remmina.org/%29)|
+|Spotify|Music Streaming|[Spotify](https://www.spotify.com/%29)|
+|Sublime Text|Text Editor|[Sublime Text](https://www.sublimetext.com/%29)|
+|VLC|Media Player|[VLC](https://www.videolan.org/vlc/%29)|
+|Vivaldi|Web Browser|[Vivaldi](https://vivaldi.com/%29)|
+|WPS Office|Office Suite|[WPS Office](https://www.wps.com/%29)|
+|Zenmap|Network Scanner|[Zenmap](https://nmap.org/zenmap/%29)|
+|Zoom|Video Conferencing|[Zoom](https://zoom.us/%29)|
 
 ### Packages: npm
 
 |Software|Type|Link|
 |------------------|--------|---------------------|
 |Dockerfilelint|Dockerfile linter|[https://github.com/replicatedhq/dockerfilelint](https://github.com/replicatedhq/dockerfilelint)|
-|||
+||||
 
 ## Tasks
 
@@ -338,7 +353,7 @@ custom_packages:
 |install_yubico_software|Install keys, repositories, packages and dekstop files for Yubico infrastructure|[https://yubico.com](https://yubico.com)|
 |configure_zsh|Installs files required by zsh, `oh-my-zsh` and `powerlevel10k`|[https://github.com/ohmyzsh/ohmyzsh](https://github.com/ohmyzsh/ohmyzsh) [https://github.com/romkatv/powerlevel10k](https://github.com/romkatv/powerlevel10k)|
 |steampipe_plugins.yaml|Install steampipe plugins | [https://steampipe.io/](https://steampipe.io/)|
-|||
+||||
 
 ## Startup applications
 
@@ -354,9 +369,7 @@ Some applications are copied to `autostart` folder
 
 ### OS Tweaks
 
-- handle *.local domain with avahi
 - changes timezone and ntpd settings
-- handle mDNS with .local domains
 - modifies `sysctl` settings to start use `tcp_congestion_control` set to `bbr`
 - modifies `sysctl` settings to decrease default swappiness
 - changes `alternatives` for EDITOR
@@ -427,4 +440,3 @@ Some applications are copied to `autostart` folder
 - Step `reset_dconf_values` can fail in Linux Mint 20.x due to python-psutil package being too new.
 - `Insync` package strange behavior.
   Installing packages can fail as `Insync` ignores entries in it's own insync.list file and adds new ones. This can lead to mutliple sources being added, thus apt is doomed to fail. In rare cases Insync also tries to add new repos codenames before they exist on their side. Currently there is no workaround for this.
-
