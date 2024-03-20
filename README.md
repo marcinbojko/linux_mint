@@ -1,11 +1,11 @@
-# Ansible playbook for your DevOps/SysOps Linux Mint 21.x based workstation
+# Ansible playbook for your DevOps/SysOps Linux Mint 21.x-based workstation
 
 [![Super-Linter](https://github.com/marcinbojko/linux_mint/actions/workflows/01_lint_me.yml/badge.svg)](https://github.com/marcinbojko/linux_mint/actions/workflows/01_lint_me.yml)
 [![Ansible Lint](https://github.com/marcinbojko/linux_mint/actions/workflows/02_ansible_lint.yml/badge.svg)](https://github.com/marcinbojko/linux_mint/actions/workflows/02_ansible_lint.yml)
 [![wakatime](https://wakatime.com/badge/github/marcinbojko/linux_mint.svg)](https://wakatime.com/badge/github/marcinbojko/linux_mint)
 <!-- TOC -->
 
-- [Ansible playbook for your DevOps/SysOps Linux Mint 21.x based workstation](#ansible-playbook-for-your-devopssysops-linux-mint-21x-based-workstation)
+- [Ansible playbook for your DevOps/SysOps Linux Mint 21.x-based workstation](#ansible-playbook-for-your-devopssysops-linux-mint-21x-based-workstation)
   - [Prerequisites](#prerequisites)
     - [Ansible 2.10 and higher reminder](#ansible-210-and-higher-reminder)
   - [Assumptions](#assumptions)
@@ -320,7 +320,6 @@ custom_packages:
 |Flatseal|Permissions Manager|[Flatseal](https://flathub.org/apps/details/com.github.tchx84.Flatseal%29)|
 |FreeFileSync|File Synchronization|[FreeFileSync](https://freefilesync.org/%29)|
 |GIMP|Image Editor|GIMP|
-|GitKraken|Git Client|GitKraken|
 |Headlamp|Kubernetes Dashboard|[Headlamp](https://kinvolk.io/headlamp/%29)|
 |Kdenlive|Video Editor|[Kdenlive](https://kdenlive.org/%29)|
 |Kodi|Media Center|[Kodi](https://kodi.tv/%29)|

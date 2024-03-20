@@ -1,0 +1,34 @@
+# Install flatpak packages
+- name: Remove_flatpak_apps
+  community.general.flatpak:
+    name: "{{ item.name | string }}"
+    state: absent
+    method: system
+  loop: "{{ flatpak_remove }}"
+  retries: "{{ retries_count }}"
+  delay: "{{ delay_time }}"
+  register: r_remove_flatpak_apps
+  until: r_remove_flatpak_apps is success
+  any_errors_fatal: false
+  when: remove_flatpak is defined and remove_flatpak
+  tags:
+  - packages
+  - flatpak
+  - remove
+- name: Remove_flatpak_custom_apps
+  community.general.flatpak:
+    name: "{{ item.name | string }}"
+    state: absent
+    method: system
+  loop: "{{ custom_flatpak_remove | default([]) }}"
+  retries: "{{ retries_count }}"
+  delay: "{{ delay_time }}"
+  register: r_remove_custom_flatpak_apps
+  until: r_remove_custom_flatpak_apps is success
+  any_errors_fatal: false
+  when: (custom_remove_flatpak is defined and custom_remove_flatpak | default([]) | length > 0 ) and remove_flatpak
+  tags:
+  - packages
+  - flatpak
+  - remove
+  - custom

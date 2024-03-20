@@ -1,5 +1,17 @@
 # Changelog "linux_mint"
 
+## Version 2.8.1 [2024-03-20]
+
+* [FLATPAK] removal of 'GitKraken` from flatpak packages due to incompatibility
+* [APPLICATION] added `gitkraken` package as .deb
+* added `flatpak_remove` section to remove flatpak packages which are no longer available
+* added new custom variable `custom_flatpak_remove` to allow user to remove flatpak packages which are no longer available
+* Start moving elements of playbook into separat tasks
+* [TASKS] added task `remove_flatpak_packages` to remove flatpak packages which are no longer available
+* [TASKS] added task `remove_repository_files` to remove repository files which are no longer available. Task is repeated AFTER package installation to remove doubles
+* [VSCODE] removed extension `dogukanakkaya.chatgpt-code` as obsoleted
+* [FLATPAK] added `org.gnome.font-viewer` package as due changes in migration it could not be available in 21.x
+
 ## Version 2.8.0 [2024-03-18]
 
 * **BREAKING CHANGES**

@@ -18,7 +18,7 @@
 - name: download_fonts_for_power10k
   ansible.builtin.get_url:
     url: "{{ item }}"
-    dest: /usr/local/share/fonts/power10k
+    dest: /usr/share/fonts/truetype/power10k
     mode: "0644"
   retries: "{{ retries_count }}"
   delay: "{{ delay_time }}"
@@ -37,7 +37,7 @@
     - power10k
     - fonts
 - name: update_font_cache
-  ansible.builtin.shell: fc-cache
+  ansible.builtin.shell: fc-cache -f -v
   register: r_update_font_cache
   any_errors_fatal: false
   tags:

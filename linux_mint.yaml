@@ -1,4 +1,4 @@
-# Prepares LinuxMint19/20 desktop.
+# Prepares LinuxMint 21.x desktop.
 # start from preparing ssh:
 # sudo apt install openssh-server ntp;systemctl enable ssh && systemctl start ssh
 # kind: playbook
@@ -8,10 +8,11 @@
     install_optional: true                    # should optional packages be installed?
     install_deb: true                         # should extra deb packages should be installed
     install_flatpak: true                     # should we install flatpak software
+    remove_flatpak: true                      # should we remove flatpak software
     install_vscode_extensions: true           # should we install extra vscode extensions
     install_steampipe_plugins: true           # install steampipe plugins (steampipe must be installed)
     install_npm: true                         # should we install npm packages
-    install_zsh: false                        # install and configure oh-my-zhs and power10k
+    install_zsh: true                         # install and configure oh-my-zhs and power10k
     install_yubico: false                     # install yubico related software
     install_state: latest                     # if set to latest, every pass of playbook will also update packages
     config_ansible: true                      # do changes in change ansible.cfg
@@ -98,15 +99,15 @@
       - "Install steampipe plugins    : {{ install_steampipe_plugins | bool | lower }} "
       - "Install zsh                  : {{ install_zsh | bool | lower }}"
       - "Install Yubico               : {{ install_yubico | bool | lower }}"
-      - "Config for Ansible           : {{ config_ansible }}"
-      - "Config dconf                 : {{ config_dconf }}"
-      - "Config sysctl                : {{ config_sysctl }}"
+      - "Config for Ansible           : {{ config_ansible | bool | lower }}"
+      - "Config dconf                 : {{ config_dconf | bool | lower }}"
+      - "Config sysctl                : {{ config_sysctl | bool | lower }}"
       - "Bin Path to put files into   : {{ bin_path }}"
       - "Active user                  : {{ active_user | string }}"
   - name: wait_10_seconds
     ansible.builtin.pause:
       seconds: 10
-      prompt: "Check variables - last chance to abort in 15 seconds"
+      prompt: "Check variables - last chance to abort in 10 seconds"
 
   # we need proper time to refresh repositories
   - name: make_sure_timesyncd_is_installed
@@ -157,22 +158,19 @@
     - repositories
     - base
     - obsolete
-# remove obsolete files
-  - name: remove_obsolete_files_from_variables_file
-    ansible.builtin.file:
-      path: "{{ item.path }}"
-      state: absent
-    loop: "{{ files_remove }}"
-    retries: "{{ retries_count }}"
-    delay: "{{ delay_time }}"
-    register: r_files_remove
-    until: r_files_remove is success
-    any_errors_fatal: false
-    ignore_errors: true
+  # remove obsolete files
+  - name: Tasks - remove repository files
+    ansible.builtin.include_tasks: ./tasks/remove_repository_files.yml
+    args:
+      apply:
+        tags:
+        - repositories
+        - files
+        - remove
+        - base
+        - obsolete
     tags:
-    - files
-    - base
-    - obsolete
+    - always
 # remove obsolete files from 'bin_path'
   - name: Remove_obsolete_files_bin_path_from_variables_file
     ansible.builtin.file:
@@ -223,7 +221,18 @@
     - packages
     - base
     - obsolete
-# apt initial refresh
+# remove absolete flatpak apps, from playbooks and custom variables
+  - name: Remove_flatpak_apps
+    ansible.builtin.include_tasks: ./tasks/remove_flatpak_packages.yml
+    args:
+      apply:
+        tags:
+        - packages
+        - flatpak
+        - remove
+    tags:
+    - always
+  # refresh apt cache
   - name: apt_initial_refresh
     ansible.builtin.apt:
       update_cache: yes
@@ -930,6 +939,19 @@
       become_user: "{{ active_user }}"
       tags:
       - dconf
+  # remove obsoleted `list` files left by new packages
+  - name: Tasks - remove repository files
+    ansible.builtin.include_tasks: ./tasks/remove_repository_files.yml
+    args:
+      apply:
+        tags:
+        - repositories
+        - files
+        - remove
+        - base
+        - obsolete
+    tags:
+    - always
   - name: update_all_packages
     ansible.builtin.apt:
       upgrade: "yes"

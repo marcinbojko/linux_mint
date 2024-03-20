@@ -464,7 +464,6 @@ packages_remove:
   - wireshark-qt
   - wireshark-gtk
   - wireshark-doc
-  - gitkraken
   - wps-office
   - rpi-imager
   - zoom
@@ -619,6 +618,7 @@ packages_optional:
   - veeamsnap
   - veracrypt
 deb:
+  - https://release.gitkraken.com/linux/gitkraken-amd64.deb
   - https://github.com/angryip/ipscan/releases/download/3.9.1/ipscan_3.9.1_amd64.deb
   - https://github.com/Eugeny/tabby/releases/download/v1.0.207/tabby-1.0.207-linux-x64.deb
   - https://github.com/kubernetes/minikube/releases/download/v1.32.0/minikube_1.32.0-0_amd64.deb
@@ -632,7 +632,6 @@ deb:
   - https://github.com/ramboxapp/download/releases/download/v2.3.1/Rambox-2.3.1-linux-x64.deb
   - https://github.com/derailed/k9s/releases/download/v0.32.3/k9s_linux_amd64.deb
 flatpak:
-  - name: com.axosoft.GitKraken
   - name: com.bitwarden.desktop
   - name: com.brave.Browser
   - name: com.calibre_ebook.calibre
@@ -656,6 +655,7 @@ flatpak:
   - name: org.freefilesync.FreeFileSync
   - name: org.gimp.GIMP
   - name: org.gnome.Boxes
+  - name: org.gnome.font-viewer
   - name: org.kde.kdenlive
   - name: org.kde.krita
   - name: org.libreoffice.LibreOffice
@@ -668,6 +668,8 @@ flatpak:
   - name: tv.kodi.Kodi
   - name: us.zoom.Zoom
   - name: zenmap
+flatpak_remove:
+  - name: com.axosoft.GitKraken
 npm:
   - name: agentkeepalive
     state: latest
@@ -849,13 +851,13 @@ vscode_obsolete:
   - hypnoes.word-count
   - vscoss.vscode-ansible
   - wholroyd.HCL
+  - dogukanakkaya.chatgpt-code
 vscode:
   - alefragnani.project-manager
   - aquasecurityofficial.trivy-vulnerability-scanner
   - bierner.markdown-mermaid
   - danielsanmedium.dscodegpt
   - davidanson.vscode-markdownlint
-  - dogukanakkaya.chatgpt-code
   - donjayamanne.githistory
   - dotjoshjohnson.xml
   - eamodio.gitlens

@@ -1,0 +1,16 @@
+# Tasks removes all files from `files_remove` list
+- name: Remove_obsolete_files_from_variables_file
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    state: absent
+  loop: "{{ files_remove | default([]) }}"
+  retries: "{{ retries_count }}"
+  delay: "{{ delay_time }}"
+  register: r_files_remove
+  until: r_files_remove is success
+  any_errors_fatal: false
+  ignore_errors: true
+  tags:
+  - files
+  - base
+  - obsolete
