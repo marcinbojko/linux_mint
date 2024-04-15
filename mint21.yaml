@@ -411,34 +411,19 @@ keys_remove:
   - 5E54716D
 packages_remove:
   - ansible-base
-  - kontena-lens
-  - skypeforlinux
-  - openjdk-8-jdk
-  - openjdk-8-jre
-  - openjdk-8-headless
-  - openjdk-11-jdk
-  - openjdk-11-jre
-  - openjdk-11-headless
-  - openjdk-13-jdk
-  - openjdk-13-jre
-  - openjdk-13-headless
-  - openjdk-17-jdk
-  - openjdk-17-jre
-  - openjdk-17-headless
-  - openjdk-18-jdk
-  - openjdk-18-jre
-  - openjdk-18-headless
-  - zenmap
   - balena-etcher-electron
-  - teams
+  - betterbird
+  - boxes
   - brave-browser
-  - remmina
-  - remmina-plugin-rdp
-  - remmina-plugin-vnc
-  - remmina-plugin-secret
-  - remmina-plugin-spice
-  - remmina-plugin-secret
-  - y-ppa-manager
+  - enpass
+  - firefox
+  - freefilesync
+  - gimp
+  - hashes
+  - kdenlive
+  - kodi
+  - kontena-lens
+  - krita
   - libreoffice-base-core
   - libreoffice-calc
   - libreoffice-common
@@ -446,26 +431,42 @@ packages_remove:
   - libreoffice-gtk3
   - libreoffice-math
   - libreoffice-writer
-  - enpass
+  - openjdk-11-headless
+  - openjdk-11-jdk
+  - openjdk-11-jre
+  - openjdk-13-headless
+  - openjdk-13-jdk
+  - openjdk-13-jre
+  - openjdk-17-headless
+  - openjdk-17-jdk
+  - openjdk-17-jre
+  - openjdk-18-headless
+  - openjdk-18-jdk
+  - openjdk-18-jre
+  - openjdk-8-headless
+  - openjdk-8-jdk
+  - openjdk-8-jre
+  - pinta
+  - remmina
+  - remmina-plugin-rdp
+  - remmina-plugin-secret
+  - remmina-plugin-secret
+  - remmina-plugin-spice
+  - remmina-plugin-vnc
+  - rpi-imager
+  - skypeforlinux
   - spotify
   - sublime-text
-  - betterbird
-  - krita
-  - kdenlive
-  - firefox
-  - boxes
-  - freefilesync
-  - pinta
+  - teams
   - tlpui
   - vlc
-  - hashes
-  - kodi
   - wireshark
-  - wireshark-qt
-  - wireshark-gtk
   - wireshark-doc
+  - wireshark-gtk
+  - wireshark-qt
   - wps-office
-  - rpi-imager
+  - y-ppa-manager
+  - zenmap
   - zoom
 packages_clean_system:
   - apt-transport-https
@@ -501,7 +502,6 @@ packages:
   - docker-ce
   - dos2unix
   - doublecmd-gtk
-  - dropbox
   - dstat
   - extlinux
   - filezilla
@@ -509,7 +509,6 @@ packages:
   - freerdp2-x11
   - gcsfuse
   - gddrescue
-  - gimp
   - git
   - git-lfs
   - google-chrome-stable
@@ -530,10 +529,12 @@ packages:
   - krb5-locales
   - krb5-multidev
   - krb5-user
+  - kubectl
   - libkrb5-dev
   - liblinear-dev
   - liblinear-tools
   - libqt5multimedia5-plugins
+  - micro
   - moreutils
   - mpv
   - multitail
@@ -591,7 +592,9 @@ packages:
   - trivy
   - tshark
   - unzip
+  - usrmerge
   - va-driver-all
+  - vagrant
   - vault
   - viewnior
   - virtualbox-7.0
@@ -599,6 +602,7 @@ packages:
   - xca
   - zsh
 packages_optional:
+  - cheese
   - dockbarx
   - geoip-bin
   - geoip-database
@@ -615,7 +619,6 @@ packages_optional:
   - ngrok
   - rancher-desktop
   - veeam
-  - veeamsnap
   - veracrypt
 deb:
   - https://release.gitkraken.com/linux/gitkraken-amd64.deb
@@ -628,9 +631,11 @@ deb:
   - https://github.com/kaikramer/keystore-explorer/releases/download/v5.5.3/kse_5.5.3_all.deb
   - https://github.com/aquasecurity/kube-bench/releases/download/v0.7.2/kube-bench_0.7.2_linux_amd64.deb
   - https://github.com/anchore/syft/releases/download/v1.0.1/syft_1.0.1_linux_amd64.deb
-  - https://github.com/turbot/steampipe/releases/download/v0.22.1/steampipe_linux_amd64.deb
+  - https://github.com/turbot/steampipe/releases/download/v0.22.2/steampipe_linux_amd64.deb
   - https://github.com/ramboxapp/download/releases/download/v2.3.1/Rambox-2.3.1-linux-x64.deb
   - https://github.com/derailed/k9s/releases/download/v0.32.3/k9s_linux_amd64.deb
+  - https://github.com/getsops/sops/releases/download/v3.8.1/sops_3.8.1_amd64.deb
+  - https://github.com/atuinsh/atuin/releases/download/v18.2.0/atuin_18.2.0_amd64.deb
 flatpak:
   - name: com.bitwarden.desktop
   - name: com.brave.Browser
@@ -653,7 +658,7 @@ flatpak:
   - name: md.obsidian.Obsidian
   - name: org.bleachbit.BleachBit
   - name: org.freefilesync.FreeFileSync
-  - name: org.gimp.GIMP
+#  - name: org.gimp.GIMP
   - name: org.gnome.Boxes
   - name: org.gnome.font-viewer
   - name: org.kde.kdenlive
@@ -745,14 +750,15 @@ downloads:
   - url: https://github.com/FairwindsOps/polaris/releases/download/9.0.1/polaris_linux_amd64.tar.gz
     destination: polaris
     skip_tree: false
-  - url: https://github.com/orf/gping/releases/download/gping-v1.13.1/gping-Linux-x86_64.tar.gz
+  - url: https://github.com/orf/gping/releases/download/gping-v1.16.1/gping-Linux-x86_64.tar.gz
     destination: gping
+    skip_tree: false
+  - url: https://github.com/tellerops/teller/releases/download/v1.5.6/teller_1.5.6_Linux_x86_64.tar.gz
+    destination: teller
     skip_tree: false
 files:
   - url: https://github.com/bcicen/ctop/releases/download/v0.7.7/ctop-0.7.7-linux-amd64
     destination: ctop
-  - url: https://github.com/rancher/rke/releases/download/v1.4.7/rke_linux-amd64
-    destination: rke
   - url: https://github.com/dannagle/PacketSender/releases/download/v8.6.5/Packet_Sender_v8.6.5-x86_64.AppImage
     destination: packetsender
     desktop_file: ./files/apps/packetsender/packetsender.desktop
@@ -766,6 +772,8 @@ files:
     destination: k3sup
   - url: https://github.com/argoproj/argo-cd/releases/download/v2.10.3/argocd-linux-amd64
     destination: argocd
+  - url: https://github.com/mikefarah/yq/releases/download/v4.43.1/yq_linux_amd64
+    destination: yq
 ansible:
   cfg: /etc/ansible/ansible.cfg
   config:
@@ -782,12 +790,16 @@ ansible:
       value: timer,profile_tasks
       state: present
     - section: defaults
-      option: log_path
-      value: /var/log/ansible.log
-      state: present
-    - section: defaults
       option: forks
       value: 10
+      state: present
+    - section: defaults
+      option: timeout
+      value: 60
+      state: present
+    - section: defaults
+      option: module_timeout
+      value: 600
       state: present
     - section: ssh_connection
       option: pipelining
@@ -797,24 +809,23 @@ ansible:
       option: compression_level
       value: 9
       state: present
+    - section: persistent_connection
+      option: command_timeout
+      value: 60
+      state: present
 startup:
   - filename: redshift-gtk.desktop
     source: ./files/apps/redshift-gtk/redshift-gtk.desktop
   - filename: shutter.desktop
     source: ./files/apps/shutter/shutter.desktop
-  - filename: dropbox.desktop
-    source: ./files/apps/dropbox/dropbox.desktop
   - filename: synapse.desktop
     source: ./files/apps/synapse/synapse.desktop
   - filename: DockX.desktop
     source: ./files/apps/dockbarx/DockX.desktop
-  - filename: remmina-applet.desktop
-    source: ./files/apps/remmina/remmina-applet.desktop
-  - filename: diodon.desktop
-    source: ./files/apps/diodon/diodon.desktop
 services:
   - ssh
   - docker
+  - tlp
 dconf:
    # remove alt+f7 move window shortcut
   - key: "/org/cinnamon/muffin/keybindings/begin-move"
@@ -843,6 +854,11 @@ dconf:
   - key: "/org/cinnamon/desktop/keybindings/custom-keybindings/custom1/name"
     state: present
     value: "'Diodon'"
+  # last setting as a summary o the above
+  - key: "/org/cinnamon/desktop/keybindings/custom-list"
+    state: present
+    value: "['custom0', '__dummy__', 'custom1']"
+
 timezone: Europe/Warsaw
 vscode_obsolete:
   - ms-vscode.go

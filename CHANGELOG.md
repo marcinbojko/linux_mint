@@ -1,5 +1,22 @@
 # Changelog "linux_mint"
 
+## Version 2.8.2 [2024-04-15]
+
+* Fixed problem with p10k fonts being not properly copied to the fonts directory
+* Fixed missing switch of user's shell in case of zsh installation
+* [APPLICATION] added `kubectl` package missing in the previous release
+* [APPLICATION] removed `dropbox` package as its role is now covered by `insync` package. If you still use Dropbox, please add it to `mint_custom.yaml` file
+* [APPLICATION] removed `veamsnap` package as it's no longer required, in favor of `blksnap` package
+* [APPLICATION] added `cheese` package
+* [PACKAGES] added `yq` package
+* [PACKAGES] added `micro`
+* [APPLICATION] added `atuin` package [https://github.com/atuinsh/atuin](https://github.com/atuinsh/atuin) in version 18.2.0
+* [PACKAGES] upgraded `gping` to version 1.16.1
+* [PACKAGES] upgraded `steampipe` to version 0.22.2
+* [PACKAGES] added `sops` package [https://github.com/getsops/sops](https://github.com/getsops/sops)
+* [PACKAGES] added `teller` package [https://github.com/tellerops/teller](https://github.com/tellerops/teller)
+* [PACKAGES] removal of `rke` package due to obsoletetion
+
 ## Version 2.8.1 [2024-03-20]
 
 * [FLATPAK] removal of 'GitKraken` from flatpak packages due to incompatibility

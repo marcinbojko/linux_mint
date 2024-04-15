@@ -134,6 +134,7 @@ Most variables are stored in `mint19|20.yaml` file. If you need extra settings, 
 |install_optional|true|should optional packages be installed|
 |install_deb|true|should extra deb packages should be installed|
 |install_flatpak|true|should flatpak packages be installed|
+|remove_flatpak|false|should flatpak packages be removed|
 |install_npm|true|should npm packages be installed|
 |install_vscode_extensions|true|should we install extra vscode extensions|
 |install_steampipe_plugins|true|should we install extra steampipe plugins|
@@ -143,6 +144,7 @@ Most variables are stored in `mint19|20.yaml` file. If you need extra settings, 
 |config_ansible|true|change ansible settings in ansible.cfg|
 |config_dconf|true|change dconf settings|
 |config_sysctl|true|change sysctl settings|
+|config_autostart|true|change application autostart settings|
 |active_user|"{{ ansible_ssh_user }}"|user for which you're setting folders. By default taken from group_vars|
 |retries_count|4|how many retries|
 |delay_time|15|delay time in seconds between retries|
@@ -245,7 +247,6 @@ custom_packages:
 | Dive| Docker image explorer | [https://github.com/wagoodman/dive](https://github.com/wagoodman/dive)|
 | Dockle|Container Image Linter for Security|[https://github.com/goodwithtech/dockle](https://github.com/goodwithtech/dockle)|
 | Double Commander|File Manager|[https://doublecmd.sourceforge.io/](https://doublecmd.sourceforge.io/)|
-| Dropbox/Nemo Integration | Tool | [https://github.com/linuxmint/nemo-extensions/tree/master/nemo-dropbox](https://github.com/linuxmint/nemo-extensions/tree/master/nemo-dropbox)|
 | Ffuf|Fast web fuzzer written in Go|[https://github.com/ffuf/ffuf](https://github.com/ffuf/ffuf)|
 | GitKraken | Git Client |[https://www.gitkraken.com/](https://www.gitkraken.com/) |
 | Google Chrome |Browser | [https://www.google.com/intl/pl_ALL/chrome/](https://www.google.com/intl/pl_ALL/chrome/)|
@@ -272,10 +273,11 @@ custom_packages:
 | Rancher Desktop|Rancher Desktop runs Kubernetes and container management on your desktop| [https://rancherdesktop.io/](https://rancherdesktop.io/)|
 | Redshift | Monitor temperature changer| [http://jonls.dk/redshift/](http://jonls.dk/redshift/)|
 | Remmina | Remote Connection Manager |[https://remmina.org/](https://remmina.org/)|
-| RKE| Rancher Kubernetes Engine | [https://github.com/rancher/rke](https://github.com/rancher/rke) |
 | Shutter | Screenshot Manipulation| [http://shutter-project.org/](http://shutter-project.org/)|
+| Sops    | Secrets manager|[https://github.com/getsops/sops](https://github.com/getsops/sops)|
 | Synapse | Symantic Launcher|[https://launchpad.net/synapse-project](https://launchpad.net/synapse-project)|
 | Tabby | Modern Terminal|[https://github.com/Eugeny/terminus](https://github.com/Eugeny/terminus)|
+| Teller| Secret manager|[https://github.com/tellerops/teller](https://github.com/tellerops/teller)|
 | Terraform|Infrastructure as Code|[https://www.terraform.io/](https://www.terraform.io/)|
 | Vagrant | Unified Workflow|[https://www.vagrantup.com/](https://www.vagrantup.com/)|
 | Vault | Secrets Manager |[https://www.vaultproject.io/](https://www.vaultproject.io/)|
@@ -283,6 +285,7 @@ custom_packages:
 | Visual Studio Code|Code editor|[https://code.visualstudio.com/](https://code.visualstudio.com/)|
 | WPS Office for Linux | Productivity Tools | [https://www.wps.com/wps-office-for-linux/](https://www.wps.com/wps-office-for-linux/)|
 | XCA | Certificate Manager|[https://hohnstaedt.de/xca/](https://hohnstaedt.de/xca/)|
+| Yq |YAML processor|[https://github.com/mikefarah/yq/releases/download/v4.43.1/yq_linux_amd64](https://github.com/mikefarah/yq/releases/download/v4.43.1/yq_linux_amd64)|
 ||||
 
 ### Packages: Optional (not complete list)
@@ -293,7 +296,7 @@ custom_packages:
 | DockbarX|Panel|[https://github.com/M7S/dockbarx](https://github.com/M7S/dockbarx)|
 | Enpass | Password manager | [https://www.enpass.io/](https://www.enpass.io/)|
 | GIMP | GNU Image Manipulation Program | [https://www.gimp.org/](https://www.gimp.org/)|
-| Insync|Googledrive & Onedrive linux client|[https://www.insynchq.com/](https://www.insynchq.com/)|
+| Insync |Googledrive & Onedrive linux client|[https://www.insynchq.com/](https://www.insynchq.com/)|
 | Kodi | Open Source Home Theater| [https://kodi.tv/](https://kodi.tv/)|
 | Neofetch |A command-line system information tool written in bash 3.2+| [https://github.com/dylanaraps/neofetch](https://github.com/dylanaraps/neofetch)|
 | Pinta | Drawing/Image Editing| [https://pinta-project.com/pintaproject/pinta/](https://pinta-project.com/pintaproject/pinta/)|
@@ -352,18 +355,76 @@ custom_packages:
 |install_yubico_software|Install keys, repositories, packages and dekstop files for Yubico infrastructure|[https://yubico.com](https://yubico.com)|
 |configure_zsh|Installs files required by zsh, `oh-my-zsh` and `powerlevel10k`|[https://github.com/ohmyzsh/ohmyzsh](https://github.com/ohmyzsh/ohmyzsh) [https://github.com/romkatv/powerlevel10k](https://github.com/romkatv/powerlevel10k)|
 |steampipe_plugins.yaml|Install steampipe plugins | [https://steampipe.io/](https://steampipe.io/)|
+|configure_neofetch|Installs and configures neofetch|[https://github.com/dylanaraps/neofetch](https://github.com/dylanaraps/neofetch)|
 ||||
+
+### 'configure_neofetch` task
+
+This guide details the automation of Neofetch configuration adjustments using an Ansible playbook. By specifying various tasks in the playbook, users can easily comment out or uncomment specific lines within the Neofetch configuration file, toggle key-value pairs between "on" and "off", and ensure the creation of the Neofetch configuration file if it doesn't exist. Furthermore, it includes adding Neofetch to the global bashrc file for automatic execution.
+
+The playbook operates based on a defined payload structure within a YAML file. Here's an example of the payload configuration for the Neofetch automation task:
+
+```yaml
+neofetch:
+  config_path: /home/{{ active_user }}/.config/neofetch/config.conf
+  remove_lines:
+    - Packages
+    - Resolution
+    - DE
+    - WM
+    - WM Theme
+    - Theme
+    - Icons
+    - Terminal
+    - Terminal Font
+    - cols
+  add_lines:
+    - Disk
+    - Local IP
+  toggle_items:
+    - key: 'color_blocks'
+      value: 'off'
+```
+
+Explanation of Configuration Parameters:
+
+- `config_path`: Specifies the path to the Neofetch configuration file. This path can be dynamically set to match the active user's home directory.
+
+  ```yaml
+  config_path: /home/{{ active_user }}/.config/neofetch/config.conf
+  ```
+
+- `remove_lines`: A list of items to be commented out in the Neofetch configuration file. This list should contain the titles of the information blocks as they appear in the configuration.
+
+  ```yaml
+  remove_lines:
+  - Packages
+  - Resolution
+  ```
+
+- `add_lines`: Similar to remove_lines, but these items will be uncommented if they were previously commented out, ensuring they are active in the Neofetch output.
+
+    ```yaml
+    add_lines:
+    - Disk
+    - Local IP
+    ```
+
+- `toggle_items`: This section allows for toggling specific key-value pairs within the configuration file. For example, changing color_blocks from "on" to "off" or vice versa.
+
+  ```yaml
+  toggle_items:
+  - key: 'color_blocks'
+    value: 'off'
+  ```
 
 ## Startup applications
 
 Some applications are copied to `autostart` folder
 
-- Remmina
 - Diodon
 - DockbarX
-- Dropbox
 - Synapse
-- Redshift
 - Shutter
 
 ### OS Tweaks

@@ -18,6 +18,7 @@
     config_ansible: true                      # do changes in change ansible.cfg
     config_dconf: true                        # do changes in dconf editor
     config_sysctl: true                       # do changes in sysctl
+    config_autostart: true                    # copy apps from `files/apps` to autostart
     active_user: "{{ ansible_ssh_user }}"     # user for which you're setting folders. By default taken from group_vars
     retries_count: 1                          # how many retries
     delay_time: 1                             # delay time in seconds between retries
@@ -47,7 +48,7 @@
     - assert
   # free space for stuff
   - name: assert_root_partition_is_10_GB_of_free_space
-    ansible.builtin.assert: { that: item.size_available > 10737418240 } # 10 GB free
+    ansible.builtin.assert: { that: item.size_available > 1073741824 } # 10 GB free
     loop: '{{ ansible_mounts }}'
     ignore_errors: false
     when: item.mount == '/'
@@ -102,6 +103,7 @@
       - "Config for Ansible           : {{ config_ansible | bool | lower }}"
       - "Config dconf                 : {{ config_dconf | bool | lower }}"
       - "Config sysctl                : {{ config_sysctl | bool | lower }}"
+      - "Config autostart             : {{ config_autostart | bool | lower }}"
       - "Bin Path to put files into   : {{ bin_path }}"
       - "Active user                  : {{ active_user | string }}"
   - name: wait_10_seconds
@@ -418,6 +420,8 @@
     register: packages_essential
     until: packages_essential is success
     any_errors_fatal: false
+    async: 6000
+    poll: 30
     tags:
     - packages
     - base
@@ -433,6 +437,8 @@
     register: r_packages
     until: r_packages is success
     any_errors_fatal: false
+    async: 6000
+    poll: 30
     tags:
     - packages
     - base
@@ -447,6 +453,8 @@
     register: r_custom_packages
     until: r_custom_packages is success
     any_errors_fatal: false
+    async: 6000
+    poll: 30
     tags:
     - packages
     - base
@@ -681,10 +689,10 @@
         owner: "{{ active_user }}"
         group: "{{ active_user }}"
         mode: 0755
-      register: create_autostart
+      register: r_create_autostart
       retries: "{{ retries_count }}"
       delay: "{{ delay_time }}"
-      until: create_autostart is success
+      until: r_create_autostart is success
       any_errors_fatal: true
       tags:
       - base
@@ -703,6 +711,7 @@
       retries: "{{ retries_count }}"
       delay: "{{ delay_time }}"
       until: r_create_startup_applications is success
+      when: config_autostart is defined and config_autostart
     - name: configure_zsh
       ansible.builtin.include_tasks: ./tasks/configure_zsh.yml
       when: install_zsh is defined and install_zsh
@@ -835,16 +844,40 @@
       community.general.timezone:
         name: "{{ timezone }}"
       any_errors_fatal: false
-    - name: add_neofetch_to_bashrc_globals
-      ansible.builtin.lineinfile:
-        path: /etc/bash.bashrc
-        line: neofetch
-      any_errors_fatal: false
+    # Neofetch block
+    - name: Gather the package facts
+      ansible.builtin.package_facts:
+        manager: auto
+      register: r_package_facts
+      until: r_package_facts is success
+      changed_when: false
+      retries: "{{ retries_count }}"
+      delay: "{{ delay_time }}"
+      tags:
+      - base
+      - neofetch
+      failed_when: false
+    - name: Run neofetch external task from 'tasks'
+      ansible.builtin.include_tasks: ./tasks/configure_neofetch.yml
+      args:
+        apply:
+          tags:
+          - base
+          - neofetch
+      vars:
+        ansible_become: yes
+        ansible_become_user: "{{ active_user }}"
+      tags:
+      - always
+      when: "'neofetch' in r_package_facts.ansible_facts.packages"
+    # End of Neofetch block
+    # Timeshift block
     - name: enable_timeshift_in_rsync_mode
       ansible.builtin.shell: timeshift --rsync --yes
       args:
         creates: /etc/timeshift.json
       any_errors_fatal: false
+    # Sudoers
     - name: add_user_to_sudoers
       ansible.builtin.copy:
         dest: "/etc/sudoers.d/{{ active_user }}"
@@ -961,6 +994,9 @@
     retries: "{{ retries_count }}"
     delay: "{{ delay_time }}"
     until: apt_upgrade is success
+    async: 6000
+    poll: 30
+
     tags:
     - base
     - apt

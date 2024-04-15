@@ -2,7 +2,7 @@
 # you need manually configure both
 - name: create_folder_for_fonts
   ansible.builtin.file:
-    path: /usr/local/share/fonts/power10k
+    path: /usr/local/share/truetype
     state: directory
     mode: "0644"
   retries: "{{ retries_count }}"
@@ -18,7 +18,7 @@
 - name: download_fonts_for_power10k
   ansible.builtin.get_url:
     url: "{{ item }}"
-    dest: /usr/share/fonts/truetype/power10k
+    dest: "/usr/share/fonts/truetype/{{ item | basename | replace('%20', ' ') }}"
     mode: "0644"
   retries: "{{ retries_count }}"
   delay: "{{ delay_time }}"
@@ -104,3 +104,16 @@
   register: r_clone_power10k
   until: r_clone_power10k is success
   when: (r_clone_oh_my_zsh is defined and r_clone_oh_my_zsh is success) and (not r_stat_check_if_power10k.stat.exists)
+- name: Change user's default shell
+  ansible.builtin.user:
+    name: "{{ active_user }}"
+    shell: /bin/zsh
+  become_user: root
+  become: true
+  register: r_change_user_shell
+  until: r_change_user_shell is success
+  tags:
+    - zsh
+    - user
+  any_errors_fatal: true
+  ignore_errors: false

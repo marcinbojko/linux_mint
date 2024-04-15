@@ -46,3 +46,23 @@ steampipe:
     - name: dockerhub
     - name: grafana
     - name: prometheus
+
+neofetch:
+  config_path: /home/{{ active_user }}/.config/neofetch/config.conf
+  remove_lines:
+    - Packages
+    - Resolution
+    - DE
+    - WM
+    - WM Theme
+    - Theme
+    - Icons
+    - Terminal
+    - Terminal Font
+    - cols
+  add_lines:
+    - Disk
+    - Local IP
+  toggle_items:
+    - key: 'color_blocks'
+      value: 'off'

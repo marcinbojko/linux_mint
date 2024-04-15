@@ -1,5 +1,5 @@
-FROM linuxmintd/mint21.1-amd64:latest as base
-ENV version="mint21.1"
+FROM linuxmintd/mint21.3-amd64:latest as base
+ENV version="mint21.3"
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install --no-install-recommends -y apt-utils \
   && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y mc curl wget tar bzip2 build-essential linux-image-virtual \

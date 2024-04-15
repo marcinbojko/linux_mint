@@ -1,0 +1,56 @@
+- name: Toggle Neofetch Configuration
+  ansible.builtin.debug:
+    msg: "Toggling Neofetch Configuration"
+- name: Run neofetch to create a configuration file
+  ansible.builtin.command:
+    cmd: neofetch
+  register: r_run_neofetch
+  until: r_run_neofetch is success
+  any_errors_fatal: true
+  ignore_errors: false
+  changed_when: false
+- name: Ensure neofetch configuration file exists
+  ansible.builtin.file:
+    path: "{{ neofetch.config_path }}"
+    state: file
+    mode: "664"
+  register: r_make_sure_neofetch_config_exists
+  until: r_make_sure_neofetch_config_exists is success
+  any_errors_fatal: true
+  failed_when: false
+- name: Comment out specified info lines in the neofetch config
+  ansible.builtin.replace:
+    path: "{{ neofetch.config_path }}"
+    regexp: '^\s*(info ("{{ item }}"|{{ item }}).*)$'
+    replace: '# \1'
+  loop: "{{ neofetch.remove_lines }}"
+  when: r_make_sure_neofetch_config_exists is success
+  failed_when: false
+  any_errors_fatal: false
+- name: Uncomment specified info lines in the neofetch config
+  ansible.builtin.replace:
+    path: "{{ neofetch.config_path }}"
+    regexp: '^\s*#(\s*info "{{ item }}".*)$'
+    replace: '\1'
+  loop: "{{ neofetch.add_lines }}"
+  when: r_make_sure_neofetch_config_exists is success
+  failed_when: false
+  any_errors_fatal: false
+- name: Toggle configuration settings in Neofetch config based on specified key-value pairs
+  ansible.builtin.replace:
+    path: "{{ neofetch.config_path }}"
+    regexp: '^(#?\s*{{ item.key }}\s*=\s*")(\w+)(")$'
+    replace: '\1{{ "on" if item.value == "on" else "off" }}\3'
+  loop: "{{ neofetch.toggle_items }}"
+  when: r_make_sure_neofetch_config_exists is changed or r_make_sure_neofetch_config_exists is success
+  failed_when: false
+  any_errors_fatal: false
+- name: add_neofetch_to_bashrc_globals
+  ansible.builtin.lineinfile:
+    path: /etc/bash.bashrc
+    line: neofetch
+  any_errors_fatal: false
+  register: r_add_neofetch_to_bashrc_globals
+  until: r_add_neofetch_to_bashrc_globals is success
+  failed_when: false
+# add revert block in the future
