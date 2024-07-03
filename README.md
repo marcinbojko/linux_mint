@@ -3,6 +3,10 @@
 [![Super-Linter](https://github.com/marcinbojko/linux_mint/actions/workflows/01_lint_me.yml/badge.svg)](https://github.com/marcinbojko/linux_mint/actions/workflows/01_lint_me.yml)
 [![Ansible Lint](https://github.com/marcinbojko/linux_mint/actions/workflows/02_ansible_lint.yml/badge.svg)](https://github.com/marcinbojko/linux_mint/actions/workflows/02_ansible_lint.yml)
 [![wakatime](https://wakatime.com/badge/github/marcinbojko/linux_mint.svg)](https://wakatime.com/badge/github/marcinbojko/linux_mint)
+
+This project is disccontinued. Please use [PLD](https://github.com/marcinbojko/pld) instead.
+PLD repository is exactly the same as this one but converted into ansible role instead of playbook. This way you can use it in your own playbooks.
+
 <!-- TOC -->
 
 - [Ansible playbook for your DevOps/SysOps Linux Mint 21.x-based workstation](#ansible-playbook-for-your-devopssysops-linux-mint-21x-based-workstation)
@@ -27,6 +31,7 @@
     - [Packages: Flatpak](#packages-flatpak)
     - [Packages: npm](#packages-npm)
   - [Tasks](#tasks)
+    - ['configure_neofetch task](#configure_neofetch-task)
   - [Startup applications](#startup-applications)
     - [OS Tweaks](#os-tweaks)
   - [Q&A](#qa)
